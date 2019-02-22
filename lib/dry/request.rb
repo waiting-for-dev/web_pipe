@@ -1,4 +1,6 @@
 require "dry/request/version"
+require 'dry/request/pipe'
+require 'dry/request/conn'
 
 module Dry
   module Request
