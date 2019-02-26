@@ -41,13 +41,25 @@ module Dry
         end
 
         def included(klass)
+          klass.attr_reader :steps
+          define_initialize_method
           define_call_method
         end
 
         private
 
-        def define_call_method
+        def define_initialize_method
           module_exec(steps) do |steps|
+            define_method :initialize do |**kwargs|
+              @steps = steps.map do |(name, op)|
+                kwargs.has_key?(name) ? [name, kwargs[name]] : [name, op]
+              end
+            end
+          end
+        end
+
+        def define_call_method
+          module_exec do
             define_method :call do |env|
               conn = Conn.new(env)
 
