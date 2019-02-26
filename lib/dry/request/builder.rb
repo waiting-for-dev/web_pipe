@@ -26,8 +26,8 @@ module Dry
 
         def define_plug_method
           module_exec(steps) do |steps|
-            define_method(:plug) do |name, from:|
-              steps << [name, from]
+            define_method(:plug) do |name, with:|
+              steps << [name, with]
             end
           end
         end

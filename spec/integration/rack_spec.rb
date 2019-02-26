@@ -8,7 +8,7 @@ RSpec.describe "Rack application" do
     Class.new do
       include Dry::Request::Pipe
 
-      plug :hello, from: -> (conn) { conn.put_response_body('Hello, world!') }
+      plug :hello, with: -> (conn) { conn.put_response_body('Hello, world!') }
     end.new
   end
 

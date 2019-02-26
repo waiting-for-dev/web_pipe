@@ -5,7 +5,7 @@ RSpec.describe "Injection" do
     Class.new do
       include Dry::Request::Pipe
 
-      plug :hello, from: -> (conn) { conn.put_response_body('Hello, world!') }
+      plug :hello, with: -> (conn) { conn.put_response_body('Hello, world!') }
     end
   end
   let(:hello) { -> (conn) { conn.put_response_body('Hello, injected world!') } }
