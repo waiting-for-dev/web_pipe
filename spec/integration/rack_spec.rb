@@ -4,8 +4,13 @@ require 'rack/test'
 RSpec.describe Dry::Request::Pipe do
   include Rack::Test::Methods
 
-  let(:steps) { [ -> (conn) { conn.put_response_body('Hello, world!') } ] }
-  let(:app) { described_class.new(steps: steps) }
+  let(:app) do
+    Class.new do
+      include Dry::Request::Pipe
+
+      plug :hello, from: -> (conn) { conn.put_response_body('Hello, world!') }
+    end.new
+  end
 
   it 'is a rack application' do
     builder = Rack::Builder.new

@@ -1,18 +1,14 @@
+require 'dry/request/builder'
+
 module Dry
   module Request
-    class Pipe
-      attr_reader :steps
-
-      def initialize(steps:)
-        @steps = steps
+    module Pipe
+      def self.included(klass)
+        klass.include(Pipe())
       end
 
-      def call(env)
-        conn = Conn.new(env)
-
-        steps.reduce(conn) { |prev_conn, step| step.call(prev_conn) }
-
-        conn.rack_response
+      def self.Pipe(*args)
+        Builder.new(*args)
       end
     end
   end
