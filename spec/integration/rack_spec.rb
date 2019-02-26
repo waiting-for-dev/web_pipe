@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rack/test'
 
-RSpec.describe Dry::Request::Pipe do
+RSpec.describe "Rack application" do
   include Rack::Test::Methods
 
   let(:app) do
