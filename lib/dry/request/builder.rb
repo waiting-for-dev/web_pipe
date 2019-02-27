@@ -1,5 +1,6 @@
 require 'dry/request/conn'
 require 'dry/request/resolver'
+require 'dry/monads/result'
 
 module Dry
   module Request
@@ -48,6 +49,7 @@ module Dry
         def included(klass)
           klass.attr_reader :steps
           klass.attr_reader :container
+          klass.include Dry::Monads::Result::Mixin
           define_initialize_method
           define_call_method
         end
@@ -68,14 +70,29 @@ module Dry
         def define_call_method
           module_exec do
             define_method :call do |env|
-              conn = Conn.new(env)
-              resolver = Dry::Request::Resolver.new(container)
+              conn = Success(CleanConn.new(env))
+              resolver = Resolver.new(container)
 
-              steps.reduce(conn) do |prev_conn, (_name, step)|
-                resolver.(step).(prev_conn)
+              last_conn = steps.reduce(conn) do |prev_conn, (_name, step)|
+                prev_conn.bind do |c|
+                  result = resolver.(step).(c)
+                  case result
+                  when CleanConn
+                    Success(result)
+                  when DirtyConn
+                    Failure(result)
+                  else
+                    raise RuntimeError
+                  end
+                end
               end
 
-              conn.rack_response
+              case last_conn
+              when Dry::Monads::Success
+                last_conn.success.rack_response
+              when Dry::Monads::Failure
+                last_conn.failure.rack_response
+              end
             end
           end
         end
