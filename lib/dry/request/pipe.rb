@@ -4,12 +4,12 @@ module Dry
   module Request
     module Pipe
       def self.included(klass)
-        klass.include(Pipe())
+        klass.include(Dry::Request.Pipe())
       end
+    end
 
-      def self.Pipe(*args)
-        Builder.new(*args)
-      end
+    def self.Pipe(*args)
+      Builder.new(*args)
     end
   end
 end
