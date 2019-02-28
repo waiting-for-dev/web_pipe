@@ -4,6 +4,11 @@ require 'dry/monads/result'
 
 module Dry
   module Request
+    # When an instance of it is included in a module, the module
+    # extends a `ClassContext` instance and includes
+    # `InstanceMethods`.
+    #
+    # @private
     class Builder < Module
       EMPTY_CONTAINER = {}
 
@@ -18,6 +23,17 @@ module Dry
         klass.include(InstanceMethods)
       end
 
+      # Defines the DSL and keeps the state for the pipe.
+      #
+      # This needs to be an instance because it keeps the
+      # configuration (state) for the pipe class: the container and
+      # the plugs that are added through the DSL.
+      #
+      # As the pipe is extended with an instance of this class, the
+      # methods that are meant to be class methods in the pipe are
+      # defined as singleton methods of the instance.
+      #
+      # @private
       class ClassContext < Module
         attr_reader :steps
         attr_reader :container
@@ -57,6 +73,12 @@ module Dry
         end
       end
 
+      # Instance methods for the pipe.
+      #
+      # The pipe state can be accessed through the pipe class, which
+      # has been configured through `ClassContext`.
+      #
+      # @private
       module InstanceMethods
         attr_reader :steps
         attr_reader :container
