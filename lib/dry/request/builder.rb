@@ -5,10 +5,12 @@ require 'dry/monads/result'
 module Dry
   module Request
     class Builder < Module
+      EMPTY_CONTAINER = {}
+
       attr_reader :class_context
       attr_reader :container
 
-      def initialize(container: [])
+      def initialize(container: EMPTY_CONTAINER)
         @class_context = ClassContext.new
         @container = container
       end
