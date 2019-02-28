@@ -74,12 +74,15 @@ module Dry
         end
 
         def define_compose_method
-          module_exec(steps) do |steps|
+          module_exec(steps, container) do |steps, container|
             define_method(:>>) do |pipe|
-              pipe.steps.each do |step|
-                steps << step
+              Class.new do
+                include Dry::Request.Pipe(container: container)
+
+                (steps + pipe.steps).each do |(name, operation)|
+                  plug name, with: operation
+                end
               end
-              self
             end
           end
         end
