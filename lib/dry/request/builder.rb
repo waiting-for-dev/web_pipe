@@ -44,6 +44,7 @@ module Dry
           define_steps
           define_container
           define_plug_method
+          define_compose_method
         end
 
         private
@@ -68,6 +69,17 @@ module Dry
           module_exec(steps) do |steps|
             define_method(:plug) do |name, with:|
               steps << [name, with]
+            end
+          end
+        end
+
+        def define_compose_method
+          module_exec(steps) do |steps|
+            define_method(:>>) do |pipe|
+              pipe.steps.each do |step|
+                steps << step
+              end
+              self
             end
           end
         end
