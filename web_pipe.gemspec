@@ -1,17 +1,17 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "dry/request/version"
+require "web_pipe/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "dry-request"
-  spec.version       = Dry::Request::VERSION
+  spec.name          = "web_pipe"
+  spec.version       = WebPipe::VERSION
   spec.authors       = ["Write your name"]
   spec.email         = ["Write your email address"]
 
   spec.summary       = %q{Write a short summary, because RubyGems requires one.}
   spec.description   = %q{Write a longer description or delete this line.}
-  spec.homepage      = "https://github.com/dry-rb/dry-request"
+  spec.homepage      = "https://github.com/waiting-for-dev/web_pipe"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

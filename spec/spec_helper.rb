@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "dry/request"
+require "web_pipe"
 require 'pry-byebug'
 
 RSpec.configure do |config|

@@ -6,7 +6,7 @@ RSpec.describe "Rack application" do
 
   let(:app) do
     Class.new do
-      include Dry::Request::Pipe
+      include WebPipe
 
       plug :hello, with: -> (conn) { conn.put_response_body('Hello, world!') }
     end.new

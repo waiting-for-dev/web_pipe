@@ -4,7 +4,7 @@ RSpec.describe "Composing" do
   context 'calling' do
     let(:pipe_1) do
       Class.new do
-        include Dry::Request.Pipe()
+        include WebPipe
 
         plug :one, with: -> (conn) { conn.put_response_body('One') }
       end
@@ -12,7 +12,7 @@ RSpec.describe "Composing" do
 
     let(:pipe_2) do
       Class.new do
-        include Dry::Request.Pipe()
+        include WebPipe
 
         plug :two, with: -> (conn) { conn.put_response_body(conn.resp_body + 'Two') }
       end
@@ -28,7 +28,7 @@ RSpec.describe "Composing" do
       Class.new do
         self::Container = Hash["one" => ->(conn) { conn.put_response_body('One') }]
 
-        include Dry::Request.Pipe(container: self::Container)
+        include WebPipe.(container: self::Container)
 
         plug :one, with: "one"
       end
@@ -38,7 +38,7 @@ RSpec.describe "Composing" do
       Class.new do
         self::Container = Hash["one" => ->(conn) { conn.put_response_body('Two') }]
 
-        include Dry::Request.Pipe(container: self::Container)
+        include WebPipe.(container: self::Container)
       end
     end
 
