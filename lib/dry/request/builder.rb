@@ -75,7 +75,7 @@ module Dry
 
         def define_compose_method
           module_exec(steps, container) do |steps, container|
-            define_method(:>>) do |pipe|
+            define_method(:>>) do |pipe, container: container|
               Class.new do
                 include Dry::Request.Pipe(container: container)
 
