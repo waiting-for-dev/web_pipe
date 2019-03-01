@@ -73,8 +73,8 @@ module WebPipe
       end
  
       def define_compose_method
-        module_exec(steps, container) do |steps, container|
-          define_method(:>>) do |pipe, container: container|
+        module_exec(steps, container) do |steps, self_container|
+          define_method(:>>) do |pipe, container: self_container|
             Class.new do
               include WebPipe.(container: container)
  
