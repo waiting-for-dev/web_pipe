@@ -66,7 +66,7 @@ module WebPipe
  
       def define_plug_method
         module_exec(steps) do |steps|
-          define_method(:plug) do |name, with:|
+          define_method(:plug) do |name, with: nil|
             steps << [name, with]
           end
         end
@@ -108,11 +108,11 @@ module WebPipe
  
       def call(env)
         conn = Success(CleanConn.new(env))
-        resolver = Resolver.new(container)
+        resolver = Resolver.new(container, self)
  
-        last_conn = steps.reduce(conn) do |prev_conn, (_name, step)|
+        last_conn = steps.reduce(conn) do |prev_conn, (name, step)|
           prev_conn.bind do |c|
-            result = resolver.(step).(c)
+            result = resolver.(name, step).(c)
             case result
             when CleanConn
               Success(result)

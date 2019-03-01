@@ -1,15 +1,19 @@
 module WebPipe
   class Resolver
     attr_reader :container
+    attr_reader :pipe
 
-    def initialize(container)
+    def initialize(container, pipe)
       @container = container
+      @pipe = pipe
     end
 
-    def call(step)
+    def call(name, step)
       case step
       when String
         container[step]
+      when nil
+        pipe.method(name)
       else
         step
       end
