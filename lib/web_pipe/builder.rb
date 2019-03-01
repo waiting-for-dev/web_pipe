@@ -96,6 +96,7 @@ module WebPipe
     module InstanceMethods
       attr_reader :steps
       attr_reader :container
+      attr_reader :resolver
  
       include Dry::Monads::Result::Mixin
  
@@ -104,11 +105,11 @@ module WebPipe
           kwargs.has_key?(name) ? [name, kwargs[name]] : [name, op]
         end
         @container = self.class.container
+        @resolver = Resolver.new(container, self)
       end
  
       def call(env)
         conn = Success(CleanConn.new(env))
-        resolver = Resolver.new(container, self)
  
         last_conn = steps.reduce(conn) do |prev_conn, (name, step)|
           prev_conn.bind do |c|
