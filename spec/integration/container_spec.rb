@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe "Resolving from a container" do
-  before do
-    Container = Hash["plug.hello" => -> (conn) { conn.put_response_body('Hello, world!') }]
-  end
-
   let(:pipe) do
     Class.new do
-      include Dry::Request.Pipe(container: Container)
+      self::Container = Hash["plug.hello" => -> (conn) { conn.put_response_body('Hello, world!') }]
+
+      include Dry::Request.Pipe(container: self::Container)
 
       plug :hello, with: "plug.hello"
     end.new
