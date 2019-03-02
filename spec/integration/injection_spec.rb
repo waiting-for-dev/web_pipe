@@ -10,7 +10,7 @@ RSpec.describe "Injection" do
   end
   let(:hello) { -> (conn) { conn.put_response_body('Hello, injected world!') } }
 
-  it 'can inject step as dependency' do
+  it 'can inject plug as dependency' do
     pipe_with_injection = pipe.new(hello: hello)
 
     expect(pipe_with_injection.call({}).last).to eq(['Hello, injected world!'])

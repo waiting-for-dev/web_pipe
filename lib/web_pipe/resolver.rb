@@ -8,14 +8,14 @@ module WebPipe
       @pipe = pipe
     end
 
-    def call(name, step)
-      case step
+    def call(name, operation)
+      case operation
       when String
-        container[step]
+        container[operation]
       when nil
         pipe.method(name)
       else
-        step
+        operation
       end
     end
   end

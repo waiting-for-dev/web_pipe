@@ -10,7 +10,7 @@ RSpec.describe "Tainting" do
     end.new
   end
 
-  it 'dirty step stops the pipe' do
+  it 'dirty plugs stops the pipe' do
     expect(pipe.call({}).last).to eq(['Dirty'])
   end
 end

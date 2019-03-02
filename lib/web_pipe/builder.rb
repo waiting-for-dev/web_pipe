@@ -34,24 +34,24 @@ module WebPipe
     #
     # @private
     class ClassContext < Module
-      attr_reader :steps
+      attr_reader :plugs
       attr_reader :container
  
       def initialize(container:)
-        @steps = []
+        @plugs = []
         @container = container
-        define_steps
+        define_plugs
         define_container
-        define_plug_method
-        define_compose_method
+        define_plug
+        define_compose
       end
  
       private
  
-      def define_steps
-        module_exec(steps) do |steps|
-          define_method(:steps) do
-            steps
+      def define_plugs
+        module_exec(plugs) do |plugs|
+          define_method(:plugs) do
+            plugs
           end
         end
       end
@@ -64,21 +64,21 @@ module WebPipe
         end
       end
  
-      def define_plug_method
-        module_exec(steps) do |steps|
+      def define_plug
+        module_exec(plugs) do |plugs|
           define_method(:plug) do |name, with: nil|
-            steps << [name, with]
+            plugs << [name, with]
           end
         end
       end
  
-      def define_compose_method
-        module_exec(steps, container) do |steps, self_container|
+      def define_compose
+        module_exec(plugs, container) do |plugs, self_container|
           define_method(:>>) do |pipe, container: self_container|
             Class.new do
               include WebPipe.(container: container)
  
-              (steps + pipe.steps).each do |(name, operation)|
+              (plugs + pipe.plugs).each do |(name, operation)|
                 plug name, with: operation
               end
             end
@@ -94,14 +94,14 @@ module WebPipe
     #
     # @private
     module InstanceMethods
-      attr_reader :steps
+      attr_reader :plugs
       attr_reader :container
       attr_reader :resolver
  
       include Dry::Monads::Result::Mixin
  
       def initialize(**kwargs)
-        @steps = self.class.steps.map do |(name, op)|
+        @plugs = self.class.plugs.map do |(name, op)|
           kwargs.has_key?(name) ? [name, kwargs[name]] : [name, op]
         end
         @container = self.class.container
@@ -111,9 +111,9 @@ module WebPipe
       def call(env)
         conn = Success(CleanConn.new(env))
  
-        last_conn = steps.reduce(conn) do |prev_conn, (name, step)|
+        last_conn = plugs.reduce(conn) do |prev_conn, (name, plug)|
           prev_conn.bind do |c|
-            result = resolver.(name, step).(c)
+            result = resolver.(name, plug).(c)
             case result
             when CleanConn
               Success(result)

@@ -1,8 +1,8 @@
 require 'web_pipe/builder'
 
 module WebPipe
-  # When this module is included, `WebPipe.included` just delegates to an
-  # instance of `Builder`, so `Builder#included` is finally called.
+  # Including just delegates to an instance of `Builder`, so
+  # `Builder#included` is finally called.
   def self.included(klass)
     klass.include(WebPipe::call())
   end
