@@ -1,3 +1,5 @@
+require 'web_pipe/errors'
+
 module WebPipe
   class Resolver
     attr_reader :container
@@ -9,13 +11,14 @@ module WebPipe
     end
 
     def call(name, operation)
-      case operation
-      when String
-        container[operation]
-      when nil
-        pipe.method(name)
-      else
+      if operation.respond_to?(:call)
         operation
+      elsif operation.nil?
+        pipe.method(name)
+      elsif container[operation] && container[operation].respond_to?(:call)
+        container[operation]
+      else
+        raise InvalidPlugError.new(name)
       end
     end
   end
