@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/env'
 
 RSpec.describe "Composing" do
   context 'calling' do
@@ -19,7 +20,7 @@ RSpec.describe "Composing" do
     end
 
     it 'pipes can be composed' do
-      expect((pipe_1 >> pipe_2).new.call({}).last).to eq(['OneTwo'])
+      expect((pipe_1 >> pipe_2).new.call(DEFAULT_ENV).last).to eq(['OneTwo'])
     end
   end
 
@@ -43,7 +44,7 @@ RSpec.describe "Composing" do
     end
 
     it 'can specify another container' do
-      expect((pipe_1.>>(pipe_2, container: pipe_2.container)).new.call({}).last).to eq(['Two'])
+      expect((pipe_1.>>(pipe_2, container: pipe_2.container)).new.call(DEFAULT_ENV).last).to eq(['Two'])
     end
   end
 end

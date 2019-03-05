@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/env'
 
 RSpec.describe "Resolving from a container" do
   let(:pipe) do
@@ -12,6 +13,6 @@ RSpec.describe "Resolving from a container" do
   end
 
   it 'can resolve operation from a container' do
-    expect(pipe.call({}).last).to eq(['Hello, world!'])
+    expect(pipe.call(DEFAULT_ENV).last).to eq(['Hello, world!'])
   end
 end

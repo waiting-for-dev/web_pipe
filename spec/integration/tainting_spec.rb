@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/env'
 
 RSpec.describe "Tainting" do
   let(:pipe) do
@@ -11,6 +12,6 @@ RSpec.describe "Tainting" do
   end
 
   it 'dirty plugs stops the pipe' do
-    expect(pipe.call({}).last).to eq(['Dirty'])
+    expect(pipe.call(DEFAULT_ENV).last).to eq(['Dirty'])
   end
 end

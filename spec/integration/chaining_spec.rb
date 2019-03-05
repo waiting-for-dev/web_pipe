@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/env'
 
 RSpec.describe "Chaining" do
   let(:pipe) do
@@ -11,6 +12,6 @@ RSpec.describe "Chaining" do
   end
 
   it 'chains successful plugs' do
-    expect(pipe.call({}).last).to eq(['OneTwo'])
+    expect(pipe.call(DEFAULT_ENV).last).to eq(['OneTwo'])
   end
 end

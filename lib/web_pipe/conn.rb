@@ -1,10 +1,22 @@
+require 'rack'
+require 'dry/struct'
+require 'web_pipe/types'
+
 module WebPipe
-  class Conn
-    attr_reader :env
+  class Conn < Dry::Struct
     attr_accessor :resp_body
 
-    def initialize(env)
-      @env = env
+    attribute :request do
+      attribute :params, Types::Strict::Hash
+    end
+
+    def self.build(env)
+      rr = Rack::Request.new(env)
+      new(
+        request: {
+          params: rr.params
+        }
+      )
     end
 
     def put_response_body(value)
@@ -17,7 +29,7 @@ module WebPipe
     end
 
     def taint
-      dirty = DirtyConn.new(env)
+      dirty = DirtyConn.new(attributes)
       dirty.resp_body = resp_body
       dirty
     end

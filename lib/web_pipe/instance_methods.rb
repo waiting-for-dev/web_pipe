@@ -25,7 +25,7 @@ module WebPipe
     end
   
     def call(env)
-      conn = Success(CleanConn.new(env))
+      conn = Success(CleanConn.build(env))
   
       last_conn = plugs.reduce(conn) do |prev_conn, (name, plug)|
         prev_conn.bind do |c|

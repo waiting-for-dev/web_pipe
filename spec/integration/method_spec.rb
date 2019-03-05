@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/env'
 
 RSpec.describe "Resolving from a method" do
   let(:pipe) do
@@ -14,6 +15,6 @@ RSpec.describe "Resolving from a method" do
   end
 
   it 'can resolve operation from an internal method' do
-    expect(pipe.call({}).last).to eq(['Hello, world!'])
+    expect(pipe.call(DEFAULT_ENV).last).to eq(['Hello, world!'])
   end
 end
