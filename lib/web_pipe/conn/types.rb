@@ -6,7 +6,11 @@ module WebPipe
     module Types
       include Dry::Types.module
 
-      RequestMethod = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
+      module Request
+        Params = Types::Strict::Hash
+        Headers = Types::Strict::Hash
+        Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
+      end
     end
   end
 end

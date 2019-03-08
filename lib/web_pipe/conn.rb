@@ -6,9 +6,9 @@ module WebPipe
     attr_accessor :resp_body
 
     attribute :request do
-      attribute :params, Types::Strict::Hash
-      attribute :headers, Types::Strict::Hash
-      attribute :req_method, Types::RequestMethod
+      attribute :params, Types::Request::Params
+      attribute :headers, Types::Request::Headers
+      attribute :req_method, Types::Request::Method
     end
 
     def put_response_body(value)
