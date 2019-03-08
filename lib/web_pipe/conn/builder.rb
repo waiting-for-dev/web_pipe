@@ -4,6 +4,7 @@ require 'web_pipe/conn'
 
 module WebPipe
   class Conn < Dry::Struct
+    # @private
     module Builder
       def self.call(env)
         rr = Rack::Request.new(env)
