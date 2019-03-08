@@ -10,10 +10,23 @@ module WebPipe
         CleanConn.new(
           request: {
             params: rr.params,
-            headers: Hash[env.select { |k, v| k.start_with?('HTTP_') }.map { |k, v| [k[5 .. -1], v] }]
+            headers: extract_headers(env)
           }
         )
       end
+
+      def self.extract_headers(env)
+        Hash[
+          env.select { |k, v| k.start_with?('HTTP_') }
+            .map do |k, v|
+              [
+                k[5 .. -1].downcase.split('_').map(&:capitalize).join('-'),
+                v
+              ]
+          end
+        ]
+      end
+      private_class_method :extract_headers
     end
   end
 end
