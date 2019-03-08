@@ -1,4 +1,5 @@
 require 'web_pipe/conn'
+require 'web_pipe/conn/builder'
 require 'web_pipe/pipe/resolver'
 require 'dry/monads/result'
 
@@ -26,7 +27,7 @@ module WebPipe
       end
       
       def call(env)
-        conn = Success(CleanConn.build(env))
+        conn = Success(Conn::Builder.call(env))
         
         last_conn = plugs.reduce(conn) do |prev_conn, (name, plug)|
           prev_conn.bind do |c|
