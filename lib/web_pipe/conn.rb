@@ -1,6 +1,6 @@
 require 'rack'
 require 'dry/struct'
-require 'web_pipe/types'
+require 'web_pipe/conn/types'
 
 module WebPipe
   class Conn < Dry::Struct

@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'web_pipe/resolver'
-require 'web_pipe/errors'
+require 'web_pipe/pipe/resolver'
+require 'web_pipe/pipe/errors'
 
-RSpec.describe WebPipe::Resolver do
+RSpec.describe WebPipe::Pipe::Resolver do
   let(:container) do
     {
       'from_container_callable' => -> {},
@@ -57,7 +57,7 @@ RSpec.describe WebPipe::Resolver do
       it 'raises InvalidPlugError when container item is not callable' do
         expect {
           resolver.call(:not_callable, "from_container_not_callable")
-        }.to raise_error(WebPipe::InvalidPlugError)
+        }.to raise_error(WebPipe::Pipe::InvalidPlugError)
       end
     end
   end
