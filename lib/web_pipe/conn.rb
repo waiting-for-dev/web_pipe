@@ -8,13 +8,15 @@ module WebPipe
 
     attribute :request do
       attribute :params, Types::Strict::Hash
+      attribute :headers, Types::Strict::Hash
     end
 
     def self.build(env)
       rr = Rack::Request.new(env)
       new(
         request: {
-          params: rr.params
+          params: rr.params,
+          headers: Hash[env.select { |k, v| k.start_with?('HTTP_') }.map { |k, v| [k[5 .. -1], v] }]
         }
       )
     end

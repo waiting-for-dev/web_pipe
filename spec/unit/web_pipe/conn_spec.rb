@@ -23,5 +23,23 @@ RSpec.describe WebPipe::Conn do
         end
       end
     end
+
+    describe '#headers' do
+      context 'when there is some request headers' do
+        let(:env) { DEFAULT_ENV.merge("HTTP_FOO" => "BAR") }
+
+        it 'returns them as a hash' do
+          expect(conn.request.headers).to eq({ "FOO" => "BAR" })
+        end
+      end
+
+      context 'when there is no request headers' do
+        let(:env) { DEFAULT_ENV }
+
+        it 'returns the empty hash' do
+          expect(conn.request.headers).to eq({})
+        end
+      end
+    end
   end
 end
