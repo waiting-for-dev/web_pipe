@@ -11,7 +11,8 @@ module WebPipe
         CleanConn.new(
           request: {
             params: rr.params,
-            headers: extract_headers(env)
+            headers: extract_headers(env),
+            req_method: extract_method(rr)
           }
         )
       end
@@ -28,6 +29,11 @@ module WebPipe
         ]
       end
       private_class_method :extract_headers
+
+      def self.extract_method(rr)
+        rr.request_method.downcase.to_sym
+      end
+      private_class_method :extract_method
     end
   end
 end

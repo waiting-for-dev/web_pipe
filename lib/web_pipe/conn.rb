@@ -8,6 +8,7 @@ module WebPipe
     attribute :request do
       attribute :params, Types::Strict::Hash
       attribute :headers, Types::Strict::Hash
+      attribute :req_method, Types::RequestMethod
     end
 
     def put_response_body(value)

@@ -61,6 +61,16 @@ RSpec.describe WebPipe::Conn::Builder do
           expect(conn.request.headers).to eq({ 'Content-Type' => 'text/html' })
         end
       end
+
+      context 'req_method' do
+        it 'fills with request method' do
+          env = DEFAULT_ENV.merge('REQUEST_METHOD' => 'POST')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.req_method).to eq(:post)
+        end
+      end
     end
   end
 end

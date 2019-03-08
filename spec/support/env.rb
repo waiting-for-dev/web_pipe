@@ -7,4 +7,5 @@ DEFAULT_ENV = {
   Rack::RACK_MULTITHREAD  => true,
   Rack::RACK_MULTIPROCESS => true,
   Rack::RACK_RUNONCE      => false,
+  'REQUEST_METHOD'        => 'GET'
 }
