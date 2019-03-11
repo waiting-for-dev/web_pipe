@@ -43,6 +43,14 @@ RSpec.describe WebPipe::Conn::Builder do
 
             expect(conn.request.headers).to eq({ 'F' => 'BAR' })
           end
+
+          it 'substitute _ by - and do Pascal case on - for keys' do
+            env = DEFAULT_ENV.merge('HTTP_CONTENT_TYPE' => 'text/html')
+
+            conn = described_class.call(env)
+
+            expect(conn.request.headers).to eq({ 'Content-Type' => 'text/html' })
+          end
         end
 
         context 'when there is no request headers' do
@@ -51,14 +59,6 @@ RSpec.describe WebPipe::Conn::Builder do
 
             expect(conn.request.headers).to eq({})
           end
-        end
-
-        it 'substitute _ by - and do Pascal case on -' do
-          env = DEFAULT_ENV.merge('HTTP_CONTENT_TYPE' => 'text/html')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.headers).to eq({ 'Content-Type' => 'text/html' })
         end
       end
 
