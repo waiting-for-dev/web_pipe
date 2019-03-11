@@ -8,12 +8,18 @@ module WebPipe
     module Builder
       def self.call(env)
         rr = Rack::Request.new(env)
-        CleanConn.new(
-          request: {
-            params: rr.params,
-            headers: extract_headers(env),
-            req_method: extract_method(rr)
-          }
+        CleanConn.new(**{
+                        request: {
+                          params: rr.params,
+                          headers: extract_headers(env),
+                          req_method: extract_method(rr),
+                          script_name: rr.script_name,
+                          path_info: rr.path_info,
+                          query_string: rr.query_string,
+                          server_name: env['SERVER_NAME'],
+                          server_port: rr.port
+                        }
+                      }
         )
       end
 

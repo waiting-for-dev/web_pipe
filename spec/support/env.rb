@@ -7,5 +7,6 @@ DEFAULT_ENV = {
   Rack::RACK_MULTITHREAD  => true,
   Rack::RACK_MULTIPROCESS => true,
   Rack::RACK_RUNONCE      => false,
-  'REQUEST_METHOD'        => 'GET'
+  'REQUEST_METHOD'        => 'GET',
+  'SERVER_NAME'           => 'www.example.org'
 }

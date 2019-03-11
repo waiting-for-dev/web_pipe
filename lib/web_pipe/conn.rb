@@ -9,6 +9,11 @@ module WebPipe
       attribute :params, Types::Request::Params
       attribute :headers, Types::Request::Headers
       attribute :req_method, Types::Request::Method
+      attribute :script_name, Types::Request::ScriptName
+      attribute :path_info, Types::Request::PathInfo
+      attribute :query_string, Types::Request::QueryString
+      attribute :server_name, Types::Request::ServerName
+      attribute :server_port, Types::Request::ServerPort
     end
 
     def put_response_body(value)

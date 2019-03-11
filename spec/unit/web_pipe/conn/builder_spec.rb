@@ -4,6 +4,10 @@ require 'web_pipe/conn'
 require 'support/env'
 
 RSpec.describe WebPipe::Conn::Builder do
+  def remove_key(hash, key)
+    hash.reject { |k, _v| k == key }
+  end
+
   describe ".call" do
     it 'creates a CleanConn' do
       conn = described_class.call(DEFAULT_ENV)
@@ -69,6 +73,72 @@ RSpec.describe WebPipe::Conn::Builder do
           conn = described_class.call(env)
 
           expect(conn.request.req_method).to eq(:post)
+        end
+      end
+
+      context 'script_name' do
+        it 'fills with script name' do
+          env = DEFAULT_ENV.merge('SCRIPT_NAME' => 'index.rb')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.script_name).to eq('index.rb')
+        end
+
+        it 'defaults to empty string when not present' do
+          env = remove_key(DEFAULT_ENV, 'SCRIPT_NAME')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.script_name).to eq('')
+        end
+      end
+
+      context 'path_info' do
+        it 'fills with path info' do
+          env = DEFAULT_ENV.merge('PATH_INFO' => '/foo/bar')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.path_info).to eq('/foo/bar')
+        end
+
+        it 'defaults to empty string when not present' do
+          env = remove_key(DEFAULT_ENV, 'PATH_INFO')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.path_info).to eq('')
+        end
+      end
+
+      context 'query_string' do
+        it 'fills with query string' do
+          env = DEFAULT_ENV.merge('QUERY_STRING' => 'foo=bar')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.query_string).to eq('foo=bar')
+        end
+      end
+
+      context 'server_name' do
+        it 'fills with server name' do
+          env = DEFAULT_ENV.merge('SERVER_NAME' => 'www.example.org')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.server_name).to eq('www.example.org')
+        end
+      end
+
+      context 'server_port' do
+        it 'fills with server port as integer' do
+          env = DEFAULT_ENV.merge('SERVER_PORT' => '443')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.server_port).to eq(443)
         end
       end
     end
