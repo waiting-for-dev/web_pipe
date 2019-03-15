@@ -8,5 +8,6 @@ DEFAULT_ENV = {
   Rack::RACK_MULTIPROCESS => true,
   Rack::RACK_RUNONCE      => false,
   'REQUEST_METHOD'        => 'GET',
-  'SERVER_NAME'           => 'www.example.org'
+  'SERVER_NAME'           => 'www.example.org',
+  'rack.url_scheme'       => 'http'
 }

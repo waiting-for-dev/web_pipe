@@ -14,6 +14,7 @@ module WebPipe
       attribute :query_string, Types::Request::QueryString
       attribute :server_name, Types::Request::ServerName
       attribute :server_port, Types::Request::ServerPort
+      attribute :scheme, Types::Request::Scheme
     end
 
     def put_response_body(value)

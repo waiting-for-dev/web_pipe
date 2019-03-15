@@ -17,6 +17,7 @@ module WebPipe
         QueryString = Types::Strict::String
         ServerName = Types::Strict::String
         ServerPort = Types::Strict::Integer
+        Scheme = Types::Strict::Symbol.enum(:http, :https)
       end
     end
   end

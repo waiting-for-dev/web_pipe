@@ -141,6 +141,16 @@ RSpec.describe WebPipe::Conn::Builder do
           expect(conn.request.server_port).to eq(443)
         end
       end
+
+      context 'scheme' do
+        it 'fills with url scheme as symbol' do
+          env = DEFAULT_ENV.merge('HTTPS' => 'on')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.scheme).to eq(:https)
+        end
+      end
     end
   end
 end
