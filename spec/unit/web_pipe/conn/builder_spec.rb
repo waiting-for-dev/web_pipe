@@ -126,6 +126,19 @@ RSpec.describe WebPipe::Conn::Builder do
         end
       end
 
+      context 'base_url' do
+        it 'fills in with request base url' do
+          env = DEFAULT_ENV.merge(
+            Rack::HTTPS => 'on',
+            Rack::SERVER_NAME => 'www.example.org',
+            Rack::SERVER_PORT => '88')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.base_url).to eq('https://www.example.org:88')
+        end
+      end
+
       context 'scheme' do
         it 'fills with request scheme as symbol' do
           env = DEFAULT_ENV.merge(Rack::HTTPS => 'on')

@@ -18,6 +18,7 @@ module WebPipe
                           query_string: rr.query_string,
                           server_name: env['SERVER_NAME'],
                           server_port: rr.port,
+                          base_url: rr.base_url,
                           scheme: rr.scheme.to_sym
                         }
                       }
