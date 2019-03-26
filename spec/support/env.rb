@@ -7,7 +7,11 @@ DEFAULT_ENV = {
   Rack::RACK_MULTITHREAD  => true,
   Rack::RACK_MULTIPROCESS => true,
   Rack::RACK_RUNONCE      => false,
-  'REQUEST_METHOD'        => 'GET',
-  'SERVER_NAME'           => 'www.example.org',
-  'rack.url_scheme'       => 'http'
+  Rack::RACK_URL_SCHEME   => 'http',
+
+  # PEP333
+  Rack::REQUEST_METHOD    => Rack::GET,
+  Rack::QUERY_STRING      => '',
+  Rack::SERVER_NAME       => 'www.example.org',
+  Rack::SERVER_PORT       => '80'
 }

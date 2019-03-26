@@ -17,58 +17,42 @@ RSpec.describe WebPipe::Conn::Builder do
 
     context 'request' do
       context 'params' do
-        context 'when there is query string' do
-          it 'fills with query parameters' do
-            env = DEFAULT_ENV.merge("QUERY_STRING" => "foo=bar")
+        it 'fills in with request params' do
+          env = DEFAULT_ENV.merge(Rack::QUERY_STRING => "foo=bar")
 
-            conn = described_class.call(env)
+          conn = described_class.call(env)
 
-            expect(conn.request.params).to eq({ "foo" => "bar" })
-          end
-        end
-
-        context 'when there is no query string' do
-          it 'fills with empty hash' do
-            env = DEFAULT_ENV.merge("QUERY_STRING" => "")
-
-            conn = described_class.call(env)
-
-            expect(conn.request.params).to eq({})
-          end
+          expect(conn.request.params).to eq({ "foo" => "bar" })
         end
       end
 
       context 'headers' do
-        context 'when there is some request headers' do
-          it 'fills them as a hash' do
-            env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
+        it 'fills in with env HTTP_ pairs as hash' do
+          env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
 
-            conn = described_class.call(env)
+          conn = described_class.call(env)
 
-            expect(conn.request.headers).to eq({ 'F' => 'BAR' })
-          end
-
-          it 'substitute _ by - and do Pascal case on - for keys' do
-            env = DEFAULT_ENV.merge('HTTP_CONTENT_TYPE' => 'text/html')
-
-            conn = described_class.call(env)
-
-            expect(conn.request.headers).to eq({ 'Content-Type' => 'text/html' })
-          end
+          expect(conn.request.headers).to eq({ 'F' => 'BAR' })
         end
 
-        context 'when there is no request headers' do
-          it 'fills with empty hash' do
-            conn = described_class.call(DEFAULT_ENV)
+        it 'substitute _ by - and do Pascal case on - for keys' do
+          env = DEFAULT_ENV.merge('HTTP_CONTENT_TYPE' => 'text/html')
 
-            expect(conn.request.headers).to eq({})
-          end
+          conn = described_class.call(env)
+
+          expect(conn.request.headers).to eq({ 'Content-Type' => 'text/html' })
+        end
+
+        it 'defaults to empty hash' do
+          conn = described_class.call(DEFAULT_ENV)
+
+          expect(conn.request.headers).to eq({})
         end
       end
 
       context 'req_method' do
-        it 'fills with request method' do
-          env = DEFAULT_ENV.merge('REQUEST_METHOD' => 'POST')
+        it 'fills in with downcased request method as symbol' do
+          env = DEFAULT_ENV.merge(Rack::REQUEST_METHOD => 'POST')
 
           conn = described_class.call(env)
 
@@ -77,16 +61,16 @@ RSpec.describe WebPipe::Conn::Builder do
       end
 
       context 'script_name' do
-        it 'fills with script name' do
-          env = DEFAULT_ENV.merge('SCRIPT_NAME' => 'index.rb')
+        it 'fills in with request script name' do
+          env = DEFAULT_ENV.merge(Rack::SCRIPT_NAME => 'index.rb')
 
           conn = described_class.call(env)
 
           expect(conn.request.script_name).to eq('index.rb')
         end
 
-        it 'defaults to empty string when not present' do
-          env = remove_key(DEFAULT_ENV, 'SCRIPT_NAME')
+        it 'defaults to empty string' do
+          env = remove_key(DEFAULT_ENV, Rack::SCRIPT_NAME)
 
           conn = described_class.call(env)
 
@@ -95,16 +79,16 @@ RSpec.describe WebPipe::Conn::Builder do
       end
 
       context 'path_info' do
-        it 'fills with path info' do
-          env = DEFAULT_ENV.merge('PATH_INFO' => '/foo/bar')
+        it 'fills in with request path info' do
+          env = DEFAULT_ENV.merge(Rack::PATH_INFO => '/foo/bar')
 
           conn = described_class.call(env)
 
           expect(conn.request.path_info).to eq('/foo/bar')
         end
 
-        it 'defaults to empty string when not present' do
-          env = remove_key(DEFAULT_ENV, 'PATH_INFO')
+        it 'defaults to empty string' do
+          env = remove_key(DEFAULT_ENV, Rack::PATH_INFO)
 
           conn = described_class.call(env)
 
@@ -113,8 +97,8 @@ RSpec.describe WebPipe::Conn::Builder do
       end
 
       context 'query_string' do
-        it 'fills with query string' do
-          env = DEFAULT_ENV.merge('QUERY_STRING' => 'foo=bar')
+        it 'fills in with request query string' do
+          env = DEFAULT_ENV.merge(Rack::QUERY_STRING => 'foo=bar')
 
           conn = described_class.call(env)
 
@@ -123,8 +107,8 @@ RSpec.describe WebPipe::Conn::Builder do
       end
 
       context 'server_name' do
-        it 'fills with server name' do
-          env = DEFAULT_ENV.merge('SERVER_NAME' => 'www.example.org')
+        it 'fills in with env server name' do
+          env = DEFAULT_ENV.merge(Rack::SERVER_NAME => 'www.example.org')
 
           conn = described_class.call(env)
 
@@ -133,8 +117,8 @@ RSpec.describe WebPipe::Conn::Builder do
       end
 
       context 'server_port' do
-        it 'fills with server port as integer' do
-          env = DEFAULT_ENV.merge('SERVER_PORT' => '443')
+        it 'fills in with request port' do
+          env = DEFAULT_ENV.merge(Rack::SERVER_PORT => '443')
 
           conn = described_class.call(env)
 
@@ -143,8 +127,8 @@ RSpec.describe WebPipe::Conn::Builder do
       end
 
       context 'scheme' do
-        it 'fills with url scheme as symbol' do
-          env = DEFAULT_ENV.merge('HTTPS' => 'on')
+        it 'fills with request scheme as symbol' do
+          env = DEFAULT_ENV.merge(Rack::HTTPS => 'on')
 
           conn = described_class.call(env)
 
