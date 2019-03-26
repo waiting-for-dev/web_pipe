@@ -7,6 +7,7 @@ module WebPipe
 
     attribute :rack do
       attribute :request, Types::Rack::Request
+      attribute :env, Types::Rack::Env
     end
 
     attribute :request do

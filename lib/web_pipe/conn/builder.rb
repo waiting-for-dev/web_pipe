@@ -22,7 +22,8 @@ module WebPipe
                           params: rr.params,
                         },
                         rack: {
-                          request: rr
+                          request: rr,
+                          env: env
                         }
                       }
         )

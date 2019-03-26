@@ -11,6 +11,7 @@ module WebPipe
 
       module Rack
         Request = Types::Instance(::Rack::Request)
+        Env = Types::Strict::Hash
       end
 
       module Request
