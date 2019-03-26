@@ -15,6 +15,18 @@ RSpec.describe WebPipe::Conn::Builder do
       expect(conn).to be_an_instance_of(WebPipe::CleanConn)
     end
 
+    context 'rack' do
+      context 'request' do
+        it 'fills in with rack request' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.rack.request).to be_an_instance_of(Rack::Request)
+        end
+      end
+    end
+
     context 'request' do
       context 'params' do
         it 'fills in with request params' do

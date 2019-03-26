@@ -1,5 +1,6 @@
 require 'dry/types'
 require 'dry/struct'
+require 'rack/request'
 
 module WebPipe
   class Conn < Dry::Struct
@@ -7,6 +8,10 @@ module WebPipe
       include Dry::Types.module
 
       EMPTY_STRING = ''
+
+      module Rack
+        Request = Types::Instance(::Rack::Request)
+      end
 
       module Request
         Params = Types::Strict::Hash

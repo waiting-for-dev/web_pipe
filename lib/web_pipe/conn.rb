@@ -5,6 +5,10 @@ module WebPipe
   class Conn < Dry::Struct
     attr_accessor :resp_body
 
+    attribute :rack do
+      attribute :request, Types::Rack::Request
+    end
+
     attribute :request do
       attribute :params, Types::Request::Params
       attribute :headers, Types::Request::Headers
