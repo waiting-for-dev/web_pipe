@@ -13,16 +13,21 @@ module WebPipe
                         request: {
                           rack_request: rr,
                           rack_env: env,
-                          req_method: extract_method(rr),
+
                           scheme: rr.scheme.to_sym,
+                          req_method: extract_method(rr),
                           host: rr.host,
+                          ip: rr.ip,
+                          port: rr.port,
                           script_name: rr.script_name,
                           path_info: rr.path_info,
                           query_string: rr.query_string,
-                          port: rr.port,
-                          ip: rr.ip,
                           headers: extract_headers(env),
-                          base_url: rr.base_url,
+
+                          base_url: Types::Request::Unfetched.new(type: :base_url),
+                          path: Types::Request::Unfetched.new(type: :path),
+                          full_path: Types::Request::Unfetched.new(type: :full_path),
+                          url: Types::Request::Unfetched.new(type: :url),
                           params: Types::Request::Unfetched.new(type: :params),
                         }
                       }

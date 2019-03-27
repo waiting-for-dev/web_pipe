@@ -20,12 +20,21 @@ module WebPipe
       attribute :path_info, Types::Request::PathInfo
       attribute :query_string, Types::Request::QueryString
       attribute :headers, Types::Request::Headers
-      # Redundant
+      # URL redundancy
       attribute :base_url, Types::Request::BaseUrl
+      attribute :path, Types::Request::Path
+      attribute :full_path, Types::Request::FullPath
+      attribute :url, Types::Request::Url
       attribute :params, Types::Request::Params
 
-      def fetch_params
-        Builder.call(rack_env).new(request: new(params: rack_request.params))
+      def fetch_redundants
+        Builder.call(rack_env).new(request: new(
+                                     base_url: rack_request.base_url,
+                                     path: rack_request.path,
+                                     full_path: rack_request.fullpath,
+                                     url: rack_request.url,
+                                     params: rack_request.params
+                                   ))
       end
     end
 

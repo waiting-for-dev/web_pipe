@@ -15,17 +15,22 @@ module WebPipe
 
         RackRequest = Types::Instance(::Rack::Request)
         RackEnv = Types::Strict::Hash
-        Params = Types::Request::Unfetched | Types::Strict::Hash
-        Headers = Types::Strict::Hash
+
+        Scheme = Types::Strict::Symbol.enum(:http, :https)
         Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
+        Host = Types::Strict::String
+        Ip = Types::Strict::String.optional
+        Port = Types::Strict::Integer
         ScriptName = Types::Strict::String.default(EMPTY_STRING)
         PathInfo = Types::Strict::String.default(EMPTY_STRING)
         QueryString = Types::Strict::String
-        Host = Types::Strict::String
-        Port = Types::Strict::Integer
-        Ip = Types::Strict::String.optional
-        BaseUrl = Types::Strict::String
-        Scheme = Types::Strict::Symbol.enum(:http, :https)
+        Headers = Types::Strict::Hash
+
+        BaseUrl = Types::Strict::String | Types::Request::Unfetched
+        Path = Types::Strict::String | Types::Request::Unfetched
+        FullPath = Types::Strict::String | Types::Request::Unfetched
+        Url = Types::Strict::String | Types::Request::Unfetched
+        Params = Types::Strict::Hash | Types::Request::Unfetched
       end
     end
   end

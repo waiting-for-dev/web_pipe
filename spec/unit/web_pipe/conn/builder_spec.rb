@@ -9,6 +9,10 @@ RSpec.describe WebPipe::Conn::Builder do
     hash.reject { |k, _v| k == key }
   end
 
+  def unfetched(type)
+    WebPipe::Conn::Types::Request::Unfetched.new(type: type)
+  end
+
   describe ".call" do
     it 'creates a CleanConn' do
       conn = described_class.call(DEFAULT_ENV)
@@ -37,13 +41,53 @@ RSpec.describe WebPipe::Conn::Builder do
         end
       end
 
+      context 'base_url' do
+        it 'fills in with unfetched of base_url type' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.base_url).to eq(unfetched(:base_url))
+        end
+      end
+
+      context 'path' do
+        it 'fills in with unfetched of path type' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.path).to eq(unfetched(:path))
+        end
+      end
+
+      context 'full_path' do
+        it 'fills in with unfetched of full_path type' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.full_path).to eq(unfetched(:full_path))
+        end
+      end
+
+      context 'url' do
+        it 'fills in with unfetched of url type' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.url).to eq(unfetched(:url))
+        end
+      end
+
       context 'params' do
         it 'fills in with unfetched of params type' do
           env = DEFAULT_ENV
 
           conn = described_class.call(env)
 
-          expect(conn.request.params).to eq(WebPipe::Conn::Types::Request::Unfetched.new(type: :params))
+          expect(conn.request.params).to eq(unfetched(:params))
         end
       end
 
@@ -162,19 +206,6 @@ RSpec.describe WebPipe::Conn::Builder do
           conn = described_class.call(env)
 
           expect(conn.request.port).to eq(443)
-        end
-      end
-
-      context 'base_url' do
-        it 'fills in with request base url' do
-          env = DEFAULT_ENV.merge(
-            Rack::HTTPS => 'on',
-            Rack::SERVER_NAME => 'www.example.org',
-            Rack::SERVER_PORT => '88')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.base_url).to eq('https://www.example.org:88')
         end
       end
 
