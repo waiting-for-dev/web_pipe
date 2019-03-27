@@ -5,10 +5,6 @@ require 'web_pipe/conn'
 require 'support/env'
 
 RSpec.describe WebPipe::Conn::Builder do
-  def remove_key(hash, key)
-    hash.reject { |k, _v| k == key }
-  end
-
   def unfetched(type)
     WebPipe::Conn::Types::Request::Unfetched.new(type: type)
   end
@@ -38,6 +34,134 @@ RSpec.describe WebPipe::Conn::Builder do
           conn = described_class.call(env)
 
           expect(conn.request.rack_request).to be_an_instance_of(Rack::Request)
+        end
+      end
+
+      context 'scheme' do
+        it 'fills with request scheme as symbol' do
+          env = DEFAULT_ENV.merge(Rack::HTTPS => 'on')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.scheme).to eq(:https)
+        end
+      end
+
+      context 'req_method' do
+        it 'fills in with downcased request method as symbol' do
+          env = DEFAULT_ENV.merge(Rack::REQUEST_METHOD => 'POST')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.req_method).to eq(:post)
+        end
+      end
+
+      context 'host' do
+        it 'fills in with request host' do
+          env = DEFAULT_ENV.merge(Rack::HTTP_HOST => 'www.host.org')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.host).to eq('www.host.org')
+        end
+      end
+
+      context 'ip' do
+        it 'fills in with request ip' do
+          env = DEFAULT_ENV.merge('REMOTE_ADDR' => '0.0.0.0')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.ip).to eq('0.0.0.0')
+        end
+
+        it 'defaults to nil' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.ip).to be_nil
+        end
+      end
+
+      context 'port' do
+        it 'fills in with request port' do
+          env = DEFAULT_ENV.merge(Rack::SERVER_PORT => '443')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.port).to eq(443)
+        end
+      end
+
+      context 'script_name' do
+        it 'fills in with request script name' do
+          env = DEFAULT_ENV.merge(Rack::SCRIPT_NAME => 'index.rb')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.script_name).to eq('index.rb')
+        end
+      end
+
+      context 'path_info' do
+        it 'fills in with request path info' do
+          env = DEFAULT_ENV.merge(Rack::PATH_INFO => '/foo/bar')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.path_info).to eq('/foo/bar')
+        end
+      end
+
+      context 'query_string' do
+        it 'fills in with request query string' do
+          env = DEFAULT_ENV.merge(Rack::QUERY_STRING => 'foo=bar')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.query_string).to eq('foo=bar')
+        end
+      end
+
+      context 'headers' do
+        it 'fills in with env HTTP_ pairs as hash' do
+          env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.headers).to eq({ 'F' => 'BAR' })
+        end
+
+        it 'substitute _ by - and do Pascal case on - for keys' do
+          env = DEFAULT_ENV.merge('HTTP_FOO_BAR' => 'foobar')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.headers).to eq({ 'Foo-Bar' => 'foobar' })
+        end
+
+        it 'includes content type CGI var' do
+          env = DEFAULT_ENV.merge('CONTENT_TYPE' => 'text/html')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.headers['Content-Type']).to eq('text/html')
+        end
+
+        it 'includes content length CGI var' do
+          env = DEFAULT_ENV.merge('CONTENT_LENGTH' => '10')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.headers['Content-Length']).to eq('10')
+        end
+
+        it 'defaults to empty hash' do
+          conn = described_class.call(DEFAULT_ENV)
+
+          expect(conn.request.headers).to eq({})
         end
       end
 
@@ -88,150 +212,6 @@ RSpec.describe WebPipe::Conn::Builder do
           conn = described_class.call(env)
 
           expect(conn.request.params).to eq(unfetched(:params))
-        end
-      end
-
-      context 'headers' do
-        it 'fills in with env HTTP_ pairs as hash' do
-          env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.headers).to eq({ 'F' => 'BAR' })
-        end
-
-        it 'substitute _ by - and do Pascal case on - for keys' do
-          env = DEFAULT_ENV.merge('HTTP_FOO_BAR' => 'foobar')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.headers).to eq({ 'Foo-Bar' => 'foobar' })
-        end
-
-        it 'includes content type CGI var' do
-          env = DEFAULT_ENV.merge('CONTENT_TYPE' => 'text/html')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.headers['Content-Type']).to eq('text/html')
-        end
-
-        it 'includes content length CGI var' do
-          env = DEFAULT_ENV.merge('CONTENT_LENGTH' => '10')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.headers['Content-Length']).to eq('10')
-        end
-
-        it 'defaults to empty hash' do
-          conn = described_class.call(DEFAULT_ENV)
-
-          expect(conn.request.headers).to eq({})
-        end
-      end
-
-      context 'req_method' do
-        it 'fills in with downcased request method as symbol' do
-          env = DEFAULT_ENV.merge(Rack::REQUEST_METHOD => 'POST')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.req_method).to eq(:post)
-        end
-      end
-
-      context 'script_name' do
-        it 'fills in with request script name' do
-          env = DEFAULT_ENV.merge(Rack::SCRIPT_NAME => 'index.rb')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.script_name).to eq('index.rb')
-        end
-
-        it 'defaults to empty string' do
-          env = remove_key(DEFAULT_ENV, Rack::SCRIPT_NAME)
-
-          conn = described_class.call(env)
-
-          expect(conn.request.script_name).to eq('')
-        end
-      end
-
-      context 'path_info' do
-        it 'fills in with request path info' do
-          env = DEFAULT_ENV.merge(Rack::PATH_INFO => '/foo/bar')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.path_info).to eq('/foo/bar')
-        end
-
-        it 'defaults to empty string' do
-          env = remove_key(DEFAULT_ENV, Rack::PATH_INFO)
-
-          conn = described_class.call(env)
-
-          expect(conn.request.path_info).to eq('')
-        end
-      end
-
-      context 'query_string' do
-        it 'fills in with request query string' do
-          env = DEFAULT_ENV.merge(Rack::QUERY_STRING => 'foo=bar')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.query_string).to eq('foo=bar')
-        end
-      end
-
-      context 'host' do
-        it 'fills in with request host' do
-          env = DEFAULT_ENV.merge(Rack::HTTP_HOST => 'www.host.org')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.host).to eq('www.host.org')
-        end
-      end
-
-      context 'ip' do
-        it 'fills in with request ip' do
-          env = DEFAULT_ENV.merge('REMOTE_ADDR' => '0.0.0.0')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.ip).to eq('0.0.0.0')
-        end
-
-        it 'defaults to nil' do
-          env = DEFAULT_ENV
-
-          conn = described_class.call(env)
-
-          expect(conn.request.ip).to be_nil
-        end
-      end
-
-      context 'port' do
-        it 'fills in with request port' do
-          env = DEFAULT_ENV.merge(Rack::SERVER_PORT => '443')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.port).to eq(443)
-        end
-      end
-
-      context 'scheme' do
-        it 'fills with request scheme as symbol' do
-          env = DEFAULT_ENV.merge(Rack::HTTPS => 'on')
-
-          conn = described_class.call(env)
-
-          expect(conn.request.scheme).to eq(:https)
         end
       end
     end

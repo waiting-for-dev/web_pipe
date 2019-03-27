@@ -6,8 +6,6 @@ module WebPipe
     module Types
       include Dry::Types.module
 
-      EMPTY_STRING = ''
-
       module Request
         class Unfetched < Dry::Struct::Value
           attribute :type, Types::Strict::Symbol
@@ -21,8 +19,8 @@ module WebPipe
         Host = Types::Strict::String
         Ip = Types::Strict::String.optional
         Port = Types::Strict::Integer
-        ScriptName = Types::Strict::String.default(EMPTY_STRING)
-        PathInfo = Types::Strict::String.default(EMPTY_STRING)
+        ScriptName = Types::Strict::String
+        PathInfo = Types::Strict::String
         QueryString = Types::Strict::String
         Headers = Types::Strict::Hash
 
