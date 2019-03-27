@@ -15,7 +15,7 @@ module WebPipe
                           rack_env: env,
                           req_method: extract_method(rr),
                           scheme: rr.scheme.to_sym,
-                          server_name: env['SERVER_NAME'],
+                          host: rr.host,
                           script_name: rr.script_name,
                           path_info: rr.path_info,
                           query_string: rr.query_string,

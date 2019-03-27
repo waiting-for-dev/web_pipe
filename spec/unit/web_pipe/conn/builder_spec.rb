@@ -127,13 +127,13 @@ RSpec.describe WebPipe::Conn::Builder do
         end
       end
 
-      context 'server_name' do
-        it 'fills in with env server name' do
-          env = DEFAULT_ENV.merge(Rack::SERVER_NAME => 'www.example.org')
+      context 'host' do
+        it 'fills in with request host' do
+          env = DEFAULT_ENV.merge(Rack::HTTP_HOST => 'www.host.org')
 
           conn = described_class.call(env)
 
-          expect(conn.request.server_name).to eq('www.example.org')
+          expect(conn.request.host).to eq('www.host.org')
         end
       end
 

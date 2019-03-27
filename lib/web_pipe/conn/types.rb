@@ -21,7 +21,7 @@ module WebPipe
         ScriptName = Types::Strict::String.default(EMPTY_STRING)
         PathInfo = Types::Strict::String.default(EMPTY_STRING)
         QueryString = Types::Strict::String
-        ServerName = Types::Strict::String
+        Host = Types::Strict::String
         ServerPort = Types::Strict::Integer
         BaseUrl = Types::Strict::String
         Scheme = Types::Strict::Symbol.enum(:http, :https)
