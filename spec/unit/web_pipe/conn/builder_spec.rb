@@ -214,6 +214,16 @@ RSpec.describe WebPipe::Conn::Builder do
           expect(conn.request.params).to eq(unfetched(:params))
         end
       end
+
+      context 'body' do
+        it 'fills in with unfetched of body type' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.body).to eq(unfetched(:body))
+        end
+      end
     end
   end
 end

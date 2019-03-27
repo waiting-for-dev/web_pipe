@@ -7,6 +7,8 @@ module WebPipe
     attr_accessor :resp_body
 
     attribute :request do
+      ID = -> (x) { x }
+
       # Rack
       attribute :rack_env, Types::Request::RackEnv
       attribute :rack_request, Types::Request::RackRequest
@@ -26,15 +28,29 @@ module WebPipe
       attribute :full_path, Types::Request::FullPath
       attribute :url, Types::Request::Url
       attribute :params, Types::Request::Params
+      # Body
+      attribute :body, Types::Request::Body
 
       def fetch_redundants
-        Builder.call(rack_env).new(request: new(
-                                     base_url: rack_request.base_url,
-                                     path: rack_request.path,
-                                     full_path: rack_request.fullpath,
-                                     url: rack_request.url,
-                                     params: rack_request.params
-                                   ))
+        new_parent(
+          base_url: rack_request.base_url,
+          path: rack_request.path,
+          full_path: rack_request.fullpath,
+          url: rack_request.url,
+          params: rack_request.params
+        )
+      end
+
+      def fetch_body(parser = ID)
+        new_parent(
+          body: parser.(rack_request.body)
+        )
+      end
+
+      private
+
+      def new_parent(attrs)
+        Builder.call(rack_env).new(request: new(attrs))
       end
     end
 

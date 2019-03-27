@@ -31,6 +31,8 @@ module WebPipe
                           full_path: Types::Request::Unfetched.new(type: :full_path),
                           url: Types::Request::Unfetched.new(type: :url),
                           params: Types::Request::Unfetched.new(type: :params),
+
+                          body: Types::Request::Unfetched.new(type: :body)
                         }
                       }
         )

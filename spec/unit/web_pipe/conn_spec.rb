@@ -37,5 +37,28 @@ RSpec.describe WebPipe::Conn do
         expect(new_conn.request.params).to eq({ 'foo' => 'bar' })
       end
     end
+
+    describe '#fetch_body' do
+      let(:env) do
+        DEFAULT_ENV.merge(
+          Rack::RACK_INPUT => '{ "foo": "bar" }'
+        )
+      end
+      let(:conn) { WebPipe::Conn::Builder.call(env) }
+
+      it 'fills body with request body' do
+        new_conn=  conn.request.fetch_body
+
+        expect(new_conn.request.body).to eq('{ "foo": "bar" }')
+      end
+
+      it 'allows callable parser to be injected' do
+        parser = -> (body) { JSON.parse(body) }
+
+        new_conn=  conn.request.fetch_body(parser)
+
+        expect(new_conn.request.body).to eq({ "foo" => "bar" })
+      end
+    end
   end
 end

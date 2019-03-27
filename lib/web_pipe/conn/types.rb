@@ -29,6 +29,8 @@ module WebPipe
         FullPath = Types::Strict::String | Types::Request::Unfetched
         Url = Types::Strict::String | Types::Request::Unfetched
         Params = Types::Strict::Hash | Types::Request::Unfetched
+
+        Body = Types::Any | Types::Request::Unfetched
       end
     end
   end
