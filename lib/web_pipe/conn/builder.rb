@@ -17,7 +17,7 @@ module WebPipe
                           rack_env: env,
 
                           scheme: rr.scheme.to_sym,
-                          req_method: extract_method(rr),
+                          req_method: rr.request_method.downcase.to_sym,
                           host: rr.host,
                           ip: rr.ip,
                           port: rr.port,
@@ -51,11 +51,6 @@ module WebPipe
         ]
       end
       private_class_method :extract_headers
-
-      def self.extract_method(rr)
-        rr.request_method.downcase.to_sym
-      end
-      private_class_method :extract_method
     end
   end
 end
