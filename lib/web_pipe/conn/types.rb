@@ -22,7 +22,8 @@ module WebPipe
         ScriptName = Types::Strict::String
         PathInfo = Types::Strict::String
         QueryString = Types::Strict::String
-        Headers = Types::Strict::Hash
+
+        Headers = Types::Strict::Hash | Types::Request::Unfetched
 
         BaseUrl = Types::Strict::String | Types::Request::Unfetched
         Path = Types::Strict::String | Types::Request::Unfetched

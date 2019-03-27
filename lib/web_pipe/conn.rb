@@ -9,6 +9,8 @@ module WebPipe
     attribute :request do
       ID = -> (x) { x }
 
+      HEADERS_AS_CGI = %w[CONTENT_TYPE CONTENT_LENGTH]
+
       # Rack
       attribute :rack_env, Types::Request::RackEnv
       attribute :rack_request, Types::Request::RackRequest
@@ -21,6 +23,7 @@ module WebPipe
       attribute :script_name, Types::Request::ScriptName
       attribute :path_info, Types::Request::PathInfo
       attribute :query_string, Types::Request::QueryString
+      # Headers
       attribute :headers, Types::Request::Headers
       # URL redundancy
       attribute :base_url, Types::Request::BaseUrl
@@ -47,10 +50,37 @@ module WebPipe
         )
       end
 
+      def fetch_headers
+        new_parent(
+          headers: extract_headers(rack_env)
+        )
+      end
+
       private
 
       def new_parent(attrs)
         Builder.call(rack_env).new(request: new(attrs))
+      end
+
+      def extract_headers(env)
+        Hash[
+          env.
+            select { |k, _v| k.start_with?('HTTP_') }.
+            map { |k, v| header_pair(k[5 .. -1], v) }.
+            concat(
+              env.
+                select { |k, _v| HEADERS_AS_CGI.include?(k) }.
+                map { |k, v| header_pair(k, v) }
+            )
+        ]
+      end
+
+      def header_pair(key, value)
+        [normalize_header_key(key), value]
+      end
+
+      def normalize_header_key(key)
+        key.downcase.split('_').map(&:capitalize).join('-')
       end
     end
 

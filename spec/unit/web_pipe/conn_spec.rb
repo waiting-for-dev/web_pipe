@@ -47,7 +47,7 @@ RSpec.describe WebPipe::Conn do
       let(:conn) { WebPipe::Conn::Builder.call(env) }
 
       it 'fills body with request body' do
-        new_conn=  conn.request.fetch_body
+        new_conn =  conn.request.fetch_body
 
         expect(new_conn.request.body).to eq('{ "foo": "bar" }')
       end
@@ -55,9 +55,55 @@ RSpec.describe WebPipe::Conn do
       it 'allows callable parser to be injected' do
         parser = -> (body) { JSON.parse(body) }
 
-        new_conn=  conn.request.fetch_body(parser)
+        new_conn =  conn.request.fetch_body(parser)
 
         expect(new_conn.request.body).to eq({ "foo" => "bar" })
+      end
+    end
+
+    describe '#fetch_headers' do
+      it 'fills headers with env HTTP_ pairs as hash' do
+        env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
+        conn = WebPipe::Conn::Builder.call(env)
+
+        new_conn = conn.request.fetch_headers
+
+        expect(new_conn.request.headers).to eq({ 'F' => 'BAR' })
+      end
+
+      it 'normalize keys to Pascal case and switching _ by -' do
+        env = DEFAULT_ENV.merge('HTTP_FOO_BAR' => 'foobar')
+        conn = WebPipe::Conn::Builder.call(env)
+
+        new_conn = conn.request.fetch_headers
+
+        expect(new_conn.request.headers).to eq({ 'Foo-Bar' => 'foobar' })
+      end
+
+      it 'includes content type CGI var' do
+        env = DEFAULT_ENV.merge('CONTENT_TYPE' => 'text/html')
+        conn = WebPipe::Conn::Builder.call(env)
+
+        new_conn = conn.request.fetch_headers
+
+        expect(new_conn.request.headers['Content-Type']).to eq('text/html')
+      end
+
+      it 'includes content length CGI var' do
+        env = DEFAULT_ENV.merge('CONTENT_LENGTH' => '10')
+        conn = WebPipe::Conn::Builder.call(env)
+
+        new_conn = conn.request.fetch_headers
+
+        expect(new_conn.request.headers['Content-Length']).to eq('10')
+      end
+
+      it 'defaults to empty hash' do
+        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+
+        new_conn = conn.request.fetch_headers
+
+        expect(new_conn.request.headers).to eq({})
       end
     end
   end
