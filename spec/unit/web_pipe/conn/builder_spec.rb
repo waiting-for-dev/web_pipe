@@ -137,13 +137,13 @@ RSpec.describe WebPipe::Conn::Builder do
         end
       end
 
-      context 'server_port' do
+      context 'port' do
         it 'fills in with request port' do
           env = DEFAULT_ENV.merge(Rack::SERVER_PORT => '443')
 
           conn = described_class.call(env)
 
-          expect(conn.request.server_port).to eq(443)
+          expect(conn.request.port).to eq(443)
         end
       end
 

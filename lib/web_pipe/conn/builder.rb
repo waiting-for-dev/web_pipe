@@ -19,7 +19,7 @@ module WebPipe
                           script_name: rr.script_name,
                           path_info: rr.path_info,
                           query_string: rr.query_string,
-                          server_port: rr.port,
+                          port: rr.port,
                           headers: extract_headers(env),
                           base_url: rr.base_url,
                           params: Types::Request::Unfetched.new(type: :params),

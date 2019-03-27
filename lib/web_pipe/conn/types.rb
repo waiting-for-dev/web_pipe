@@ -22,7 +22,7 @@ module WebPipe
         PathInfo = Types::Strict::String.default(EMPTY_STRING)
         QueryString = Types::Strict::String
         Host = Types::Strict::String
-        ServerPort = Types::Strict::Integer
+        Port = Types::Strict::Integer
         BaseUrl = Types::Strict::String
         Scheme = Types::Strict::Symbol.enum(:http, :https)
       end
