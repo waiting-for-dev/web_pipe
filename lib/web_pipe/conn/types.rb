@@ -9,7 +9,7 @@ module WebPipe
       EMPTY_STRING = ''
 
       module Request
-        Unfetched = ::Class.new(Dry::Struct::Value) do
+        class Unfetched < Dry::Struct::Value
           attribute :type, Types::Strict::Symbol
         end
 
