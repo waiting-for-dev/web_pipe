@@ -20,6 +20,7 @@ module WebPipe
                           path_info: rr.path_info,
                           query_string: rr.query_string,
                           port: rr.port,
+                          ip: rr.ip,
                           headers: extract_headers(env),
                           base_url: rr.base_url,
                           params: Types::Request::Unfetched.new(type: :params),

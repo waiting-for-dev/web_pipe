@@ -23,6 +23,7 @@ module WebPipe
         QueryString = Types::Strict::String
         Host = Types::Strict::String
         Port = Types::Strict::Integer
+        Ip = Types::Strict::String.optional
         BaseUrl = Types::Strict::String
         Scheme = Types::Strict::Symbol.enum(:http, :https)
       end

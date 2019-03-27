@@ -17,6 +17,7 @@ module WebPipe
       attribute :path_info, Types::Request::PathInfo
       attribute :query_string, Types::Request::QueryString
       attribute :port, Types::Request::Port
+      attribute :ip, Types::Request::Ip
       attribute :base_url, Types::Request::BaseUrl
       attribute :scheme, Types::Request::Scheme
 

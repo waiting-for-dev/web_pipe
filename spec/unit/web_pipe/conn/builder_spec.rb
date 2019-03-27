@@ -137,6 +137,24 @@ RSpec.describe WebPipe::Conn::Builder do
         end
       end
 
+      context 'ip' do
+        it 'fills in with request ip' do
+          env = DEFAULT_ENV.merge('REMOTE_ADDR' => '0.0.0.0')
+
+          conn = described_class.call(env)
+
+          expect(conn.request.ip).to eq('0.0.0.0')
+        end
+
+        it 'defaults to nil' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.request.ip).to be_nil
+        end
+      end
+
       context 'port' do
         it 'fills in with request port' do
           env = DEFAULT_ENV.merge(Rack::SERVER_PORT => '443')
