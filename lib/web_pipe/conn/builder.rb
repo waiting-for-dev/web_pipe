@@ -1,6 +1,7 @@
 require 'rack'
 require 'dry/struct'
 require 'web_pipe/conn'
+require 'web_pipe/conn/types'
 
 module WebPipe
   class Conn < Dry::Struct
@@ -10,6 +11,8 @@ module WebPipe
         rr = ::Rack::Request.new(env)
         CleanConn.new(**{
                         request: {
+                          rack_request: rr,
+                          rack_env: env,
                           req_method: extract_method(rr),
                           scheme: rr.scheme.to_sym,
                           server_name: env['SERVER_NAME'],
@@ -19,11 +22,7 @@ module WebPipe
                           server_port: rr.port,
                           headers: extract_headers(env),
                           base_url: rr.base_url,
-                          params: rr.params,
-                        },
-                        rack: {
-                          request: rr,
-                          env: env
+                          params: Types::Request::Unfetched.new(type: :params),
                         }
                       }
         )

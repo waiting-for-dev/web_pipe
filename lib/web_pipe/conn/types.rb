@@ -1,5 +1,4 @@
 require 'dry/types'
-require 'dry/struct'
 require 'rack/request'
 
 module WebPipe
@@ -9,13 +8,14 @@ module WebPipe
 
       EMPTY_STRING = ''
 
-      module Rack
-        Request = Types::Instance(::Rack::Request)
-        Env = Types::Strict::Hash
-      end
-
       module Request
-        Params = Types::Strict::Hash
+        Unfetched = ::Class.new(Dry::Struct::Value) do
+          attribute :type, Types::Strict::Symbol
+        end
+
+        RackRequest = Types::Instance(::Rack::Request)
+        RackEnv = Types::Strict::Hash
+        Params = Types::Request::Unfetched | Types::Strict::Hash
         Headers = Types::Strict::Hash
         Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
         ScriptName = Types::Strict::String.default(EMPTY_STRING)

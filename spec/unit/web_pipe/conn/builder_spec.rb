@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'web_pipe/conn/types'
 require 'web_pipe/conn/builder'
 require 'web_pipe/conn'
 require 'support/env'
@@ -15,36 +16,34 @@ RSpec.describe WebPipe::Conn::Builder do
       expect(conn).to be_an_instance_of(WebPipe::CleanConn)
     end
 
-    context 'rack' do
-      context 'env' do
+    context 'request' do
+      context 'rack_env' do
         it 'fills in with rack env' do
           env = DEFAULT_ENV
 
           conn = described_class.call(env)
 
-          expect(conn.rack.env).to be(DEFAULT_ENV)
+          expect(conn.request.rack_env).to be(DEFAULT_ENV)
         end
       end
 
-      context 'request' do
+      context 'rack_request' do
         it 'fills in with rack request' do
           env = DEFAULT_ENV
 
           conn = described_class.call(env)
 
-          expect(conn.rack.request).to be_an_instance_of(Rack::Request)
+          expect(conn.request.rack_request).to be_an_instance_of(Rack::Request)
         end
       end
-    end
 
-    context 'request' do
       context 'params' do
-        it 'fills in with request params' do
-          env = DEFAULT_ENV.merge(Rack::QUERY_STRING => "foo=bar")
+        it 'fills in with unfetched of params type' do
+          env = DEFAULT_ENV
 
           conn = described_class.call(env)
 
-          expect(conn.request.params).to eq({ "foo" => "bar" })
+          expect(conn.request.params).to eq(WebPipe::Conn::Types::Request::Unfetched.new(type: :params))
         end
       end
 
