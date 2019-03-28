@@ -16,9 +16,22 @@ module WebPipe
           ))
     end
 
+    def add_response_header(key, value)
+      new(response: response.new(
+            headers: Hash[response.headers.to_a.append(request.send(:header_pair, key, value))]
+          ))
+    end
+
+    def delete_response_header(key)
+      new(response: response.new(
+            headers: response.headers.reject { |k, _v| request.send(:normalize_header_key, key) == k }
+          ))
+    end
+
     attribute :response do
       attribute :status, Types::Response::Status
       attribute :body, Types::Response::Body
+      attribute :headers, Types::Response::Headers
     end
 
     attribute :request do

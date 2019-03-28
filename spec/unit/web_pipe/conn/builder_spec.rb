@@ -230,6 +230,16 @@ RSpec.describe WebPipe::Conn::Builder do
           expect(conn.response.body).to eq([''])
         end
       end
+
+      context 'headers' do
+        it 'let it to initialize with its default' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.response.headers).to eq({})
+        end
+      end
     end
   end
 end

@@ -159,5 +159,53 @@ RSpec.describe WebPipe::Conn do
         end
       end
     end
+
+    describe 'add_response_header' do
+      it 'adds given pair to response headers' do
+          conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+            c.new(response: c.response.attributes.merge(
+                  headers: { 'Foo' => 'Bar' }
+                ))
+          end
+
+          new_conn = conn.add_response_header('Bar', 'Foo')
+
+          expect(new_conn.response.headers).to eq({ 'Foo' => 'Bar', 'Bar' => 'Foo' })
+      end
+
+      it 'normalize keys to Pascal case and switching _ by -' do
+        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+
+        new_conn = conn.add_response_header('foo_foo', 'Bar')
+
+        expect(new_conn.response.headers).to eq({ 'Foo-Foo' => 'Bar' })
+      end
+    end
+
+    describe 'delete_response_header' do
+      it 'deletes response header with given key' do
+        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+          c.new(response: c.response.attributes.merge(
+                  headers: { 'Foo' => 'Bar', 'Zoo' => 'Zar' }
+                ))
+        end
+
+        new_conn = conn.delete_response_header('Zoo')
+
+        expect(new_conn.response.headers).to eq({ 'Foo' => 'Bar' })
+      end
+
+      it 'accepts non normalized keys' do
+        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+          c.new(response: c.response.attributes.merge(
+                  headers: { 'Foo-Foo' => 'Bar' }
+                ))
+        end
+
+        new_conn = conn.delete_response_header('foo_foo')
+
+        expect(new_conn.response.headers).to eq({})
+      end
+    end
   end
 end
