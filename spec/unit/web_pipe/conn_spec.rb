@@ -129,5 +129,35 @@ RSpec.describe WebPipe::Conn do
         expect(new_conn.response.status).to be(404)
       end
     end
+
+    describe 'set_response_body' do
+      context 'when value is a string' do
+        it 'sets response body as one item array of given value' do
+          conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+            c.new(response: c.response.attributes.merge(
+                    body: ['foo']
+                  ))
+          end
+
+          new_conn = conn.set_response_body('bar')
+
+          expect(new_conn.response.body).to eq(['bar'])
+        end
+      end
+
+      context 'when value is an array' do
+        it 'it substitutes whole response_body' do
+          conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+            c.new(response: c.response.attributes.merge(
+                  body: ['foo']
+                ))
+          end
+
+          new_conn = conn.set_response_body(['bar', 'var'])
+
+          expect(new_conn.response.body).to eq(['bar', 'var'])
+        end
+      end
+    end
   end
 end

@@ -10,8 +10,15 @@ module WebPipe
       new(response: response.new(status: code))
     end
 
+    def set_response_body(content)
+      new(response: response.new(
+            body: content.is_a?(Array) ? content : [content]
+          ))
+    end
+
     attribute :response do
       attribute :status, Types::Response::Status
+      attribute :body, Types::Response::Body
     end
 
     attribute :request do

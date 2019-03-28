@@ -220,6 +220,16 @@ RSpec.describe WebPipe::Conn::Builder do
           expect(conn.response.status).to eq(unset(:status))
         end
       end
+
+      context 'body' do
+        it 'let it to initialize with its default' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.response.body).to eq([''])
+        end
+      end
     end
   end
 end

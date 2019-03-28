@@ -12,6 +12,7 @@ module WebPipe
         end
 
         Status = Types::Strict::Integer | Types::Response::Unset
+        Body = Types::Strict::Array.of(Types::Strict::String).default([''])
       end
 
       module Request
