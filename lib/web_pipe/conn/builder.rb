@@ -31,7 +31,9 @@ module WebPipe
                           url: Types::Request::Unfetched.new(type: :url),
                           params: Types::Request::Unfetched.new(type: :params),
 
-                          body: Types::Request::Unfetched.new(type: :body)
+                          body: Types::Request::Unfetched.new(type: :body),
+                          
+                          cookies: Types::Request::Unfetched.new(type: :cookies)
                         }
                       }
         )

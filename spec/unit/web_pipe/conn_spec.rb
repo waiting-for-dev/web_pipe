@@ -106,5 +106,16 @@ RSpec.describe WebPipe::Conn do
         expect(new_conn.request.headers).to eq({})
       end
     end
+
+    describe '#fetch_cookies' do
+      it 'fills cookies with request session' do
+        env = DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" })
+        conn = WebPipe::Conn::Builder.call(env)
+
+        new_conn = conn.request.fetch_cookies
+
+        expect(new_conn.request.cookies).to eq({ "foo" => "bar" })
+      end
+    end
   end
 end

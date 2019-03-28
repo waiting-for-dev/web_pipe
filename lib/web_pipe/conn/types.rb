@@ -32,6 +32,8 @@ module WebPipe
         Params = Types::Strict::Hash | Types::Request::Unfetched
 
         Body = Types::Any | Types::Request::Unfetched
+
+        Cookies = Types::Strict::Hash | Types::Request::Unfetched
       end
     end
   end

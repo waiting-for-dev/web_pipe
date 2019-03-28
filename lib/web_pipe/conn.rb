@@ -33,6 +33,8 @@ module WebPipe
       attribute :params, Types::Request::Params
       # Body
       attribute :body, Types::Request::Body
+      # Cookies
+      attribute :cookies, Types::Request::Cookies
 
       def fetch_redundants
         new_parent(
@@ -53,6 +55,12 @@ module WebPipe
       def fetch_headers
         new_parent(
           headers: extract_headers(rack_env)
+        )
+      end
+
+      def fetch_cookies
+        new_parent(
+          cookies: rack_request.session
         )
       end
 
