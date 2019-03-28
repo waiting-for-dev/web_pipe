@@ -9,6 +9,10 @@ RSpec.describe WebPipe::Conn::Builder do
     WebPipe::Conn::Types::Request::Unfetched.new(type: type)
   end
 
+  def unset(type)
+    WebPipe::Conn::Types::Response::Unset.new(type: type)
+  end
+
   describe ".call" do
     it 'creates a CleanConn' do
       conn = described_class.call(DEFAULT_ENV)
@@ -202,6 +206,18 @@ RSpec.describe WebPipe::Conn::Builder do
           conn = described_class.call(env)
 
           expect(conn.request.cookies).to eq(unfetched(:cookies))
+        end
+      end
+    end
+
+    context 'response' do
+      context 'status' do
+        it 'fills in with unset of status type' do
+          env = DEFAULT_ENV
+
+          conn = described_class.call(env)
+
+          expect(conn.response.status).to eq(unset(:status))
         end
       end
     end

@@ -6,6 +6,14 @@ module WebPipe
     module Types
       include Dry::Types.module
 
+      module Response
+        class Unset < Dry::Struct::Value
+          attribute :type, Types::Strict::Symbol
+        end
+
+        Status = Types::Strict::Integer | Types::Response::Unset
+      end
+
       module Request
         class Unfetched < Dry::Struct::Value
           attribute :type, Types::Strict::Symbol

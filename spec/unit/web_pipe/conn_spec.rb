@@ -118,4 +118,16 @@ RSpec.describe WebPipe::Conn do
       end
     end
   end
+
+  context 'response' do
+    describe 'set_status' do
+      it 'sets status' do
+        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+
+        new_conn = conn.set_status(404)
+
+        expect(new_conn.response.status).to be(404)
+      end
+    end
+  end
 end

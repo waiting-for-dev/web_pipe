@@ -6,6 +6,14 @@ module WebPipe
   class Conn < Dry::Struct
     attr_accessor :resp_body
 
+    def set_status(code)
+      new(response: response.new(status: code))
+    end
+
+    attribute :response do
+      attribute :status, Types::Response::Status
+    end
+
     attribute :request do
       ID = -> (x) { x }
 
