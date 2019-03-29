@@ -6,23 +6,15 @@ module WebPipe
     module Types
       include Dry::Types.module
 
-      module Response
-        class Unset < Dry::Struct::Value
-          attribute :type, Types::Strict::Symbol
-        end
-
-        Status = Types::Strict::Integer | Types::Response::Unset
-        Body = Types::Strict::Array.of(Types::Strict::String).default([''])
-        Headers = Types::Strict::Hash.default({})
+      module Rack
+        Request = Types::Instance(::Rack::Request)
+        Env = Types::Strict::Hash
       end
 
       module Request
         class Unfetched < Dry::Struct::Value
           attribute :type, Types::Strict::Symbol
         end
-
-        RackRequest = Types::Instance(::Rack::Request)
-        RackEnv = Types::Strict::Hash
 
         Scheme = Types::Strict::Symbol.enum(:http, :https)
         Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
@@ -44,6 +36,16 @@ module WebPipe
         Body = Types::Any | Types::Request::Unfetched
 
         Cookies = Types::Strict::Hash | Types::Request::Unfetched
+      end
+
+      module Response
+        class Unset < Dry::Struct::Value
+          attribute :type, Types::Strict::Symbol
+        end
+
+        Status = Types::Strict::Integer | Types::Response::Unset
+        Body = Types::Strict::Array.of(Types::Strict::String).default([''])
+        Headers = Types::Strict::Hash.default({})
       end
     end
   end
