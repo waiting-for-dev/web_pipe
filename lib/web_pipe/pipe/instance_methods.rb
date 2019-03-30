@@ -1,4 +1,4 @@
-require 'web_pipe/conn'
+require 'web_pipe/conn/struct'
 require 'web_pipe/conn/builder'
 require 'web_pipe/pipe/resolver'
 require 'dry/monads/result'
@@ -33,9 +33,9 @@ module WebPipe
           prev_conn.bind do |c|
             result = resolver.(name, plug).(c)
             case result
-            when CleanConn
+            when Conn::Clean
               Success(result)
-            when DirtyConn
+            when Conn::Dirty
               Failure(result)
             else
               raise RuntimeError

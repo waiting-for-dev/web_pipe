@@ -2,7 +2,7 @@ require 'dry/types'
 require 'rack/request'
 
 module WebPipe
-  class Conn < Dry::Struct
+  module Conn
     module Types
       include Dry::Types.module
 

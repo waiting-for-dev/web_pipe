@@ -1,15 +1,14 @@
 require 'rack'
-require 'dry/struct'
-require 'web_pipe/conn'
+require 'web_pipe/conn/struct'
 require 'web_pipe/conn/types'
 
 module WebPipe
-  class Conn < Dry::Struct
+  module Conn
     # @private
     module Builder
       def self.call(env)
         rr = ::Rack::Request.new(env)
-        CleanConn.new(
+        Clean.new(
           request: rr,
           env: env,
 

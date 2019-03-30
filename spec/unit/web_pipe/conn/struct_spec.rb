@@ -1,8 +1,8 @@
-require 'web_pipe/conn'
+require 'web_pipe/conn/struct'
 require 'support/env'
 require 'rack'
 
-RSpec.describe WebPipe::Conn do
+RSpec.describe WebPipe::Conn::Struct do
   describe '#fetch_redundants' do
     let(:env) do
       DEFAULT_ENV.merge(
