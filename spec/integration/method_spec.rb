@@ -9,7 +9,7 @@ RSpec.describe "Resolving from a method" do
       plug :hello
 
       def hello(conn)
-        conn.put_response_body('Hello, world!')
+        conn.set_response_body('Hello, world!')
       end
     end.new
   end

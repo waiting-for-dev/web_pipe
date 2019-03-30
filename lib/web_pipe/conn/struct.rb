@@ -5,8 +5,6 @@ require 'web_pipe/conn/builder'
 module WebPipe
   module Conn
     class Struct < Dry::Struct
-      attr_accessor :resp_body
-
       ID = -> (x) { x }
 
       HEADERS_AS_CGI = %w[CONTENT_TYPE CONTENT_LENGTH]
@@ -99,19 +97,16 @@ module WebPipe
         )
       end
 
-      def put_response_body(value)
-        @resp_body = value
-        self
-      end
-
       def rack_response
-        [200, {}, [@resp_body]]
+        [
+          status,
+          response_headers,
+          response_body
+        ]
       end
 
       def taint
-        dirty = Dirty.new(attributes)
-        dirty.resp_body = resp_body
-        dirty
+        Dirty.new(attributes)
       end
 
       private
