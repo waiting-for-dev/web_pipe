@@ -129,7 +129,7 @@ module WebPipe
       end
 
       def normalize_header_key(key)
-        key.downcase.split('_').map(&:capitalize).join('-')
+        key.downcase.gsub('_', '-').split('-').map(&:capitalize).join('-')
       end
     end
 

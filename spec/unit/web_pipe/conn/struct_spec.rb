@@ -194,4 +194,29 @@ RSpec.describe WebPipe::Conn::Struct do
       expect(new_conn.cookies).to eq({ "foo" => "bar" })
     end
   end
+
+  describe '#rack_response' do
+    let(:env) { DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
+    let(:conn) do
+      WebPipe::Conn::Builder.call(env).yield_self do |conn|
+        conn.
+          add_response_header('Content-Type', 'plain/text').
+          set_status(404).
+          set_response_body('Not found')
+      end
+    end
+    let(:rack_response) { conn.rack_response }
+
+    it 'builds status from status attribute' do
+      expect(conn.rack_response[0]).to be(404)
+    end
+
+    it 'builds response headers from response_headers attribute' do
+      expect(conn.rack_response[1]).to eq({ 'Content-Type' => 'plain/text' })
+    end
+
+    it 'builds response body from response_body attribute' do
+      expect(conn.rack_response[2]).to eq(['Not found'])
+    end
+  end
 end
