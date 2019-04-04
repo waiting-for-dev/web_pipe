@@ -4,9 +4,9 @@ require 'support/env'
 RSpec.describe "Resolving from a container" do
   let(:pipe) do
     Class.new do
-      self::Container = Hash["plug.hello" => -> (conn) { conn.set_response_body('Hello, world!') }]
+      Container = Hash["plug.hello" => -> (conn) { conn.set_response_body('Hello, world!') }]
 
-      include WebPipe.(container: self::Container)
+      include WebPipe.(container: Container)
 
       plug :hello, with: "plug.hello"
     end.new

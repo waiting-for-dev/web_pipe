@@ -1,0 +1,51 @@
+require 'spec_helper'
+require 'support/env'
+
+RSpec.describe "Using rack middlewares" do
+  let(:pipe) do
+    Class.new do
+      include WebPipe
+
+      class FirstNameMiddleware
+        attr_reader :app
+
+        def initialize(app)
+          @app = app
+        end
+
+        def call(env)
+          env['first_name_middleware.name'] = 'Joe'
+          app.call(env)
+        end
+      end
+
+      class LastNameMiddleware
+        attr_reader :app
+        attr_reader :name
+
+        def initialize(app, name:)
+          @app = app
+          @name = name
+        end
+
+        def call(env)
+          env['last_name_middleware.name'] = name
+          app.call(env)
+        end
+      end
+
+      use FirstNameMiddleware
+      use LastNameMiddleware, name: 'Doe'
+
+      plug :hello, with: -> (conn) do
+        conn.
+          set_response_body("Hello #{conn.env['first_name_middleware.name']} #{conn.env['last_name_middleware.name']}").
+          set_status(200)
+      end
+    end.new
+  end
+
+  it 'can use middlewares' do
+    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Hello Joe Doe')
+  end
+end
