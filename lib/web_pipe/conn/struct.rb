@@ -10,36 +10,36 @@ module WebPipe
       HEADERS_AS_CGI = %w[CONTENT_TYPE CONTENT_LENGTH]
 
       # RACK
-      attribute :env, Types::Rack::Env
-      attribute :request, Types::Rack::Request
+      attribute :env, Types::Env
+      attribute :request, Types::Requesting
 
       # REQUEST
-      attribute :scheme, Types::Request::Scheme
-      attribute :request_method, Types::Request::Method
-      attribute :host, Types::Request::Host
-      attribute :ip, Types::Request::Ip
-      attribute :port, Types::Request::Port
-      attribute :script_name, Types::Request::ScriptName
-      attribute :path_info, Types::Request::PathInfo
-      attribute :query_string, Types::Request::QueryString
+      attribute :scheme, Types::Scheme
+      attribute :request_method, Types::Method
+      attribute :host, Types::Host
+      attribute :ip, Types::Ip
+      attribute :port, Types::Port
+      attribute :script_name, Types::ScriptName
+      attribute :path_info, Types::PathInfo
+      attribute :query_string, Types::QueryString
       # Headers
-      attribute :request_headers, Types::Request::Headers
+      attribute :request_headers, Types::RequestHeaders
       # URL redundancy
-      attribute :base_url, Types::Request::BaseUrl
-      attribute :path, Types::Request::Path
-      attribute :full_path, Types::Request::FullPath
-      attribute :url, Types::Request::Url
-      attribute :params, Types::Request::Params
+      attribute :base_url, Types::BaseUrl
+      attribute :path, Types::Path
+      attribute :full_path, Types::FullPath
+      attribute :url, Types::Url
+      attribute :params, Types::Params
       # Body
-      attribute :request_body, Types::Request::Body
+      attribute :request_body, Types::RequestBody
 
       # RESPONSE
-      attribute :status, Types::Response::Status
-      attribute :response_body, Types::Response::Body
-      attribute :response_headers, Types::Response::Headers
+      attribute :status, Types::Status
+      attribute :response_body, Types::ResponseBody
+      attribute :response_headers, Types::ResponseHeaders
 
       # SESSION
-      attribute :session, Types::Request::Session
+      attribute :session, Types::Session
 
       # BAG
       attribute :bag, Types::Bag

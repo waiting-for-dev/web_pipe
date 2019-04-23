@@ -6,11 +6,11 @@ require 'support/env'
 
 RSpec.describe WebPipe::Conn::Builder do
   def unfetched(type)
-    WebPipe::Conn::Types::Request::Unfetched.new(type: type)
+    WebPipe::Conn::Types::Unfetched.new(type: type)
   end
 
   def unset(type)
-    WebPipe::Conn::Types::Response::Unset.new(type: type)
+    WebPipe::Conn::Types::Unset.new(type: type)
   end
 
   describe ".call" do

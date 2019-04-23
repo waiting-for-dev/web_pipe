@@ -21,19 +21,19 @@ module WebPipe
           path_info: rr.path_info,
           query_string: rr.query_string,
 
-          request_headers: Types::Request::Unfetched.new(type: :headers),
+          request_headers: Types::Unfetched.new(type: :headers),
 
-          base_url: Types::Request::Unfetched.new(type: :base_url),
-          path: Types::Request::Unfetched.new(type: :path),
-          full_path: Types::Request::Unfetched.new(type: :full_path),
-          url: Types::Request::Unfetched.new(type: :url),
-          params: Types::Request::Unfetched.new(type: :params),
+          base_url: Types::Unfetched.new(type: :base_url),
+          path: Types::Unfetched.new(type: :path),
+          full_path: Types::Unfetched.new(type: :full_path),
+          url: Types::Unfetched.new(type: :url),
+          params: Types::Unfetched.new(type: :params),
 
-          request_body: Types::Request::Unfetched.new(type: :body),
+          request_body: Types::Unfetched.new(type: :body),
           
-          status: Types::Response::Unset.new(type: :status),
+          status: Types::Unset.new(type: :status),
           
-          session: Types::Request::Unfetched.new(type: :session),
+          session: Types::Unfetched.new(type: :session),
         )
       end
     end
