@@ -33,7 +33,7 @@ module WebPipe
           
           status: Types::Response::Unset.new(type: :status),
           
-          cookies: Types::Request::Unfetched.new(type: :cookies),
+          session: Types::Request::Unfetched.new(type: :session),
         )
       end
     end

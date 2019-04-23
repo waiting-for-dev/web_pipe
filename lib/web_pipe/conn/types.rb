@@ -35,7 +35,7 @@ module WebPipe
 
         Body = Types::Any | Types::Request::Unfetched
 
-        Cookies = Types::Strict::Hash | Types::Request::Unfetched
+        Session = Types::Strict::Hash | Types::Request::Unfetched
       end
 
       module Response

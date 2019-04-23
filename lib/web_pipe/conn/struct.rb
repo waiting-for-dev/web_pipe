@@ -38,8 +38,8 @@ module WebPipe
       attribute :response_body, Types::Response::Body
       attribute :response_headers, Types::Response::Headers
 
-      # COOKIES
-      attribute :cookies, Types::Request::Cookies
+      # SESSION
+      attribute :session, Types::Request::Session
 
       def fetch_redundants
         new(
@@ -91,9 +91,9 @@ module WebPipe
         )
       end
 
-      def fetch_cookies
+      def fetch_session
         new(
-          cookies: request.session
+          session: request.session
         )
       end
 

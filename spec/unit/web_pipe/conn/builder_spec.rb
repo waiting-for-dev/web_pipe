@@ -229,13 +229,13 @@ RSpec.describe WebPipe::Conn::Builder do
     end
   end
 
-  context 'cookies' do
-    it 'fills in with unfetched of cookies type' do
+  context 'session' do
+    it 'fills in with unfetched of session type' do
       env = DEFAULT_ENV
 
       conn = described_class.call(env)
 
-      expect(conn.cookies).to eq(unfetched(:cookies))
+      expect(conn.session).to eq(unfetched(:session))
     end
   end
 end
