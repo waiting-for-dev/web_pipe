@@ -41,6 +41,9 @@ module WebPipe
       # SESSION
       attribute :session, Types::Request::Session
 
+      # BAG
+      attribute :bag, Types::Bag
+
       def fetch_redundants
         new(
           base_url: request.base_url,

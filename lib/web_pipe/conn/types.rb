@@ -6,6 +6,8 @@ module WebPipe
     module Types
       include Dry::Types.module
 
+      Bag = Types::Strict::Hash.default({})
+
       module Rack
         Request = Types::Instance(::Rack::Request)
         Env = Types::Strict::Hash

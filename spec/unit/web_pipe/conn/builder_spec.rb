@@ -238,4 +238,14 @@ RSpec.describe WebPipe::Conn::Builder do
       expect(conn.session).to eq(unfetched(:session))
     end
   end
+
+  context 'bag' do
+    it 'let it to initialize with its default' do
+      env = DEFAULT_ENV
+
+      conn = described_class.call(env)
+
+      expect(conn.bag).to eq({})
+    end
+  end
 end
