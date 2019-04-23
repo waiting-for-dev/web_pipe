@@ -2,7 +2,7 @@ require 'web_pipe/conn/struct'
 require 'web_pipe/conn/builder'
 require 'web_pipe/pipe/resolver'
 require 'web_pipe/pipe/app'
-require 'rack'
+require 'web_pipe/pipe/rack_app'
 
 module WebPipe
   module Pipe
@@ -13,28 +13,21 @@ module WebPipe
     #
     # @private
     module InstanceMethods
-      attr_reader :middlewares
-      attr_reader :plugs
-      attr_reader :container
-      attr_reader :resolver
+      attr_reader :rack_app
       
       def initialize(**kwargs)
-        @plugs = self.class.plugs.map do |(name, op)|
+        middlewares = self.class.middlewares
+        container = self.class.container
+        plugs = self.class.plugs.map do |(name, op)|
           kwargs.has_key?(name) ? [name, kwargs[name]] : [name, op]
         end
-        @middlewares = self.class.middlewares
-        @container = self.class.container
-        @resolver = Resolver.new(container, self)
+        resolver = Resolver.new(container, self)
+        app = App.new(plugs, resolver)
+        @rack_app = RackApp.new(middlewares, app)
       end
       
       def call(env)
-        rack_builder = Rack::Builder.new.tap do |b|
-          middlewares.each do |middleware, args|
-            b.use(middleware, *args)
-          end
-        end
-        rack_builder.run(App.new(plugs, resolver))
-        rack_builder.call(env)
+        rack_app.call(env)
       end
     end
   end
