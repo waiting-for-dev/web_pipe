@@ -2,6 +2,12 @@ require 'rack'
 
 module WebPipe
   module Pipe
+    # Helper module to build a rack application with middlewares.
+    #
+    # This, in fact, can be used for any kind of rack application, not
+    # just a pipe, and here it serves to wrap rack API.
+    #
+    # @private
     class RackApp
       attr_reader :builder
       
