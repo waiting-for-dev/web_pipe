@@ -1,6 +1,5 @@
 require 'web_pipe/conn/struct'
 require 'web_pipe/conn/builder'
-require 'web_pipe/pipe/resolver'
 require 'web_pipe/pipe/app'
 require 'web_pipe/pipe/rack_app'
 
@@ -18,11 +17,10 @@ module WebPipe
       def initialize(**kwargs)
         middlewares = self.class.middlewares
         container = self.class.container
-        plugs = self.class.plugs.map do |(name, op)|
-          kwargs.has_key?(name) ? [name, kwargs[name]] : [name, op]
+        plugs = self.class.plugs.map do |plug|
+          kwargs.has_key?(plug.name) ? plug.with(kwargs[plug.name]) : plug
         end
-        resolver = Resolver.new(container, self)
-        app = App.new(plugs, resolver)
+        app = App.new(plugs, container, self)
         @rack_app = RackApp.new(middlewares, app)
       end
       

@@ -1,3 +1,5 @@
+require 'web_pipe/pipe/plug'
+
 module WebPipe
   module Pipe
     # Defines the DSL for the pipe class.
@@ -17,7 +19,7 @@ module WebPipe
       end
 
       def plug(name, with: nil)
-        plugs << [name, with]
+        plugs << Plug.new(name, with)
       end
     end
   end
