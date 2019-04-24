@@ -4,17 +4,23 @@ module WebPipe
   module Pipe
     # Helper module to build a rack application with middlewares.
     #
-    # This, in fact, can be used for any kind of rack application, not
-    # just a pipe, and here it serves to wrap rack API.
-    #
     # @private
     class RackApp
+      # @!attribute [r] builder
+      #   @return [Rack::Builder]
       attr_reader :builder
       
+      # @param rack_middlewares [Array<RackMiddleware>]
+      # @param app [#call]
       def initialize(rack_middlewares, app)
         @builder = build_rack_app(rack_middlewares, app)
       end
 
+      # Calls rack application.
+      #
+      # @param env [Hash] Rack env
+      #
+      # @return [Array] Rack resonse
       def call(env)
         builder.call(env)
       end
