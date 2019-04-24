@@ -4,13 +4,16 @@ require 'web_pipe/pipe/instance_methods'
 module WebPipe
   module Pipe
     # When an instance of it is included in a module, the module
-    # extends a `ClassContext` instance and includes
-    # `InstanceMethods`.
+    # extends a {ClassContext} instance and includes
+    # {InstanceMethods}.
     #
     # @private
     class Builder < Module
-      EMPTY_CONTAINER = {}
+      # Container with nothing registered.
+      EMPTY_CONTAINER = {}.freeze
       
+      # @!attribute [r]
+      #   @return [ClassContext]
       attr_reader :class_context
       
       def initialize(container: EMPTY_CONTAINER)

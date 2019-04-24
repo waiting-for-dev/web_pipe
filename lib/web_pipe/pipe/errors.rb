@@ -1,7 +1,7 @@
 module WebPipe
   module Pipe
-    # Error raised when no operation can be built through the DSL for
-    # building `Plug`.
+    # Error raised when no operation can be built through the {DSL} for
+    # building {Plug}.
     class InvalidPlugError < ArgumentError
       def initialize(name)
         super(

@@ -10,7 +10,7 @@ module WebPipe
     #
     # - When the `spec` responds to `#call`, it is returned itself as
     # the callable object.
-    # - When the `spec` is `nil`, then a `Proc` wrapping a method with
+    # - When the `spec` is `nil`, then a {Proc} wrapping a method with
     # the plug `name` in `object` is returned.
     # - Otherwise, `spec` is taken as the key to resolve the operation
     # from the `container`.

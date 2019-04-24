@@ -8,7 +8,7 @@ module WebPipe
     # This is good to be an instance because it keeps the
     # configuration (state) for the pipe class: the container
     # configured on initialization and both rack middlewares and plugs
-    # added through the DSL.
+    # added through the {DSL}.
     #
     # As the pipe is extended with an instance of this class, methods
     # that are meant to be class methods in the pipe are defined as
@@ -19,6 +19,7 @@ module WebPipe
       attr_reader :container
       attr_reader :dsl
 
+      # Methods to be imported from the `DSL`.
       DSL_METHODS = %i[middlewares use plugs plug].freeze
 
       def initialize(container:)
