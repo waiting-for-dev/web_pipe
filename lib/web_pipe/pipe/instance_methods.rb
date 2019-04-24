@@ -26,14 +26,14 @@ module WebPipe
       def initialize(**injected_plugs)
         middlewares = self.class.middlewares
         container = self.class.container
-        plugs = self.class.plugs.map do |plug|
+        operations = self.class.plugs.map do |plug|
           if injected_plugs.has_key?(plug.name)
-            plug.with(injected_plugs[plug.name])
+            plug.with(injected_plugs[plug.name]).(container, self)
           else
-            plug
+            plug.(container, self)
           end
         end
-        app = App.new(plugs, container, self)
+        app = App.new(operations)
         @rack_app = RackApp.new(middlewares, app)
       end
       

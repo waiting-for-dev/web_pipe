@@ -5,22 +5,18 @@ module WebPipe
     class App
       include Dry::Monads::Result::Mixin
 
-      attr_reader :plugs
-      attr_reader :container
-      attr_reader :pipe
+      attr_reader :operations
 
-      def initialize(plugs, container, pipe)
-        @plugs = plugs
-        @container = container
-        @pipe = pipe
+      def initialize(operations)
+        @operations = operations
       end
 
       def call(env)
         conn = Success(Conn::Builder.call(env))
         
-        last_conn = plugs.reduce(conn) do |prev_conn, plug|
+        last_conn = operations.reduce(conn) do |prev_conn, operation|
           prev_conn.bind do |c|
-            result = plug.(container, pipe).(c)
+            result = operation.(c)
             case result
             when Conn::Clean
               Success(result)
