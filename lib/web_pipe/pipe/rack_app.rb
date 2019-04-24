@@ -11,8 +11,8 @@ module WebPipe
     class RackApp
       attr_reader :builder
       
-      def initialize(middlewares, app)
-        @builder = build_rack_app(middlewares, app)
+      def initialize(rack_middlewares, app)
+        @builder = build_rack_app(rack_middlewares, app)
       end
 
       def call(env)
@@ -21,10 +21,10 @@ module WebPipe
 
       private
 
-      def build_rack_app(middlewares, app)
+      def build_rack_app(rack_middlewares, app)
         Rack::Builder.new.tap do |b|
-          middlewares.each do |middleware, args|
-            b.use(middleware, *args)
+          rack_middlewares.each do |middleware|
+            b.use(middleware.middleware, *middleware.options)
           end
           b.run(app)
         end
