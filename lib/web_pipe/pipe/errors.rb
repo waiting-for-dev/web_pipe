@@ -6,7 +6,7 @@ module WebPipe
       def initialize(name)
         super(
           <<~eos
-            Plug with name #{name} is invalid. It must be something
+            Plug with name +#{name}+ is invalid. It must be something
             callable, an instance method when `with:` is not given, or
             something callable registered in the container."
           eos
@@ -20,9 +20,9 @@ module WebPipe
       def initialize(returned)
         super(
           <<~eos
-            An operation returned #{returned.inspect}. To be valid, an
-            operation must return whether a WebPipe::Conn::Clean or a
-            WebPipe::Conn:Dirty.
+            An operation returned +#{returned.inspect}+. To be valid,
+            an operation must return whether a WebPipe::Conn::Clean or
+            a WebPipe::Conn:Dirty.
           eos
         )
       end
