@@ -1,4 +1,5 @@
 require 'web_pipe/pipe/errors'
+require 'dry/types'
 
 module WebPipe
   module Pipe

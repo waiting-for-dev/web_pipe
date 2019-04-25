@@ -2,15 +2,38 @@ require 'dry/monads/result'
 
 module WebPipe
   module Pipe
+    # Rack application built around applying a pipe of `operations` to
+    # a {Conn::Struct}.
+    #
+    # A rack application is something callable accepting rack's `env`
+    # as argument and returning a rack response. So, the workflow
+    # followed to build it is:
+    #
+    # - Take rack's `env` and create a `{Conn::Struct}` from here.
+    # - Starting from it, apply the pipe of operations (anything
+    # callable accepting a `{Conn::Struct}` and returning a
+    # `{Conn::Struct}`.
+    # - Convert last `{Conn::Struct}` back to a rack response and
+    # return it.
+    #
+    # {Conn::Struct} can itself be of two different types (subclasses
+    # of it}: `{Conn::Clean}` and `{Conn::Dirty}`. The pipe is stopped
+    # whenever the stack is emptied or a `{Conn::Dirty}` is returned
+    # in any of the steps.
     class App
       include Dry::Monads::Result::Mixin
 
+      # @!attribute [r] operations
+      #   @return [#call]
       attr_reader :operations
 
       def initialize(operations)
         @operations = operations
       end
 
+      # @param env [Hash] Rack env
+      #
+      # @return env [Array] Rack response
       def call(env)
         conn = Success(Conn::Builder.call(env))
         
