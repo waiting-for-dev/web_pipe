@@ -4,7 +4,7 @@ require 'rack/request'
 module WebPipe
   module Conn
     module Types
-      include Dry::Types.module
+      include Dry.Types()
 
       class Unfetched < Dry::Struct::Value
         attribute :type, Types::Strict::Symbol
@@ -39,10 +39,10 @@ module WebPipe
       Session = Types::Strict::Hash | Types::Unfetched
 
       Status = Types::Strict::Integer | Types::Unset
-      ResponseBody = Types::Strict::Array.of(Types::Strict::String).default([''])
-      ResponseHeaders = Types::Strict::Hash.default({})
+      ResponseBody = Types::Strict::Array.of(Types::Strict::String).default([''].freeze)
+      ResponseHeaders = Types::Strict::Hash.default({}.freeze)
 
-      Bag = Types::Strict::Hash.default({})
+      Bag = Types::Strict::Hash.default({}.freeze)
     end
   end
 end
