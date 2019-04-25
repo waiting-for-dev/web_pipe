@@ -1,4 +1,5 @@
 require 'dry/monads/result'
+require 'web_pipe/pipe/errors'
 
 module WebPipe
   module Pipe
@@ -46,7 +47,7 @@ module WebPipe
             when Conn::Dirty
               Failure(result)
             else
-              raise RuntimeError
+              raise InvalidOperationResult.new(result)
             end
           end
         end

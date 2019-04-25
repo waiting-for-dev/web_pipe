@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'support/env'
+require 'web_pipe/pipe/errors'
 require 'web_pipe/pipe/app'
 
 RSpec.describe WebPipe::Pipe::App do
@@ -22,6 +23,16 @@ RSpec.describe WebPipe::Pipe::App do
       app = described_class.new([op_1, op_2, op_3, op_4])
 
       expect(app.call(DEFAULT_ENV)).to eq([200, {}, ['foo']])
+    end
+
+    it 'raises InvalidOperationReturn when one operation does not return a Conn' do
+      op = ->(_conn) { :foo }
+
+      app = described_class.new([op])
+
+      expect {
+        app.call(DEFAULT_ENV)
+      }.to raise_error(WebPipe::Pipe::InvalidOperationResult)
     end
   end
 end
