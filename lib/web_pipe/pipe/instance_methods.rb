@@ -1,6 +1,7 @@
 require 'web_pipe/conn/struct'
 require 'web_pipe/conn/builder'
 require 'web_pipe/pipe/app'
+require 'web_pipe/pipe/plug'
 require 'web_pipe/pipe/rack_app'
 
 module WebPipe
@@ -21,18 +22,12 @@ module WebPipe
       #   @return [RackApplication]
       attr_reader :rack_app
       
-      # @params injected_plugs [Hash<Symbol, [#call, nil, String]>]
+      # @params injections [Hash<Symbol, [#call, nil, String]>]
       #   Injected plugs that allow overriding what has been configured.
-      def initialize(**injected_plugs)
+      def initialize(**injections)
         middlewares = self.class.middlewares
         container = self.class.container
-        operations = self.class.plugs.map do |plug|
-          if injected_plugs.has_key?(plug.name)
-            plug.with(injected_plugs[plug.name]).(container, self)
-          else
-            plug.(container, self)
-          end
-        end
+        operations = Plug.inject_and_resolve(self.class.plugs, injections, container, self)
         app = App.new(operations)
         @rack_app = RackApp.new(middlewares, app)
       end

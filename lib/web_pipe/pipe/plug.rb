@@ -56,6 +56,24 @@ module WebPipe
           raise InvalidPlugError.new(name)
         end
       end
+
+      # Change `plugs` spec's present in `injections` and resolves.
+      #
+      # @param plugs [Array<Plug>]
+      # @param injections [Hash<Symbol, [#call, nil, String]]
+      # @container container [#[]]
+      # @object [Object]
+      #
+      # @return [Array<#call>]
+      def self.inject_and_resolve(plugs, injections, container, object)
+        plugs.map do |plug|
+          if injections.has_key?(plug.name)
+            plug.with(injections[plug.name])
+          else
+            plug
+          end.(container, object)
+        end
+      end
     end
   end
 end
