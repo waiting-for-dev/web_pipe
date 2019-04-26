@@ -39,29 +39,45 @@ module WebPipe
       #
       # @return env [Array] Rack response
       def call(env)
-        conn = Success(Conn::Builder.call(env))
-        
-        last_conn = operations.reduce(conn) do |prev_conn, operation|
-          prev_conn.bind do |c|
-            result = operation.(c)
-            case result
-            when Conn::Clean
-              Success(result)
-            when Conn::Dirty
-              Failure(result)
-            else
-              raise InvalidOperationResult.new(result)
-            end
-          end
-        end
-
-        last_conn.either(extract_rack_response, extract_rack_response)
+        extract_rack_response(
+          apply_operations(
+            conn_from_env(
+              env
+            )
+          )
+        )
       end
 
       private
 
-      def extract_rack_response
-        :rack_response.to_proc
+      def conn_from_env(env)
+        Success(
+          Conn::Builder.(env)
+        )
+      end
+
+      def apply_operations(conn)
+        operations.reduce(conn) do |new_conn, operation|
+          new_conn.bind { |c| apply_operation(c, operation) }
+        end
+      end
+
+      def apply_operation(conn, operation)
+        result = operation.(conn)
+        case result
+        when Conn::Clean
+          Success(result)
+        when Conn::Dirty
+          Failure(result)
+        else
+          raise InvalidOperationResult.new(result)
+        end
+      end
+
+      def extract_rack_response(conn)
+        extract_proc = :rack_response.to_proc
+
+        conn.either(extract_proc, extract_proc)
       end
     end
   end
