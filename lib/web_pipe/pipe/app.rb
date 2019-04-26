@@ -2,6 +2,9 @@ require 'dry/initializer'
 require 'dry/monads/result'
 require 'web_pipe/pipe/types'
 require 'web_pipe/pipe/errors'
+require 'dry/monads/result/extensions/either'
+
+Dry::Monads::Result.load_extensions(:either)
 
 module WebPipe
   module Pipe
@@ -51,13 +54,14 @@ module WebPipe
             end
           end
         end
-        
-        case last_conn
-        when Dry::Monads::Success
-          last_conn.success.rack_response
-        when Dry::Monads::Failure
-          last_conn.failure.rack_response
-        end
+
+        last_conn.either(extract_rack_response, extract_rack_response)
+      end
+
+      private
+
+      def extract_rack_response
+        :rack_response.to_proc
       end
     end
   end
