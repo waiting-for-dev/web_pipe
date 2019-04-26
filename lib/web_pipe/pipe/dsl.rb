@@ -1,3 +1,5 @@
+require 'dry/initializer'
+require 'web_pipe/pipe/types'
 require 'web_pipe/pipe/plug'
 require 'web_pipe/pipe/rack_middleware'
 
@@ -10,17 +12,16 @@ module WebPipe
     #
     # @private
     class DSL
-      # @!attribute middlewares
-      #   @return [Array<RackMiddleware>]
-      attr_reader :middlewares
+      include Dry::Initializer.define -> do
+        # @!attribute middlewares
+        #   @return [Array<RackMiddleware>]
+        param :middlewares,
+              type: Types::Strict::Array.of(Types.Instance(RackMiddleware))
 
-      # @!attribute middlewares
-      #   @return [Array<Plug>]
-      attr_reader :plugs
-
-      def initialize(middlewares, plugs)
-        @middlewares = middlewares
-        @plugs = plugs
+        # @!attribute middlewares
+        #   @return [Array<Plug>]
+        param :plugs,
+              type: Types::Strict::Array.of(Types.Instance(Plug))
       end
 
       # Creates and add a rack middleware to the stack.
@@ -36,7 +37,7 @@ module WebPipe
       # Creates and adds a plug to the stack.
       #
       # @param name [String]
-      # @param with [#call, nil, String]
+      # @param with [Types::PlugSpec]
       #
       # @return [Array<Plug>]
       def plug(name, with: nil)

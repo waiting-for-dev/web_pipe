@@ -1,4 +1,5 @@
-require 'web_pipe'
+require 'dry-initializer'
+require 'web_pipe/pipe/types'
 require 'web_pipe/pipe/dsl'
 
 module WebPipe
@@ -16,14 +17,21 @@ module WebPipe
     #
     # @private
     class ClassContext < Module
-      attr_reader :container
-      attr_reader :dsl
-
       # Methods to be imported from the `DSL`.
       DSL_METHODS = %i[middlewares use plugs plug].freeze
 
-      def initialize(container:)
-        @container = container
+      include Dry::Initializer.define -> do
+        # @!attribute [r] container
+        #   @return [Types::Container]
+        option :container, type: Types::Container
+      end
+
+      # @!attribute [r] dsl
+      #   @return [DSL]
+      attr_reader :dsl
+
+      def initialize(*args)
+        super
         @dsl = DSL.new([], [])
         define_container
         define_dsl

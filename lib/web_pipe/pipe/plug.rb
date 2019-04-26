@@ -1,5 +1,6 @@
+require 'dry/initializer'
+require 'web_pipe/pipe/types'
 require 'web_pipe/pipe/errors'
-require 'dry/types'
 
 module WebPipe
   module Pipe
@@ -18,22 +19,19 @@ module WebPipe
     #
     # @private
     class Plug
-      # @!attribute [r] name
-      #   @return [String]
-      attr_reader :name
+      include Dry::Initializer.define -> do
+        # @!attribute [r] name
+        #   @return [Symbol, String]
+        param :name, Types::Strict::Symbol | Types::Strict::String
 
-      # @!attribute [r] spec
-      #   @return [#call, nil, String]
-      attr_reader :spec
-
-      def initialize(name, spec)
-        @name = name
-        @spec = spec
+        # @!attribute [r] spec
+        #   @return [Types::PlugSpec]
+        param :spec, Types::PlugSpec
       end
 
       # Creates a new instance with given `spec` but keeping `name`.
       #
-      # @param new_spec [#call, nil, String]
+      # @param new_spec [Types::PlugSpec]
       # @return [self]
       def with(new_spec)
         self.class.new(name, new_spec)
@@ -41,10 +39,10 @@ module WebPipe
 
       # Resolves the operation.
       #
-      # @param container [#[]]
+      # @param container [Types::Container]
       # @param object [Object]
       #
-      # @return [#call]
+      # @return [Types::Operation]
       # @raise [InvalidPlugError] When nothing callable is resolved.
       def call(container, pipe)
         if spec.respond_to?(:call)
@@ -61,11 +59,11 @@ module WebPipe
       # Change `plugs` spec's present in `injections` and resolves.
       #
       # @param plugs [Array<Plug>]
-      # @param injections [Hash<Symbol, [#call, nil, String]]
-      # @container container [#[]]
+      # @param injections [Hash<Symbol, Types::PlugSpec]
+      # @container container [Types::Container]
       # @object [Object]
       #
-      # @return [Array<#call>]
+      # @return [Array<Types::Operation>]
       def self.inject_and_resolve(plugs, injections, container, object)
         plugs.map do |plug|
           if injections.has_key?(plug.name)

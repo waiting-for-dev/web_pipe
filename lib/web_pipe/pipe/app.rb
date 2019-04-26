@@ -1,9 +1,11 @@
+require 'dry/initializer'
 require 'dry/monads/result'
+require 'web_pipe/pipe/types'
 require 'web_pipe/pipe/errors'
 
 module WebPipe
   module Pipe
-    # Rack application built around applying a pipe of `operations` to
+    # Rack application built around applying a pipe of {#operations} to
     # a {Conn::Struct}.
     #
     # A rack application is something callable accepting rack's `env`
@@ -24,12 +26,10 @@ module WebPipe
     class App
       include Dry::Monads::Result::Mixin
 
-      # @!attribute [r] operations
-      #   @return [#call]
-      attr_reader :operations
-
-      def initialize(operations)
-        @operations = operations
+      include Dry::Initializer.define -> do
+        # @!attribute [r] operations
+        #   @return [Array<Types::Operation>]
+        param :operations, type: Types::Strict::Array.of(Types::Operation)
       end
 
       # @param env [Hash] Rack env

@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     web_pipe (0.1.0)
+      dry-initializer (~> 3.0)
       dry-monads (~> 1.2)
       dry-struct (~> 1.0)
       dry-types (~> 1.0)
@@ -24,6 +25,7 @@ GEM
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.2)
     dry-inflector (0.1.2)
+    dry-initializer (3.0.1)
     dry-logic (1.0.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.2)

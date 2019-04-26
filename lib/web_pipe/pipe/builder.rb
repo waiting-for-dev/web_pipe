@@ -1,3 +1,4 @@
+require 'dry/initializer'
 require 'web_pipe/pipe/class_context'
 require 'web_pipe/pipe/instance_methods'
 
@@ -12,11 +13,18 @@ module WebPipe
       # Container with nothing registered.
       EMPTY_CONTAINER = {}.freeze
       
+      include Dry::Initializer.define -> do
+        # @!attribute [r] container
+        #   @return [Types::Container]
+        option :container, type: Types::Container, default: proc { EMPTY_CONTAINER }
+      end
+
       # @!attribute [r]
       #   @return [ClassContext]
       attr_reader :class_context
-      
-      def initialize(container: EMPTY_CONTAINER)
+
+      def initialize(*args)
+        super
         @class_context = ClassContext.new(container: container)
       end
       

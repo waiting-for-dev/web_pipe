@@ -1,3 +1,5 @@
+require 'dry/initializer'
+require 'web_pipe/pipe/types'
 require 'web_pipe/conn/struct'
 require 'web_pipe/conn/builder'
 require 'web_pipe/pipe/app'
@@ -18,13 +20,21 @@ module WebPipe
     #
     # @private
     module InstanceMethods
+      # No injections at all.
+      EMPTY_INJECTIONS = {}.freeze
+
+      include Dry::Initializer.define -> do
+        # @!attribute [r] injections [Hash<Symbol, Types::PlugSpec>]
+        #   Injected plugs that allow overriding what has been configured.
+        param :injections, default: proc { EMPTY_INJECTIONS }, type: Types::Strict::Hash
+      end
+
       # !@attribute rack_app
       #   @return [RackApplication]
       attr_reader :rack_app
-      
-      # @params injections [Hash<Symbol, [#call, nil, String]>]
-      #   Injected plugs that allow overriding what has been configured.
-      def initialize(**injections)
+
+      def initialize(*args)
+        super
         middlewares = self.class.middlewares
         container = self.class.container
         operations = Plug.inject_and_resolve(self.class.plugs, injections, container, self)
