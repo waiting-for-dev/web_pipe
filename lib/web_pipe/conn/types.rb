@@ -3,6 +3,10 @@ require 'rack/request'
 
 module WebPipe
   module Conn
+    # Types used for {WebPipe::Conn} struct.
+    #
+    # Implementation self-describes them, but see {Conn::Struct}
+    # attributes for intention documentation.
     module Types
       include Dry.Types()
 
@@ -15,7 +19,8 @@ module WebPipe
       end
 
       Env = Types::Strict::Hash
-      Requesting = Types::Instance(::Rack::Request)
+      Request = Types::Instance(::Rack::Request)
+      Session = Types::Strict::Hash | Types::Unfetched
 
       Scheme = Types::Strict::Symbol.enum(:http, :https)
       Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
@@ -35,8 +40,6 @@ module WebPipe
       Params = Types::Strict::Hash | Types::Unfetched
 
       RequestBody = Types::Any | Types::Unfetched
-
-      Session = Types::Strict::Hash | Types::Unfetched
 
       Status = Types::Strict::Integer | Types::Unset
       ResponseBody = Types::Strict::Array.of(Types::Strict::String).default([''].freeze)
