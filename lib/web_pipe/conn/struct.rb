@@ -110,6 +110,14 @@ module WebPipe
       #   'foo=bar&bar=foo'
       attribute :query_string, Types::QueryString
 
+      # @!attribute [r] request_body
+      #
+      # @return [Types::RequestBody] Body sent by the request.
+      #
+      # @example
+      #   '{ resource: "foo" }'
+      attribute :request_body, Types::RequestBody
+
       # @!attribute [r] request_headers
       #
       # @return [Types::RequestHeaders] Hash of request headers.
@@ -126,14 +134,6 @@ module WebPipe
       # @example
       #   { 'Accept-Charset' => 'utf8' }
       attribute :request_headers, Types::RequestHeaders
-
-      # @!attribute [r] request_body
-      #
-      # @return [Types::RequestBody] Body sent by the request.
-      #
-      # @example
-      #   '{ resource: "foo" }'
-      attribute :request_body, Types::RequestBody
 
       # @!attribute [r] status
       #
@@ -229,12 +229,6 @@ module WebPipe
       #   { 'id' => 1, 'name' => 'Joe' }
       def params
         request.params
-      end
-
-      def fetch_request_body(parser = ID)
-        new(
-          request_body: parser.(request.body)
-        )
       end
 
       def fetch_request_headers

@@ -128,6 +128,19 @@ RSpec.describe WebPipe::Conn::Builder do
       end
     end
 
+    context 'request_body' do
+      it 'fills in with request body' do
+        request_body = StringIO.new('foo=bar')
+        env = DEFAULT_ENV.merge(
+          Rack::RACK_INPUT => request_body
+        )
+
+        conn = described_class.call(env)
+
+        expect(conn.request_body).to eq(request_body)
+      end
+    end
+
     context 'request_headers' do
       it 'fills in with unfetched of headers type' do
         env = DEFAULT_ENV
@@ -135,16 +148,6 @@ RSpec.describe WebPipe::Conn::Builder do
         conn = described_class.call(env)
 
         expect(conn.request_headers).to eq(unfetched(:headers))
-      end
-    end
-
-    context 'request_body' do
-      it 'fills in with unfetched of body type' do
-        env = DEFAULT_ENV
-
-        conn = described_class.call(env)
-
-        expect(conn.request_body).to eq(unfetched(:body))
       end
     end
 

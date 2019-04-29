@@ -21,11 +21,10 @@ module WebPipe
           script_name: rr.script_name,
           path_info: rr.path_info,
           query_string: rr.query_string,
+          request_body: rr.body,
 
           request_headers: Types::Unfetched.new(type: :headers),
 
-          request_body: Types::Unfetched.new(type: :body),
-          
           status: Types::Unset.new(type: :status)
         )
       end

@@ -1,5 +1,6 @@
 require 'dry/types'
 require 'rack/request'
+require 'web_pipe/pipe/types'
 
 module WebPipe
   module Conn
@@ -39,7 +40,7 @@ module WebPipe
       Url = Types::Strict::String | Types::Unfetched
       Params = Types::Strict::Hash | Types::Unfetched
 
-      RequestBody = Types::Any | Types::Unfetched
+      RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
       Status = Types::Strict::Integer | Types::Unset
       ResponseBody = Types::Strict::Array.of(Types::Strict::String).default([''].freeze)
