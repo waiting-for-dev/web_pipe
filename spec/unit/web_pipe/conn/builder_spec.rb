@@ -138,56 +138,6 @@ RSpec.describe WebPipe::Conn::Builder do
       end
     end
 
-    context 'base_url' do
-      it 'fills in with unfetched of base_url type' do
-        env = DEFAULT_ENV
-
-        conn = described_class.call(env)
-
-        expect(conn.base_url).to eq(unfetched(:base_url))
-      end
-    end
-
-    context 'path' do
-      it 'fills in with unfetched of path type' do
-        env = DEFAULT_ENV
-
-        conn = described_class.call(env)
-
-        expect(conn.path).to eq(unfetched(:path))
-      end
-    end
-
-    context 'full_path' do
-      it 'fills in with unfetched of full_path type' do
-        env = DEFAULT_ENV
-
-        conn = described_class.call(env)
-
-        expect(conn.full_path).to eq(unfetched(:full_path))
-      end
-    end
-
-    context 'url' do
-      it 'fills in with unfetched of url type' do
-        env = DEFAULT_ENV
-
-        conn = described_class.call(env)
-
-        expect(conn.url).to eq(unfetched(:url))
-      end
-    end
-
-    context 'params' do
-      it 'fills in with unfetched of params type' do
-        env = DEFAULT_ENV
-
-        conn = described_class.call(env)
-
-        expect(conn.params).to eq(unfetched(:params))
-      end
-    end
-
     context 'request_body' do
       it 'fills in with unfetched of body type' do
         env = DEFAULT_ENV

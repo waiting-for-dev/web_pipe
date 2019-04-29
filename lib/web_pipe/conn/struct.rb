@@ -127,16 +127,6 @@ module WebPipe
       #   { 'Accept-Charset' => 'utf8' }
       attribute :request_headers, Types::RequestHeaders
 
-      attribute :base_url, Types::BaseUrl
-
-      attribute :path, Types::Path
-
-      attribute :full_path, Types::FullPath
-
-      attribute :url, Types::Url
-
-      attribute :params, Types::Params
-
       # @!attribute [r] request_body
       #
       # @return [Types::RequestBody] Body sent by the request.
@@ -181,14 +171,64 @@ module WebPipe
       # returning {Conn::Struct}.
       attribute :bag, Types::Bag
 
-      def fetch_redundants
-        new(
-          base_url: request.base_url,
-          path: request.path,
-          full_path: request.fullpath,
-          url: request.url,
-          params: request.params
-        )
+      # Base part of the URL.
+      #
+      # This is {#scheme} and {#host}, adding {#port} unless it is the
+      # default one for the scheme.
+      #
+      # @return [Types::BaseUrl]
+      #
+      # @example
+      #   'https://example.org'
+      #   'http://example.org:8000'
+      def base_url
+        request.base_url
+      end
+
+      # URL path.
+      #
+      # This is {#script_name} and {#path_info}.
+      #
+      # @return [Types::Path]
+      #
+      # @example
+      #   'index.rb/users'
+      def path
+        request.path
+      end
+
+      # URL full path.
+      #
+      # This is {#path} with {#query_string} if present.
+      #
+      # @return [Types::FullPath]
+      #
+      # @example
+      #   '/users?id=1'
+      def full_path
+        request.fullpath
+      end
+
+      # Request URL.
+      #
+      # This is the same as {#base_url} plus {#full_path}.
+      #
+      # @return [Types::Url]
+      #
+      # @example
+      #   'http://www.example.org:8000/users?id=1'
+      def url
+        request.url
+      end
+
+      # GET and POST params merged in a hash.
+      #
+      # @return [Types::Params]
+      #
+      # @example
+      #   { 'id' => 1, 'name' => 'Joe' }
+      def params
+        request.params
       end
 
       def fetch_request_body(parser = ID)

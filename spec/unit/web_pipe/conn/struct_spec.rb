@@ -3,37 +3,71 @@ require 'support/env'
 require 'rack'
 
 RSpec.describe WebPipe::Conn::Struct do
-  describe '#fetch_redundants' do
-    let(:env) do
-      DEFAULT_ENV.merge(
+  describe '#base_url' do
+    it 'returns request base url' do
+      env = DEFAULT_ENV.merge(
         Rack::HTTPS => 'on',
         Rack::HTTP_HOST => 'www.host.org',
-        Rack::SERVER_PORT => '80',
+        Rack::SERVER_PORT => '8000',
+      )
+
+      conn = WebPipe::Conn::Builder.call(env)
+
+      expect(conn.base_url).to eq('https://www.host.org:8000')
+    end
+  end
+
+  describe '#path' do
+    it 'returns request path' do
+      env = DEFAULT_ENV.merge(
+        Rack::SCRIPT_NAME => 'index.rb',
+        Rack::PATH_INFO => '/foo'
+      )
+
+      conn = WebPipe::Conn::Builder.call(env)
+
+      expect(conn.path).to eq('index.rb/foo')
+    end
+  end
+
+  describe '#full_path' do
+    it 'returns request fullpath' do
+      env = DEFAULT_ENV.merge(
+        Rack::PATH_INFO => '/foo',
+        Rack::QUERY_STRING => 'foo=bar',
+      )
+
+      conn = WebPipe::Conn::Builder.call(env)
+
+      expect(conn.full_path).to eq('/foo?foo=bar')
+    end
+  end
+
+  describe '#url' do
+    it 'returns request url' do
+      env = DEFAULT_ENV.merge(
+        Rack::HTTPS => 'on',
+        Rack::HTTP_HOST => 'www.host.org',
         Rack::PATH_INFO => '/home',
+        Rack::SERVER_PORT => '8000',
         Rack::QUERY_STRING => 'foo=bar'
       )
-    end
-    let(:conn) { WebPipe::Conn::Builder.call(env) }
-    let(:new_conn) { conn.fetch_redundants }
 
-    it 'fills base_url with request base url' do
-      expect(new_conn.base_url).to eq('https://www.host.org:80')
-    end
+      conn = WebPipe::Conn::Builder.call(env)
 
-    it 'fills path with request path' do
-      expect(new_conn.path).to eq('/home')
+      expect(conn.url).to eq('https://www.host.org:8000/home?foo=bar')
     end
+  end
 
-    it 'fills full_path with request full path' do
-      expect(new_conn.full_path).to eq('/home?foo=bar')
-    end
+  describe '#params' do
+    it 'returns request params' do
+      env = DEFAULT_ENV.merge(
+        Rack::QUERY_STRING => 'foo=bar'
+      )
 
-    it 'fills url with request url' do
-      expect(new_conn.url).to eq('https://www.host.org:80/home?foo=bar')
-    end
+      conn = WebPipe::Conn::Builder.call(env)
 
-    it 'fills params with request params' do
-      expect(new_conn.params).to eq({ 'foo' => 'bar' })
+      expect(conn.params).to eq({ 'foo' => 'bar'})
     end
   end
 

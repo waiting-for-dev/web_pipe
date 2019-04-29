@@ -24,12 +24,6 @@ module WebPipe
 
           request_headers: Types::Unfetched.new(type: :headers),
 
-          base_url: Types::Unfetched.new(type: :base_url),
-          path: Types::Unfetched.new(type: :path),
-          full_path: Types::Unfetched.new(type: :full_path),
-          url: Types::Unfetched.new(type: :url),
-          params: Types::Unfetched.new(type: :params),
-
           request_body: Types::Unfetched.new(type: :body),
           
           status: Types::Unset.new(type: :status)
