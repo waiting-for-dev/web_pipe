@@ -114,7 +114,7 @@ module WebPipe
 
       # @!attribute [r] request_headers
       #
-      # @return [Types::RequestHeaders] Hash of request headers.
+      # @return [Types::Headers] Hash of request headers.
       #
       # As per RFC2616, headers names are case insensitive. Here, they
       # are normalized to PascalCase acting on dashes ('-').
@@ -127,7 +127,7 @@ module WebPipe
       #
       # @example
       #   { 'Accept-Charset' => 'utf8' }
-      attribute :request_headers, Types::RequestHeaders
+      attribute :request_headers, Types::Headers
 
       # @!attribute [r] status
       #
@@ -147,14 +147,14 @@ module WebPipe
 
       # @!attribute [r] response_headers
       #
-      # @return [Types::ResponseHeaders] Response headers.
+      # @return [Types::Headers] Response headers.
       #
       # @see #request_headers for normalization details
       #
       # @example
       #
       #   { 'Content-Type' => 'text/html' }
-      attribute :response_headers, Types::ResponseHeaders
+      attribute :response_headers, Types::Headers
 
       # @!attribute [r] bag
       #

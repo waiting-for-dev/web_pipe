@@ -32,8 +32,6 @@ module WebPipe
       PathInfo = Types::Strict::String
       QueryString = Types::Strict::String
 
-      RequestHeaders = Types::Strict::Hash
-
       BaseUrl = Types::Strict::String | Types::Unfetched
       Path = Types::Strict::String | Types::Unfetched
       FullPath = Types::Strict::String | Types::Unfetched
@@ -43,8 +41,13 @@ module WebPipe
       RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
       Status = Types::Strict::Integer | Types::Unset
-      ResponseBody = Types::Strict::Array.of(Types::Strict::String).default([''].freeze)
-      ResponseHeaders = Types::Strict::Hash.default({}.freeze)
+      ResponseBody = Types::Strict::Array.
+                       of(Types::Strict::String).
+                       default([''].freeze)
+
+      Headers = Types::Strict::Hash.
+                  map(Types::Strict::String, Types::Strict::String).
+                  default({}.freeze)
 
       Bag = Types::Strict::Hash.default({}.freeze)
     end
