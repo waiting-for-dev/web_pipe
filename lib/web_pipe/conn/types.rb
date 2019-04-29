@@ -32,7 +32,7 @@ module WebPipe
       PathInfo = Types::Strict::String
       QueryString = Types::Strict::String
 
-      RequestHeaders = Types::Strict::Hash | Types::Unfetched
+      RequestHeaders = Types::Strict::Hash
 
       BaseUrl = Types::Strict::String | Types::Unfetched
       Path = Types::Strict::String | Types::Unfetched

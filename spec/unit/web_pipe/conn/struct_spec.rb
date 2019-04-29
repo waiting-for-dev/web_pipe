@@ -71,52 +71,6 @@ RSpec.describe WebPipe::Conn::Struct do
     end
   end
 
-  describe '#fetch_request_headers' do
-    it 'fills headers with env HTTP_ pairs as hash' do
-      env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
-      conn = WebPipe::Conn::Builder.call(env)
-
-      new_conn = conn.fetch_request_headers
-
-      expect(new_conn.request_headers).to eq({ 'F' => 'BAR' })
-    end
-
-    it 'normalize keys to Pascal case and switching _ by -' do
-      env = DEFAULT_ENV.merge('HTTP_FOO_BAR' => 'foobar')
-      conn = WebPipe::Conn::Builder.call(env)
-
-      new_conn = conn.fetch_request_headers
-
-      expect(new_conn.request_headers).to eq({ 'Foo-Bar' => 'foobar' })
-    end
-
-    it 'includes content type CGI var' do
-      env = DEFAULT_ENV.merge('CONTENT_TYPE' => 'text/html')
-      conn = WebPipe::Conn::Builder.call(env)
-
-      new_conn = conn.fetch_request_headers
-
-      expect(new_conn.request_headers['Content-Type']).to eq('text/html')
-    end
-
-    it 'includes content length CGI var' do
-      env = DEFAULT_ENV.merge('CONTENT_LENGTH' => '10')
-      conn = WebPipe::Conn::Builder.call(env)
-
-      new_conn = conn.fetch_request_headers
-
-      expect(new_conn.request_headers['Content-Length']).to eq('10')
-    end
-
-    it 'defaults to empty hash' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
-
-      new_conn = conn.fetch_request_headers
-
-      expect(new_conn.request_headers).to eq({})
-    end
-  end
-
   describe 'set_status' do
     it 'sets status' do
       conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)

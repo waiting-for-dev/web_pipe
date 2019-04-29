@@ -7,12 +7,6 @@ module WebPipe
     class Struct < Dry::Struct
       ID = -> (x) { x }
 
-      # Headers which come as plain CGI variables (without the `HTTP_`
-      # prefixed) from the rack server.
-      #
-      # @private
-      HEADERS_AS_CGI = %w[CONTENT_TYPE CONTENT_LENGTH].freeze
-
       # RACK
       #
       # @!attribute [r] env
@@ -229,12 +223,6 @@ module WebPipe
       #   { 'id' => 1, 'name' => 'Joe' }
       def params
         request.params
-      end
-
-      def fetch_request_headers
-        new(
-          request_headers: extract_headers(env)
-        )
       end
 
       def set_status(code)
