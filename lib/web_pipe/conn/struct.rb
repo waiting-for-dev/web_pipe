@@ -1,6 +1,5 @@
 require 'dry/struct'
 require 'web_pipe/conn/types'
-require 'web_pipe/conn/builder'
 
 module WebPipe
   module Conn
