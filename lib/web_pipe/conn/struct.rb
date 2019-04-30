@@ -1,5 +1,6 @@
 require 'dry/struct'
 require 'web_pipe/conn/types'
+require 'web_pipe/conn/headers'
 
 module WebPipe
   module Conn
@@ -117,7 +118,7 @@ module WebPipe
       # As per RFC2616, headers names are case insensitive. Here, they
       # are normalized to PascalCase acting on dashes ('-').
       #
-      # Notice that when the rack server maps headers to CGI-like
+      # Notice that when a rack server maps headers to CGI-like
       # variables, both dashes and underscores (`_`) are treated as
       # dashes. Here, they always remain as dashes.
       #
@@ -242,17 +243,13 @@ module WebPipe
 
       def add_response_header(key, value)
         new(
-          response_headers: Hash[
-            response_headers.to_a.append(header_pair(key, value))
-          ]
+          response_headers: Headers.add(response_headers, key, value)
         )
       end
 
       def delete_response_header(key)
         new(
-          response_headers: response_headers.reject do |k, _v|
-            normalize_header_key(key) == k
-          end
+          response_headers: Headers.delete(response_headers, key)
         )
       end
 

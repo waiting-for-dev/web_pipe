@@ -1,17 +1,11 @@
 require 'rack'
 require 'web_pipe/conn/struct'
-require 'web_pipe/conn/types'
+require 'web_pipe/conn/headers'
 
 module WebPipe
   module Conn
     # @private
     module Builder
-      # Headers which come as plain CGI variables (without the `HTTP_`
-      # prefixed) from the rack server.
-      #
-      # @private
-      HEADERS_AS_CGI = %w[CONTENT_TYPE CONTENT_LENGTH].freeze
-
       def self.call(env)
         rr = ::Rack::Request.new(env)
         Clean.new(
@@ -28,29 +22,8 @@ module WebPipe
           path_info: rr.path_info,
           query_string: rr.query_string,
           request_body: rr.body,
-          request_headers: extract_headers(env),
+          request_headers: Headers.extract(env)
         )
-      end
-
-      def self.extract_headers(env)
-        Hash[
-          env.
-            select { |k, _v| k.start_with?('HTTP_') }.
-            map { |k, v| header_pair(k[5 .. -1], v) }.
-            concat(
-              env.
-                select { |k, _v| HEADERS_AS_CGI.include?(k) }.
-                map { |k, v| header_pair(k, v) }
-            )
-        ]
-      end
-
-      def self.header_pair(key, value)
-        [normalize_header_key(key), value]
-      end
-
-      def self.normalize_header_key(key)
-        key.downcase.gsub('_', '-').split('-').map(&:capitalize).join('-')
       end
     end
   end
