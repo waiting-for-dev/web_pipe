@@ -15,14 +15,15 @@ module WebPipe
     end
 
     # Error raised when an operation returns something that is not a
-    # {Conn::Clean} or a {Conn::Dirty}.
+    # {Conn::Struct}.
     class InvalidOperationResult < RuntimeError
       def initialize(returned)
         super(
           <<~eos
             An operation returned +#{returned.inspect}+. To be valid,
-            an operation must return whether a WebPipe::Conn::Clean or
-            a WebPipe::Conn:Dirty.
+            an operation must return whether a
+            WebPipe::Conn::Struct::Clean or a
+            WebPipe::Conn::Struct::Dirty.
           eos
         )
       end

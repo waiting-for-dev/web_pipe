@@ -15,11 +15,12 @@ module WebPipe
     # be used in an immutable way and to allow chaining of method
     # calls.
     #
-    # There are two subclasses (two types) for this: {Clean} and
-    # {Dirty}. `Conn::Builder` constructs a `Clean` struct, while
-    # {#taint} copies the data to a `Dirty` instance. The intention of
-    # this is to halt operations on the web request/response cycle one
-    # a `Dirty` instance is detected.
+    # There are two subclasses (two types) for this:
+    # {Conn::Struct::Clean} and {Conn::Struct::Dirty}. `Conn::Builder`
+    # constructs a `Clean` struct, while {#taint} copies the data to a
+    # `Dirty` instance. The intention of this is to halt operations on
+    # the web request/response cycle one a `Dirty` instance is
+    # detected.
     #
     # @example
     #   WebPipe::Conn::Builder.call(env).
@@ -325,20 +326,21 @@ module WebPipe
         ]
       end
 
-      # Copies all the data to a {Dirty} instance and returns it.
+      # Copies all the data to a {Dirty} instance and
+      # returns it.
       #
-      # @return {Conn::Dirty}
+      # @return [Dirty]
       def taint
         Dirty.new(attributes)
       end
+
+      # Type of {Conn::Struct} representing an ongoing request/response
+      # cycle.
+      class Clean < Struct; end
+
+      # Type of {Conn::Struct} representing a halted request/response
+      # cycle.
+      class Dirty < Struct; end
     end
-
-    # Type of {Conn::Struct} representing an ongoing request/response
-    # cycle.
-    class Clean < Struct; end
-
-    # Type of {Conn::Struct} representing a halted request/response
-    # cycle.
-    class Dirty < Struct; end
   end
 end

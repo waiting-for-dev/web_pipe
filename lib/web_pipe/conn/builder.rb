@@ -8,7 +8,7 @@ module WebPipe
     module Builder
       def self.call(env)
         rr = ::Rack::Request.new(env)
-        Clean.new(
+        Struct::Clean.new(
           request: rr,
           env: env,
           session: rr.session,

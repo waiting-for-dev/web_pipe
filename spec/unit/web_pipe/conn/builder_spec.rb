@@ -5,10 +5,10 @@ require 'support/env'
 
 RSpec.describe WebPipe::Conn::Builder do
   describe ".call" do
-    it 'creates a Conn::Clean' do
+    it 'creates a Conn::Struct::Clean' do
       conn = described_class.call(DEFAULT_ENV)
 
-      expect(conn).to be_an_instance_of(WebPipe::Conn::Clean)
+      expect(conn).to be_an_instance_of(WebPipe::Conn::Struct::Clean)
     end
 
     context 'env' do

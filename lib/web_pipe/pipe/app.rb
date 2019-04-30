@@ -23,9 +23,9 @@ module WebPipe
     # return it.
     #
     # {Conn::Struct} can itself be of two different types (subclasses
-    # of it}: `{Conn::Clean}` and `{Conn::Dirty}`. The pipe is stopped
-    # whenever the stack is emptied or a `{Conn::Dirty}` is returned
-    # in any of the steps.
+    # of it}: `{Conn::Struct::Clean}` and `{Conn::Struct::Dirty}`. The
+    # pipe is stopped whenever the stack is emptied or a
+    # `Conn::Struct::Dirty` is returned in any of the steps.
     class App
       include Dry::Monads::Result::Mixin
 
@@ -65,9 +65,9 @@ module WebPipe
       def apply_operation(conn, operation)
         result = operation.(conn)
         case result
-        when Conn::Clean
+        when Conn::Struct::Clean
           Success(result)
-        when Conn::Dirty
+        when Conn::Struct::Dirty
           Failure(result)
         else
           raise InvalidOperationResult.new(result)
