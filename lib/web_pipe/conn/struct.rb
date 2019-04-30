@@ -295,29 +295,6 @@ module WebPipe
       def taint
         Dirty.new(attributes)
       end
-
-      private
-
-      def extract_headers(env)
-        Hash[
-          env.
-            select { |k, _v| k.start_with?('HTTP_') }.
-            map { |k, v| header_pair(k[5 .. -1], v) }.
-            concat(
-              env.
-                select { |k, _v| HEADERS_AS_CGI.include?(k) }.
-                map { |k, v| header_pair(k, v) }
-            )
-        ]
-      end
-
-      def header_pair(key, value)
-        [normalize_header_key(key), value]
-      end
-
-      def normalize_header_key(key)
-        key.downcase.gsub('_', '-').split('-').map(&:capitalize).join('-')
-      end
     end
 
     class Clean < Struct; end
