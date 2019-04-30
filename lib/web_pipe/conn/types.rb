@@ -29,14 +29,13 @@ module WebPipe
       ScriptName = Types::Strict::String
       PathInfo = Types::Strict::String
       QueryString = Types::Strict::String
+      RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
       BaseUrl = Types::Strict::String
       Path = Types::Strict::String
       FullPath = Types::Strict::String
       Url = Types::Strict::String
       Params = Types::Strict::Hash
-
-      RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
       Status = Types::Strict::Integer | Types::Unset
       ResponseBody = Pipe::Types.Contract(:each).

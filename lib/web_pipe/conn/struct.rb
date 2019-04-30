@@ -85,9 +85,10 @@ module WebPipe
       # @!attribute [r] path_info
       #
       # @return [Types::PathInfo] Besides {#script_name}, the
+      # remainder path of the URL or the empty string if none. It is,
+      # at least, `/` when `#script_name` is empty.
       #
-      # remainder path of the URL or the empty string if none. This
-      # doesn't include the {#query_string}.
+      # This doesn't include the {#query_string}.
       #
       # @example
       #   '/foo/bar'.
@@ -95,8 +96,8 @@ module WebPipe
 
       # @!attribute [r] query_string
       #
-      # @return [Types::QueryString] Query String of the URL, or the
-      # empty string if none.
+      # @return [Types::QueryString] Query String of the URL
+      # (everything after `?` , or the empty string if none.
       #
       # @example
       #   'foo=bar&bar=foo'
