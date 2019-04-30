@@ -94,7 +94,7 @@ RSpec.describe WebPipe::Conn::Struct do
       end
     end
 
-    context 'when value is an array' do
+    context 'when value responds to :each' do
       it 'it substitutes whole response_body' do
         conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
           c.new(response_body: ['foo'])

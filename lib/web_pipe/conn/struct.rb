@@ -228,25 +228,56 @@ module WebPipe
       #
       # @param code [Types::StatusCode]
       #
-      # @return {Struct}
+      # @return {Conn::Struct}
       def set_status(code)
         new(
           status: code
         )
       end
 
+      # Sets response body.
+      #
+      # As per rack specification, the response body must respond to
+      # `#each`. Here, when given `content` responds to `:each` it is
+      # set as it is as the new response body. Otherwise, what is set
+      # is a one item array of it.
+      #
+      # @param content [#each, String]
+      #
+      # @return {Conn::Struct}
+      #
+      # @see https://www.rubydoc.info/github/rack/rack/master/file/SPEC#label-The+Body
       def set_response_body(content)
         new(
-          response_body: content.is_a?(Array) ? content : [content]
+          response_body: content.respond_to?(:each) ? content : [content]
         )
       end
 
+      # Adds given pair to response headers.
+      #
+      # `key` is normalized.
+      #
+      # @param key [String]
+      # @param value [String]
+      #
+      # @return {Conn::Struct}
+      #
+      # @see Headers.normalize_key
       def add_response_header(key, value)
         new(
           response_headers: Headers.add(response_headers, key, value)
         )
       end
 
+      # Deletes pair with given key from response headers.
+      #
+      # It accepts a non normalized key.
+      #
+      # @param key [String]
+      #
+      # @return {Conn::Struct}
+      #
+      # @see Headers.normalize_key
       def delete_response_header(key)
         new(
           response_headers: Headers.delete(response_headers, key)
