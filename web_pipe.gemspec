@@ -1,3 +1,4 @@
+# coding: utf-8
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -6,11 +7,10 @@ require "web_pipe/version"
 Gem::Specification.new do |spec|
   spec.name          = "web_pipe"
   spec.version       = WebPipe::VERSION
-  spec.authors       = ["Write your name"]
-  spec.email         = ["Write your email address"]
+  spec.authors       = ["Marc Busqué"]
+  spec.email         = ["marc@lamarciana.com"]
 
-  spec.summary       = %q{Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{Rack application builder through a pipe of operations on an immutable struct.}
   spec.homepage      = "https://github.com/waiting-for-dev/web_pipe"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

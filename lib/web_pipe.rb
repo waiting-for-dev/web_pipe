@@ -1,5 +1,8 @@
 require 'web_pipe/pipe/builder'
 
+# See [the
+# README](https://github.com/waiting-for-dev/web_pipe/blob/master/README.md)
+# for a general overview of this library.
 module WebPipe
   # Including just delegates to an instance of `Builder`, so
   # `Builder#included` is finally called.
