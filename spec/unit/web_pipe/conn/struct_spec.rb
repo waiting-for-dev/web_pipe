@@ -149,17 +149,6 @@ RSpec.describe WebPipe::Conn::Struct do
     end
   end
 
-  describe '#fetch_session' do
-    it 'fills session with request session' do
-      env = DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" })
-      conn = WebPipe::Conn::Builder.call(env)
-
-      new_conn = conn.fetch_session
-
-      expect(new_conn.session).to eq({ "foo" => "bar" })
-    end
-  end
-
   describe '#rack_response' do
     let(:env) { DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
     let(:conn) do

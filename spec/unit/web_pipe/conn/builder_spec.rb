@@ -212,13 +212,13 @@ RSpec.describe WebPipe::Conn::Builder do
     end
   end
 
-  context 'session' do
-    it 'fills in with unfetched of session type' do
-      env = DEFAULT_ENV
+  describe 'session' do
+    it 'fills in with request session' do
+      env = DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" })
 
       conn = described_class.call(env)
 
-      expect(conn.session).to eq(unfetched(:session))
+      expect(conn.session).to eq({ "foo" => "bar" })
     end
   end
 

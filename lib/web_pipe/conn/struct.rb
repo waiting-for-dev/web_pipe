@@ -251,12 +251,6 @@ module WebPipe
         )
       end
 
-      def fetch_session
-        new(
-          session: request.session
-        )
-      end
-
       def rack_response
         [
           status,

@@ -21,7 +21,7 @@ module WebPipe
 
       Env = Types::Strict::Hash
       Request = Types::Instance(::Rack::Request)
-      Session = Types::Strict::Hash | Types::Unfetched
+      Session = Types::Strict::Hash
 
       Scheme = Types::Strict::Symbol.enum(:http, :https)
       Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)

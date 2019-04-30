@@ -17,7 +17,7 @@ module WebPipe
         Clean.new(
           request: rr,
           env: env,
-          session: Types::Unfetched.new(type: :session),
+          session: rr.session,
 
           scheme: rr.scheme.to_sym,
           request_method: rr.request_method.downcase.to_sym,
