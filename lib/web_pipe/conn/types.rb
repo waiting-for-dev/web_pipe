@@ -20,7 +20,9 @@ module WebPipe
       Session = Types::Strict::Hash
 
       Scheme = Types::Strict::Symbol.enum(:http, :https)
-      Method = Types::Strict::Symbol.enum(:get, :head, :post, :put, :delete, :connect, :options, :trace, :patch)
+      Method = Types::Strict::Symbol.enum(
+        :get, :head, :post, :put, :delete, :connect, :options, :trace, :patch
+      )
       Host = Types::Strict::String
       Ip = Types::Strict::String.optional
       Port = Types::Strict::Integer
@@ -37,8 +39,7 @@ module WebPipe
       RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
       Status = Types::Strict::Integer | Types::Unset
-      ResponseBody = Types::Strict::Array.
-                       of(Types::Strict::String).
+      ResponseBody = Pipe::Types.Contract(:each).
                        default([''].freeze)
 
       Headers = Types::Strict::Hash.
