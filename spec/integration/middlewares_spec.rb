@@ -37,9 +37,17 @@ RSpec.describe "Using rack middlewares" do
       use FirstNameMiddleware
       use LastNameMiddleware, name: 'Doe'
 
-      plug :hello, with: -> (conn) do
+      plug :hello
+
+      private
+
+      def hello(conn)
+        first_name = conn.env['first_name_middleware.name']
+        last_name = conn.env['last_name_middleware.name']
         conn.
-          set_response_body("Hello #{conn.env['first_name_middleware.name']} #{conn.env['last_name_middleware.name']}").
+          set_response_body(
+            "Hello #{first_name} #{last_name}"
+          ).
           set_status(200)
       end
     end.new

@@ -6,8 +6,20 @@ RSpec.describe "Chaining" do
     Class.new do
       include WebPipe
 
-      plug :one, with: -> (conn) { conn.set_response_body('One') }
-      plug :two, with: -> (conn) { conn.set_response_body(conn.response_body[0] + 'Two') }
+      plug :one
+      plug :two
+
+      private
+
+      def one(conn)
+        conn.set_response_body('One')
+      end
+
+      def two(conn)
+        conn.set_response_body(
+          conn.response_body[0] + 'Two'
+        )
+      end
     end.new
   end
 

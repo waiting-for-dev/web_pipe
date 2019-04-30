@@ -6,8 +6,18 @@ RSpec.describe "Tainting" do
     Class.new do
       include WebPipe
 
-      plug :dirty, with: -> (conn) { conn.set_response_body('Dirty').taint }
-      plug :clean, with: -> (conn) { conn.set_response_body('Clean') }
+      plug :dirty
+      plug :clean
+
+      private
+
+      def dirty(conn)
+        conn.set_response_body('Dirty').taint
+      end
+
+      def clean(conn)
+        conn.set_response_body('Clean')
+      end
     end.new
   end
 
