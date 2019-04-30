@@ -5,8 +5,6 @@ require 'web_pipe/conn/builder'
 module WebPipe
   module Conn
     class Struct < Dry::Struct
-      ID = -> (x) { x }
-
       # RACK
       #
       # @!attribute [r] env
