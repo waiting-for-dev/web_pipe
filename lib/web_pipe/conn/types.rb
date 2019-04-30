@@ -11,10 +11,6 @@ module WebPipe
     module Types
       include Dry.Types()
 
-      class Unfetched < Dry::Struct::Value
-        attribute :type, Types::Strict::Symbol
-      end
-
       class Unset < Dry::Struct::Value
         attribute :type, Types::Strict::Symbol
       end
@@ -32,11 +28,11 @@ module WebPipe
       PathInfo = Types::Strict::String
       QueryString = Types::Strict::String
 
-      BaseUrl = Types::Strict::String | Types::Unfetched
-      Path = Types::Strict::String | Types::Unfetched
-      FullPath = Types::Strict::String | Types::Unfetched
-      Url = Types::Strict::String | Types::Unfetched
-      Params = Types::Strict::Hash | Types::Unfetched
+      BaseUrl = Types::Strict::String
+      Path = Types::Strict::String
+      FullPath = Types::Strict::String
+      Url = Types::Strict::String
+      Params = Types::Strict::Hash
 
       RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
