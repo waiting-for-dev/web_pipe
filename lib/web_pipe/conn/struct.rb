@@ -157,7 +157,8 @@ module WebPipe
 
       # @!attribute [r] bag
       #
-      # @return [Types::Bag] Hash where anything can be stored.
+      # @return [Types::Bag] Hash where anything can be stored. Keys
+      # must be symbols.
       #
       # This can be used to store anything that is needed to be
       # consumed downstream in a pipe of operations action on and

@@ -33,7 +33,9 @@ module WebPipe
       Url = Types::Strict::String
       Params = Types::Strict::Hash
 
-      Status = Types::Strict::Integer.default(200)
+      Status = Types::Strict::Integer.
+                 default(200).
+                 constrained(gteq: 100, lteq: 599)
       ResponseBody = Pipe::Types.Contract(:each).
                        default([''].freeze)
 
@@ -41,7 +43,9 @@ module WebPipe
                   map(Types::Strict::String, Types::Strict::String).
                   default({}.freeze)
 
-      Bag = Types::Strict::Hash.default({}.freeze)
+      Bag = Types::Strict::Hash.
+              map(Types::Strict::Symbol, Types::Strict::Any).
+              default({}.freeze)
     end
   end
 end
