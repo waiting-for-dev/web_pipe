@@ -4,6 +4,29 @@ require 'web_pipe/conn/headers'
 
 module WebPipe
   module Conn
+    # Struct and methods about web request and response data.
+    #
+    # It is meant to contain all the data coming from a web request
+    # along with all the data needed to build a web response. It can
+    # be built with {Conn::Builder}.
+    #
+    # Besides data fetching methods and {#rack_response), any other
+    # method returns a fresh new instance of it, so it is thought to
+    # be used in an immutable way and to allow chaining of method
+    # calls.
+    #
+    # There are two subclasses (two types) for this: {Clean} and
+    # {Dirty}. `Conn::Builder` constructs a `Clean` struct, while
+    # {#taint} copies the data to a `Dirty` instance. The intention of
+    # this is to halt operations on the web request/response cycle one
+    # a `Dirty` instance is detected.
+    #
+    # @example
+    #   WebPipe::Conn::Builder.call(env).
+    #     set_status(404).
+    #     add_response_header('Content-Type', 'plain/text').
+    #     set_response_body('Not found').
+    #     taint
     class Struct < Dry::Struct
       # RACK
       #
@@ -285,6 +308,15 @@ module WebPipe
         )
       end
 
+      # Builds response in the way rack expects.
+      #
+      # It is useful to finish a rack application built with a
+      # {Conn::Struct}. After every desired operation has been done,
+      # this method has to be called before giving control back to
+      # rack.
+      #
+      # @return
+      #   [Array<Types::StatusCode, Types::Headers, Types::ResponseBody>]
       def rack_response
         [
           status,
@@ -293,12 +325,20 @@ module WebPipe
         ]
       end
 
+      # Copies all the data to a {Dirty} instance and returns it.
+      #
+      # @return {Conn::Dirty}
       def taint
         Dirty.new(attributes)
       end
     end
 
+    # Type of {Conn::Struct} representing an ongoing request/response
+    # cycle.
     class Clean < Struct; end
+
+    # Type of {Conn::Struct} representing a halted request/response
+    # cycle.
     class Dirty < Struct; end
   end
 end
