@@ -136,7 +136,7 @@ RSpec.describe WebPipe::Conn::Struct do
     let(:conn) do
       WebPipe::Conn::Builder.call(env).yield_self do |conn|
         conn.
-          add_response_header('Content-Type', 'plain/text').
+          add_response_header('Content-Type', 'text/plain').
           set_status(404).
           set_response_body('Not found')
       end
@@ -148,7 +148,7 @@ RSpec.describe WebPipe::Conn::Struct do
     end
 
     it 'builds response headers from response_headers attribute' do
-      expect(conn.rack_response[1]).to eq({ 'Content-Type' => 'plain/text' })
+      expect(conn.rack_response[1]).to eq({ 'Content-Type' => 'text/plain' })
     end
 
     it 'builds response body from response_body attribute' do

@@ -25,7 +25,7 @@ module WebPipe
     # @example
     #   WebPipe::Conn::Builder.call(env).
     #     set_status(404).
-    #     add_response_header('Content-Type', 'plain/text').
+    #     add_response_header('Content-Type', 'text/plain').
     #     set_response_body('Not found').
     #     taint
     class Struct < Dry::Struct
