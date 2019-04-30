@@ -5,14 +5,6 @@ require 'web_pipe/conn/struct'
 require 'support/env'
 
 RSpec.describe WebPipe::Conn::Builder do
-  def unfetched(type)
-    WebPipe::Conn::Types::Unfetched.new(type: type)
-  end
-
-  def unset(type)
-    WebPipe::Conn::Types::Unset.new(type: type)
-  end
-
   describe ".call" do
     it 'creates a Conn::Clean' do
       conn = described_class.call(DEFAULT_ENV)
