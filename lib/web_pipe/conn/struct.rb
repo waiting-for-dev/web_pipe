@@ -224,6 +224,11 @@ module WebPipe
         request.params
       end
 
+      # Sets response status code.
+      #
+      # @param code [Types::StatusCode]
+      #
+      # @return {Struct}
       def set_status(code)
         new(
           status: code

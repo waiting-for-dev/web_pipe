@@ -11,10 +11,6 @@ module WebPipe
     module Types
       include Dry.Types()
 
-      class Unset < Dry::Struct::Value
-        attribute :type, Types::Strict::Symbol
-      end
-
       Env = Types::Strict::Hash
       Request = Types::Instance(::Rack::Request)
       Session = Types::Strict::Hash
@@ -37,7 +33,7 @@ module WebPipe
       Url = Types::Strict::String
       Params = Types::Strict::Hash
 
-      Status = Types::Strict::Integer | Types::Unset
+      Status = Types::Strict::Integer.default(200)
       ResponseBody = Pipe::Types.Contract(:each).
                        default([''].freeze)
 

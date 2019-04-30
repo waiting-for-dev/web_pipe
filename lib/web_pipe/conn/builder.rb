@@ -29,8 +29,6 @@ module WebPipe
           query_string: rr.query_string,
           request_body: rr.body,
           request_headers: extract_headers(env),
-
-          status: Types::Unset.new(type: :status)
         )
       end
 

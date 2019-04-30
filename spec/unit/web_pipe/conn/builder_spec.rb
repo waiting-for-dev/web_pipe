@@ -182,12 +182,12 @@ RSpec.describe WebPipe::Conn::Builder do
     end
 
     context 'status' do
-      it 'fills in with unset of status type' do
+      it 'let it to initialize with its default' do
         env = DEFAULT_ENV
 
         conn = described_class.call(env)
 
-        expect(conn.status).to eq(unset(:status))
+        expect(conn.status).to be(200)
       end
     end
 
