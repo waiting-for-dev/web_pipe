@@ -1,4 +1,5 @@
 require 'web_pipe/conn/struct'
+require 'web_pipe/conn/errors'
 require 'support/env'
 require 'rack'
 
@@ -128,6 +129,34 @@ RSpec.describe WebPipe::Conn::Struct do
       new_conn = conn.delete_response_header('zoo_zoo')
 
       expect(new_conn.response_headers).to eq({ 'Foo' => 'Bar' })
+    end
+  end
+
+  describe 'fetch' do
+    it 'returns item in bag with given key' do
+      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+        c.new(bag: { foo: :bar })
+      end
+
+      expect(conn.fetch(:foo)).to be(:bar)
+    end
+
+    it 'raises KeyNotFoundInBagError when key does not exist' do
+      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+      
+      expect {
+        conn.fetch(:foo)
+      }.to raise_error(WebPipe::Conn::KeyNotFoundInBagError)
+    end
+  end
+
+  describe 'put' do
+    it 'sets key/value pair in bag' do
+      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+
+      new_conn = conn.put(:foo, :bar)
+
+      expect(new_conn.bag[:foo]).to be(:bar)
     end
   end
 

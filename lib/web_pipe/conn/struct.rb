@@ -1,5 +1,6 @@
 require 'dry/struct'
 require 'web_pipe/conn/types'
+require 'web_pipe/conn/errors'
 require 'web_pipe/conn/headers'
 
 module WebPipe
@@ -306,6 +307,32 @@ module WebPipe
       def delete_response_header(key)
         new(
           response_headers: Headers.delete(response_headers, key)
+        )
+      end
+
+      # Reads an item from {#bag}.
+      #
+      # @param key [Symbol]
+      #
+      # @return [Object]
+      #
+      # @raise KeyNotFoundInBagError when key is not registered in the
+      # bag.
+      def fetch(key)
+        bag.fetch(key) { raise KeyNotFoundInBagError.new(key) }
+      end
+
+      # Writes an item to the {#bag}.
+      #
+      # If it already exists, it is overwritten.
+      #
+      # @param key [Symbol]
+      # @param value [Object]
+      #
+      # @return [Conn::Struct]
+      def put(key, value)
+        new(
+          bag: bag.merge(key => value)
         )
       end
 

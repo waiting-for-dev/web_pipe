@@ -75,7 +75,7 @@ And then execute:
 
 This is a sample `config.ru` for an application built with
 `WebPipe`. It just reads a `name` param and decides what to do with
-it. If its value is `Joe`, it kindly shows a greeting, otherwise it
+it. If its value is `Joe`, it kindly greets `Joe Doe`, otherwise it
 unauthorizes the request:
 
 ```ruby
@@ -91,7 +91,7 @@ class App
 
   def authorize(conn)
     if conn.params['name'] == 'Joe'
-      conn
+      conn.put(:name, 'Joe Doe')
     else
       conn.
         set_status(401).
@@ -103,7 +103,7 @@ class App
     
   def greet(conn)
     conn.
-      set_response_body("<h1>Hello #{conn.params["name"]}</h1>").
+      set_response_body("<h1>Hello #{conn.fetch(:name)}</h1>").
       add_response_header('Content-Type', 'text/html')
   end
 end
@@ -125,6 +125,10 @@ your operations call `#taint` on it a `WebPipe::Conn::Struct::Dirty`
 is returned and the pipe is halted. This one or the last clean struct
 which reaches the end of the pipe will be in command of the web
 response.
+
+At any step in the pipe, you have the option to prepare data to be
+consumed downstream. You do so by calling `#put` in the struct, while
+it can later be accesed with `#fetch`.
 
 ### Specifying operations
 
