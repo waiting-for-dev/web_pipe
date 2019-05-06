@@ -27,12 +27,21 @@ module WebPipe
     # pipe is stopped whenever the stack is emptied or a
     # `Conn::Struct::Dirty` is returned in any of the steps.
     class App
+      # Type for an operation.
+      #
+      # It should be anything callable expecting a {Conn::Struct} and
+      #returning a {Conn::Struct}.
+      Operation = Types.Contract(:call)
+
+      # Type for a rack environment.
+      RackEnv = Types::Strict::Hash
+
       include Dry::Monads::Result::Mixin
 
       include Dry::Initializer.define -> do
         # @!attribute [r] operations
-        #   @return [Array<Types::Operation>]
-        param :operations, type: Types::Strict::Array.of(Types::Operation)
+        #   @return [Array<Operation[]>]
+        param :operations, type: Types.Array(Operation)
       end
 
       # @param env [Hash] Rack env
@@ -42,7 +51,7 @@ module WebPipe
         extract_rack_response(
           apply_operations(
             conn_from_env(
-              env
+              RackEnv[env]
             )
           )
         )

@@ -28,13 +28,6 @@ module WebPipe
 
       # Anything which can resolve from a `#[]` method.
       Container = Contract(:[])
-
-      # Anything callable that should expect a {Conn::Struct} and
-      # return a {Conn::Struct}.
-      Operation = Contract(:call)
-
-      # Spec to resolve and {Operation} on a {Conn::Struct} used by {Pipe::Plug}.
-      PlugSpec = Operation | Constant(nil) | Strict::String | Strict::Symbol
     end
   end
 end

@@ -22,7 +22,7 @@ module WebPipe
 
       include Dry::Initializer.define -> do
         # @!attribute [r] container
-        #   @return [Types::Container]
+        #   @return [Types::Container[]]
         option :container, type: Types::Container
       end
 

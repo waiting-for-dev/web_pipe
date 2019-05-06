@@ -23,10 +23,15 @@ module WebPipe
       # No injections at all.
       EMPTY_INJECTIONS = {}.freeze
 
+      # Type for how plugs should be injected.
+      Injections = Types::Strict::Hash.map(Plug::Name, Plug::Spec)
+
       include Dry::Initializer.define -> do
-        # @!attribute [r] injections [Hash<Symbol, Types::PlugSpec>]
+        # @!attribute [r] injections [Injections[]]
         #   Injected plugs that allow overriding what has been configured.
-        param :injections, default: proc { EMPTY_INJECTIONS }, type: Types::Strict::Hash
+        param :injections,
+              default: proc { EMPTY_INJECTIONS },
+              type: Injections
       end
 
       # !@attribute rack_app

@@ -8,15 +8,21 @@ module WebPipe
     #
     # @private
     class RackApp
+      # Type for a rack application.
+      #
+      # It should be something callable accepting a rack env and
+      # returning a rack response.
+      App = Types.Contract(:call)
+
       include Dry::Initializer.define -> do
         # @!attribute [r] rack_middlewares
         #   @return [Array<RackMiddleware>]
         param :rack_middlewares,
-              type: Types::Strict::Array.of(Types.Instance(RackMiddleware))
+              type: Types.Array(RackMiddleware::Instance)
 
         # @!attribute [r] app
-        #    @return [#call]
-        param :app, type: Types.Contract(:call)
+        #    @return [App[]]
+        param :app, type: App
       end
 
       # @!attribute [r] builder

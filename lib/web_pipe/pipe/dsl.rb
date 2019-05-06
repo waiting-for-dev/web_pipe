@@ -16,12 +16,12 @@ module WebPipe
         # @!attribute middlewares
         #   @return [Array<RackMiddleware>]
         param :middlewares,
-              type: Types::Strict::Array.of(Types.Instance(RackMiddleware))
+              type: Types.Array(RackMiddleware::Instance)
 
         # @!attribute middlewares
         #   @return [Array<Plug>]
         param :plugs,
-              type: Types::Strict::Array.of(Types.Instance(Plug))
+              type: Types.Array(Plug::Instance)
       end
 
       # Creates and add a rack middleware to the stack.
@@ -37,7 +37,7 @@ module WebPipe
       # Creates and adds a plug to the stack.
       #
       # @param name [String]
-      # @param with [Types::PlugSpec]
+      # @param with [Plug::Spec]
       #
       # @return [Array<Plug>]
       def plug(name, with: nil)
