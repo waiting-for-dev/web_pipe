@@ -11,40 +11,40 @@ module WebPipe
     module Types
       include Dry.Types()
 
-      Env = Types::Strict::Hash
-      Request = Types::Instance(::Rack::Request)
-      Session = Types::Strict::Hash
+      Env = Strict::Hash
+      Request = Instance(::Rack::Request)
+      Session = Strict::Hash
 
-      Scheme = Types::Strict::Symbol.enum(:http, :https)
-      Method = Types::Strict::Symbol.enum(
+      Scheme = Strict::Symbol.enum(:http, :https)
+      Method = Strict::Symbol.enum(
         :get, :head, :post, :put, :delete, :connect, :options, :trace, :patch
       )
-      Host = Types::Strict::String
-      Ip = Types::Strict::String.optional
-      Port = Types::Strict::Integer
-      ScriptName = Types::Strict::String
-      PathInfo = Types::Strict::String
-      QueryString = Types::Strict::String
+      Host = Strict::String
+      Ip = Strict::String.optional
+      Port = Strict::Integer
+      ScriptName = Strict::String
+      PathInfo = Strict::String
+      QueryString = Strict::String
       RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
 
-      BaseUrl = Types::Strict::String
-      Path = Types::Strict::String
-      FullPath = Types::Strict::String
-      Url = Types::Strict::String
-      Params = Types::Strict::Hash
+      BaseUrl = Strict::String
+      Path = Strict::String
+      FullPath = Strict::String
+      Url = Strict::String
+      Params = Strict::Hash
 
-      Status = Types::Strict::Integer.
+      Status = Strict::Integer.
                  default(200).
                  constrained(gteq: 100, lteq: 599)
       ResponseBody = Pipe::Types.Contract(:each).
                        default([''].freeze)
 
-      Headers = Types::Strict::Hash.
-                  map(Types::Strict::String, Types::Strict::String).
+      Headers = Strict::Hash.
+                  map(Strict::String, Strict::String).
                   default({}.freeze)
 
-      Bag = Types::Strict::Hash.
-              map(Types::Strict::Symbol, Types::Strict::Any).
+      Bag = Strict::Hash.
+              map(Strict::Symbol, Strict::Any).
               default({}.freeze)
     end
   end
