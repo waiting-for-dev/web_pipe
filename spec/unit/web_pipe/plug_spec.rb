@@ -1,8 +1,7 @@
 require 'spec_helper'
-require 'web_pipe/pipe/plug'
-require 'web_pipe/pipe/errors'
+require 'web_pipe/plug'
 
-RSpec.describe WebPipe::Pipe::Plug do
+RSpec.describe WebPipe::Plug do
   let(:container) do
     {
       'callable' => -> {},
@@ -88,7 +87,7 @@ RSpec.describe WebPipe::Pipe::Plug do
         it 'raises InvalidPlugError' do
           expect {
             plug.call(container, object)
-          }.to raise_error(WebPipe::Pipe::InvalidPlugError)
+          }.to raise_error(WebPipe::Plug::InvalidPlugError)
         end
       end
     end

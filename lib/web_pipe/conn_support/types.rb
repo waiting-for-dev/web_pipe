@@ -1,13 +1,13 @@
 require 'dry/types'
 require 'rack/request'
-require 'web_pipe/pipe/types'
+require 'web_pipe/types'
 
 module WebPipe
-  module Conn
-    # Types used for {WebPipe::Conn} struct.
+  module ConnSupport
+    # Types used for {Conn} struct.
     #
-    # Implementation self-describes them, but see {Conn::Struct}
-    # attributes for intention documentation.
+    # Implementation self-describes them, but see {Conn} attributes
+    # for intention documentation.
     module Types
       include Dry.Types()
 
@@ -25,7 +25,7 @@ module WebPipe
       ScriptName = Strict::String
       PathInfo = Strict::String
       QueryString = Strict::String
-      RequestBody = Pipe::Types.Contract(:gets, :each, :read, :rewind)
+      RequestBody = WebPipe::Types.Contract(:gets, :each, :read, :rewind)
 
       BaseUrl = Strict::String
       Path = Strict::String
@@ -36,7 +36,7 @@ module WebPipe
       Status = Strict::Integer.
                  default(200).
                  constrained(gteq: 100, lteq: 599)
-      ResponseBody = Pipe::Types.Contract(:each).
+      ResponseBody = WebPipe::Types.Contract(:each).
                        default([''].freeze)
 
       Headers = Strict::Hash.

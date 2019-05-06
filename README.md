@@ -118,13 +118,12 @@ As you see, the workflow is:
 - Implement these operations.
 - Initialize the class to obtain the resulting rack application.
 
-Each operation takes a `WebPipe::Conn::Struct` as argument and returns
-it usually with some modification. In fact, the first operation in
-your pipe takes a `WebPipe::Conn::Struct::Clean` subclass. When one of
-your operations call `#taint` on it a `WebPipe::Conn::Struct::Dirty`
-is returned and the pipe is halted. This one or the last clean struct
-which reaches the end of the pipe will be in command of the web
-response.
+Each operation takes a `WebPipe::Conn` as argument and returns it
+usually with some modification. In fact, the first operation in your
+pipe takes a `WebPipe::Conn::Clean` subclass. When one of your
+operations call `#taint` on it a `WebPipe::Conn::Dirty` is returned
+and the pipe is halted. This one or the last clean struct which
+reaches the end of the pipe will be in command of the web response.
 
 At any step in the pipe, you have the option to prepare data to be
 consumed downstream. You do so by calling `#put` in the struct, while
@@ -220,16 +219,16 @@ end
 ### Standalone usage
 
 If you prefer, you can use the application builder without the
-DSL. You just have to initialize a `WebPipe::Pipe::App` with an array
+DSL. You just have to initialize a `WebPipe::App` with an array
 with all the operations to be performed:
 
 ```ruby
-require 'web_pipe/pipe/app`
+require 'web_pipe/app`
 
 op_1 = ->(conn) { conn.set_status(200) }
 op_2 = ->(conn) { conn.set_response_body('Hello') }
 
-WebPipe::Pipe::App.new([op_1, op_2])
+WebPipe::App.new([op_1, op_2])
 ```
 
 ## Current status

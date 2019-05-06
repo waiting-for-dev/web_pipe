@@ -1,4 +1,4 @@
-require 'web_pipe/pipe/builder'
+require 'web_pipe/dsl/builder'
 
 # See [the
 # README](https://github.com/waiting-for-dev/web_pipe/blob/master/README.md)
@@ -11,6 +11,6 @@ module WebPipe
   end
 
   def self.call(*args)
-    Pipe::Builder.new(*args)
+    DSL::Builder.new(*args)
   end
 end

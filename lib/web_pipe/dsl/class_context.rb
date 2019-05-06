@@ -1,15 +1,15 @@
 require 'dry-initializer'
-require 'web_pipe/pipe/types'
-require 'web_pipe/pipe/dsl'
+require 'web_pipe/types'
+require 'web_pipe/dsl/dsl_context'
 
 module WebPipe
-  module Pipe
+  module DSL
     # Defines the DSL and keeps the state for the pipe.
     #
     # This is good to be an instance because it keeps the
     # configuration (state) for the pipe class: the container
     # configured on initialization and both rack middlewares and plugs
-    # added through the {DSL}.
+    # added through the DSL {DSLContext}.
     #
     # As the pipe is extended with an instance of this class, methods
     # that are meant to be class methods in the pipe are defined as
@@ -17,7 +17,7 @@ module WebPipe
     #
     # @private
     class ClassContext < Module
-      # Methods to be imported from the `DSL`.
+      # Methods to be imported from the {DSLContext}.
       DSL_METHODS = %i[middlewares use plugs plug].freeze
 
       include Dry::Initializer.define -> do
@@ -26,13 +26,13 @@ module WebPipe
         option :container, type: Types::Container
       end
 
-      # @!attribute [r] dsl
-      #   @return [DSL]
-      attr_reader :dsl
+      # @!attribute [r] dsl_context
+      #   @return [DSLContext]
+      attr_reader :dsl_context
 
       def initialize(*args)
         super
-        @dsl = DSL.new([], [])
+        @dsl_context = DSLContext.new([], [])
         define_container
         define_dsl
       end
@@ -49,9 +49,9 @@ module WebPipe
 
       def define_dsl
         DSL_METHODS.each do |method|
-          module_exec(dsl) do |dsl|
+          module_exec(dsl_context) do |dsl_context|
             define_method(method) do |*args|
-              dsl.method(method).(*args)
+              dsl_context.method(method).(*args)
             end
           end
         end

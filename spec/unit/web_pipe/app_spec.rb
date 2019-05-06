@@ -1,9 +1,8 @@
 require 'spec_helper'
 require 'support/env'
-require 'web_pipe/pipe/errors'
-require 'web_pipe/pipe/app'
+require 'web_pipe/app'
 
-RSpec.describe WebPipe::Pipe::App do
+RSpec.describe WebPipe::App do
   describe '#call' do
     it 'chains operations on Conn' do
       op_1 = ->(conn) { conn.set_status(200) }
@@ -32,7 +31,7 @@ RSpec.describe WebPipe::Pipe::App do
 
       expect {
         app.call(DEFAULT_ENV)
-      }.to raise_error(WebPipe::Pipe::InvalidOperationResult)
+      }.to raise_error(WebPipe::App::InvalidOperationResult)
     end
   end
 end

@@ -1,22 +1,22 @@
 require 'dry/initializer'
-require 'web_pipe/pipe/types'
-require 'web_pipe/pipe/plug'
-require 'web_pipe/pipe/rack_middleware'
+require 'web_pipe/types'
+require 'web_pipe/plug'
+require 'web_pipe/rack/middleware'
 
 module WebPipe
-  module Pipe
-    # Defines the DSL for the pipe class.
+  module DSL
+    # Defines the DSL for the pipe class and keeps it state.
     #
     # This allows adding rack middlewares and plugs at the class
     # definition level.
     #
     # @private
-    class DSL
+    class DSLContext
       include Dry::Initializer.define -> do
         # @!attribute middlewares
-        #   @return [Array<RackMiddleware>]
+        #   @return [Array<Rack::Middleware>]
         param :middlewares,
-              type: Types.Array(RackMiddleware::Instance)
+              type: Types.Array(Rack::Middleware::Instance)
 
         # @!attribute middlewares
         #   @return [Array<Plug>]
@@ -29,9 +29,9 @@ module WebPipe
       # @param middleware [Object] Rack middleware
       # @param middleware [Array] Options to initialize
       #
-      # @return [Array<RackMiddleware>]
+      # @return [Array<Rack::Middleware>]
       def use(middleware, *options)
-        middlewares << RackMiddleware.new(middleware, options)
+        middlewares << Rack::Middleware.new(middleware, options)
       end
 
       # Creates and adds a plug to the stack.

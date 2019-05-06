@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'support/env'
-require 'web_pipe/conn/headers'
+require 'web_pipe/conn_support/headers'
 
-RSpec.describe WebPipe::Conn::Headers do
+RSpec.describe WebPipe::ConnSupport::Headers do
   describe '.extract' do
     it 'returns hash with env HTTP_ pairs with prefix removed' do
       env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')

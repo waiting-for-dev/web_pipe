@@ -1,5 +1,5 @@
 module WebPipe
-  module Conn
+  module ConnSupport
     # Helpers to work with headers and its rack's env representation.
     #
     # @private

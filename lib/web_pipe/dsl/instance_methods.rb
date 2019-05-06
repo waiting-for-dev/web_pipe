@@ -1,13 +1,12 @@
 require 'dry/initializer'
-require 'web_pipe/pipe/types'
-require 'web_pipe/conn/struct'
-require 'web_pipe/conn/builder'
-require 'web_pipe/pipe/app'
-require 'web_pipe/pipe/plug'
-require 'web_pipe/pipe/rack_app'
+require 'web_pipe/types'
+require 'web_pipe/conn'
+require 'web_pipe/app'
+require 'web_pipe/plug'
+require 'web_pipe/rack/app_with_middlewares'
 
 module WebPipe
-  module Pipe
+  module DSL
     # Instance methods for the pipe.
     #
     # It is from here that you get the rack application you can route
@@ -35,7 +34,7 @@ module WebPipe
       end
 
       # !@attribute rack_app
-      #   @return [RackApplication]
+      #   @return [Rack::AppWithMiddlewares]
       attr_reader :rack_app
 
       def initialize(*args)
@@ -44,7 +43,7 @@ module WebPipe
         container = self.class.container
         operations = Plug.inject_and_resolve(self.class.plugs, injections, container, self)
         app = App.new(operations)
-        @rack_app = RackApp.new(middlewares, app)
+        @rack_app = Rack::AppWithMiddlewares.new(middlewares, app)
       end
       
       # Expected interface for rack.

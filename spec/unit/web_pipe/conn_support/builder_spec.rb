@@ -1,14 +1,14 @@
 require 'spec_helper'
-require 'web_pipe/conn/builder'
-require 'web_pipe/conn/struct'
+require 'web_pipe/conn_support/builder'
+require 'web_pipe/conn'
 require 'support/env'
 
-RSpec.describe WebPipe::Conn::Builder do
+RSpec.describe WebPipe::ConnSupport::Builder do
   describe ".call" do
-    it 'creates a Conn::Struct::Clean' do
+    it 'creates a Conn::Clean' do
       conn = described_class.call(DEFAULT_ENV)
 
-      expect(conn).to be_an_instance_of(WebPipe::Conn::Struct::Clean)
+      expect(conn).to be_an_instance_of(WebPipe::Conn::Clean)
     end
 
     context 'env' do

@@ -1,9 +1,13 @@
-require 'web_pipe/conn/struct'
-require 'web_pipe/conn/errors'
+require 'web_pipe/conn'
+require 'web_pipe/conn_support/errors'
 require 'support/env'
 require 'rack'
 
-RSpec.describe WebPipe::Conn::Struct do
+RSpec.describe WebPipe::Conn do
+  def build(env)
+    WebPipe::ConnSupport::Builder.call(env)
+  end
+
   describe '#base_url' do
     it 'returns request base url' do
       env = DEFAULT_ENV.merge(
@@ -12,7 +16,7 @@ RSpec.describe WebPipe::Conn::Struct do
         Rack::SERVER_PORT => '8000',
       )
 
-      conn = WebPipe::Conn::Builder.call(env)
+      conn = build(env)
 
       expect(conn.base_url).to eq('https://www.host.org:8000')
     end
@@ -25,7 +29,7 @@ RSpec.describe WebPipe::Conn::Struct do
         Rack::PATH_INFO => '/foo'
       )
 
-      conn = WebPipe::Conn::Builder.call(env)
+      conn = build(env)
 
       expect(conn.path).to eq('index.rb/foo')
     end
@@ -38,7 +42,7 @@ RSpec.describe WebPipe::Conn::Struct do
         Rack::QUERY_STRING => 'foo=bar',
       )
 
-      conn = WebPipe::Conn::Builder.call(env)
+      conn = build(env)
 
       expect(conn.full_path).to eq('/foo?foo=bar')
     end
@@ -54,7 +58,7 @@ RSpec.describe WebPipe::Conn::Struct do
         Rack::QUERY_STRING => 'foo=bar'
       )
 
-      conn = WebPipe::Conn::Builder.call(env)
+      conn = build(env)
 
       expect(conn.url).to eq('https://www.host.org:8000/home?foo=bar')
     end
@@ -66,7 +70,7 @@ RSpec.describe WebPipe::Conn::Struct do
         Rack::QUERY_STRING => 'foo=bar'
       )
 
-      conn = WebPipe::Conn::Builder.call(env)
+      conn = build(env)
 
       expect(conn.params).to eq({ 'foo' => 'bar'})
     end
@@ -74,7 +78,7 @@ RSpec.describe WebPipe::Conn::Struct do
 
   describe 'set_status' do
     it 'sets status' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+      conn = build(DEFAULT_ENV)
 
       new_conn = conn.set_status(404)
 
@@ -85,7 +89,7 @@ RSpec.describe WebPipe::Conn::Struct do
   describe 'set_response_body' do
     context 'when value is a string' do
       it 'sets response body as one item array of given value' do
-        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+        conn = build(DEFAULT_ENV).yield_self do |c|
           c.new(response_body: ['foo'])
         end
 
@@ -97,7 +101,7 @@ RSpec.describe WebPipe::Conn::Struct do
 
     context 'when value responds to :each' do
       it 'it substitutes whole response_body' do
-        conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+        conn = build(DEFAULT_ENV).yield_self do |c|
           c.new(response_body: ['foo'])
         end
 
@@ -110,7 +114,7 @@ RSpec.describe WebPipe::Conn::Struct do
 
   describe 'add_response_header' do
     it 'adds given pair to response headers' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+      conn = build(DEFAULT_ENV).yield_self do |c|
         c.new(response_headers: { 'Foo' => 'Foo' })
       end
 
@@ -122,7 +126,7 @@ RSpec.describe WebPipe::Conn::Struct do
 
   describe 'delete_response_header' do
     it 'deletes response header with given key' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+      conn = build(DEFAULT_ENV).yield_self do |c|
         c.new(response_headers: { 'Foo' => 'Bar', 'Zoo-Zoo' => 'Zar' })
       end
 
@@ -134,7 +138,7 @@ RSpec.describe WebPipe::Conn::Struct do
 
   describe 'fetch' do
     it 'returns item in bag with given key' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV).yield_self do |c|
+      conn = build(DEFAULT_ENV).yield_self do |c|
         c.new(bag: { foo: :bar })
       end
 
@@ -142,17 +146,17 @@ RSpec.describe WebPipe::Conn::Struct do
     end
 
     it 'raises KeyNotFoundInBagError when key does not exist' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+      conn = build(DEFAULT_ENV)
       
       expect {
         conn.fetch(:foo)
-      }.to raise_error(WebPipe::Conn::KeyNotFoundInBagError)
+      }.to raise_error(WebPipe::ConnSupport::KeyNotFoundInBagError)
     end
   end
 
   describe 'put' do
     it 'sets key/value pair in bag' do
-      conn = WebPipe::Conn::Builder.call(DEFAULT_ENV)
+      conn = build(DEFAULT_ENV)
 
       new_conn = conn.put(:foo, :bar)
 
@@ -163,7 +167,7 @@ RSpec.describe WebPipe::Conn::Struct do
   describe '#rack_response' do
     let(:env) { DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
     let(:conn) do
-      WebPipe::Conn::Builder.call(env).yield_self do |conn|
+      build(env).yield_self do |conn|
         conn.
           add_response_header('Content-Type', 'text/plain').
           set_status(404).

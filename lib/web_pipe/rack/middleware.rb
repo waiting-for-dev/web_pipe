@@ -1,24 +1,24 @@
 require 'dry/initializer'
-require 'web_pipe/pipe/types'
+require 'web_pipe/types'
 
 module WebPipe
-  module Pipe
-    # Simple data structure to represent a rack middleware with its
-    # initialization options.
-    class RackMiddleware
+  module Rack
+    # Simple data structure to represent a rack middleware class with
+    # its initialization options.
+    class Middleware
       # Type for an instance of self.
       Instance = Types.Instance(self)
 
-      # Type for a rack middleware.
-      Middleware = Types.Instance(Class)
+      # Type for a rack middleware class.
+      MiddlewareClass = Types.Instance(Class)
 
       # Type for the options to initialize a rack middleware.
       Options = Types::Strict::Array
 
       include Dry::Initializer.define -> do
         # @!attribute [r] middleware
-        #   @return [Middleware[]] Rack middleware
-        param :middleware, type: Middleware
+        #   @return [MiddlewareClass[]] Rack middleware
+        param :middleware, type: MiddlewareClass
 
         # @!attribute [r] options
         #   @return [Options[]] Options to initialize the rack

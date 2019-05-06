@@ -1,9 +1,9 @@
 require 'dry/initializer'
-require 'web_pipe/pipe/class_context'
-require 'web_pipe/pipe/instance_methods'
+require 'web_pipe/dsl/class_context'
+require 'web_pipe/dsl/instance_methods'
 
 module WebPipe
-  module Pipe
+  module DSL
     # When an instance of it is included in a module, the module
     # extends a {ClassContext} instance and includes
     # {InstanceMethods}.

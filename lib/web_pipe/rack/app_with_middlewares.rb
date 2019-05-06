@@ -1,13 +1,14 @@
 require 'dry/initializer'
-require 'web_pipe/pipe/types'
+require 'web_pipe/types'
+require 'web_pipe/rack/middleware'
 require 'rack'
 
 module WebPipe
-  module Pipe
-    # Helper module to build a rack application with middlewares.
+  module Rack
+    # Helper to build and call a rack application with middlewares.
     #
     # @private
-    class RackApp
+    class AppWithMiddlewares
       # Type for a rack application.
       #
       # It should be something callable accepting a rack env and
@@ -18,7 +19,7 @@ module WebPipe
         # @!attribute [r] rack_middlewares
         #   @return [Array<RackMiddleware>]
         param :rack_middlewares,
-              type: Types.Array(RackMiddleware::Instance)
+              type: Types.Array(Middleware::Instance)
 
         # @!attribute [r] app
         #    @return [App[]]
@@ -46,7 +47,7 @@ module WebPipe
       private
 
       def build_rack_app(rack_middlewares, app)
-        Rack::Builder.new.tap do |b|
+        ::Rack::Builder.new.tap do |b|
           rack_middlewares.each do |middleware|
             b.use(middleware.middleware, *middleware.middleware_options)
           end

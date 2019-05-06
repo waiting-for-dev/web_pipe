@@ -1,21 +1,21 @@
 require 'rack'
-require 'web_pipe/conn/struct'
-require 'web_pipe/conn/headers'
+require 'web_pipe/conn'
+require 'web_pipe/conn_support/headers'
 
 module WebPipe
-  module Conn
-    # Helper module to build a {Conn::Struct} from a rack's env.
+  module ConnSupport
+    # Helper module to build a {Conn} from a rack's env.
     #
-    # It always return a {Conn::Struct::Clean} subclass.
+    # It always return a {Conn::Clean} subclass.
     #
     # @private
     module Builder
       # @param env [Types::Env] Rack's env
       #
-      # @return [Conn::Struct::Clean]
+      # @return [Conn::Clean]
       def self.call(env)
         rr = ::Rack::Request.new(env)
-        Struct::Clean.new(
+        Conn::Clean.new(
           request: rr,
           env: env,
           session: rr.session,

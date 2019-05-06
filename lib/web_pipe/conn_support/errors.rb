@@ -1,7 +1,7 @@
 module WebPipe
-  module Conn
-    # Error raised when trying to fetch an entry in {Conn::Struct}'s
-    # bag for an unknown key.
+  module ConnSupport
+    # Error raised when trying to fetch an entry in {Conn}'s bag for
+    # an unknown key.
     class KeyNotFoundInBagError < KeyError
       def initialize(key)
         super(
