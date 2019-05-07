@@ -272,3 +272,7 @@ mechanism, are still missing.
 
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/waiting-for-dev/web_pipe.
+
+## Release Policy
+
+`web_pipe` follows the principles of [semantic versioning](http://semver.org/).
