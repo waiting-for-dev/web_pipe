@@ -58,6 +58,7 @@ GEM
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rake (10.5.0)
+    redcarpet (3.4.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -71,6 +72,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    yard (0.9.19)
 
 PLATFORMS
   ruby
@@ -80,8 +82,10 @@ DEPENDENCIES
   pry-byebug
   rack-test (~> 1.1)
   rake (~> 10.0)
+  redcarpet (~> 3.4)
   rspec (~> 3.0)
   web_pipe!
+  yard (~> 0.9)
 
 BUNDLED WITH
    1.17.2

@@ -13,12 +13,12 @@ module WebPipe
       # Headers are all those pairs which key begins with `HTTP_` plus
       # those detailed in {HEADERS_AS_CGI}.
       # 
-      # @param env [Types::Env]
+      # @param env [Types::Env[]]
       #
-      # @return [Types::Headers]
+      # @return [Types::Headers[]]
       #
       # @see HEADERS_AS_CGI
-      # @see #normalize_key
+      # @see .normalize_key
       def self.extract(env)
         Hash[
           env.
@@ -36,13 +36,13 @@ module WebPipe
       #
       # Key is normalized.
       #
-      # @param headers [Type::Headers]
+      # @param headers [Type::Headers[]]
       # @param key [String]
       # @param value [String]
       #
-      # @return [Type::Headers]
+      # @return [Type::Headers[]]
       #
-      # @see #normalize_key
+      # @see .normalize_key
       def self.add(headers, key, value)
         Hash[
           headers.to_a.append(pair(key, value))
@@ -53,12 +53,12 @@ module WebPipe
       #
       # Accepts a non normalized key.
       #
-      # @param headers [Type::Headers]
+      # @param headers [Type::Headers[]]
       # @param key [String]
       #
-      # @return [Type::Headers]
+      # @return [Type::Headers[]]
       #
-      # @see #normalize_key
+      # @see .normalize_key
       def self.delete(headers, key)
         headers.reject { |k, _v| normalize_key(key) == k }
       end
@@ -70,7 +70,7 @@ module WebPipe
       #
       # @return [Array<String>]
       #
-      # @see #normalize_key
+      # @see .normalize_key
       def self.pair(key, value)
         [normalize_key(key), value]
       end

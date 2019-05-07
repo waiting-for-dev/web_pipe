@@ -6,8 +6,8 @@ module WebPipe
   module ConnSupport
     # Types used for {Conn} struct.
     #
-    # Implementation self-describes them, but see {Conn} attributes
-    # for intention documentation.
+    # Implementation self-describes them, but you can look at {Conn}
+    # attributes for documentation.
     module Types
       include Dry.Types()
 

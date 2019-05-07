@@ -1,0 +1,8 @@
+--title 'web_pipe'
+--embed-mixins
+--output doc
+--readme README.md
+--files CHANGELOG.md
+--markup markdown
+--markup-provider=redcarpet
+lib/**/*.rb

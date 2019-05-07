@@ -45,5 +45,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rack-test", "~> 1.1"
+  spec.add_development_dependency "yard", "~> 0.9"
+  spec.add_development_dependency "redcarpet", "~> 3.4"
   spec.add_development_dependency "pry-byebug"
 end

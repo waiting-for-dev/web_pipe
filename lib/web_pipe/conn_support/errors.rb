@@ -3,6 +3,7 @@ module WebPipe
     # Error raised when trying to fetch an entry in {Conn}'s bag for
     # an unknown key.
     class KeyNotFoundInBagError < KeyError
+      # @param key [Any] Key not found in the bag
       def initialize(key)
         super(
           <<~eos

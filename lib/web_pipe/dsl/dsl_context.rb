@@ -26,8 +26,10 @@ module WebPipe
 
       # Creates and add a rack middleware to the stack.
       #
-      # @param middleware [Object] Rack middleware
-      # @param middleware [Array] Options to initialize
+      # @param middleware
+      # [WebPipe::Rack::Middleware::MiddlewareClass[]] Rack middleware
+      # @param middleware [WebPipe::Rack::Options[]] Options to
+      # initialize
       #
       # @return [Array<Rack::Middleware>]
       def use(middleware, *options)
@@ -36,8 +38,8 @@ module WebPipe
 
       # Creates and adds a plug to the stack.
       #
-      # @param name [String]
-      # @param with [Plug::Spec]
+      # @param name [Plug::Name[]]
+      # @param with [Plug::Spec[]]
       #
       # @return [Array<Plug>]
       def plug(name, with: nil)

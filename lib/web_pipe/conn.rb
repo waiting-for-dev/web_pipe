@@ -8,19 +8,19 @@ module WebPipe
   #
   # It is meant to contain all the data coming from a web request
   # along with all the data needed to build a web response. It can
-  # be built with {Conn::Builder}.
+  # be built with {ConnSupport::Builder}.
   #
-  # Besides data fetching methods and {#rack_response), any other
+  # Besides data fetching methods and {#rack_response}, any other
   # method returns a fresh new instance of it, so it is thought to
   # be used in an immutable way and to allow chaining of method
   # calls.
   #
   # There are two subclasses (two types) for this:
-  # {Conn::Clean} and {Conn::Dirty}. `Conn::Builder`
-  # constructs a `Clean` struct, while {#taint} copies the data to a
-  # `Dirty` instance. The intention of this is to halt operations on
-  # the web request/response cycle one a `Dirty` instance is
-  # detected.
+  # {Conn::Clean} and {Conn::Dirty}. {ConnSupport::Builder} constructs
+  # a {Conn::Clean} struct, while {#taint} copies the data to a
+  # {Conn::Dirty} instance. The intention of this is to halt
+  # operations on the web request/response cycle one a {Conn::Dirty}
+  # instance is detected.
   #
   # @example
   #   WebPipe::Conn::Builder.call(env).
@@ -31,27 +31,29 @@ module WebPipe
   class Conn < Dry::Struct
     include ConnSupport::Types
 
-    # RACK
-    #
     # @!attribute [r] env
     #
-    # @return [Env[]] Rack env hash.
+    # Rack env hash.
+    #
+    # @return [Env[]]
     #
     # @see https://www.rubydoc.info/github/rack/rack/file/SPEC
     attribute :env, Env
 
     # @!attribute [r] request
     #
-    # @return [Request[]] Rack request.
+    # Rack request.
+    #
+    # @return [Request[]]
     #
     # @see https://www.rubydoc.info/github/rack/rack/Rack/Request
     attribute :request, Request
 
-    # REQUEST
-    #
     # @!attribute [r] scheme
     #
-    # @return [Scheme[]] Scheme of the request.
+    # Scheme of the request.
+    #
+    # @return [Scheme[]]
     #
     # @example
     #   :http
@@ -59,10 +61,12 @@ module WebPipe
 
     # @!attribute [r] request_method
     #
-    # @return [Method[]] Method of the request.
+    # Method of the request.
     #
     # It is not called `:method` in order not to collide with
     # {Object#method}.
+    #
+    # @return [Method[]]
     #
     # @example
     #   :get
@@ -70,7 +74,9 @@ module WebPipe
 
     # @!attribute [r] host
     #
-    # @return [Host[]] Host being requested.
+    # Host being requested.
+    #
+    # @return [Host[]]
     #
     # @example
     #   'www.example.org'
@@ -78,7 +84,9 @@ module WebPipe
 
     # @!attribute [r] ip
     #
-    # @return [IP[]] IP being requested.
+    # IP being requested.
+    #
+    # @return [IP[]]
     #
     # @example
     #   '192.168.1.1'
@@ -86,7 +94,9 @@ module WebPipe
 
     # @!attribute [r] port
     #
-    # @return [Port[]] Port in which the request is made.
+    # Port in which the request is made.
+    #
+    # @return [Port[]]
     #
     # @example
     #   443
@@ -94,8 +104,9 @@ module WebPipe
 
     # @!attribute [r] script_name
     #
-    # @return [ScriptName[]] Script name in the URL, or the
-    # empty string if none.
+    # Script name in the URL, or the empty string if none.
+    #
+    # @return [ScriptName[]]
     #
     # @example
     #   'index.rb'
@@ -103,11 +114,13 @@ module WebPipe
 
     # @!attribute [r] path_info
     #
-    # @return [PathInfo[]] Besides {#script_name}, the
-    # remainder path of the URL or the empty string if none. It is,
-    # at least, `/` when `#script_name` is empty.
+    # Besides {#script_name}, the remainder path of the URL or the
+    # empty string if none. It is, at least, `/` when `#script_name`
+    # is empty.
     #
     # This doesn't include the {#query_string}.
+    #
+    # @return [PathInfo[]]
     #
     # @example
     #   '/foo/bar'.
@@ -115,8 +128,10 @@ module WebPipe
 
     # @!attribute [r] query_string
     #
-    # @return [QueryString[]] Query String of the URL
-    # (everything after `?` , or the empty string if none.
+    # Query String of the URL (everything after `?` , or the empty
+    # string if none).
+    #
+    # @return [QueryString[]]
     #
     # @example
     #   'foo=bar&bar=foo'
@@ -124,7 +139,9 @@ module WebPipe
 
     # @!attribute [r] request_body
     #
-    # @return [RequestBody[]] Body sent by the request.
+    # Body sent by the request.
+    #
+    # @return [RequestBody[]]
     #
     # @example
     #   '{ resource: "foo" }'
@@ -132,7 +149,7 @@ module WebPipe
 
     # @!attribute [r] request_headers
     #
-    # @return [Headers[]] Hash of request headers.
+    # Hash of request headers.
     #
     # As per RFC2616, headers names are case insensitive. Here, they
     # are normalized to PascalCase acting on dashes ('-').
@@ -140,6 +157,8 @@ module WebPipe
     # Notice that when a rack server maps headers to CGI-like
     # variables, both dashes and underscores (`_`) are treated as
     # dashes. Here, they always remain as dashes.
+    #
+    # @return [Headers[]]
     #
     # @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
     #
@@ -149,7 +168,9 @@ module WebPipe
 
     # @!attribute [r] status
     #
-    # @return [Status[]] Status sent by the response.
+    # Status sent by the response.
+    #
+    # @return [Status[]]
     #
     # @example
     #   200
@@ -165,9 +186,11 @@ module WebPipe
 
     # @!attribute [r] response_headers
     #
-    # @return [Headers[]] Response headers.
+    # Response headers.
     #
     # @see #request_headers for normalization details
+    #
+    # @return [Headers[]]
     #
     # @example
     #
@@ -176,12 +199,14 @@ module WebPipe
 
     # @!attribute [r] bag
     #
-    # @return [Bag[]] Hash where anything can be stored. Keys
+    # Hash where anything can be stored. Keys
     # must be symbols.
     #
     # This can be used to store anything that is needed to be
     # consumed downstream in a pipe of operations action on and
     # returning {Conn}.
+    #
+    # @return [Bag[]]
     attribute :bag, Bag
 
     # Base part of the URL.
@@ -282,7 +307,7 @@ module WebPipe
     #
     # @return {Conn}
     #
-    # @see Headers.normalize_key
+    # @see ConnSupport::Headers.normalize_key
     def add_response_header(key, value)
       new(
         response_headers: ConnSupport::Headers.add(
@@ -299,7 +324,7 @@ module WebPipe
     #
     # @return {Conn}
     #
-    # @see Headers.normalize_key
+    # @see ConnSupport::Headers.normalize_key
     def delete_response_header(key)
       new(
         response_headers: ConnSupport::Headers.delete(
@@ -343,6 +368,8 @@ module WebPipe
     #
     # @return
     #   [Array<StatusCode, Headers, ResponseBody>]
+    #
+    # @private
     def rack_response
       [
         status,

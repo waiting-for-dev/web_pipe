@@ -8,22 +8,22 @@ require 'dry/monads/result/extensions/either'
 Dry::Monads::Result.load_extensions(:either)
 
 module WebPipe
-  # Rack application built around applying a pipe of {#operations} to
+  # Rack application built around applying a pipe of {Operation} to
   # a {Conn}.
   #
   # A rack application is something callable accepting rack's `env`
   # as argument and returning a rack response. So, the workflow
   # followed to build it is:
   #
-  # - Take rack's `env` and create a `{Conn}` from here.
+  # - Take rack's `env` and create a {Conn} from here.
   # - Starting from it, apply the pipe of operations (anything
-  # callable accepting a `{Conn}` and returning a `{Conn}`.
-  # - Convert last `{Conn}` back to a rack response and
+  # callable accepting a {Conn} and returning a {Conn}).
+  # - Convert last {Conn} back to a rack response and
   # return it.
   #
   # {Conn} can itself be of two different types (subclasses of it}:
-  # `{Conn::Clean}` and `{Conn::Dirty}`. The pipe is stopped
-  # whenever the stack is emptied or a `Conn::Dirty` is
+  # {Conn::Clean} and {Conn::Dirty}. The pipe is stopped
+  # whenever the stack is emptied or a {Conn::Dirty} is
   # returned in any of the steps.
   class App
     # Type for an operation.
@@ -38,6 +38,7 @@ module WebPipe
     # Error raised when an {Operation} returns something that is not a
     # {Conn}.
     class InvalidOperationResult < RuntimeError
+      # @param returned [Any] What was returned from the {Operation}
       def initialize(returned)
         super(
           <<~eos

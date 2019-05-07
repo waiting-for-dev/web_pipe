@@ -5,21 +5,22 @@ require 'web_pipe/app'
 module WebPipe
   # A plug is a specification to resolve a callable object.
   #
-  # It is initialized with a `name` and a `spec` and, on resolution
-  # time, is called with a `container` and an `object` to act in the
-  # following fashion:
+  # It is initialized with a {Name} and a {Spec} and, on resolution
+  # time, is called with a {Types::Container} and an {Object} to act
+  # in the following fashion:
   #
-  # - When the `spec` responds to `#call`, it is returned itself as
-  # the callable object.
-  # - When the `spec` is `nil`, then a {Proc} wrapping a method with
-  # the plug `name` in `object` is returned.
-  # - Otherwise, `spec` is taken as the key to resolve the operation
+  # - When the spec responds to `#call`, it is returned itself as the
+  # callable object.
+  # - When the spec is `nil`, then a {Proc} wrapping a method with the
+  # plug name in `object` is returned.
+  # - Otherwise, spec is taken as the key to resolve the operation
   # from the `container`.
   #
   # @private
   class Plug
     # Error raised when no operation can be resolved from a {Spec}.
     class InvalidPlugError < ArgumentError
+      # @param name [Any] Name for the plug that can't be resolved
       def initialize(name)
         super(
           <<~eos
@@ -80,7 +81,7 @@ module WebPipe
 
     # Change `plugs` spec's present in `injections` and resolves.
     #
-    # @param plugs [Array<Plug[]>]
+    # @param plugs [Array<Plug>]
     # @param injections [InstanceMethods::Injections[]]
     # @container container [Types::Container[]]
     # @object [Object]
