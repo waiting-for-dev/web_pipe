@@ -12,14 +12,17 @@ module WebPipe
     #
     # @private
     class DSLContext
+      # @!attribute middlewares
+      # @return [Array<Rack::Middleware>]
+
+      # @!attribute plugs
+      # @return [Array<Plug>]
+
+
       include Dry::Initializer.define -> do
-        # @!attribute middlewares
-        #   @return [Array<Rack::Middleware>]
         param :middlewares,
               type: Types.Array(Rack::Middleware::Instance)
 
-        # @!attribute middlewares
-        #   @return [Array<Plug>]
         param :plugs,
               type: Types.Array(Plug::Instance)
       end

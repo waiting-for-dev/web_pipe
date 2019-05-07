@@ -42,13 +42,16 @@ module WebPipe
     # Type for an instance of self.
     Instance = Types.Instance(self)
 
+    # @!attribute [r] name
+    #   @return [Name[]]
+
+    # @!attribute [r] spec
+    #   @return [Spec[]]
+
+
     include Dry::Initializer.define -> do
-      # @!attribute [r] name
-      #   @return [Name[]]
       param :name, Name
 
-      # @!attribute [r] spec
-      #   @return [Spec[]]
       param :spec, Spec
     end
 

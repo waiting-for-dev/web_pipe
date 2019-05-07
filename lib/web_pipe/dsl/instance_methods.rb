@@ -25,9 +25,11 @@ module WebPipe
       # Type for how plugs should be injected.
       Injections = Types::Strict::Hash.map(Plug::Name, Plug::Spec)
 
+      # @!attribute [r] injections [Injections[]]
+      #   Injected plugs that allow overriding what has been configured.
+
+
       include Dry::Initializer.define -> do
-        # @!attribute [r] injections [Injections[]]
-        #   Injected plugs that allow overriding what has been configured.
         param :injections,
               default: proc { EMPTY_INJECTIONS },
               type: Injections

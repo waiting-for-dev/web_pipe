@@ -15,14 +15,17 @@ module WebPipe
       # returning a rack response.
       App = Types.Contract(:call)
 
+      # @!attribute [r] rack_middlewares
+      # @return [Array<RackMiddleware>]
+
+      # @!attribute [r] app
+      # @return [App[]]
+
+
       include Dry::Initializer.define -> do
-        # @!attribute [r] rack_middlewares
-        #   @return [Array<RackMiddleware>]
         param :rack_middlewares,
               type: Types.Array(Middleware::Instance)
 
-        # @!attribute [r] app
-        #    @return [App[]]
         param :app, type: App
       end
 

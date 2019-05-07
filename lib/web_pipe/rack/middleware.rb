@@ -15,14 +15,17 @@ module WebPipe
       # Type for the options to initialize a rack middleware.
       Options = Types::Strict::Array
 
+      # @!attribute [r] middleware
+      #   @return [MiddlewareClass[]] Rack middleware
+
+      # @!attribute [r] options
+      # @return [Options[]]
+      # Options to initialize the rack middleware
+
+
       include Dry::Initializer.define -> do
-        # @!attribute [r] middleware
-        #   @return [MiddlewareClass[]] Rack middleware
         param :middleware, type: MiddlewareClass
 
-        # @!attribute [r] options
-        #   @return [Options[]] Options to initialize the rack
-        #   middleware
         param :middleware_options, type: Options
       end
     end

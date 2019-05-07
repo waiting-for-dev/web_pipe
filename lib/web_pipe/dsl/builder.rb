@@ -13,9 +13,11 @@ module WebPipe
       # Container with nothing registered.
       EMPTY_CONTAINER = {}.freeze
       
+      # @!attribute [r] container
+      # @return [Types::Container[]]
+
+
       include Dry::Initializer.define -> do
-        # @!attribute [r] container
-        #   @return [Types::Container[]]
         option :container, type: Types::Container, default: proc { EMPTY_CONTAINER }
       end
 

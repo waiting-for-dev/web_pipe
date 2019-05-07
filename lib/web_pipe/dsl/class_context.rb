@@ -20,9 +20,11 @@ module WebPipe
       # Methods to be imported from the {DSLContext}.
       DSL_METHODS = %i[middlewares use plugs plug].freeze
 
+      # @!attribute [r] container
+      # @return [Types::Container[]]
+
+
       include Dry::Initializer.define -> do
-        # @!attribute [r] container
-        #   @return [Types::Container[]]
         option :container, type: Types::Container
       end
 
