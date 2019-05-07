@@ -173,16 +173,6 @@ RSpec.describe WebPipe::ConnSupport::Builder do
     end
   end
 
-  describe 'session' do
-    it 'fills in with request session' do
-      env = DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" })
-
-      conn = described_class.call(env)
-
-      expect(conn.session).to eq({ "foo" => "bar" })
-    end
-  end
-
   context 'bag' do
     it 'let it to initialize with its default' do
       env = DEFAULT_ENV

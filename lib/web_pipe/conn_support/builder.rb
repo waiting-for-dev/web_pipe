@@ -18,7 +18,6 @@ module WebPipe
         Conn::Clean.new(
           request: rr,
           env: env,
-          session: rr.session,
 
           scheme: rr.scheme.to_sym,
           request_method: rr.request_method.downcase.to_sym,

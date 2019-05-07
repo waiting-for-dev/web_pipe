@@ -13,7 +13,6 @@ module WebPipe
 
       Env = Strict::Hash
       Request = Instance(::Rack::Request)
-      Session = Strict::Hash
 
       Scheme = Strict::Symbol.enum(:http, :https)
       Method = Strict::Symbol.enum(

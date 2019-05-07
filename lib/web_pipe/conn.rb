@@ -47,13 +47,6 @@ module WebPipe
     # @see https://www.rubydoc.info/github/rack/rack/Rack/Request
     attribute :request, Request
 
-    # @!attribute [r] session
-    #
-    # @return [Session[]] Rack session.
-    #
-    # @see https://www.rubydoc.info/github/rack/rack/Rack/Session
-    attribute :session, Session
-
     # REQUEST
     #
     # @!attribute [r] scheme
