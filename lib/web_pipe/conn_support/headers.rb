@@ -45,7 +45,7 @@ module WebPipe
       # @see .normalize_key
       def self.add(headers, key, value)
         Hash[
-          headers.to_a.append(pair(key, value))
+          headers.to_a.push(pair(key, value))
         ]
       end
 

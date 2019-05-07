@@ -89,9 +89,7 @@ RSpec.describe WebPipe::Conn do
   describe 'set_response_body' do
     context 'when value is a string' do
       it 'sets response body as one item array of given value' do
-        conn = build(DEFAULT_ENV).yield_self do |c|
-          c.new(response_body: ['foo'])
-        end
+        conn = build(DEFAULT_ENV).new(response_body: ['foo'])
 
         new_conn = conn.set_response_body('bar')
 
@@ -101,9 +99,7 @@ RSpec.describe WebPipe::Conn do
 
     context 'when value responds to :each' do
       it 'it substitutes whole response_body' do
-        conn = build(DEFAULT_ENV).yield_self do |c|
-          c.new(response_body: ['foo'])
-        end
+        conn = build(DEFAULT_ENV).new(response_body: ['foo'])
 
         new_conn = conn.set_response_body(['bar', 'var'])
 
@@ -114,21 +110,23 @@ RSpec.describe WebPipe::Conn do
 
   describe 'add_response_header' do
     it 'adds given pair to response headers' do
-      conn = build(DEFAULT_ENV).yield_self do |c|
-        c.new(response_headers: { 'Foo' => 'Foo' })
-      end
+      conn = build(DEFAULT_ENV).new(
+        response_headers: { 'Foo' => 'Foo' }
+      )
 
       new_conn = conn.add_response_header('foo_foo', 'Bar')
 
-      expect(new_conn.response_headers).to eq({ 'Foo' => 'Foo', 'Foo-Foo' => 'Bar' })
+      expect(
+        new_conn.response_headers
+      ).to eq({ 'Foo' => 'Foo', 'Foo-Foo' => 'Bar' })
     end
   end
 
   describe 'delete_response_header' do
     it 'deletes response header with given key' do
-      conn = build(DEFAULT_ENV).yield_self do |c|
-        c.new(response_headers: { 'Foo' => 'Bar', 'Zoo-Zoo' => 'Zar' })
-      end
+      conn = build(DEFAULT_ENV).new(
+        response_headers: { 'Foo' => 'Bar', 'Zoo-Zoo' => 'Zar' }
+      )
 
       new_conn = conn.delete_response_header('zoo_zoo')
 
@@ -138,9 +136,7 @@ RSpec.describe WebPipe::Conn do
 
   describe 'fetch' do
     it 'returns item in bag with given key' do
-      conn = build(DEFAULT_ENV).yield_self do |c|
-        c.new(bag: { foo: :bar })
-      end
+      conn = build(DEFAULT_ENV).new(bag: { foo: :bar })
 
       expect(conn.fetch(:foo)).to be(:bar)
     end
@@ -167,12 +163,11 @@ RSpec.describe WebPipe::Conn do
   describe '#rack_response' do
     let(:env) { DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
     let(:conn) do
-      build(env).yield_self do |conn|
-        conn.
-          add_response_header('Content-Type', 'text/plain').
-          set_status(404).
-          set_response_body('Not found')
-      end
+      conn = build(env)
+      conn.
+        add_response_header('Content-Type', 'text/plain').
+        set_status(404).
+        set_response_body('Not found')
     end
     let(:rack_response) { conn.rack_response }
 
