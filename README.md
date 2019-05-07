@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/waiting-for-dev/web_pipe.svg?branch=master)](https://travis-ci.com/waiting-for-dev/web_pipe)
+
 # WebPipe
 
 `web_pipe` is a rack application builder through a pipe of operations
