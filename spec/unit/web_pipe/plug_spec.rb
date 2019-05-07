@@ -19,7 +19,7 @@ RSpec.describe WebPipe::Plug do
   end
 
   describe '#with' do
-    let(:name) { 'name' }
+    let(:name) { :name }
     let(:plug) { described_class.new(name, nil) }
 
     let(:new_spec) { -> {} }

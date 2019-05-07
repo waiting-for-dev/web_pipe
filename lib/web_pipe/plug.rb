@@ -32,7 +32,7 @@ module WebPipe
     end
 
     # Type for the name of a plug.
-    Name = Types::Strict::Symbol | Types::Strict::String
+    Name = Types::Strict::Symbol.constructor(&:to_sym)
 
     # Type for the spec to resolve and {App::Operation} on a
     # {Conn} used by {Plug}.
