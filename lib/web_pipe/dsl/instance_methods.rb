@@ -33,8 +33,7 @@ module WebPipe
               type: Injections
       end
 
-      # !@attribute rack_app
-      #   @return [Rack::AppWithMiddlewares]
+      # @return [Rack::AppWithMiddlewares]
       attr_reader :rack_app
 
       def initialize(*args)

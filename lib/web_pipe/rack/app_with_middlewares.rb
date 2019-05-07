@@ -26,8 +26,7 @@ module WebPipe
         param :app, type: App
       end
 
-      # @!attribute [r] builder
-      #   @return [Rack::Builder]
+      # @return [Rack::Builder]
       attr_reader :builder
       
       def initialize(*args)

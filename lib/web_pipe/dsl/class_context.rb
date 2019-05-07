@@ -26,8 +26,7 @@ module WebPipe
         option :container, type: Types::Container
       end
 
-      # @!attribute [r] dsl_context
-      #   @return [DSLContext]
+      # @return [DSLContext]
       attr_reader :dsl_context
 
       def initialize(*args)

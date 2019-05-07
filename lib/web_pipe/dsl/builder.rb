@@ -19,8 +19,7 @@ module WebPipe
         option :container, type: Types::Container, default: proc { EMPTY_CONTAINER }
       end
 
-      # @!attribute [r] class_context
-      #   @return [ClassContext]
+      # @return [ClassContext]
       attr_reader :class_context
 
       def initialize(*args)
