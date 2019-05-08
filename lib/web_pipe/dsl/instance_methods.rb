@@ -17,7 +17,7 @@ module WebPipe
     # The pipe state can be accessed through the pipe class, which
     # has been configured through {ClassContext}.
     #
-    # @private
+    # @api private
     module InstanceMethods
       # No injections at all.
       EMPTY_INJECTIONS = {}.freeze

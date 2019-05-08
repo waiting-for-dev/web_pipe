@@ -16,7 +16,7 @@ module WebPipe
   # - Otherwise, spec is taken as the key to resolve the operation
   # from the `container`.
   #
-  # @private
+  # @api private
   class Plug
     # Error raised when no operation can be resolved from a {Spec}.
     class InvalidPlugError < ArgumentError

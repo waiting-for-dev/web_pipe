@@ -8,7 +8,7 @@ module WebPipe
     # extends a {ClassContext} instance and includes
     # {InstanceMethods}.
     #
-    # @private
+    # @api private
     class Builder < Module
       # Container with nothing registered.
       EMPTY_CONTAINER = {}.freeze

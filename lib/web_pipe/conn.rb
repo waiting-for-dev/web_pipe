@@ -369,7 +369,7 @@ module WebPipe
     # @return
     #   [Array<StatusCode, Headers, ResponseBody>]
     #
-    # @private
+    # @api private
     def rack_response
       [
         status,

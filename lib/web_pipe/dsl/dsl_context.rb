@@ -10,7 +10,7 @@ module WebPipe
     # This allows adding rack middlewares and plugs at the class
     # definition level.
     #
-    # @private
+    # @api private
     class DSLContext
       # @!attribute middlewares
       # @return [Array<Rack::Middleware>]

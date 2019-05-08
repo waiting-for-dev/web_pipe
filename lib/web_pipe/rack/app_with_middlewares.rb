@@ -7,7 +7,7 @@ module WebPipe
   module Rack
     # Helper to build and call a rack application with middlewares.
     #
-    # @private
+    # @api private
     class AppWithMiddlewares
       # Type for a rack application.
       #

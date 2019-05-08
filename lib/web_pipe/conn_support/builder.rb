@@ -8,7 +8,7 @@ module WebPipe
     #
     # It always return a {Conn::Clean} subclass.
     #
-    # @private
+    # @api private
     module Builder
       # @param env [Types::Env] Rack's env
       #

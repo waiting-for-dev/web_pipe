@@ -15,7 +15,7 @@ module WebPipe
     # that are meant to be class methods in the pipe are defined as
     # singleton methods of the instance.
     #
-    # @private
+    # @api private
     class ClassContext < Module
       # Methods to be imported from the {DSLContext}.
       DSL_METHODS = %i[middlewares use plugs plug].freeze

@@ -2,7 +2,7 @@ module WebPipe
   module ConnSupport
     # Helpers to work with headers and its rack's env representation.
     #
-    # @private
+    # @api private
     module Headers
       # Headers which come as plain CGI-like variables (without the `HTTP_`
       # prefixed) from the rack server.
