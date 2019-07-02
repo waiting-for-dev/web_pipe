@@ -262,6 +262,16 @@ op_2 = ->(conn) { conn.set_response_body('Hello') }
 WebPipe::App.new([op_1, op_2])
 ```
 
+## Extensions
+
+By default, `web_pipe` behavior is the very minimal you need to build
+a web application. However, you can extend it with the following
+extensions (click on each name for details on the usage):
+
+- [dry-view](lib/web_pipe/extensions/dry_view/dry_view.rb):
+  Integration with [`dry-view`](https://dry-rb.org/gems/dry-view/)
+  rendering system.
+
 ## Current status
 
 `web_pipe` is in active development. The very basic features to build
