@@ -13,7 +13,7 @@ module WebPipe
       #
       # It should be something callable accepting a rack env and
       # returning a rack response.
-      App = Types.Contract(:call)
+      App = Types.Interface(:call)
 
       # @!attribute [r] rack_middlewares
       # @return [Array<RackMiddleware>]

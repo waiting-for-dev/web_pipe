@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "rack", "~> 2.0"
   spec.add_runtime_dependency "dry-monads", "~> 1.2"
-  spec.add_runtime_dependency "dry-types", "~> 1.0"
+  spec.add_runtime_dependency "dry-types", "~> 1.1"
   spec.add_runtime_dependency "dry-struct", "~> 1.0"
   spec.add_runtime_dependency "dry-initializer", "~> 3.0"
 

@@ -30,7 +30,7 @@ module WebPipe
     #
     # It should be anything callable expecting a {Conn} and
     # returning a {Conn}.
-    Operation = Types.Contract(:call)
+    Operation = Types.Interface(:call)
 
     # Type for a rack environment.
     RackEnv = Types::Strict::Hash

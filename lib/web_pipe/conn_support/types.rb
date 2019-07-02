@@ -1,6 +1,5 @@
 require 'dry/types'
 require 'rack/request'
-require 'web_pipe/types'
 
 module WebPipe
   module ConnSupport
@@ -24,7 +23,7 @@ module WebPipe
       ScriptName = Strict::String
       PathInfo = Strict::String
       QueryString = Strict::String
-      RequestBody = WebPipe::Types.Contract(:gets, :each, :read, :rewind)
+      RequestBody = Interface(:gets, :each, :read, :rewind)
 
       BaseUrl = Strict::String
       Path = Strict::String
@@ -35,8 +34,7 @@ module WebPipe
       Status = Strict::Integer.
                  default(200).
                  constrained(gteq: 100, lteq: 599)
-      ResponseBody = WebPipe::Types.Contract(:each).
-                       default([''].freeze)
+      ResponseBody = Interface(:each).default([''].freeze)
 
       Headers = Strict::Hash.
                   map(Strict::String, Strict::String).
