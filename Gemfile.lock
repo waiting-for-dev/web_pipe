@@ -80,7 +80,7 @@ GEM
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
     tilt (2.0.9)
-    yard (0.9.19)
+    yard (0.9.20)
 
 PLATFORMS
   ruby
@@ -94,7 +94,7 @@ DEPENDENCIES
   redcarpet (~> 3.4)
   rspec (~> 3.0)
   web_pipe!
-  yard (~> 0.9)
+  yard (~> 0.9, >= 0.9.20)
 
 BUNDLED WITH
    1.17.2
