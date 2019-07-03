@@ -4,7 +4,7 @@ require 'web_pipe/conn'
 
 RSpec.describe WebPipe::Conn do
   before do
-    WebPipe.load_extensions(:container)
+    #WebPipe.load_extensions(:container)
   end
 
   let(:container) { {'foo' => 'bar'}.freeze }
