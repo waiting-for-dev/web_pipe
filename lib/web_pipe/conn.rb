@@ -1,4 +1,5 @@
 require 'dry/struct'
+require 'dry/configurable'
 require 'web_pipe/conn_support/types'
 require 'web_pipe/conn_support/errors'
 require 'web_pipe/conn_support/headers'
@@ -30,6 +31,7 @@ module WebPipe
   #     taint
   class Conn < Dry::Struct
     include ConnSupport::Types
+    extend Dry::Configurable
 
     # @!attribute [r] env
     #
