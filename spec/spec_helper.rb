@@ -1,7 +1,5 @@
-require "bundler/setup"
 require "web_pipe"
 require 'pry-byebug'
-require "web_pipe/conn"
 
 # https://github.com/dry-rb/dry-configurable/issues/70
 WebPipe.load_extensions(
