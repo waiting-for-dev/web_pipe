@@ -271,6 +271,9 @@ extensions (click on each name for details on the usage):
 - [dry-view](lib/web_pipe/extensions/dry_view/dry_view.rb):
   Integration with [`dry-view`](https://dry-rb.org/gems/dry-view/)
   rendering system.
+- [container](lib/web_pipe/extensions/container/container.rb): Allows
+  configuring a container to resolve dependencies from
+  `WebPipe::Conn`.
 
 ## Current status
 
