@@ -7,7 +7,7 @@ require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Conn do
   before do
-    # WebPipe.load_extensions(:dry_view)
+    WebPipe.load_extensions(:dry_view)
   end
 
   it "has a 'view_context' setting" do
