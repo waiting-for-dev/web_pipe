@@ -2,8 +2,6 @@ require 'web_pipe/conn'
 require 'dry/view'
 
 module WebPipe
-  load_extensions(:container)
-
   # Integration with `dry-view` rendering system.
   #
   # This extensions adds a {#view} method to {WebPipe::Conn} which
@@ -29,18 +27,23 @@ module WebPipe
   #     end
   #   end
   #
-  # This extension automaticaly loads `container` extension, allowing
-  # the view to be resolved from the configured container:
+  # If {WebPipe::Conn#bag} has a `:container` key, the view instance
+  # can be resolved from it. {WebPipe::Plugs::Container} can be used
+  # to streamline this integration.
   #
   # @example
-  #   Container = { 'views.say_hello' => SayHelloView.new }.freeze
-  #   WebPipe::Conn.config.container = Container
+  #   class App
+  #     include WebPipe
   #
-  #   # ...
+  #     Container = { 'views.say_hello' => SayHelloView.new }.freeze
+  #
+  #     plug :container, with: WebPipe::Plugs::Container[Container]
+  #     plug :render
+  #
   #     def render(conn)
   #       conn.view('views.say_hello', name: 'Joe')
   #     end
-  #   # ...
+  #  end
   #
   # In order to allow providing request context ({Dry::View::Context})
   # to the view, a setting `view_context` exists. Its value must be a
@@ -116,7 +119,7 @@ module WebPipe
     def view_instance(view_spec)
       return view_spec if view_spec.is_a?(Dry::View)
 
-      WebPipe::Conn.container[view_spec]
+      fetch(:container)[view_spec]
     end
 
     def view_input(kwargs, view_instance)
