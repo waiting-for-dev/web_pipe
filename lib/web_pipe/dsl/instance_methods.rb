@@ -20,7 +20,7 @@ module WebPipe
     # @api private
     module InstanceMethods
       # No injections at all.
-      EMPTY_INJECTIONS = {}.freeze
+      EMPTY_INJECTIONS = Types::EMPTY_HASH
 
       # Type for how plugs should be injected.
       Injections = Types::Strict::Hash.map(Plug::Name, Plug::Spec)

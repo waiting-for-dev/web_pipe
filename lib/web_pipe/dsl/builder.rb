@@ -1,4 +1,5 @@
 require 'dry/initializer'
+require 'web_pipe/types'
 require 'web_pipe/dsl/class_context'
 require 'web_pipe/dsl/instance_methods'
 
@@ -11,7 +12,7 @@ module WebPipe
     # @api private
     class Builder < Module
       # Container with nothing registered.
-      EMPTY_CONTAINER = {}.freeze
+      EMPTY_CONTAINER = Types::EMPTY_HASH
       
       # @!attribute [r] container
       # @return [Types::Container[]]
