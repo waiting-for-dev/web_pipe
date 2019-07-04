@@ -1,5 +1,5 @@
 require 'dry/struct'
-require 'dry/configurable'
+require 'web_pipe/types'
 require 'web_pipe/conn_support/types'
 require 'web_pipe/conn_support/errors'
 require 'web_pipe/conn_support/headers'
@@ -31,7 +31,6 @@ module WebPipe
   #     taint
   class Conn < Dry::Struct
     include ConnSupport::Types
-    extend Dry::Configurable
 
     # @!attribute [r] env
     #
@@ -343,7 +342,9 @@ module WebPipe
     #
     # @raise ConnSupport::KeyNotFoundInBagError when key is not
     # registered in the bag.
-    def fetch(key)
+    def fetch(key, default = Types::Undefined)
+      return bag.fetch(key, default) unless default == Types::Undefined
+
       bag.fetch(key) { raise ConnSupport::KeyNotFoundInBagError.new(key) }
     end
 

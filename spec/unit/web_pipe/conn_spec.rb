@@ -148,6 +148,12 @@ RSpec.describe WebPipe::Conn do
         conn.fetch(:foo)
       }.to raise_error(WebPipe::ConnSupport::KeyNotFoundInBagError)
     end
+
+    it 'returns default when it is given and key does not exist' do
+      conn = build(DEFAULT_ENV)
+
+      expect(conn.fetch(:foo, :bar)).to be(:bar)
+    end
   end
 
   describe 'put' do

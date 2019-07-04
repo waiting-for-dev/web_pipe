@@ -1,3 +1,4 @@
+require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'dry/view'
 
@@ -45,20 +46,15 @@ module WebPipe
   #     end
   #  end
   #
-  # In order to allow providing request context ({Dry::View::Context})
-  # to the view, a setting `view_context` exists. Its value must be a
-  # proc or lambda accepting the instance of {WebPipe::Conn} as
-  # argument. This Proc must return a hash which will be injected to
-  # the configured view instance context (see
-  # {Dry::View::Context#with}) unless an explicit `context:` is given.
+  # Context ({Dry::View::Context}) for the view can be set explicetly
+  # through the `context:` argument, as in a standard call to
+  # {Dry::View#call}. However, it is possible to leverage configured
+  # default context while still being able to inject request specific
+  # context. For that to work, a key `:view_context` should be present
+  # in {WebPipe::Conn#bag}. It must be equal to a hash which will be
+  # passed to {Dry::View::Context#with} to create the final context:
   #
   # @example
-  #   WebPipe::Conn.config.view_context = lambda do |conn|
-  #     {
-  #       current_path: conn.full_path
-  #     }
-  #   end
-  #
   #   class MyContext < Dry::View::Context
   #     attr_reader :current_path
   #
@@ -76,17 +72,29 @@ module WebPipe
   #     expose :name
   #   end
   #
-  #   # ...
+  #   class App
+  #     include WebPipe
+  #
+  #     plug :set_view_context
+  #     plug :render
+  #
+  #     def set_view_context(conn)
+  #       conn.put(:view_context, { current_path: conn.full_path })
+  #     end
+  #
   #     def render(conn)
   #       conn.view(SayHelloView.new, name: 'Joe') # `current_path`
   #       # will be available in the view scope
   #     end
-  #   # ...
+  #   end
   #   
-  # @see file:lib/web_pipe/extensions/container/container.rb
   # @see https://dry-rb.org/gems/dry-view/
   class Conn < Dry::Struct
-    setting :view_context, ->(_conn) { {} }
+    # Where to find in {#bag} request's view context
+    VIEW_CONTEXT_KEY = :view_context
+
+    # Default request's view context
+    DEFAULT_VIEW_CONTEXT = Types::EMPTY_HASH
 
     # Sets string output of a view as response body.
     #
@@ -95,8 +103,8 @@ module WebPipe
     #
     # `kwargs` is used as the input for the view (the arguments that
     # {Dry::View#call} receives). If they doesn't contain an explicit
-    # `context:` key, it is added through injecting what is configured
-    # as `view_context` to the view default context (see
+    # `context:` key, it can be added through the injection injection
+    # of what is present in bag's `:view_context`.(see
     # {Dry::View::Context#with}).
     #
     # @param view_spec [Dry::View, Any]
@@ -129,7 +137,7 @@ module WebPipe
                    config.
                    default_context.
                    with(
-                     WebPipe::Conn.config.view_context.(self)
+                     fetch(VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT)
                    )
       kwargs.merge(context: context)
     end

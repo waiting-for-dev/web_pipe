@@ -40,7 +40,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-types", "~> 1.1"
   spec.add_runtime_dependency "dry-struct", "~> 1.0"
   spec.add_runtime_dependency "dry-initializer", "~> 3.0"
-  spec.add_runtime_dependency "dry-configurable", "~> 0.8"
 
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
