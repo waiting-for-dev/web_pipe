@@ -50,8 +50,9 @@ RSpec.describe WebPipe::Conn do
         config.template = 'template_without_input'
       end
       container = { 'view' => view.new }.freeze
-      WebPipe::Conn.config.container = container
-      conn = WebPipe::ConnSupport::Builder.call(DEFAULT_ENV)
+      conn = WebPipe::ConnSupport::Builder.
+               call(DEFAULT_ENV).
+               put(:container, container)
 
       new_conn = conn.view('view')
 
