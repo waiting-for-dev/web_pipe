@@ -87,6 +87,17 @@ module WebPipe
   #       # will be available in the view scope
   #     end
   #   end
+  #
+  # It can be streamline using {WebPipe::Plugs::ViewContext} plug,
+  # which accepts a callable object which should return the request
+  # context from given {WebPipe::Conn}:
+  #
+  # @example
+  #  # ...
+  #    plug :set_view_context, WebPipe::Plugs::ViewContext[
+  #                              ->(conn) { { current_path: conn.full_path } }
+  #                            ]
+  #  # ...
   #   
   # @see https://dry-rb.org/gems/dry-view/
   class Conn < Dry::Struct
