@@ -7,7 +7,7 @@ module WebPipe
       def initialize(key)
         super(
           <<~eos
-            Bag does not contain a key with name +key+.
+            Bag does not contain a key with name +#{key}+.
           eos
         )
       end
