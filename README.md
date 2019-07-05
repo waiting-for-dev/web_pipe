@@ -269,6 +269,8 @@ advantage in order to build your application:
 
 - [container](lib/web_pipe/plugs/container.rb): Allows
   configuring a container to resolve dependencies.
+- [content_type](lib/web_pipe/plugs/content_type.rb): Sets
+  `Content-Type` response header.
 
 ## Extensions
 
