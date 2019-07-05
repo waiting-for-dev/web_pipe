@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Configuring a container in `WebPipe::Conn` ([#2](https://github.com/waiting-for-dev/web_pipe/pull/2) and [#5](https://github.com/waiting-for-dev/web_pipe/pull/5))
 - Plug to set `Content-Type` response header ([#7](https://github.com/waiting-for-dev/web_pipe/pull/7))
 
+### Fixed
+- Fix key interpolation in `KeyNotFoundInBagError` ([#8](https://github.com/waiting-for-dev/web_pipe/pull/8))
+
 ## [0.0.1] - 2019-05-07
 ### Added
 - Initial release.
