@@ -41,12 +41,17 @@ module WebPipe
 
       # Creates and adds a plug to the stack.
       #
+      # The spec can be given as a {Plug::Spec} or as a block, which
+      # is captured into a {Proc} (one of the options for a
+      # {Plug::Spec}.
+      #
       # @param name [Plug::Name[]]
-      # @param with [Plug::Spec[]]
+      # @param spec [Plug::Spec[]]
+      # @param block_spec [Proc]
       #
       # @return [Array<Plug>]
-      def plug(name, with = nil)
-        plugs << Plug.new(name, with)
+      def plug(name, spec = nil, &block_spec)
+        plugs << Plug.new(name, spec || block_spec)
       end
     end
   end

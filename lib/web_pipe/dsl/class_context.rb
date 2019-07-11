@@ -51,8 +51,8 @@ module WebPipe
       def define_dsl
         DSL_METHODS.each do |method|
           module_exec(dsl_context) do |dsl_context|
-            define_method(method) do |*args|
-              dsl_context.method(method).(*args)
+            define_method(method) do |*args, &block|
+              dsl_context.method(method).(*args, &block)
             end
           end
         end
