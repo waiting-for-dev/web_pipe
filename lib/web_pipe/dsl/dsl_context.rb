@@ -45,7 +45,7 @@ module WebPipe
       # @param with [Plug::Spec[]]
       #
       # @return [Array<Plug>]
-      def plug(name, with: nil)
+      def plug(name, with = nil)
         plugs << Plug.new(name, with)
       end
     end

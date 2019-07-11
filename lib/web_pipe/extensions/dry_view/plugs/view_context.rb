@@ -17,7 +17,7 @@ module WebPipe
     #
     #     ViewContext = (conn) -> { { current_path: conn.full_path } }
     #
-    #     plug :view_context, with: WebPipe::Plugs::ViewContext[ViewContext]
+    #     plug :view_context, WebPipe::Plugs::ViewContext[ViewContext]
     #     plug :render
     #
     #     def render

@@ -8,7 +8,7 @@ RSpec.describe "Rack application" do
     Class.new do
       include WebPipe
 
-      plug :hello, with: -> (conn) do
+      plug :hello, -> (conn) do
         conn.
           set_response_body('Hello, world!').
           set_status(200)

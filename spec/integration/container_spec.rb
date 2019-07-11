@@ -10,7 +10,7 @@ RSpec.describe "Resolving from a container" do
 
       include WebPipe.(container: Container)
 
-      plug :hello, with: 'plug.hello'
+      plug :hello, 'plug.hello'
     end.new
   end
 

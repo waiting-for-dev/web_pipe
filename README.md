@@ -180,20 +180,20 @@ class App
 
 #### Proc (or anything responding to `#call`)
 
-Operations can also be defined inline, through the `with:` keyword, as
-anything that responds to `#call`, like a `Proc`:
+Operations can also be defined inline as anything that responds to
+`#call`, like a `Proc`:
 
 ```ruby
 class App
   include WebPipe
 
-  plug :hello, with: ->(conn) { conn }
+  plug :hello, ->(conn) { conn }
 end
 ```
 
 #### Container
 
-When `with:` is a `String` or a `Symbol`, it can be used as the key to
+When a `String` or a `Symbol` is given, it can be used as the key to
 resolve an operation from a container. A container is just anything
 responding to `#[]`.
 
@@ -207,7 +207,7 @@ class App
 
   include WebPipe.(container: Container)
 
-  plug :hello, with: 'plugs.hello'
+  plug :hello, 'plugs.hello'
 end
 ```
 
@@ -220,7 +220,7 @@ overriding those configured through `plug`:
 class App
   include WebPipe
 
-  plug :hello, with: ->(conn) { conn.set_response_body('Hello') }
+  plug :hello, ->(conn) { conn.set_response_body('Hello') }
 end
 
 run App.new(
@@ -243,7 +243,7 @@ class App
   use Middleware1
   use Middleware2, option_1: value_1
 
-  plug :hello, with: ->(conn) { conn }
+  plug :hello, ->(conn) { conn }
 end
 ```
 

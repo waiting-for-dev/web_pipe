@@ -38,7 +38,7 @@ module WebPipe
   #
   #     Container = { 'views.say_hello' => SayHelloView.new }.freeze
   #
-  #     plug :container, with: WebPipe::Plugs::Container[Container]
+  #     plug :container, WebPipe::Plugs::Container[Container]
   #     plug :render
   #
   #     def render(conn)
