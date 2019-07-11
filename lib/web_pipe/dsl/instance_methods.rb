@@ -73,7 +73,7 @@ module WebPipe
       #     private
       #
       #     def html(conn)
-      #       conn.set_response_header('Content-Type', 'text/html')
+      #       conn.add_response_header('Content-Type', 'text/html')
       #     end
       #   end
       #
