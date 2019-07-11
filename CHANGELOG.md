@@ -4,6 +4,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- **BREAKING**: When plugging with `plug:`, the operation is no longer specified through `with:`. Now it is just the second positional argument ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
+
+```ruby
+plug :from_container, 'container'
+plug :inline, ->(conn) { conn.set_response_body('Hello world') }
+```
+- It is possible to plug a block ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
+```ruby
+  plug(:content_type) { |conn| conn.add_response_header('Content-Type', 'text/html') }
+```
+
+- WebPipe's can be composed. A WebPipe proc representation is the composition of all its operations, which is an operation itself ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
+
+```ruby
+class HtmlApp
+  include WebPipe
+
+  plug :content_type
+  plug :default_status
+
+  private
+
+  def content_type(conn)
+    conn.add_response_header('Content-Type', 'text/html')
+  end
+
+  def default_status(conn)
+    conn.set_status(404)
+  end
+end
+
+class App
+  include WebPipe
+
+  plug :html, &HtmlApp.new
+  plug :body
+
+  private
+
+  def body(conn)
+     conn.set_response_body('Hello, world!')
+  end
+end
+```
+
 ## [0.2.0] - 2019-07-05
 ### Added
 - dry-view integration ([#1](https://github.com/waiting-for-dev/web_pipe/pull/1), [#3](https://github.com/waiting-for-dev/web_pipe/pull/3), [#4](https://github.com/waiting-for-dev/web_pipe/pull/4), [#5](https://github.com/waiting-for-dev/web_pipe/pull/5) and  [#6](https://github.com/waiting-for-dev/web_pipe/pull/6))
