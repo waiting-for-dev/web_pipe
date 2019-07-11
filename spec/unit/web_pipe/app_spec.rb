@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'support/env'
+require 'web_pipe/conn_support/composition'
 require 'web_pipe/app'
 
 RSpec.describe WebPipe::App do
@@ -31,7 +32,9 @@ RSpec.describe WebPipe::App do
 
       expect {
         app.call(DEFAULT_ENV)
-      }.to raise_error(WebPipe::App::InvalidOperationResult)
+      }.to raise_error(
+             WebPipe::ConnSupport::Composition::InvalidOperationResult
+      )
     end
   end
 end

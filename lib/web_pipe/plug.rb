@@ -1,6 +1,6 @@
 require 'dry/initializer'
 require 'web_pipe/types'
-require 'web_pipe/app'
+require 'web_pipe/conn_support/composition'
 
 module WebPipe
   # A plug is a specification to resolve a callable object.
@@ -35,9 +35,13 @@ module WebPipe
     # Type for the name of a plug.
     Name = Types::Strict::Symbol.constructor(&:to_sym)
 
-    # Type for the spec to resolve and {App::Operation} on a
-    # {Conn} used by {Plug}.
-    Spec = App::Operation | Types.Constant(nil) | Types::Strict::String | Types::Strict::Symbol
+    # Type for the spec to resolve and
+    # {ConnSupport::Composition::Operation} on a {Conn} used by
+    # {Plug}.
+    Spec = ConnSupport::Composition::Operation |
+           Types.Constant(nil) |
+           Types::Strict::String |
+           Types::Strict::Symbol
 
     # Type for an instance of self.
     Instance = Types.Instance(self)
@@ -68,7 +72,7 @@ module WebPipe
     # @param container [Types::Container[]]
     # @param object [Object]
     #
-    # @return [Operation[]]
+    # @return [ConnSupport::Composition::Operation[]]
     # @raise [InvalidPlugError] When nothing callable is resolved.
     def call(container, pipe)
       if spec.respond_to?(:call)
@@ -89,7 +93,7 @@ module WebPipe
     # @container container [Types::Container[]]
     # @object [Object]
     #
-    # @return [Array<Operation[]>]
+    # @return [Array<ConnSupport::Composition::Operation[]>]
     def self.inject_and_resolve(plugs, injections, container, object)
       plugs.map do |plug|
         if injections.has_key?(plug.name)
