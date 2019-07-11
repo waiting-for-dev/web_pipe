@@ -1,11 +1,8 @@
 require 'dry/initializer'
-require 'dry/monads/result'
 require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/builder'
-require 'dry/monads/result/extensions/either'
-
-Dry::Monads::Result.load_extensions(:either)
+require 'web_pipe/conn_support/composition'
 
 module WebPipe
   # Rack application built around applying a pipe of {Operation} to
@@ -26,41 +23,24 @@ module WebPipe
   # whenever the stack is emptied or a {Conn::Dirty} is
   # returned in any of the steps.
   class App
-    # Type for an operation.
-    #
-    # It should be anything callable expecting a {Conn} and
-    # returning a {Conn}.
-    Operation = Types.Interface(:call)
-
     # Type for a rack environment.
     RackEnv = Types::Strict::Hash
-
-    # Error raised when an {Operation} returns something that is not a
-    # {Conn}.
-    class InvalidOperationResult < RuntimeError
-      # @param returned [Any] What was returned from the {Operation}
-      def initialize(returned)
-        super(
-          <<~eos
-            An operation returned +#{returned.inspect}+. To be valid,
-            an operation must return whether a
-            WebPipe::Conn::Clean or a WebPipe::Conn::Dirty.
-          eos
-        )
-      end
-    end
 
     include Dry::Monads::Result::Mixin
 
     include Dry::Initializer.define -> do
       # @!attribute [r] operations
       #   @return [Array<Operation[]>]
-      param :operations, type: Types.Array(Operation)
+      param :operations, type: Types.Array(
+              ConnSupport::Composition::Operation
+            )
     end
 
     # @param env [Hash] Rack env
     #
     # @return env [Array] Rack response
+    # @raise ConnSupport::Composition::InvalidOperationResult when an
+    # operation does not return a {Conn}
     def call(env)
       extract_rack_response(
         apply_operations(
@@ -74,33 +54,15 @@ module WebPipe
     private
 
     def conn_from_env(env)
-      Success(
-        ConnSupport::Builder.(env)
-      )
+      ConnSupport::Builder.(env)
     end
 
     def apply_operations(conn)
-      operations.reduce(conn) do |new_conn, operation|
-        new_conn.bind { |c| apply_operation(c, operation) }
-      end
-    end
-
-    def apply_operation(conn, operation)
-      result = operation.(conn)
-      case result
-      when Conn::Clean
-        Success(result)
-      when Conn::Dirty
-        Failure(result)
-      else
-        raise InvalidOperationResult.new(result)
-      end
+      ConnSupport::Composition.new(operations).call(conn)
     end
 
     def extract_rack_response(conn)
-      extract_proc = :rack_response.to_proc
-
-      conn.either(extract_proc, extract_proc)
+      conn.rack_response
     end
   end
 end
