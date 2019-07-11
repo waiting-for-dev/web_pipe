@@ -181,13 +181,45 @@ class App
 #### Proc (or anything responding to `#call`)
 
 Operations can also be defined inline as anything that responds to
-`#call`, like a `Proc`:
+`#call`, like a `Proc`, or also like a block:
 
 ```ruby
 class App
   include WebPipe
 
   plug :hello, ->(conn) { conn }
+  plug(:hello2) { |conn| conn }
+end
+```
+
+The representation of a `WebPipe` as a Proc is itself an operation
+accepting a `Conn` and returning a `Conn`: the composition of all its
+plugs. Therefore, it can be plugged to any other `WebPipe`:
+
+```ruby
+class HtmlApp
+  include WebPipe
+
+  plug :html
+
+  private
+
+  def html(conn)
+    conn.set_response_header('Content-Type', 'text/html')
+  end
+end
+
+class App
+  include WebPipe
+
+  plug :html, &HtmlApp.new
+  plug :body
+
+  private
+
+  def body(conn)
+     conn.set_response_body('Hello, world!')
+  end
 end
 ```
 
