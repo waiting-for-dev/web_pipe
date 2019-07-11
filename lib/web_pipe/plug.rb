@@ -25,8 +25,8 @@ module WebPipe
         super(
           <<~eos
             Plug with name +#{name}+ is invalid. It must be something
-            callable, an instance method when `with:` is not given, or
-            something callable registered in the container."
+            callable, an instance method when no operation is given,
+            or something callable registered in the container."
           eos
         )
       end

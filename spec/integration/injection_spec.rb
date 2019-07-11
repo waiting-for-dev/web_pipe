@@ -6,7 +6,7 @@ RSpec.describe "Injection" do
     Class.new do
       include WebPipe
 
-      plug :hello, with: -> (conn) { conn.set_response_body('Hello, world!') }
+      plug :hello, -> (conn) { conn.set_response_body('Hello, world!') }
     end
   end
   let(:hello) { -> (conn) { conn.set_response_body('Hello, injected world!') } }

@@ -13,7 +13,7 @@ module WebPipe
     #
     #     Cont = { name: SomeDependency.new }.freeze
     #
-    #     plug :container, with: WebPipe::Plugs::Container[Cont]
+    #     plug :container, WebPipe::Plugs::Container[Cont]
     #     plug :resolve
     #
     #     private

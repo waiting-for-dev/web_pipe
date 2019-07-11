@@ -10,7 +10,7 @@ module WebPipe
     #   class App
     #     include WebPipe
     #
-    #     plug :html, with: WebPipe::Plugs::ContentType['text/html']
+    #     plug :html, WebPipe::Plugs::ContentType['text/html']
     #   end
     module ContentType
       # Content-Type header
