@@ -51,7 +51,7 @@ class App
 end
 ```
 
-- WebPipe's middlewares can be composed into another WebPipe class, also through `:use`:
+- WebPipe's middlewares can be composed into another WebPipe class, also through `:use` ([10](https://github.com/waiting-for-dev/web_pipe/pull/10)):
 
 ```ruby
 class HtmlApp
