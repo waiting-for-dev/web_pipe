@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Composition of WebPipe's" do
+RSpec.describe "Plugs composition" do
   let(:pipe) do
     Class.new do
       include WebPipe
@@ -31,7 +31,7 @@ RSpec.describe "Composition of WebPipe's" do
     end.new
   end
 
-  it 'plugging a WebPipe composes its plugs' do
+  it 'plugging a WebPipe composes its plug operations' do
     expect(pipe.call(DEFAULT_ENV).last).to eq(['OneTwo'])
   end
 end

@@ -24,7 +24,7 @@ module WebPipe
 
       include Dry::Initializer.define -> do
         param :rack_middlewares,
-              type: Types.Array(Middleware::Instance)
+              type: Types.Array(Middleware)
 
         param :app, type: App
       end
@@ -51,7 +51,7 @@ module WebPipe
       def build_rack_app(rack_middlewares, app)
         ::Rack::Builder.new.tap do |b|
           rack_middlewares.each do |middleware|
-            b.use(middleware.middleware, *middleware.middleware_options)
+            b.use(middleware.middleware, *middleware.options)
           end
           b.run(app)
         end
