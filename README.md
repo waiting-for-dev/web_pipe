@@ -279,6 +279,19 @@ class App
 end
 ```
 
+It is also possible to compose all the middlewares from another pipe
+class. Extending from previous example:
+
+```ruby
+class App2
+  include WebPipe
+
+  use App # it will also use Middleware1 and Middleware2
+
+  plug :hello, ->(conn) { conn }
+end
+```
+
 ### Standalone usage
 
 If you prefer, you can use the application builder without the
