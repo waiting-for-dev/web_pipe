@@ -17,7 +17,7 @@ plug :inline, ->(conn) { conn.set_response_body('Hello world') }
   plug(:content_type) { |conn| conn.add_response_header('Content-Type', 'text/html') }
 ```
 
-- WebPipe's can be composed. A WebPipe proc representation is the composition of all its operations, which is an operation itself ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
+- WebPipe plug's can be composed. A WebPipe proc representation is the composition of all its operations, which is an operation itself ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
 
 ```ruby
 class HtmlApp
@@ -48,6 +48,23 @@ class App
   def body(conn)
      conn.set_response_body('Hello, world!')
   end
+end
+```
+
+- WebPipe's middlewares can be composed into another WebPipe class, also through `:use`:
+
+```ruby
+class HtmlApp
+  include WebPipe
+
+  use Rack::Session::Cookie, key: 'key', secret: 'top_secret'
+  use Rack::MethodOverride
+end
+
+class App
+  include WebPipe
+
+  use HtmlApp
 end
 ```
 
