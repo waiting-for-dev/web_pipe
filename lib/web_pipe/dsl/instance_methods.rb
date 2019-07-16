@@ -4,6 +4,7 @@ require 'web_pipe/conn'
 require 'web_pipe/app'
 require 'web_pipe/plug'
 require 'web_pipe/rack/app_with_middlewares'
+require 'web_pipe/rack/middleware_specification'
 require 'web_pipe/conn_support/composition'
 
 module WebPipe
@@ -12,8 +13,8 @@ module WebPipe
     #
     # It is from here that you get the rack application you can route
     # to. The initialization phase gives you the chance to inject any
-    # of the plugs, while the instance you get has the `#call` method
-    # expected by rack.
+    # of the plugs or middlewares, while the instance you get has the
+    # `#call` method expected by rack.
     #
     # The pipe state can be accessed through the pipe class, which
     # has been configured through {ClassContext}.
@@ -21,13 +22,20 @@ module WebPipe
     # @api private
     module InstanceMethods
       # No injections at all.
-      EMPTY_INJECTIONS = Types::EMPTY_HASH
+      EMPTY_INJECTIONS = {
+        plugs: Types::EMPTY_HASH,
+        middlewares: Types::EMPTY_HASH
+      }.freeze
 
-      # Type for how plugs should be injected.
-      Injections = Types::Strict::Hash.map(Plug::Name, Plug::Spec)
+      # Type for how plugs and middlewares should be injected.
+      Injections = Types::Strict::Hash.schema(
+        plugs: Plug::Injections,
+        middlewares: Rack::MiddlewareSpecification::Injections
+      )
 
       # @!attribute [r] injections [Injections[]]
-      #   Injected plugs that allow overriding what has been configured.
+      #   Injected plugs and middlewares that allow overriding what
+      # has been configured.
 
 
       include Dry::Initializer.define -> do
@@ -42,11 +50,18 @@ module WebPipe
       # @return [ConnSupport::Composition::Operation[]]
       attr_reader :operations
 
+      # @return [Array<Rack::Middlewares>]
+      attr_reader :middlewares
+
       def initialize(*args)
         super
-        middlewares = self.class.middlewares
         container = self.class.container
-        @operations = Plug.inject_and_resolve(self.class.plugs, injections, container, self)
+        @middlewares = Rack::MiddlewareSpecification.inject_and_resolve(
+          self.class.middleware_specifications, injections[:middlewares]
+        )
+        @operations = Plug.inject_and_resolve(
+          self.class.plugs, injections[:plugs], container, self
+        )
         app = App.new(operations)
         @rack_app = Rack::AppWithMiddlewares.new(middlewares, app)
       end

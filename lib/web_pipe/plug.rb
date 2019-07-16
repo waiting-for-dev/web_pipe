@@ -46,6 +46,13 @@ module WebPipe
     # Type for an instance of self.
     Instance = Types.Instance(self)
 
+    # Schema expected to inject plugs.
+    #
+    # @see #inject_and_resolve
+    Injections = Types::Strict::Hash.map(
+      Plug::Name, Plug::Spec
+    ).default(Types::EMPTY_HASH)
+
     # @!attribute [r] name
     #   @return [Name[]]
 
@@ -89,7 +96,7 @@ module WebPipe
     # Change `plugs` spec's present in `injections` and resolves.
     #
     # @param plugs [Array<Plug>]
-    # @param injections [InstanceMethods::Injections[]]
+    # @param injections [InstanceMethods::PlugInjections[]]
     # @container container [Types::Container[]]
     # @object [Object]
     #
