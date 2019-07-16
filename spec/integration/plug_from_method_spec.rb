@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Resolving from a method" do
+RSpec.describe "Resolving plugs from a method" do
   let(:pipe) do
     Class.new do
       include WebPipe

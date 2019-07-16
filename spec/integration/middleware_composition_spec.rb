@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Middlewares composition" do
+RSpec.describe "Middleware composition" do
   class FirstNameMiddleware
     attr_reader :app
 

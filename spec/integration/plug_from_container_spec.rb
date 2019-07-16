@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Resolving from a container" do
+RSpec.describe "Resolving plugs from a container" do
   Container = Hash[
     'plug.hello' => -> (conn) { conn.set_response_body('Hello, world!') }
   ]

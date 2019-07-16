@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Plugs composition" do
+RSpec.describe "Plug composition" do
   class One
     include WebPipe
 
