@@ -12,7 +12,7 @@ RSpec.describe "Plug injection" do
   let(:hello) { -> (conn) { conn.set_response_body('Hello, injected world!') } }
 
   it 'can inject plug as dependency' do
-    pipe_with_injection = pipe.new(hello: hello)
+    pipe_with_injection = pipe.new(plugs: { hello: hello })
 
     expect(
       pipe_with_injection.call(DEFAULT_ENV).last

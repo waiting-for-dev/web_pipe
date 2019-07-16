@@ -33,15 +33,15 @@ RSpec.describe "Middleware composition" do
   class AppWithMiddlewares
     include WebPipe
 
-    use FirstNameMiddleware
-    use LastNameMiddleware, name: 'Doe'
+    use :first_name, FirstNameMiddleware
+    use :last_name, LastNameMiddleware, name: 'Doe'
   end
 
   let(:pipe) do
     Class.new do
       include WebPipe
 
-      use AppWithMiddlewares
+      use :app, AppWithMiddlewares.new
 
       plug :hello
 

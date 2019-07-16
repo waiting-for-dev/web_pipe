@@ -34,8 +34,8 @@ RSpec.describe "Using rack middlewares" do
     Class.new do
       include WebPipe
 
-      use FirstNameMiddleware
-      use LastNameMiddleware, name: 'Doe'
+      use :first_name, FirstNameMiddleware
+      use :last_name, LastNameMiddleware, name: 'Doe'
 
       plug :hello
 

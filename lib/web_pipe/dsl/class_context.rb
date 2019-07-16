@@ -18,7 +18,7 @@ module WebPipe
     # @api private
     class ClassContext < Module
       # Methods to be imported from the {DSLContext}.
-      DSL_METHODS = %i[middlewares use plugs plug].freeze
+      DSL_METHODS = %i[middleware_specifications use plugs plug].freeze
 
       # @!attribute [r] container
       # @return [Types::Container[]]

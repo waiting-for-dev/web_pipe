@@ -255,8 +255,9 @@ class App
   plug :hello, ->(conn) { conn.set_response_body('Hello') }
 end
 
-run App.new(
-  hello: ->(conn) { conn.set_response_body('Injected') }
+run App.new(plugs: {
+    hello: ->(conn) { conn.set_response_body('Injected') }
+  }
 )
 ```
 
@@ -272,8 +273,8 @@ plugs:
 class App
   include WebPipe
 
-  use Middleware1
-  use Middleware2, option_1: value_1
+  use :middleware_1, Middleware1
+  use :middleware_1, Middleware2, option_1: value_1
 
   plug :hello, ->(conn) { conn }
 end
@@ -286,10 +287,18 @@ class. Extending from previous example:
 class App2
   include WebPipe
 
-  use App # it will also use Middleware1 and Middleware2
+  use :app, App.new # it will also use Middleware1 and Middleware2
 
   plug :hello, ->(conn) { conn }
 end
+```
+
+Middlewares can also be injected on initialization:
+
+```ruby
+App.new(middlewares: {
+  middleware_1: [AnotherMiddleware, options]
+})
 ```
 
 ### Standalone usage
