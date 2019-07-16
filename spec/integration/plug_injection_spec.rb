@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Injection" do
+RSpec.describe "Plug injection" do
   let(:pipe) do
     Class.new do
       include WebPipe

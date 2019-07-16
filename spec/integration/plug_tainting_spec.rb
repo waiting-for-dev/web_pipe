@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Tainting" do
+RSpec.describe "Plug tainting" do
   let(:pipe) do
     Class.new do
       include WebPipe

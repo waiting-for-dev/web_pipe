@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/env'
 
-RSpec.describe "Chaining" do
+RSpec.describe "Chaining plugs" do
   let(:pipe) do
     Class.new do
       include WebPipe
