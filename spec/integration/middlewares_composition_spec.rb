@@ -2,41 +2,39 @@ require 'spec_helper'
 require 'support/env'
 
 RSpec.describe "Middlewares composition" do
-  before do
-    class FirstNameMiddleware
-      attr_reader :app
+  class FirstNameMiddleware
+    attr_reader :app
 
-      def initialize(app)
-        @app = app
-      end
-
-      def call(env)
-        env['first_name_middleware.name'] = 'Joe'
-        app.call(env)
-      end
+    def initialize(app)
+      @app = app
     end
 
-    class LastNameMiddleware
-      attr_reader :app
-      attr_reader :name
+    def call(env)
+      env['first_name_middleware.name'] = 'Joe'
+      app.call(env)
+    end
+  end
 
-      def initialize(app, name:)
-        @app = app
-        @name = name
-      end
+  class LastNameMiddleware
+    attr_reader :app
+    attr_reader :name
 
-      def call(env)
-        env['last_name_middleware.name'] = name
-        app.call(env)
-      end
+    def initialize(app, name:)
+      @app = app
+      @name = name
     end
 
-    class AppWithMiddlewares
-      include WebPipe
-
-      use FirstNameMiddleware
-      use LastNameMiddleware, name: 'Doe'
+    def call(env)
+      env['last_name_middleware.name'] = name
+      app.call(env)
     end
+  end
+
+  class AppWithMiddlewares
+    include WebPipe
+
+    use FirstNameMiddleware
+    use LastNameMiddleware, name: 'Doe'
   end
 
   let(:pipe) do
