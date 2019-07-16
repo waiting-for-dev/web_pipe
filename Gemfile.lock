@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    web_pipe (0.2.0)
+    web_pipe (0.3.0)
       dry-initializer (~> 3.0)
       dry-monads (~> 1.2)
       dry-struct (~> 1.0)

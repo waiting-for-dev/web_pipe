@@ -2,21 +2,21 @@ require 'spec_helper'
 require 'support/env'
 
 RSpec.describe "Plugs composition" do
+  class One
+    include WebPipe
+
+    plug :one
+
+    private
+
+    def one(conn)
+      conn.set_response_body('One')
+    end
+  end
+
   let(:pipe) do
     Class.new do
       include WebPipe
-
-      class One
-        include WebPipe
-
-        plug :one
-
-        private
-
-        def one(conn)
-          conn.set_response_body('One')
-        end
-      end
 
       plug :one, &One.new
       plug :two
