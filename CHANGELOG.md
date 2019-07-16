@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- **BREAKING**: Middlewares have to be named when used:
+
+```ruby
+use :cookies, Rack::Session:Cookie, secret: 'my_secret', key: 'foo'
+```
+
+- **BREAKING**: Middlewares have to be initialized when composed:
+
+```ruby
+use :pipe, PipeWithMiddlewares.new
+```
+
+- **BREAKING**: The array of injected plugs is now scoped within a `plugs:` kwarg:
+
+```ruby
+App.new(plugs: { nothing: ->(conn) { conn } })
+```
+
+- Middlewares can be injected:
+
+```ruby
+App.new(middlewares: { cache: [MyMiddleware, my_options] })
+```
+
 ## [0.3.0] - 2019-07-12
 ### Added
 - **BREAKING**: When plugging with `plug:`, the operation is no longer specified through `with:`. Now it is just the second positional argument ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
