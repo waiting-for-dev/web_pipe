@@ -1,55 +1,29 @@
 require 'spec_helper'
 require 'support/env'
+require 'support/middlewares'
 
 RSpec.describe "Injecting middlewares" do
-  class ConfiguredNameMiddleware
-    attr_reader :app
-
-    def initialize(app)
-      @app = app
-    end
-
-    def call(env)
-      env['name_middleware.name'] = 'Joe'
-      app.call(env)
-    end
-  end
-
-  class InjectedNameMiddleware
-    attr_reader :app
-
-    def initialize(app)
-      @app = app
-    end
-
-    def call(env)
-      env['name_middleware.name'] = 'Alice'
-      app.call(env)
-    end
-  end
-
   let(:pipe) do
     Class.new do
       include WebPipe
 
-      use :name, ConfiguredNameMiddleware
+      use :last_name, LastNameMiddleware, name: 'Doe'
 
       plug :hello
 
       private
 
       def hello(conn)
-        name = conn.env['name_middleware.name']
+        last_name = conn.env['last_name']
         conn.
           set_response_body(
-            "Hello #{name}"
-          ).
-          set_status(200)
+            "Hello Mr./Ms. #{last_name}"
+          )
       end
-    end.new(middlewares: { name: [InjectedNameMiddleware] })
+    end.new(middlewares: { last_name: [LastNameMiddleware, name: 'Smith'] })
   end
 
   it 'can use middlewares' do
-    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Hello Alice')
+    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Hello Mr./Ms. Smith')
   end
 end
