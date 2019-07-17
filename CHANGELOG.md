@@ -6,31 +6,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.4.0] - 2019-07-17
 ### Added
-- **BREAKING**: Middlewares have to be named when used:
+- **BREAKING**: Middlewares have to be named when used ([11](https://github.com/waiting-for-dev/web_pipe/pull/11)):
 
 ```ruby
 use :cookies, Rack::Session:Cookie, secret: 'my_secret', key: 'foo'
 ```
 
-- **BREAKING**: Middlewares have to be initialized when composed:
+- **BREAKING**: Middlewares have to be initialized when composed ([11](https://github.com/waiting-for-dev/web_pipe/pull/11)):
 
 ```ruby
 use :pipe, PipeWithMiddlewares.new
 ```
 
-- **BREAKING**: The array of injected plugs is now scoped within a `plugs:` kwarg:
+- **BREAKING**: The array of injected plugs is now scoped within a `plugs:` kwarg ([11](https://github.com/waiting-for-dev/web_pipe/pull/11)):
 
 ```ruby
 App.new(plugs: { nothing: ->(conn) { conn } })
 ```
 
-- Middlewares can be injected:
+- Middlewares can be injected ([11](https://github.com/waiting-for-dev/web_pipe/pull/11)):
 
 ```ruby
 App.new(middlewares: { cache: [MyMiddleware, my_options] })
 ```
 
-- DSL helper method `compose` to add middlewares and plugs in order and in a single shot:
+- DSL helper method `compose` to add middlewares and plugs in order and in a single shot ([12](https://github.com/waiting-for-dev/web_pipe/pull/11)):
 
 ```ruby
 class App
