@@ -30,6 +30,31 @@ App.new(plugs: { nothing: ->(conn) { conn } })
 App.new(middlewares: { cache: [MyMiddleware, my_options] })
 ```
 
+- DSL helper method `compose` to add middlewares and plugs in order and in a single shot:
+
+```ruby
+class App
+  include WebPipe.(container: Container)
+
+  use :first, FirstMiddleware
+
+  plug :first_plug, 'first_plug'
+end
+
+class AnotherApp
+  include WebPipe.(container: Container)
+
+  compose App
+  # Equivalent to:
+  # use App.new
+  # plug &App.new
+
+  use :second, SecondMiddleware
+
+  plug :second_plug, 'second_plug'
+end
+```
+
 ## [0.3.0] - 2019-07-12
 ### Added
 - **BREAKING**: When plugging with `plug:`, the operation is no longer specified through `with:`. Now it is just the second positional argument ([9](https://github.com/waiting-for-dev/web_pipe/pull/9)):
