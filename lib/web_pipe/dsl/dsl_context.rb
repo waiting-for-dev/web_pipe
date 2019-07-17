@@ -32,7 +32,7 @@ module WebPipe
       # The spec can be given in two forms:
       #
       # - As one or two arguments, first one being a
-      # {::Rack::Middleware} class and second one optionally its
+      # rack middleware class and second one optionally its
       # initialization options.
       # - As a {WebPipe} class instance, in which case all its rack
       # middlewares will be considered.
@@ -58,6 +58,16 @@ module WebPipe
       # @return [Array<Plug>]
       def plug(name, spec = nil, &block_spec)
         plugs << Plug.new(name, spec || block_spec)
+      end
+
+      # Adds middlewares and plugs from a WebPipe to respective
+      # stacks.
+      #
+      # @param name [Plug::Name[], Middleware::Name[]]
+      # @param spec [WebPipe]
+      def compose(name, spec)
+        use(name, spec)
+        plug(name, &spec)
       end
     end
   end
