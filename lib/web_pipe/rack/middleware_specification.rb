@@ -1,3 +1,4 @@
+require 'dry/struct'
 require 'web_pipe/rack/middleware'
 require 'web_pipe/types'
 
@@ -14,7 +15,7 @@ module WebPipe
     # for that {WebPipe}.
     #
     # @api private
-    class MiddlewareSpecification
+    class MiddlewareSpecification < Dry::Struct
       # Type for the name given to a middleware.
       Name = Types::Strict::Symbol.constructor(&:to_sym)
 
@@ -30,11 +31,11 @@ module WebPipe
 
       # @!attribute [r] name
       #   @return [Name[]]
-      attr_reader :name
+      attribute :name, Name
 
       # @!attribute [r] spec
       #   @return [Spec[]]
-      attr_reader :spec
+      attribute :spec, Spec
 
       # Change spec's present in `injections` and resolves.
       #
@@ -50,11 +51,6 @@ module WebPipe
             spec
           end.()
         end.flatten
-      end
-
-      def initialize(name, spec)
-        @name = Name[name]
-        @spec = Spec[spec]
       end
 
       # Resolves {Rack::Middlewares} from given specification.
@@ -76,7 +72,7 @@ module WebPipe
       # 
       # @return [MiddlewareSpecification]
       def with(new_spec)
-        self.class.new(name, new_spec)
+        new(spec: new_spec)
       end
     end
   end

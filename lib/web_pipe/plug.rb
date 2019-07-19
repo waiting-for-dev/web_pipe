@@ -1,3 +1,4 @@
+require 'dry/struct'
 require 'web_pipe/types'
 require 'web_pipe/conn_support/composition'
 
@@ -16,7 +17,7 @@ module WebPipe
   # from the `container`.
   #
   # @api private
-  class Plug
+  class Plug < Dry::Struct
     # Error raised when no operation can be resolved from a {Spec}.
     class InvalidPlugError < ArgumentError
       # @param name [Any] Name for the plug that can't be resolved
@@ -54,23 +55,18 @@ module WebPipe
 
     # @!attribute [r] name
     #   @return [Name[]]
-    attr_reader :name
+    attribute :name, Name
 
     # @!attribute [r] spec
     #   @return [Spec[]]
-    attr_reader :spec
-
-    def initialize(name, spec)
-      @name = Name[name]
-      @spec = Spec[spec]
-    end
+    attribute :spec, Spec
 
     # Creates a new instance with given `spec` but keeping `name`.
     #
     # @param new_spec [Spec[]]
     # @return [self]
     def with(new_spec)
-      self.class.new(name, new_spec)
+      new(spec: new_spec)
     end
 
     # Resolves the operation.

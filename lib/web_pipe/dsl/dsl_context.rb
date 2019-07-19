@@ -42,7 +42,7 @@ module WebPipe
       #
       # @return [Array<Rack::Middleware>]
       def use(name, *spec)
-        middleware_specifications << Rack::MiddlewareSpecification.new(name, spec)
+        middleware_specifications << Rack::MiddlewareSpecification.new(name: name, spec: spec)
       end
 
       # Creates and adds a plug to the stack.
@@ -66,7 +66,7 @@ module WebPipe
                  block_spec
                end
 
-        plugs << Plug.new(name, plug_spec)
+        plugs << Plug.new(name: name, spec: plug_spec)
       end
 
       # Adds middlewares and plugs from a WebPipe to respective

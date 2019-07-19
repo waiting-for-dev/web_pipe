@@ -20,7 +20,7 @@ RSpec.describe WebPipe::Plug do
 
   describe '#with' do
     let(:name) { :name }
-    let(:plug) { described_class.new(name, nil) }
+    let(:plug) { described_class.new(name: name, spec: nil) }
 
     let(:new_spec) { -> {} }
     let(:new_plug) { plug.with(new_spec) }
@@ -39,7 +39,7 @@ RSpec.describe WebPipe::Plug do
   end
 
   describe '#call' do
-    let(:plug) { described_class.new(name, spec) }
+    let(:plug) { described_class.new(name: name, spec: spec) }
 
     context 'when spec is callable' do
       let(:name) { 'name' }
@@ -100,8 +100,8 @@ RSpec.describe WebPipe::Plug do
         'op2' => -> { 'op2' }
       }
       plugs = [
-        described_class.new(:op1, 'op1'),
-        described_class.new(:op2, 'op2')
+        described_class.new(name: :op1, spec: 'op1'),
+        described_class.new(name: :op2, spec: 'op2')
       ]
       injected = { op2: -> { 'injected' } }
 
