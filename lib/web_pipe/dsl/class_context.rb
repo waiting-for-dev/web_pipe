@@ -1,4 +1,3 @@
-require 'dry-initializer'
 require 'web_pipe/types'
 require 'web_pipe/dsl/dsl_context'
 
@@ -22,17 +21,13 @@ module WebPipe
 
       # @!attribute [r] container
       # @return [Types::Container[]]
-
-
-      include Dry::Initializer.define -> do
-        option :container, type: Types::Container
-      end
+      attr_reader :container
 
       # @return [DSLContext]
       attr_reader :dsl_context
 
-      def initialize(*args)
-        super
+      def initialize(container:)
+        @container = Types::Container[container]
         @dsl_context = DSLContext.new([], [])
         define_container
         define_dsl

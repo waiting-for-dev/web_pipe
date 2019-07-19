@@ -1,4 +1,3 @@
-require 'dry/initializer'
 require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/builder'
@@ -28,12 +27,14 @@ module WebPipe
 
     include Dry::Monads::Result::Mixin
 
-    include Dry::Initializer.define -> do
-      # @!attribute [r] operations
-      #   @return [Array<Operation[]>]
-      param :operations, type: Types.Array(
-              ConnSupport::Composition::Operation
-            )
+    # @!attribute [r] operations
+    #   @return [Array<Operation[]>]
+    attr_reader :operations
+
+    def initialize(operations)
+      @operations = Types.Array(
+        ConnSupport::Composition::Operation
+      )[operations]
     end
 
     # @param env [Hash] Rack env

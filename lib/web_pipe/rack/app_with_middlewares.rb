@@ -1,4 +1,3 @@
-require 'dry/initializer'
 require 'web_pipe/types'
 require 'web_pipe/rack/middleware'
 require 'rack'
@@ -17,23 +16,18 @@ module WebPipe
 
       # @!attribute [r] rack_middlewares
       # @return [Array<RackMiddleware>]
+      attr_reader :rack_middlewares
 
       # @!attribute [r] app
       # @return [App[]]
-
-
-      include Dry::Initializer.define -> do
-        param :rack_middlewares,
-              type: Types.Array(Middleware)
-
-        param :app, type: App
-      end
+      attr_reader :app
 
       # @return [Rack::Builder]
       attr_reader :builder
       
-      def initialize(*args)
-        super
+      def initialize(rack_middlewares, app)
+        @rack_middlewares = Types.Array(Middleware)[rack_middlewares]
+        @app = App[app]
         @builder = build_rack_app(rack_middlewares, app)
       end
 

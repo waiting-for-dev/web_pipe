@@ -30,16 +30,11 @@ module WebPipe
 
       # @!attribute [r] name
       #   @return [Name[]]
+      attr_reader :name
 
       # @!attribute [r] spec
       #   @return [Spec[]]
-
-
-      include Dry::Initializer.define -> do
-        param :name, Name
-
-        param :spec, Spec
-      end
+      attr_reader :spec
 
       # Change spec's present in `injections` and resolves.
       #
@@ -55,6 +50,11 @@ module WebPipe
             spec
           end.()
         end.flatten
+      end
+
+      def initialize(name, spec)
+        @name = Name[name]
+        @spec = Spec[spec]
       end
 
       # Resolves {Rack::Middlewares} from given specification.

@@ -1,4 +1,3 @@
-require 'dry/initializer'
 require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/app'
@@ -36,13 +35,7 @@ module WebPipe
       # @!attribute [r] injections [Injections[]]
       #   Injected plugs and middlewares that allow overriding what
       # has been configured.
-
-
-      include Dry::Initializer.define -> do
-        param :injections,
-              default: proc { EMPTY_INJECTIONS },
-              type: Injections
-      end
+      attr_reader :injections
 
       # @return [Rack::AppWithMiddlewares[]]
       attr_reader :rack_app
@@ -53,8 +46,8 @@ module WebPipe
       # @return [Array<Rack::Middlewares>]
       attr_reader :middlewares
 
-      def initialize(*args)
-        super
+      def initialize(injects = EMPTY_INJECTIONS)
+        @injections = Injections[injects]
         container = self.class.container
         @middlewares = Rack::MiddlewareSpecification.inject_and_resolve(
           self.class.middleware_specifications, injections[:middlewares]

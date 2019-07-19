@@ -1,4 +1,3 @@
-require 'dry/initializer'
 require 'web_pipe/types'
 require 'dry/struct'
 

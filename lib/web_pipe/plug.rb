@@ -1,4 +1,3 @@
-require 'dry/initializer'
 require 'web_pipe/types'
 require 'web_pipe/conn_support/composition'
 
@@ -55,15 +54,15 @@ module WebPipe
 
     # @!attribute [r] name
     #   @return [Name[]]
+    attr_reader :name
 
     # @!attribute [r] spec
     #   @return [Spec[]]
+    attr_reader :spec
 
-
-    include Dry::Initializer.define -> do
-      param :name, Name
-
-      param :spec, Spec
+    def initialize(name, spec)
+      @name = Name[name]
+      @spec = Spec[spec]
     end
 
     # Creates a new instance with given `spec` but keeping `name`.

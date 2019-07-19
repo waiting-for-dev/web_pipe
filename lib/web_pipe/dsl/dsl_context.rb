@@ -1,4 +1,3 @@
-require 'dry/initializer'
 require 'web_pipe/types'
 require 'web_pipe/plug'
 require 'web_pipe/rack/middleware_specification'
@@ -14,17 +13,17 @@ module WebPipe
     class DSLContext
       # @!attribute middleware_specifications
       # @return [Array<Rack::MiddlewareSpecifications>]
+      attr_reader :middleware_specifications
 
       # @!attribute plugs
       # @return [Array<Plug>]
+      attr_reader :plugs
 
-
-      include Dry::Initializer.define -> do
-        param :middleware_specifications,
-              type: Types.Array(Rack::MiddlewareSpecification)
-
-        param :plugs,
-              type: Types.Array(Plug::Instance)
+      def initialize(middleware_specifications, plugs)
+        @middleware_specifications = Types.Array(
+          Rack::MiddlewareSpecification
+        )[middleware_specifications]
+        @plugs = Types.Array(Plug::Instance)[plugs]
       end
 
       # Creates and add rack middleware specifications to the stack.
