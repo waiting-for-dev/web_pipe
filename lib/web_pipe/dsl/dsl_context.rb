@@ -1,3 +1,4 @@
+require 'web_pipe'
 require 'web_pipe/types'
 require 'web_pipe/plug'
 require 'web_pipe/rack/middleware_specification'
@@ -46,17 +47,26 @@ module WebPipe
 
       # Creates and adds a plug to the stack.
       #
-      # The spec can be given as a {Plug::Spec} or as a block, which
-      # is captured into a {Proc} (one of the options for a
-      # {Plug::Spec}.
+      # The spec can be given as a {Plug::Spec}, as a block (which
+      # is captured into a {Proc}, one of the options for a
+      # {Plug::Spec} or as a {WebPipe} (in which case all its plugs
+      # will be composed).
       #
       # @param name [Plug::Name[]]
-      # @param spec [Plug::Spec[]]
+      # @param spec [Plug::Spec[], WebPipe]
       # @param block_spec [Proc]
       #
       # @return [Array<Plug>]
       def plug(name, spec = nil, &block_spec)
-        plugs << Plug.new(name, spec || block_spec)
+        plug_spec = if spec.is_a?(WebPipe)
+                 spec.to_proc
+               elsif spec
+                 spec
+               else
+                 block_spec
+               end
+
+        plugs << Plug.new(name, plug_spec)
       end
 
       # Adds middlewares and plugs from a WebPipe to respective
@@ -66,7 +76,7 @@ module WebPipe
       # @param spec [WebPipe]
       def compose(name, spec)
         use(name, spec)
-        plug(name, &spec)
+        plug(name, spec)
       end
     end
   end

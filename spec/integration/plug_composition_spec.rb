@@ -18,7 +18,7 @@ RSpec.describe "Plug composition" do
     Class.new do
       include WebPipe
 
-      plug :one, &One.new
+      plug :one, One.new
       plug :two
 
       private
