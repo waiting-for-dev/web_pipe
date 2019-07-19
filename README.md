@@ -212,7 +212,7 @@ end
 class App
   include WebPipe
 
-  plug :html, &HtmlApp.new
+  plug :html, HtmlApp.new
   plug :body
 
   private
