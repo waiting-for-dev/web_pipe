@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- No need to manually call `#to_proc` when composing plugs. This makes both of the following valid ([13](https://github.com/waiting-for-dev/web_pipe/pull/13)):
+
+```ruby
+plug :app, &App.new
+plug :app, App.new
+```
+
 ## [0.4.0] - 2019-07-17
 ### Added
 - **BREAKING**: Middlewares have to be named when used ([11](https://github.com/waiting-for-dev/web_pipe/pull/11)):
