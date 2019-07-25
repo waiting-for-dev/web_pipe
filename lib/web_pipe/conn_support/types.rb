@@ -34,15 +34,15 @@ module WebPipe
       Status = Strict::Integer.
                  default(200).
                  constrained(gteq: 100, lteq: 599)
-      ResponseBody = Interface(:each).default([''].freeze)
+      ResponseBody = Interface(:each).default { [''] }
 
       Headers = Strict::Hash.
                   map(Strict::String, Strict::String).
-                  default({}.freeze)
+                  default { {} }
 
       Bag = Strict::Hash.
               map(Strict::Symbol, Strict::Any).
-              default({}.freeze)
+              default { {} }
     end
   end
 end
