@@ -19,4 +19,8 @@ module WebPipe
   register_extension :dry_view do
     require 'web_pipe/extensions/dry_view/dry_view'
   end
+
+  register_extension :flash do
+    require 'web_pipe/extensions/flash/flash'
+  end
 end
