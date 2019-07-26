@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 It adds a `Conn#container` method, while the plug while being the same than before it has been moved to `web_pipe/extensions/container/plugs/container`.
 
+- Extension providing Integration with `dry-schema` [([18](https://github.com/waiting-for-dev/web_pipe/pull/18))]. See [`extensions/dry_schema.rb`](lib/web_pipe/extensions/dry_schema/dry_schema.rb).
+
 - No need to manually call `#to_proc` when composing plugs. This makes both of
   the following valid
   ([13](https://github.com/waiting-for-dev/web_pipe/pull/13)):
