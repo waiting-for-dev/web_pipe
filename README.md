@@ -321,8 +321,6 @@ WebPipe::App.new([op_1, op_2])
 `web_pipe` ships with a series of common operations you can take
 advantage in order to build your application:
 
-- [container](lib/web_pipe/plugs/container.rb): Allows
-  configuring a container to resolve dependencies.
 - [content_type](lib/web_pipe/plugs/content_type.rb): Sets
   `Content-Type` response header.
 
@@ -332,6 +330,8 @@ By default, `web_pipe` behavior is the very minimal you need to build
 a web application. However, you can extend it with the following
 extensions (click on each name for details on the usage):
 
+- [container](lib/web_pipe/plugs/container.rb): Allows
+  configuring a container to resolve dependencies.
 - [dry-view](lib/web_pipe/extensions/dry_view/dry_view.rb):
   Integration with [`dry-view`](https://dry-rb.org/gems/dry-view/)
   rendering system.
