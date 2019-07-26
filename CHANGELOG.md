@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
+- **BREAKING**: `container` is now an extension
+  ([16](https://github.com/waiting-for-dev/web_pipe/pull/16)):
+ 
+It adds a `Conn#container` method, while the plug while being the same than before it has been moved to `web_pipe/extensions/container/plugs/container`.
+
 - No need to manually call `#to_proc` when composing plugs. This makes both of
   the following valid
   ([13](https://github.com/waiting-for-dev/web_pipe/pull/13)):
