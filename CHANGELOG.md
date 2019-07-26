@@ -43,6 +43,9 @@ end
 
 Usually you will expose `conn.flash` to your views.
 
+- Extension automatically require their associated plugs, so there is no need
+  to require them manually anymore. 
+
 ### Fixed
 - Fixed bug not allowing middlewares to modify responses initially set with
   default values ([14](https://github.com/waiting-for-dev/web_pipe/pull/14))
