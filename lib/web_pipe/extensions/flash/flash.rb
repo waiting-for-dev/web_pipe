@@ -35,7 +35,7 @@ module WebPipe
   # This extension is a very simple wrapper around `Rack::Flash` API.
   #
   # @see https://github.com/nakajima/rack-flash
-  class Conn < Dry::Struct
+  module Flash
     RACK_FLASH_KEY = 'x-rack.flash'
     
     # Returns the flash bag.
@@ -71,4 +71,6 @@ module WebPipe
       self
     end
   end
+
+  Conn.include(Flash)
 end

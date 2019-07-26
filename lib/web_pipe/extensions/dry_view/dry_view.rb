@@ -29,10 +29,12 @@ module WebPipe
   #   end
   #
   # If {WebPipe::Conn#bag} has a `:container` key, the view instance
-  # can be resolved from it. {WebPipe::Plugs::Container} can be used
-  # to streamline this integration.
+  # can be resolved from it. {WebPipe::Container} extension can be
+  # used to streamline this integration.
   #
   # @example
+  #   WebPipe.load_extensions(:dry_view, :container)
+  #
   #   class App
   #     include WebPipe
   #
@@ -100,7 +102,8 @@ module WebPipe
   #  # ...
   #   
   # @see https://dry-rb.org/gems/dry-view/
-  class Conn < Dry::Struct
+  # @see WebPipe::Container
+  module DryView
     # Where to find in {#bag} request's view context
     VIEW_CONTEXT_KEY = :view_context
 
@@ -153,4 +156,6 @@ module WebPipe
       kwargs.merge(context: context)
     end
   end
+
+  Conn.include(DryView)
 end

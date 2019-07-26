@@ -8,7 +8,6 @@ module WebPipe
   #
   # @example
   #   require 'web_pipe'
-  #   require 'web_pipe/extensions/container/plugs/container'
   #
   #   WebPipe.load_extensions(:container)
   #
@@ -18,7 +17,7 @@ module WebPipe
   #     plug :container, WebPipe::Plugs::Container[MyContainer]
   #     plug :render, ->(conn) { conn.set_response_body(conn.container['view']) }
   #   end
-  class Conn < Dry::Struct
+  module Container
     # Returns bag `:container` value
     #
     # @return [Any]
@@ -26,4 +25,6 @@ module WebPipe
       fetch(:container)
     end
   end
+
+  Conn.include(Container)
 end
