@@ -20,6 +20,10 @@ module WebPipe
     require 'web_pipe/extensions/dry_view/dry_view'
   end
 
+  register_extension :container do
+    require 'web_pipe/extensions/container/container'
+  end
+
   register_extension :flash do
     require 'web_pipe/extensions/flash/flash'
   end

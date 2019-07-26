@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'support/env'
-require 'web_pipe/plugs/container'
+require 'web_pipe/extensions/container/plugs/container'
 require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Plugs::Container do
