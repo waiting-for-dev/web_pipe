@@ -49,4 +49,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "dry-view", "~> 0.7"
   spec.add_development_dependency "rack-flash3", "~> 1.0"
+  spec.add_development_dependency "dry-schema", "~> 1.0"
 end
