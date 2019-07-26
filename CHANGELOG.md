@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [0.5.0] - 2019-07-26
 ### Added
 - **BREAKING**: `container` is now an extension
   ([16](https://github.com/waiting-for-dev/web_pipe/pull/16)):
