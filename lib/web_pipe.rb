@@ -18,10 +18,12 @@ module WebPipe
 
   register_extension :dry_view do
     require 'web_pipe/extensions/dry_view/dry_view'
+    require 'web_pipe/extensions/dry_view/plugs/view_context'
   end
 
   register_extension :container do
     require 'web_pipe/extensions/container/container'
+    require 'web_pipe/extensions/container/plugs/container'
   end
 
   register_extension :flash do
