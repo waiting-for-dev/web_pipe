@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'web_pipe'
 
 module WebPipe
