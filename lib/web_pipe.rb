@@ -35,4 +35,8 @@ module WebPipe
   register_extension :flash do
     require 'web_pipe/extensions/flash/flash'
   end
+
+  register_extension :redirect do
+    require 'web_pipe/extensions/redirect/redirect'
+  end
 end
