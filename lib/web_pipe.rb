@@ -16,6 +16,10 @@ module WebPipe
     DSL::Builder.new(*args)
   end
 
+  register_extension :cookies do
+    require 'web_pipe/extensions/cookies/cookies'
+  end
+
   register_extension :dry_schema do
     require 'web_pipe/extensions/dry_schema/dry_schema'
     require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
