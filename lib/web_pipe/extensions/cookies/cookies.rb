@@ -3,7 +3,7 @@ require 'web_pipe/types'
 require 'rack/utils'
 
 module WebPipe
-  # Extension to help with the addition of a cookie to the response.
+  # Extension to help dealing with request and response cookies.
   #
   # This extension helps with the addition of the `Set-Cookie` header
   # to the response, which is the way the server has to instruct the
@@ -12,6 +12,9 @@ module WebPipe
   # {#delete_cookie}. Remember that marking a cookie for deletion just
   # means adding the same cookie name with an expiration time in the
   # past.
+  #
+  # Besides, it also adds a {#request_cookies} method to get the
+  # cookies in the request.
   #
   # @example
   #  require 'web_pipe'
@@ -46,6 +49,11 @@ module WebPipe
       domain?: Types::Strict::String.optional,
       path?: Types::Strict::String.optional
     )
+
+    # @return [Hash]
+    def request_cookies
+      request.cookies
+    end
     
     
     # @param key [String]
