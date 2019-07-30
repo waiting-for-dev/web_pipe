@@ -5,7 +5,7 @@ require 'web_pipe/conn_support/headers'
 RSpec.describe WebPipe::ConnSupport::Headers do
   describe '.extract' do
     it 'returns hash with env HTTP_ pairs with prefix removed' do
-      env = DEFAULT_ENV.merge('HTTP_F' => 'BAR')
+      env = default_env.merge('HTTP_F' => 'BAR')
 
       headers = described_class.extract(env)
 
@@ -13,7 +13,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
     end
 
     it 'normalize keys' do
-      env = DEFAULT_ENV.merge('HTTP_FOO_BAR' => 'foobar')
+      env = default_env.merge('HTTP_FOO_BAR' => 'foobar')
 
       headers = described_class.extract(env)
 
@@ -21,7 +21,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
     end
 
     it 'includes content type CGI-like var' do
-      env = DEFAULT_ENV.merge('CONTENT_TYPE' => 'text/html')
+      env = default_env.merge('CONTENT_TYPE' => 'text/html')
 
       headers = described_class.extract(env)
 
@@ -29,7 +29,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
     end
 
     it 'includes content length CGI-like var' do
-      env = DEFAULT_ENV.merge('CONTENT_LENGTH' => '10')
+      env = default_env.merge('CONTENT_LENGTH' => '10')
 
       headers = described_class.extract(env)
 
@@ -37,7 +37,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
     end
 
     it 'defaults to empty hash' do
-      headers = described_class.extract(DEFAULT_ENV)
+      headers = described_class.extract(default_env)
 
       expect(headers).to eq({})
     end

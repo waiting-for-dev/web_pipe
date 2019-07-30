@@ -15,7 +15,7 @@ RSpec.describe "Plug injection" do
     pipe_with_injection = pipe.new(plugs: { hello: hello })
 
     expect(
-      pipe_with_injection.call(DEFAULT_ENV).last
+      pipe_with_injection.call(default_env).last
     ).to eq(['Hello, injected world!'])
   end
 end

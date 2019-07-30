@@ -22,6 +22,6 @@ RSpec.describe "Plug tainting" do
   end
 
   it 'dirty plugs stops the pipe' do
-    expect(pipe.call(DEFAULT_ENV).last).to eq(['Dirty'])
+    expect(pipe.call(default_env).last).to eq(['Dirty'])
   end
 end

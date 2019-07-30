@@ -6,7 +6,7 @@ require 'web_pipe/conn_support/builder'
 RSpec.describe WebPipe::Plugs::Container do
   describe '.[]' do
     it "creates an operation which sets argument into bag's ':container' key" do
-      conn = WebPipe::ConnSupport::Builder.call(DEFAULT_ENV)
+      conn = WebPipe::ConnSupport::Builder.call(default_env)
       container = {}.freeze
       plug = described_class[container]
 

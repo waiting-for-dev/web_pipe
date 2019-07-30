@@ -15,6 +15,6 @@ RSpec.describe "Resolving plugs from a container" do
   end
 
   it 'can resolve operation from a container' do
-    expect(pipe.call(DEFAULT_ENV).last).to eq(['Hello, world!'])
+    expect(pipe.call(default_env).last).to eq(['Hello, world!'])
   end
 end

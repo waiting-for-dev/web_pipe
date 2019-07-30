@@ -34,6 +34,6 @@ RSpec.describe 'Using flash' do
   end
 
   it 'can put and read from flash' do
-    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Error now')
+    expect(pipe.call(default_env).last[0]).to eq('Error now')
   end
 end

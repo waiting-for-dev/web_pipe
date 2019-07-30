@@ -24,6 +24,6 @@ RSpec.describe "Injecting middlewares" do
   end
 
   it 'can use middlewares' do
-    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Hello Mr./Ms. Smith')
+    expect(pipe.call(default_env).last[0]).to eq('Hello Mr./Ms. Smith')
   end
 end

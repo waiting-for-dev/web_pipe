@@ -24,6 +24,6 @@ RSpec.describe "Chaining plugs" do
   end
 
   it 'chains successful plugs' do
-    expect(pipe.call(DEFAULT_ENV).last).to eq(['OneTwo'])
+    expect(pipe.call(default_env).last).to eq(['OneTwo'])
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#container' do
     it "returns bag's container key" do
-      conn = WebPipe::ConnSupport::Builder.call(DEFAULT_ENV)
+      conn = WebPipe::ConnSupport::Builder.call(default_env)
       container = {}.freeze
 
       new_conn = conn.put(:container, container)

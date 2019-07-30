@@ -8,7 +8,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#sanitized_params' do
     it "returns bag's sanitized key" do
-      conn = WebPipe::ConnSupport::Builder.(DEFAULT_ENV)
+      conn = WebPipe::ConnSupport::Builder.(default_env)
       sanitized_params = {}.freeze
 
       new_conn = conn.put(:sanitized_params, sanitized_params)

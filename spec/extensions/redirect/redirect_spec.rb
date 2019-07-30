@@ -6,7 +6,7 @@ RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:redirect) }
 
   describe '#redirect' do
-    let(:conn) { WebPipe::ConnSupport::Builder.(DEFAULT_ENV) }
+    let(:conn) { WebPipe::ConnSupport::Builder.(default_env) }
     let(:new_conn) { conn.redirect('/here') }
 
     it 'uses 302 as default status code' do
