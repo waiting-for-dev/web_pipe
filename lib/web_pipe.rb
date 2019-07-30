@@ -43,4 +43,8 @@ module WebPipe
   register_extension :redirect do
     require 'web_pipe/extensions/redirect/redirect'
   end
+
+  register_extension :session do
+    require 'web_pipe/extensions/session/session'
+  end
 end

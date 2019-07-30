@@ -32,6 +32,6 @@ RSpec.describe "Middleware composition" do
   end
 
   it 'using a WebPipe composes its middlewares' do
-    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Hello Joe Doe')
+    expect(pipe.call(default_env).last[0]).to eq('Hello Joe Doe')
   end
 end

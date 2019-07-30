@@ -11,7 +11,7 @@ RSpec.describe WebPipe::App do
 
       app = described_class.new([op_1, op_2])
 
-      expect(app.call(DEFAULT_ENV)).to eq([200, {}, ['foo']])
+      expect(app.call(default_env)).to eq([200, {}, ['foo']])
     end
 
     it 'stops chain propagation once a conn is tainted' do
@@ -22,7 +22,7 @@ RSpec.describe WebPipe::App do
 
       app = described_class.new([op_1, op_2, op_3, op_4])
 
-      expect(app.call(DEFAULT_ENV)).to eq([200, {}, ['foo']])
+      expect(app.call(default_env)).to eq([200, {}, ['foo']])
     end
 
     it 'raises InvalidOperationReturn when one operation does not return a Conn' do
@@ -31,7 +31,7 @@ RSpec.describe WebPipe::App do
       app = described_class.new([op])
 
       expect {
-        app.call(DEFAULT_ENV)
+        app.call(default_env)
       }.to raise_error(
              WebPipe::ConnSupport::Composition::InvalidOperationResult
       )

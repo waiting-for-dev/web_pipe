@@ -12,7 +12,7 @@ RSpec.describe WebPipe::Plugs::ViewContext do
   describe '.[]' do
     it "creates an operation which calls given proc with conn and sets result into bag's view_context key" do
       conn = WebPipe::ConnSupport::Builder.
-               call(DEFAULT_ENV).
+               call(default_env).
                put(:foo, 'bar')
       view_context_proc = ->(conn) { { foo: conn.fetch(:foo) } }
       plug = described_class[view_context_proc]

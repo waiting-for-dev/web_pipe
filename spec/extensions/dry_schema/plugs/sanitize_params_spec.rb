@@ -14,7 +14,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
 
     context 'operation on success' do
       it "sets sanitized_params bag's key" do
-        env = DEFAULT_ENV.merge(Rack::QUERY_STRING => 'name=Joe')
+        env = default_env.merge(Rack::QUERY_STRING => 'name=Joe')
         conn = WebPipe::ConnSupport::Builder.(env)
         operation = described_class[schema]
 
@@ -39,7 +39,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
             taint
         end
         conn = WebPipe::ConnSupport::Builder.
-                 (DEFAULT_ENV).
+                 (default_env).
                  put(:param_sanitization_handler, configured_handler)
         operation = described_class[schema, injected_handler]
 
@@ -56,7 +56,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
             taint
         end
         conn = WebPipe::ConnSupport::Builder.
-                 (DEFAULT_ENV).
+                 (default_env).
                  put(:param_sanitization_handler, configured_handler)
         operation = described_class[schema]
 
@@ -66,7 +66,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
       end
 
       it 'uses default handler if none is injected nor configured' do
-        conn = WebPipe::ConnSupport::Builder.(DEFAULT_ENV)
+        conn = WebPipe::ConnSupport::Builder.(default_env)
         operation = described_class[schema]
 
         new_conn = operation.(conn)

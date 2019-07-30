@@ -10,7 +10,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#base_url' do
     it 'returns request base url' do
-      env = DEFAULT_ENV.merge(
+      env = default_env.merge(
         Rack::HTTPS => 'on',
         Rack::HTTP_HOST => 'www.host.org',
         Rack::SERVER_PORT => '8000',
@@ -24,7 +24,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#path' do
     it 'returns request path' do
-      env = DEFAULT_ENV.merge(
+      env = default_env.merge(
         Rack::SCRIPT_NAME => 'index.rb',
         Rack::PATH_INFO => '/foo'
       )
@@ -37,7 +37,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#full_path' do
     it 'returns request fullpath' do
-      env = DEFAULT_ENV.merge(
+      env = default_env.merge(
         Rack::PATH_INFO => '/foo',
         Rack::QUERY_STRING => 'foo=bar',
       )
@@ -50,7 +50,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#url' do
     it 'returns request url' do
-      env = DEFAULT_ENV.merge(
+      env = default_env.merge(
         Rack::HTTPS => 'on',
         Rack::HTTP_HOST => 'www.host.org',
         Rack::PATH_INFO => '/home',
@@ -66,7 +66,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#params' do
     it 'returns request params' do
-      env = DEFAULT_ENV.merge(
+      env = default_env.merge(
         Rack::QUERY_STRING => 'foo=bar'
       )
 
@@ -78,7 +78,7 @@ RSpec.describe WebPipe::Conn do
 
   describe 'set_status' do
     it 'sets status' do
-      conn = build(DEFAULT_ENV)
+      conn = build(default_env)
 
       new_conn = conn.set_status(404)
 
@@ -89,7 +89,7 @@ RSpec.describe WebPipe::Conn do
   describe 'set_response_body' do
     context 'when value is a string' do
       it 'sets response body as one item array of given value' do
-        conn = build(DEFAULT_ENV).new(response_body: ['foo'])
+        conn = build(default_env).new(response_body: ['foo'])
 
         new_conn = conn.set_response_body('bar')
 
@@ -99,7 +99,7 @@ RSpec.describe WebPipe::Conn do
 
     context 'when value responds to :each' do
       it 'it substitutes whole response_body' do
-        conn = build(DEFAULT_ENV).new(response_body: ['foo'])
+        conn = build(default_env).new(response_body: ['foo'])
 
         new_conn = conn.set_response_body(['bar', 'var'])
 
@@ -110,7 +110,7 @@ RSpec.describe WebPipe::Conn do
 
   describe 'add_response_header' do
     it 'adds given pair to response headers' do
-      conn = build(DEFAULT_ENV).new(
+      conn = build(default_env).new(
         response_headers: { 'Foo' => 'Foo' }
       )
 
@@ -124,7 +124,7 @@ RSpec.describe WebPipe::Conn do
 
   describe 'delete_response_header' do
     it 'deletes response header with given key' do
-      conn = build(DEFAULT_ENV).new(
+      conn = build(default_env).new(
         response_headers: { 'Foo' => 'Bar', 'Zoo-Zoo' => 'Zar' }
       )
 
@@ -136,13 +136,13 @@ RSpec.describe WebPipe::Conn do
 
   describe 'fetch' do
     it 'returns item in bag with given key' do
-      conn = build(DEFAULT_ENV).new(bag: { foo: :bar })
+      conn = build(default_env).new(bag: { foo: :bar })
 
       expect(conn.fetch(:foo)).to be(:bar)
     end
 
     it 'raises KeyNotFoundInBagError when key does not exist' do
-      conn = build(DEFAULT_ENV)
+      conn = build(default_env)
       
       expect {
         conn.fetch(:foo)
@@ -150,7 +150,7 @@ RSpec.describe WebPipe::Conn do
     end
 
     it 'returns default when it is given and key does not exist' do
-      conn = build(DEFAULT_ENV)
+      conn = build(default_env)
 
       expect(conn.fetch(:foo, :bar)).to be(:bar)
     end
@@ -158,7 +158,7 @@ RSpec.describe WebPipe::Conn do
 
   describe 'put' do
     it 'sets key/value pair in bag' do
-      conn = build(DEFAULT_ENV)
+      conn = build(default_env)
 
       new_conn = conn.put(:foo, :bar)
 
@@ -167,7 +167,7 @@ RSpec.describe WebPipe::Conn do
   end
 
   describe '#rack_response' do
-    let(:env) { DEFAULT_ENV.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
+    let(:env) { default_env.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
     let(:conn) do
       conn = build(env)
       conn.

@@ -26,6 +26,6 @@ RSpec.describe "Using rack middlewares" do
   end
 
   it 'can use middlewares' do
-    expect(pipe.call(DEFAULT_ENV).last[0]).to eq('Hello Joe Doe')
+    expect(pipe.call(default_env).last[0]).to eq('Hello Joe Doe')
   end
 end

@@ -5,7 +5,7 @@ require 'web_pipe/conn_support/builder'
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:cookies) }
 
-  let(:conn) { WebPipe::ConnSupport::Builder.(DEFAULT_ENV) }
+  let(:conn) { WebPipe::ConnSupport::Builder.(default_env) }
 
   describe '#set_cookie' do
     it 'sets given name/value pair to the Set-Cookie header' do

@@ -6,24 +6,24 @@ require 'support/env'
 RSpec.describe WebPipe::ConnSupport::Builder do
   describe ".call" do
     it 'creates a Conn::Clean' do
-      conn = described_class.call(DEFAULT_ENV)
+      conn = described_class.call(default_env)
 
       expect(conn).to be_an_instance_of(WebPipe::Conn::Clean)
     end
 
     context 'env' do
       it 'fills in with rack env' do
-        env = DEFAULT_ENV
+        env = default_env
 
         conn = described_class.call(env)
 
-        expect(conn.env).to be(DEFAULT_ENV)
+        expect(conn.env).to be(env)
       end
     end
 
     context 'request' do
       it 'fills in with rack request' do
-        env = DEFAULT_ENV
+        env = default_env
 
         conn = described_class.call(env)
 
@@ -33,7 +33,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'scheme' do
       it 'fills with request scheme as symbol' do
-        env = DEFAULT_ENV.merge(Rack::HTTPS => 'on')
+        env = default_env.merge(Rack::HTTPS => 'on')
 
         conn = described_class.call(env)
 
@@ -43,7 +43,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'request_method' do
       it 'fills in with downcased request method as symbol' do
-        env = DEFAULT_ENV.merge(Rack::REQUEST_METHOD => 'POST')
+        env = default_env.merge(Rack::REQUEST_METHOD => 'POST')
 
         conn = described_class.call(env)
 
@@ -53,7 +53,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'host' do
       it 'fills in with request host' do
-        env = DEFAULT_ENV.merge(Rack::HTTP_HOST => 'www.host.org')
+        env = default_env.merge(Rack::HTTP_HOST => 'www.host.org')
 
         conn = described_class.call(env)
 
@@ -63,7 +63,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'ip' do
       it 'fills in with request ip' do
-        env = DEFAULT_ENV.merge('REMOTE_ADDR' => '0.0.0.0')
+        env = default_env.merge('REMOTE_ADDR' => '0.0.0.0')
 
         conn = described_class.call(env)
 
@@ -71,7 +71,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
       end
 
       it 'defaults to nil' do
-        env = DEFAULT_ENV
+        env = default_env
 
         conn = described_class.call(env)
 
@@ -81,7 +81,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'port' do
       it 'fills in with request port' do
-        env = DEFAULT_ENV.merge(Rack::SERVER_PORT => '443')
+        env = default_env.merge(Rack::SERVER_PORT => '443')
 
         conn = described_class.call(env)
 
@@ -91,7 +91,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'script_name' do
       it 'fills in with request script name' do
-        env = DEFAULT_ENV.merge(Rack::SCRIPT_NAME => 'index.rb')
+        env = default_env.merge(Rack::SCRIPT_NAME => 'index.rb')
 
         conn = described_class.call(env)
 
@@ -101,7 +101,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'path_info' do
       it 'fills in with request path info' do
-        env = DEFAULT_ENV.merge(Rack::PATH_INFO => '/foo/bar')
+        env = default_env.merge(Rack::PATH_INFO => '/foo/bar')
 
         conn = described_class.call(env)
 
@@ -111,7 +111,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'query_string' do
       it 'fills in with request query string' do
-        env = DEFAULT_ENV.merge(Rack::QUERY_STRING => 'foo=bar')
+        env = default_env.merge(Rack::QUERY_STRING => 'foo=bar')
 
         conn = described_class.call(env)
 
@@ -122,7 +122,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
     context 'request_body' do
       it 'fills in with request body' do
         request_body = StringIO.new('foo=bar')
-        env = DEFAULT_ENV.merge(
+        env = default_env.merge(
           Rack::RACK_INPUT => request_body
         )
 
@@ -134,7 +134,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     describe '#request_headers' do
       it 'fills in with extracted headers from env' do
-        env = DEFAULT_ENV.merge('HTTP_FOO_BAR' => 'BAR')
+        env = default_env.merge('HTTP_FOO_BAR' => 'BAR')
 
         conn = described_class.call(env)
 
@@ -144,7 +144,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'status' do
       it 'let it to initialize with its default' do
-        env = DEFAULT_ENV
+        env = default_env
 
         conn = described_class.call(env)
 
@@ -154,7 +154,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'response_body' do
       it 'let it to initialize with its default' do
-        env = DEFAULT_ENV
+        env = default_env
 
         conn = described_class.call(env)
 
@@ -164,7 +164,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
     context 'response_headers' do
       it 'let it to initialize with its default' do
-        env = DEFAULT_ENV
+        env = default_env
 
         conn = described_class.call(env)
 
@@ -175,7 +175,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
   context 'bag' do
     it 'let it to initialize with its default' do
-      env = DEFAULT_ENV
+      env = default_env
 
       conn = described_class.call(env)
 

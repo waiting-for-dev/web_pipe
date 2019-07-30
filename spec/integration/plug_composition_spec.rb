@@ -32,6 +32,6 @@ RSpec.describe "Plug composition" do
   end
 
   it 'plugging a WebPipe composes its plug operations' do
-    expect(pipe.call(DEFAULT_ENV).last).to eq(['OneTwo'])
+    expect(pipe.call(default_env).last).to eq(['OneTwo'])
   end
 end

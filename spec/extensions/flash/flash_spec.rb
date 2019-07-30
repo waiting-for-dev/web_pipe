@@ -15,7 +15,7 @@ RSpec.describe WebPipe::Conn do
   describe '#flash' do
     context "when rack-flash key is found in env" do
       it 'returns its value' do
-        env = DEFAULT_ENV.merge('x-rack.flash' => flash)
+        env = default_env.merge('x-rack.flash' => flash)
         conn = WebPipe::ConnSupport::Builder.call(env)
 
         expect(conn.flash).to be(flash)
@@ -24,7 +24,7 @@ RSpec.describe WebPipe::Conn do
 
     context "when rack-flash key is not found in env" do
       it 'raises a MissingMiddlewareError' do
-        conn = WebPipe::ConnSupport::Builder.call(DEFAULT_ENV)
+        conn = WebPipe::ConnSupport::Builder.call(default_env)
 
         expect { conn.flash }.to raise_error(WebPipe::ConnSupport::MissingMiddlewareError)
       end
@@ -33,7 +33,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#put_flash' do
     it 'sets given key to given value in flash' do
-      env = DEFAULT_ENV.merge('x-rack.flash' => flash)
+      env = default_env.merge('x-rack.flash' => flash)
       conn = WebPipe::ConnSupport::Builder.call(env)
 
       conn = conn.put_flash(:error, 'error')
@@ -44,7 +44,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#put_flash_now' do
     it 'sets given key to given value in flash cache' do
-      env = DEFAULT_ENV.merge('x-rack.flash' => flash)
+      env = default_env.merge('x-rack.flash' => flash)
       conn = WebPipe::ConnSupport::Builder.call(env)
 
       conn = conn.put_flash_now(:error, 'error')

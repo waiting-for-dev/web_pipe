@@ -47,7 +47,7 @@ module WebPipe
     def flash
       env.fetch(RACK_FLASH_KEY) do
         raise ConnSupport::MissingMiddlewareError.new(
-                'flash', 'Rack::Flash', 'rack-flash3'
+                'flash', 'Rack::Flash', 'https://rubygems.org/gems/rack-flash3'
               )
       end
     end
