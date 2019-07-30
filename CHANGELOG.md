@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [21](https://github.com/waiting-for-dev/web_pipe/pull/21)
 - Extension to add/delete cookies:
   [20](https://github.com/waiting-for-dev/web_pipe/pull/20)
+  [21](https://github.com/waiting-for-dev/web_pipe/pull/21)
 - Extension to easily create HTTP redirects:
   [19](https://github.com/waiting-for-dev/web_pipe/pull/19)
 
