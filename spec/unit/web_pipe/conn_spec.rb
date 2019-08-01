@@ -64,8 +64,26 @@ RSpec.describe WebPipe::Conn do
     end
   end
 
+  describe '#router_params' do
+    it "returns env's router.params key" do
+      env = default_env.merge(
+        'router.params' => { 'id' => '1' }
+      )
+
+      conn = build(env)
+
+      expect(conn.router_params).to eq({ 'id' => '1' })
+    end
+
+    it "returns empty hash when key is not present" do
+      conn = build(default_env)
+
+      expect(conn.router_params).to eq({})
+    end
+  end
+
   describe '#params' do
-    it 'returns request params' do
+    it 'includes request params' do
       env = default_env.merge(
         Rack::QUERY_STRING => 'foo=bar'
       )
@@ -73,6 +91,17 @@ RSpec.describe WebPipe::Conn do
       conn = build(env)
 
       expect(conn.params).to eq({ 'foo' => 'bar'})
+    end
+
+    it "includes router params" do
+      env = default_env.merge(
+        Rack::QUERY_STRING => 'foo=bar',
+        'router.params' => { 'id' => '1' }
+      )
+
+      conn = build(env)
+
+      expect(conn.params).to eq({ 'foo' => 'bar', 'id' => '1'})
     end
   end
 
