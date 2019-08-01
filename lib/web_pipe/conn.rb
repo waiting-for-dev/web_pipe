@@ -32,6 +32,11 @@ module WebPipe
   class Conn < Dry::Struct
     include ConnSupport::Types
 
+    # Env's key used to retrieve params set by the router.
+    #
+    # @see #router_params
+    ROUTER_PARAMS_KEY = 'router.params'
+
     # @!attribute [r] env
     #
     # Rack env hash.
@@ -260,14 +265,31 @@ module WebPipe
       request.url
     end
 
-    # GET and POST params merged in a hash.
+    # *Params* in rack env's 'router.params' key.
+    #
+    # Routers used to map routes to applications build with
+    # {WebPipe} have the option to introduce extra params through
+    # setting env's 'router.params' key. These parameters will be
+    # merged with GET and POST ones when calling {#params}.
+    #
+    # This kind of functionality is usually implemented from the
+    # router side allowing the addition of variables in the route
+    # definition, e.g.:
+    #
+    # @example
+    #   /user/:id/update
+    def router_params
+      env.fetch(ROUTER_PARAMS_KEY, Types::EMPTY_HASH)
+    end
+
+    # GET, POST and {#router_params} merged in a hash.
     #
     # @return [Params]
     #
     # @example
-    #   { 'id' => 1, 'name' => 'Joe' }
+    #   { 'id' => '1', 'name' => 'Joe' }
     def params
-      request.params
+      request.params.merge(router_params)
     end
 
     # Sets response status code.
