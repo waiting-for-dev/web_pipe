@@ -25,12 +25,6 @@ module WebPipe
       QueryString = Strict::String
       RequestBody = Interface(:gets, :each, :read, :rewind)
 
-      BaseUrl = Strict::String
-      Path = Strict::String
-      FullPath = Strict::String
-      Url = Strict::String
-      Params = Strict::Hash
-
       Status = Strict::Integer.
                  default(200).
                  constrained(gteq: 100, lteq: 599)

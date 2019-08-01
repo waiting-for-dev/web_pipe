@@ -47,4 +47,8 @@ module WebPipe
   register_extension :session do
     require 'web_pipe/extensions/session/session'
   end
+
+  register_extension :url do
+    require 'web_pipe/extensions/url/url'
+  end
 end
