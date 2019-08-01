@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
+- *BREAKING*: URL redundant methods need to be loaded from `:url` extension:
+  [24](https://github.com/waiting-for-dev/web_pipe/pull/24)
 - Merge router params with GET and POST params:
   [23](https://github.com/waiting-for-dev/web_pipe/pull/23)
 - Extension integrating rack session:
