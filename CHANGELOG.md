@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
+- Merge router params with GET and POST params:
+  [23](https://github.com/waiting-for-dev/web_pipe/pull/23)
 - Extension integrating rack session:
   [21](https://github.com/waiting-for-dev/web_pipe/pull/21)
 - Extension to add/delete cookies:
   [20](https://github.com/waiting-for-dev/web_pipe/pull/20)
-  [21](https://github.com/waiting-for-dev/web_pipe/pull/21)
+  [22](https://github.com/waiting-for-dev/web_pipe/pull/22)
 - Extension to easily create HTTP redirects:
   [19](https://github.com/waiting-for-dev/web_pipe/pull/19)
 
