@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 require 'dry/view'
 require 'dry/view/context'
 require 'web_pipe/conn'
@@ -21,7 +21,7 @@ RSpec.describe WebPipe::Conn do
       view = Class.new(view_class) do
         config.template = 'template_without_input'
       end
-      conn = WebPipe::ConnSupport::Builder.call(default_env)
+      conn = build_conn(default_env)
 
       new_conn = conn.view(view.new)
 
@@ -34,7 +34,7 @@ RSpec.describe WebPipe::Conn do
 
         expose :name
       end
-      conn = WebPipe::ConnSupport::Builder.call(default_env)
+      conn = build_conn(default_env)
 
       new_conn = conn.view(view.new, name: 'Joe')
 

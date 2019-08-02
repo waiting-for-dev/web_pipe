@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'web_pipe/conn_support/builder'
 require 'web_pipe/conn'
-require 'support/env'
+require 'support/conn'
 
 RSpec.describe WebPipe::ConnSupport::Builder do
   describe ".call" do

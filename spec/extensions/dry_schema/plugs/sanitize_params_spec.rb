@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 require 'dry/schema'
 require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
 require 'web_pipe/conn_support/builder'

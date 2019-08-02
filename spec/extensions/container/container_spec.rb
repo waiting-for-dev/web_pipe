@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 
 RSpec.describe WebPipe::Conn do
   before do
@@ -8,7 +8,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#container' do
     it "returns bag's container key" do
-      conn = WebPipe::ConnSupport::Builder.call(default_env)
+      conn = build_conn(default_env)
       container = {}.freeze
 
       new_conn = conn.put(:container, container)

@@ -1,5 +1,9 @@
 require 'rack'
+require 'web_pipe/conn_support/builder'
 
+# Minimal rack's env.
+#
+# @return [Hash]
 def default_env
   {
     Rack::RACK_VERSION      => Rack::VERSION,
@@ -16,4 +20,12 @@ def default_env
     Rack::SERVER_NAME       => 'www.example.org',
     Rack::SERVER_PORT       => '80'
   }
+end
+
+# Helper to build a `Conn` from rack's env.
+#
+# @param env [Hash]
+# @return Conn [WebPipe::Conn]
+def build_conn(env)
+  WebPipe::ConnSupport::Builder.(env)
 end

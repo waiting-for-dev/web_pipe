@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 
 RSpec.describe "Resolving plugs from a container" do
   Container = Hash[

@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'web_pipe'
-require 'support/env'
+require 'support/conn'
 
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:url) }
   
   def build(env)
-    WebPipe::ConnSupport::Builder.call(env)
+    build_conn(env)
   end
 
   describe '#base_url' do

@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 require 'web_pipe/conn_support/composition'
 require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::ConnSupport::Composition do
-  let(:conn) { WebPipe::ConnSupport::Builder.call(default_env) }
+  let(:conn) { build_conn(default_env) }
   
   describe '#call' do
     it 'chains operations on Conn' do

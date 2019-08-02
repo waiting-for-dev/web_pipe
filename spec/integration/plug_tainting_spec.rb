@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 
 RSpec.describe "Plug tainting" do
   let(:pipe) do

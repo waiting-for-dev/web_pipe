@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 
 RSpec.describe "Chaining plugs" do
   let(:pipe) do

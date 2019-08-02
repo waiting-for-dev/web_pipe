@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 require 'support/middlewares'
 
 RSpec.describe "Using rack middlewares" do

@@ -1,11 +1,11 @@
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/errors'
-require 'support/env'
+require 'support/conn'
 require 'rack'
 
 RSpec.describe WebPipe::Conn do
   def build(env)
-    WebPipe::ConnSupport::Builder.call(env)
+    build_conn(env)
   end
 
   describe 'set_status' do

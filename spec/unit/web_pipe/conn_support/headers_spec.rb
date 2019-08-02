@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 require 'web_pipe/conn_support/headers'
 
 RSpec.describe WebPipe::ConnSupport::Headers do

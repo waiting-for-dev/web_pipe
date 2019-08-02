@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'support/env'
+require 'support/conn'
 require 'web_pipe/plugs/content_type'
 require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Plugs::ContentType do
   describe '.[]' do
     it "creates an operation which adds given argument as Content-Type header" do
-      conn = WebPipe::ConnSupport::Builder.call(default_env)
+      conn = build_conn(default_env)
       plug = described_class['text/html']
 
       new_conn = plug.(conn)
