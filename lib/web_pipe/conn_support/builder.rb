@@ -6,16 +6,16 @@ module WebPipe
   module ConnSupport
     # Helper module to build a {Conn} from a rack's env.
     #
-    # It always return a {Conn::Clean} subclass.
+    # It always return a {Conn::Ongoing} subclass.
     #
     # @api private
     module Builder
       # @param env [Types::Env] Rack's env
       #
-      # @return [Conn::Clean]
+      # @return [Conn::Ongoing]
       def self.call(env)
         rr = ::Rack::Request.new(env)
-        Conn::Clean.new(
+        Conn::Ongoing.new(
           request: rr,
           env: env,
 

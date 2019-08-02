@@ -18,10 +18,10 @@ RSpec.describe WebPipe::ConnSupport::Composition do
       )
     end
 
-    it 'stops chain propagation once a conn is tainted' do
+    it 'stops chain propagation once a conn is halted' do
       op_1 = ->(conn) { conn.set_status(200) }
       op_2 = ->(conn) { conn.set_response_body('foo') }
-      op_3 = ->(conn) { conn.taint }
+      op_3 = ->(conn) { conn.halt }
       op_4 = ->(conn) { conn.set_response_body('bar') }
 
       app = described_class.new([op_1, op_2, op_3, op_4])

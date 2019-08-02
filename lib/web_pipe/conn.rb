@@ -17,10 +17,10 @@ module WebPipe
   # calls.
   #
   # There are two subclasses (two types) for this:
-  # {Conn::Clean} and {Conn::Dirty}. {ConnSupport::Builder} constructs
-  # a {Conn::Clean} struct, while {#taint} copies the data to a
-  # {Conn::Dirty} instance. The intention of this is to halt
-  # operations on the web request/response cycle one a {Conn::Dirty}
+  # {Conn::Ongoing} and {Conn::Halted}. {ConnSupport::Builder} constructs
+  # a {Conn::Ongoing} struct, while {#halt} copies the data to a
+  # {Conn::Halted} instance. The intention of this is to halt
+  # operations on the web request/response cycle one a {Conn::Halted}
   # instance is detected.
   #
   # @example
@@ -28,7 +28,7 @@ module WebPipe
   #     set_status(404).
   #     add_response_header('Content-Type', 'text/plain').
   #     set_response_body('Not found').
-  #     taint
+  #     halt
   class Conn < Dry::Struct
     include ConnSupport::Types
 
@@ -321,20 +321,27 @@ module WebPipe
       ]
     end
 
-    # Copies all the data to a {Dirty} instance and
+    # Copies all the data to a {Halted} instance and
     # returns it.
     #
-    # @return [Dirty]
-    def taint
-      Dirty.new(attributes)
+    # @return [Halted]
+    def halt
+      Halted.new(attributes)
+    end
+
+    # Returns whether the instance is {Halted}.
+    #
+    # @return [Bool]
+    def halted?
+      is_a?(Halted)
     end
 
     # Type of {Conn} representing an ongoing request/response
     # cycle.
-    class Clean < Conn; end
+    class Ongoing < Conn; end
 
     # Type of {Conn} representing a halted request/response
     # cycle.
-    class Dirty < Conn; end
+    class Halted < Conn; end
   end
 end
