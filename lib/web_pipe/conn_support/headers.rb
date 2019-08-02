@@ -97,7 +97,9 @@ module WebPipe
       #
       # @see #normalize_key
       def self.normalize(headers)
-        headers.transform_keys(&method(:normalize_key))
+        Hash[
+          headers.map { |k, v| [normalize_key(k), v] }
+        ]
       end
     end
   end
