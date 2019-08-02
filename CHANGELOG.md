@@ -27,6 +27,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Extension to easily create HTTP redirects.
   [[#19](https://github.com/waiting-for-dev/web_pipe/pull/19)].
+  
+- Added `Conn#set_response_headers` method.
+  [[#27](https://github.com/waiting-for-dev/web_pipe/pull/27)].
 
 
 ## [0.5.0] - 2019-07-26
