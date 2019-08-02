@@ -121,4 +121,18 @@ RSpec.describe WebPipe::Conn do
       expect(conn.rack_response[2]).to eq(['Not found'])
     end
   end
+
+  describe '#halted?' do
+    it 'returns true when class is a Halted instance' do
+      conn = build_conn(default_env).halt
+
+      expect(conn.halted?).to be(true)
+    end
+
+    it 'returns false when class is a Ongoing instance' do
+      conn = build_conn(default_env)
+
+      expect(conn.halted?).to be(false)
+    end
+  end
 end

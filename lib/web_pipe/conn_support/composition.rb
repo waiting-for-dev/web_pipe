@@ -13,9 +13,9 @@ module WebPipe
     # take a {Conn} as argument and return a {Conn}.
     #
     # However, {Conn} can itself be of two different types (subclasses
-    # of it): a {Conn::Clean} or a {Conn::Dirty}. On execution time,
+    # of it): a {Conn::Ongoing} or a {Conn::Halted}. On execution time,
     # the composition is stopped whenever the stack is emptied or a
-    # {Conn::Dirty} is returned in any of the steps.
+    # {Conn::Halted} is returned in any of the steps.
     class Composition
       # Type for an operation.
       #
@@ -32,7 +32,7 @@ module WebPipe
             <<~eos
             An operation returned +#{returned.inspect}+. To be valid,
             an operation must return whether a
-            WebPipe::Conn::Clean or a WebPipe::Conn::Dirty.
+            WebPipe::Conn::Ongoing or a WebPipe::Conn::Halted.
           eos
           )
         end
@@ -71,9 +71,9 @@ module WebPipe
       def apply_operation(conn, operation)
         result = operation.(conn)
         case result
-        when Conn::Clean
+        when Conn::Ongoing
           Success(result)
-        when Conn::Dirty
+        when Conn::Halted
           Failure(result)
         else
           raise InvalidOperationResult.new(result)

@@ -5,10 +5,10 @@ require 'support/conn'
 
 RSpec.describe WebPipe::ConnSupport::Builder do
   describe ".call" do
-    it 'creates a Conn::Clean' do
+    it 'creates a Conn::Ongoing' do
       conn = described_class.call(default_env)
 
-      expect(conn).to be_an_instance_of(WebPipe::Conn::Clean)
+      expect(conn).to be_an_instance_of(WebPipe::Conn::Ongoing)
     end
 
     context 'env' do

@@ -30,13 +30,13 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
           conn.
             set_response_body('Something went wrong').
             set_status(500).
-            taint
+            halt
         end
         injected_handler = lambda do |conn, result|
           conn.
             set_response_body(result.errors.messages.inspect).
             set_status(500).
-            taint
+            halt
         end
         conn = WebPipe::ConnSupport::Builder.
                  (default_env).
@@ -53,7 +53,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
           conn.
             set_response_body('Something went wrong').
             set_status(500).
-            taint
+            halt
         end
         conn = WebPipe::ConnSupport::Builder.
                  (default_env).
@@ -62,6 +62,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
 
         new_conn = operation.(conn)
 
+        expect(new_conn).to be_halted
         expect(new_conn.response_body[0]).to eq('Something went wrong')
       end
 

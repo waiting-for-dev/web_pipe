@@ -105,7 +105,7 @@ class GreetingAdminApp
       conn.
         set_status(404).
         set_response_body('<h1>Not foud</h1>').
-        taint
+        halt
     end
   end
 
@@ -116,7 +116,7 @@ class GreetingAdminApp
       conn.
         set_status(401).
         set_response_body('<h1>Unauthorized</h1>').
-        taint
+        halt
     end
   end
   
@@ -144,9 +144,9 @@ immutability and make method chaining possible.
 Each operation in the pipe must accept a single argument of a
 `WebPipe::Conn` instance and it must also return an instance of it.
 In fact, what the first operation in the pipe takes is a
-`WebPipe::Conn::Clean` subclass instance. When one of your operations
-calls `#taint` on it, a `WebPipe::Conn::Dirty` is returned and the pipe
-is halted. This one or the 'clean' instance that reaches the end of
+`WebPipe::Conn::Ongoing` subclass instance. When one of your operations
+calls `#halt` on it, a `WebPipe::Conn::Halted` is returned and the pipe
+is halted. This one or the 'ongoing' instance that reaches the end of
 the pipe will be in command of the web response.
 
 Operations have the chance to prepare data to be consumed by

@@ -33,7 +33,7 @@ module WebPipe
   #  end
   #
   # By default, when the result of applying the schema is a failure,
-  # {Conn} is tainted with a 500 as status code. However, you can
+  # {Conn} is halted with a 500 as status code. However, you can
   # specify your own handler for the unhappy path. It will take the
   # {Conn} and {Dry::Schema::Result} instances as arguments:
   #

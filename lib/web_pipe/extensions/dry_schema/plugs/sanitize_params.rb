@@ -15,7 +15,7 @@ module WebPipe
         conn.
           set_status(500).
           set_response_body('Given params do not conform with the expected schema').
-          taint
+          halt
       end
 
       # @param schema [Dry::Schema::Processor]

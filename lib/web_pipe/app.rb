@@ -18,8 +18,8 @@ module WebPipe
   # return it.
   #
   # {Conn} can itself be of two different types (subclasses of it}:
-  # {Conn::Clean} and {Conn::Dirty}. The pipe is stopped
-  # whenever the stack is emptied or a {Conn::Dirty} is
+  # {Conn::Ongoing} and {Conn::Halted}. The pipe is stopped
+  # whenever the stack is emptied or a {Conn::Halted} is
   # returned in any of the steps.
   class App
     # Type for a rack environment.
