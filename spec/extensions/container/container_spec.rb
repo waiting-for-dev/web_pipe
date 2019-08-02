@@ -11,7 +11,7 @@ RSpec.describe WebPipe::Conn do
       conn = build_conn(default_env)
       container = {}.freeze
 
-      new_conn = conn.put(:container, container)
+      new_conn = conn.add(:container, container)
 
       expect(new_conn.container).to be(container)
     end

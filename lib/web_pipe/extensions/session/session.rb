@@ -21,8 +21,8 @@ module WebPipe
   #
   #     use Rack::Cookie, secret: 'top_secret'
   #
-  #     plug :put_session, ->(conn) { conn.put_session('foo', 'bar') }
-  #     plug :fetch_session, ->(conn) { conn.put(:foo, conn.fetch_session('foo')) }
+  #     plug :add_session, ->(conn) { conn.add_session('foo', 'bar') }
+  #     plug :fetch_session, ->(conn) { conn.add(:foo, conn.fetch_session('foo')) }
   #     plug :delete_session, ->(conn) { conn.delete_session('foo') }
   #     plug :clear_session, ->(conn) { conn.clear_session }
   #   end
@@ -54,12 +54,12 @@ module WebPipe
     end
 
 
-    # Puts given key/value pair to the session.
+    # Adds given key/value pair to the session.
     #
     # @param key [SESSION_KEY[]] Session key
     # @param value [Any] Value
     # @return [Conn]
-    def put_session(key, value)
+    def add_session(key, value)
       session[SESSION_KEY[key]] = value
       self
     end

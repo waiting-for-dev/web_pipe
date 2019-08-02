@@ -19,8 +19,8 @@ module WebPipe
   #     use :session, Rack::Session::Cookie, secret: 'secret'
   #     use :flash, Rack::Flash
   #
-  #     plug :put_in_flash, ->(conn) { conn.put_flash(:notice, 'Hello world') }
-  #     plug :put_in_flash_now, ->(conn) { conn.put_flash_now(:notice_now, 'Hello world now') }
+  #     plug :add_in_flash, ->(conn) { conn.add_flash(:notice, 'Hello world') }
+  #     plug :add_in_flash_now, ->(conn) { conn.add_flash_now(:notice_now, 'Hello world now') }
   #   end
   #
   # Usually, you will end up making `conn.flash` available to your view system:
@@ -52,21 +52,21 @@ module WebPipe
       end
     end
 
-    # Puts an item to the flash bag to be consumed by next request.
+    # Adds an item to the flash bag to be consumed by next request.
     #
     # @param key [String]
     # @param value [String]
-    def put_flash(key, value)
+    def add_flash(key, value)
       flash[key] = value
       self
     end
 
-    # Puts an item to the flash bag to be consumed by the same request
+    # Adds an item to the flash bag to be consumed by the same request
     # in process.
     #
     # @param key [String]
     # @param value [String]
-    def put_flash_now(key, value)
+    def add_flash_now(key, value)
       flash.now[key] = value
       self
     end

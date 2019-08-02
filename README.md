@@ -100,7 +100,7 @@ class GreetingAdminApp
     user = UsersRepo[conn.params['id'].to_i]
     if user
       conn.
-        put(:user, user)
+        add(:user, user)
     else
       conn.
         set_status(404).
@@ -151,7 +151,7 @@ the pipe will be in command of the web response.
 
 Operations have the chance to prepare data to be consumed by
 downstream operations. Data can be added to the struct through
-`#put(key, value)`, while it can be consumed with `#fetch(key)`.
+`#add(key, value)`, while it can be consumed with `#fetch(key)`.
 
 Attributes and methods in `WebPipe::Conn` are [fully
 documented](https://www.rubydoc.info/github/waiting-for-dev/web_pipe/master/WebPipe/Conn).

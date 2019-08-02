@@ -11,7 +11,7 @@ RSpec.describe WebPipe::Conn do
       conn = WebPipe::ConnSupport::Builder.(default_env)
       sanitized_params = {}.freeze
 
-      new_conn = conn.put(:sanitized_params, sanitized_params)
+      new_conn = conn.add(:sanitized_params, sanitized_params)
 
       expect(new_conn.sanitized_params).to be(sanitized_params)
     end
