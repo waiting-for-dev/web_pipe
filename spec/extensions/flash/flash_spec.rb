@@ -31,23 +31,23 @@ RSpec.describe WebPipe::Conn do
     end
   end
 
-  describe '#put_flash' do
+  describe '#add_flash' do
     it 'sets given key to given value in flash' do
       env = default_env.merge('x-rack.flash' => flash)
       conn = build_conn(env)
 
-      conn = conn.put_flash(:error, 'error')
+      conn = conn.add_flash(:error, 'error')
 
       expect(flash[:error]).to eq('error')
     end
   end
 
-  describe '#put_flash_now' do
+  describe '#add_flash_now' do
     it 'sets given key to given value in flash cache' do
       env = default_env.merge('x-rack.flash' => flash)
       conn = build_conn(env)
 
-      conn = conn.put_flash_now(:error, 'error')
+      conn = conn.add_flash_now(:error, 'error')
 
       expect(flash.send(:cache)[:error]).to eq('error')
     end

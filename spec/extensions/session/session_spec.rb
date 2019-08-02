@@ -49,12 +49,12 @@ RSpec.describe WebPipe::Conn do
     end
   end
 
-  describe '#put_session' do
+  describe '#add_session' do
     it 'adds given name/value pair to session' do
       env = default_env.merge('rack.session' => {})
       conn = build_conn(env)
 
-      new_conn = conn.put_session('foo', 'bar')
+      new_conn = conn.add_session('foo', 'bar')
 
       expect(new_conn.session['foo']).to eq('bar')
     end

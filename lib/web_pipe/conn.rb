@@ -296,7 +296,7 @@ module WebPipe
     # @param value [Object]
     #
     # @return [Conn]
-    def put(key, value)
+    def add(key, value)
       new(
         bag: bag.merge(key => value)
       )

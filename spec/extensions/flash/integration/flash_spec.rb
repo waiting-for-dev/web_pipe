@@ -14,15 +14,15 @@ RSpec.describe 'Using flash' do
       use :session, ::Rack::Session::Cookie, secret: 'secret'
       use :flash, ::Rack::Flash
 
-      plug :put_in_flash
+      plug :add_to_flash
       plug :build_response
 
       private
 
-      def put_in_flash(conn)
+      def add_to_flash(conn)
         conn.
-          put_flash(:error, 'Error').
-          put_flash_now(:now, 'now')
+          add_flash(:error, 'Error').
+          add_flash_now(:now, 'now')
       end
 
       def build_response(conn)
@@ -33,7 +33,7 @@ RSpec.describe 'Using flash' do
     end.new
   end
 
-  it 'can put and read from flash' do
+  it 'can adadd and read from flash' do
     expect(pipe.call(default_env).last[0]).to eq('Error now')
   end
 end

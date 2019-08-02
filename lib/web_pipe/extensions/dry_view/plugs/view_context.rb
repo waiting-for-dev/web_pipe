@@ -3,7 +3,7 @@ require 'web_pipe/extensions/dry_view/dry_view'
 
 module WebPipe
   module Plugs
-    # Calls object with conn and puts the result into bag's `:view_context`.
+    # Calls object with conn and add the result into bag's `:view_context`.
     #
     # This is meant to contain a Proc which will be called with the same
     # {WebPipe::Conn} instance of the operation. It must return
@@ -30,7 +30,7 @@ module WebPipe
       def self.[](view_context_proc)
         Types.Interface(:call)[view_context_proc]
         lambda do |conn|
-          conn.put(Conn::VIEW_CONTEXT_KEY, view_context_proc.(conn))
+          conn.add(Conn::VIEW_CONTEXT_KEY, view_context_proc.(conn))
         end
       end
     end

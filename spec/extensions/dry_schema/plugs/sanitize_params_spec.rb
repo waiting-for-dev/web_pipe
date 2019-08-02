@@ -40,7 +40,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
         end
         conn = WebPipe::ConnSupport::Builder.
                  (default_env).
-                 put(:param_sanitization_handler, configured_handler)
+                 add(:param_sanitization_handler, configured_handler)
         operation = described_class[schema, injected_handler]
 
         new_conn = operation.(conn)
@@ -57,7 +57,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
         end
         conn = WebPipe::ConnSupport::Builder.
                  (default_env).
-                 put(:param_sanitization_handler, configured_handler)
+                 add(:param_sanitization_handler, configured_handler)
         operation = described_class[schema]
 
         new_conn = operation.(conn)

@@ -19,12 +19,12 @@ module WebPipe
     #     private
     #
     #     def resolve(conn)
-    #       conn.put(:dependency, conn.fetch(:container)[:name])
+    #       conn.add(:dependency, conn.fetch(:container)[:name])
     #     end
     #   end
     module Container
       def self.[](container)
-        ->(conn) { conn.put(:container, Types::Container[container]) }
+        ->(conn) { conn.add(:container, Types::Container[container]) }
       end
     end
   end

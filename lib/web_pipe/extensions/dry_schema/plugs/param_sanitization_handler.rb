@@ -19,7 +19,7 @@ module WebPipe
       # @return [ConnSupport::Composition::Operation[]]
       def self.[](handler)
         lambda do |conn|
-          conn.put(PARAM_SANITIZATION_HANDLER_KEY, Handler[handler])
+          conn.add(PARAM_SANITIZATION_HANDLER_KEY, Handler[handler])
         end
       end
     end

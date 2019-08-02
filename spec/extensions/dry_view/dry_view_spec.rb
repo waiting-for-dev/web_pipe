@@ -48,7 +48,7 @@ RSpec.describe WebPipe::Conn do
       container = { 'view' => view.new }.freeze
       conn = WebPipe::ConnSupport::Builder.
                call(default_env).
-               put(:container, container)
+               add(:container, container)
 
       new_conn = conn.view('view')
 
@@ -69,7 +69,7 @@ RSpec.describe WebPipe::Conn do
       end
       conn = WebPipe::ConnSupport::Builder.
                call(default_env).
-               put(:view_context, { name: 'Joe' })
+               add(:view_context, { name: 'Joe' })
 
       new_conn = conn.view(view.new)
 
@@ -87,7 +87,7 @@ RSpec.describe WebPipe::Conn do
       end.new
       conn = WebPipe::ConnSupport::Builder.
                call(default_env).
-               put(:view_context, { name: 'Joe' })
+               add(:view_context, { name: 'Joe' })
 
       new_conn = conn.view(view.new, context: context)
 

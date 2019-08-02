@@ -8,7 +8,7 @@ RSpec.describe "Composition" do
 
     use :first_name, FirstNameMiddleware
 
-    plug :gretting, ->(conn) { conn.put(:greeting, 'Hello') }
+    plug :gretting, ->(conn) { conn.add(:greeting, 'Hello') }
   end
 
   let(:pipe) do

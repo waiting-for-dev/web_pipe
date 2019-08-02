@@ -88,11 +88,11 @@ RSpec.describe WebPipe::Conn do
     end
   end
 
-  describe 'put' do
-    it 'sets key/value pair in bag' do
+  describe 'add' do
+    it 'adds key/value pair to bag' do
       conn = build(default_env)
 
-      new_conn = conn.put(:foo, :bar)
+      new_conn = conn.add(:foo, :bar)
 
       expect(new_conn.bag[:foo]).to be(:bar)
     end
