@@ -214,7 +214,7 @@ module WebPipe
     #
     # @param code [StatusCode]
     #
-    # @return {Conn}
+    # @return [Conn]
     def set_status(code)
       new(
         status: code
@@ -230,12 +230,30 @@ module WebPipe
     #
     # @param content [#each, String]
     #
-    # @return {Conn}
+    # @return [Conn]
     #
     # @see https://www.rubydoc.info/github/rack/rack/master/file/SPEC#label-The+Body
     def set_response_body(content)
       new(
         response_body: content.respond_to?(:each) ? content : [content]
+      )
+    end
+
+    # Sets response headers.
+    #
+    # Substitues everything that was present as response headers by
+    # the new given hash.
+    #
+    # Headers keys are normalized.
+    #
+    # @param headers [Hash]
+    #
+    # @return [Conn]
+    #
+    # @see ConnSupport::Headers.normalize_key
+    def set_response_headers(headers)
+      new(
+        response_headers: ConnSupport::Headers.normalize(headers)
       )
     end
 
@@ -246,7 +264,7 @@ module WebPipe
     # @param key [String]
     # @param value [String]
     #
-    # @return {Conn}
+    # @return [Conn]
     #
     # @see ConnSupport::Headers.normalize_key
     def add_response_header(key, value)
@@ -263,7 +281,7 @@ module WebPipe
     #
     # @param key [String]
     #
-    # @return {Conn}
+    # @return [Conn]
     #
     # @see ConnSupport::Headers.normalize_key
     def delete_response_header(key)

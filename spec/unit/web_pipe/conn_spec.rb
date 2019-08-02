@@ -40,6 +40,16 @@ RSpec.describe WebPipe::Conn do
     end
   end
 
+  describe 'set_response_headers' do
+    it 'sets response headers' do
+      conn = build(default_env)
+
+      new_conn = conn.set_response_headers({ 'foo' => 'bar' })
+
+      expect(new_conn.response_headers).to eq({ 'Foo' => 'bar' })
+    end
+  end
+
   describe 'add_response_header' do
     it 'adds given pair to response headers' do
       conn = build(default_env).new(
