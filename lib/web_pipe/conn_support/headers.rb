@@ -92,6 +92,13 @@ module WebPipe
       def self.normalize_key(key)
         key.downcase.gsub('_', '-').split('-').map(&:capitalize).join('-')
       end
+
+      # Returns a new hash with all keys normalized.
+      #
+      # @see #normalize_key
+      def self.normalize(headers)
+        headers.transform_keys(&method(:normalize_key))
+      end
     end
   end
 end

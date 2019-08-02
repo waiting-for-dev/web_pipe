@@ -79,9 +79,17 @@ RSpec.describe WebPipe::ConnSupport::Headers do
 
   describe '.normalize_key' do
     it 'does PascalCase on - and switches _ by -' do
-      key = described_class.normalize_key('Foo-Bar')
+      key = described_class.normalize_key('foo_bar')
 
       expect(key).to eq('Foo-Bar')
+    end
+  end
+
+  describe '.normalize' do
+    it 'returns copy of hash with all keys normalized' do
+      headers = described_class.normalize('foo_bar' => 'zoo')
+
+      expect(headers).to eq('Foo-Bar' => 'zoo')
     end
   end
 end
