@@ -1,10 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [0.6.0] - 2019-08-02
 ### Added
 - **BREAKING**. Rename `put` methods as `add`.
   [[#26]](https://github.com/waiting-for-dev/web_pipe/pull/26).
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Extension to easily create HTTP redirects.
   [[#19](https://github.com/waiting-for-dev/web_pipe/pull/19)].
-  
+
 - Added `Conn#set_response_headers` method.
   [[#27](https://github.com/waiting-for-dev/web_pipe/pull/27)].
 
