@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
+- *BREAKING*: Rename `put` methods as `add`:
+  [26](https://github.com/waiting-for-dev/web_pipe/pull/26)
 - *BREAKING*: Rename taint to halt, and clean/dirty to ongoing/halted:
   [25](https://github.com/waiting-for-dev/web_pipe/pull/25)
 - *BREAKING*: URL redundant methods need to be loaded from `:url` extension:
