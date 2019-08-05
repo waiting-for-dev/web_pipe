@@ -7,11 +7,11 @@ RSpec.describe WebPipe::Conn do
   end
 
   describe '#container' do
-    it "returns bag's container key" do
+    it "returns config's container key" do
       conn = build_conn(default_env)
       container = {}.freeze
 
-      new_conn = conn.add(:container, container)
+      new_conn = conn.add_config(:container, container)
 
       expect(new_conn.container).to be(container)
     end

@@ -33,7 +33,6 @@ module WebPipe
 
   register_extension :container do
     require 'web_pipe/extensions/container/container'
-    require 'web_pipe/extensions/container/plugs/container'
   end
 
   register_extension :flash do
