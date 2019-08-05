@@ -28,7 +28,6 @@ module WebPipe
   
   register_extension :dry_view do
     require 'web_pipe/extensions/dry_view/dry_view'
-    require 'web_pipe/extensions/dry_view/plugs/view_context'
   end
 
   register_extension :container do

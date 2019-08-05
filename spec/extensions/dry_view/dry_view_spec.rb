@@ -48,14 +48,14 @@ RSpec.describe WebPipe::Conn do
       container = { 'view' => view.new }.freeze
       conn = WebPipe::ConnSupport::Builder.
                call(default_env).
-               add(:container, container)
+               add_config(:container, container)
 
       new_conn = conn.view('view')
 
       expect(new_conn.response_body).to eq(['Hello world'])
     end
 
-    it "injects bag's 'view_context' to the context" do
+    it 'injects configured view_context to the context' do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
         config.default_context = Class.new(Dry::View::Context) do
@@ -69,14 +69,15 @@ RSpec.describe WebPipe::Conn do
       end
       conn = WebPipe::ConnSupport::Builder.
                call(default_env).
-               add(:view_context, { name: 'Joe' })
+               add(:name, 'Joe').
+               add_config(:view_context, ->(conn) { { name: conn.fetch(:name) } })
 
       new_conn = conn.view(view.new)
 
       expect(new_conn.response_body).to eq(['Hello Joe'])
     end
 
-    it "does not inject 'view_context' when context is explicit" do
+    it "does not inject configured view_context when it is explicit" do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
       end
@@ -87,7 +88,7 @@ RSpec.describe WebPipe::Conn do
       end.new
       conn = WebPipe::ConnSupport::Builder.
                call(default_env).
-               add(:view_context, { name: 'Joe' })
+               add_config(:view_context, ->(_conn) { { name: 'Joe' } })
 
       new_conn = conn.view(view.new, context: context)
 

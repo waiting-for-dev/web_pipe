@@ -28,9 +28,8 @@ module WebPipe
   #     end
   #   end
   #
-  # If {WebPipe::Conn#bag} has a `:container` key, the view instance
-  # can be resolved from it. {WebPipe::Container} extension can be
-  # used to streamline this integration.
+  # If there is a `:container` configured (in {Conn#config}), the view
+  # instance can be resolved from it.
   #
   # @example
   #   WebPipe.load_extensions(:dry_view, :container)
@@ -40,7 +39,7 @@ module WebPipe
   #
   #     Container = { 'views.say_hello' => SayHelloView.new }.freeze
   #
-  #     plug :container, WebPipe::Plugs::Container[Container]
+  #     plug :config_container, ->(conn) { conn.add_config(:container, Container[Container]) }
   #     plug :render
   #
   #     def render(conn)
@@ -52,9 +51,11 @@ module WebPipe
   # through the `context:` argument, as in a standard call to
   # {Dry::View#call}. However, it is possible to leverage configured
   # default context while still being able to inject request specific
-  # context. For that to work, a key `:view_context` should be present
-  # in {WebPipe::Conn#bag}. It must be equal to a hash which will be
-  # passed to {Dry::View::Context#with} to create the final context:
+  # context. For that to work, `:view_context` should be present in
+  # {WebPipe::Conn#config}. Its value must be a lambda accepting the
+  # {Conn} instance and returning a hash, which will be passed to
+  # {Dry::View::Context#with} to create the final context at the
+  # moment {#view} is called.
   #
   # @example
   #   class MyContext < Dry::View::Context
@@ -77,11 +78,11 @@ module WebPipe
   #   class App
   #     include WebPipe
   #
-  #     plug :set_view_context
+  #     plug :config_view_context
   #     plug :render
   #
-  #     def set_view_context(conn)
-  #       conn.put(:view_context, { current_path: conn.full_path })
+  #     def config_view_context(conn)
+  #       conn.add_config(:view_context, ->(conn) {  { current_path: conn.full_path } })
   #     end
   #
   #     def render(conn)
@@ -90,25 +91,14 @@ module WebPipe
   #     end
   #   end
   #
-  # It can be streamline using {WebPipe::Plugs::ViewContext} plug,
-  # which accepts a callable object which should return the request
-  # context from given {WebPipe::Conn}:
-  #
-  # @example
-  #  # ...
-  #    plug :set_view_context, WebPipe::Plugs::ViewContext[
-  #                              ->(conn) { { current_path: conn.full_path } }
-  #                            ]
-  #  # ...
-  #   
   # @see https://dry-rb.org/gems/dry-view/
   # @see WebPipe::Container
   module DryView
-    # Where to find in {#bag} request's view context
+    # Where to find in {#config} request's view context generator.
     VIEW_CONTEXT_KEY = :view_context
 
     # Default request's view context
-    DEFAULT_VIEW_CONTEXT = Types::EMPTY_HASH
+    DEFAULT_VIEW_CONTEXT = ->(_conn) { Types::EMPTY_HASH }
 
     # Sets string output of a view as response body.
     #
@@ -117,8 +107,8 @@ module WebPipe
     #
     # `kwargs` is used as the input for the view (the arguments that
     # {Dry::View#call} receives). If they doesn't contain an explicit
-    # `context:` key, it can be added through the injection injection
-    # of what is present in bag's `:view_context`.(see
+    # `context:` key, it can be added through the injection of the
+    # result of a lambda present in context's `:view_context`.(see
     # {Dry::View::Context#with}).
     #
     # @param view_spec [Dry::View, Any]
@@ -141,7 +131,7 @@ module WebPipe
     def view_instance(view_spec)
       return view_spec if view_spec.is_a?(Dry::View)
 
-      fetch(:container)[view_spec]
+      fetch_config(:container)[view_spec]
     end
 
     def view_input(kwargs, view_instance)
@@ -151,7 +141,7 @@ module WebPipe
                    config.
                    default_context.
                    with(
-                     fetch(VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT)
+                     fetch_config(VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT).(self)
                    )
       kwargs.merge(context: context)
     end
