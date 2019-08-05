@@ -23,7 +23,6 @@ module WebPipe
   register_extension :dry_schema do
     require 'web_pipe/extensions/dry_schema/dry_schema'
     require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
-    require 'web_pipe/extensions/dry_schema/plugs/param_sanitization_handler'
   end
   
   register_extension :dry_view do
