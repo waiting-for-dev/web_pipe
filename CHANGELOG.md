@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
 ## [0.6.1] - 2019-08-02
+- **BREAKING**. `Conn#config` instead of `Conn#bag` for extension configuration.
+  [[#29]](https://github.com/waiting-for-dev/web_pipe/pull/29)
+
 ### Fixed
 - Fixed support for ruby 2.4.
   [[#28]](https://github.com/waiting-for-dev/web_pipe/pull/28)
