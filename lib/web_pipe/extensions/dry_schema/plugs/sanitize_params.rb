@@ -1,6 +1,5 @@
 require 'web_pipe/types'
 require 'web_pipe/extensions/dry_schema/dry_schema'
-require 'web_pipe/extensions/dry_schema/plugs/param_sanitization_handler'
 
 module WebPipe
   module Plugs
@@ -8,6 +7,11 @@ module WebPipe
     #
     # @see WebPipe::DrySchema
     module SanitizeParams
+      # {Conn#config} key to store the handler.
+      #
+      # @return [Symbol]
+      PARAM_SANITIZATION_HANDLER_KEY = :param_sanitization_handler
+
       # Default handler if none is configured nor injected.
       #
       # @return [ParamSanitizationHandler::Handler[]]
@@ -36,8 +40,8 @@ module WebPipe
       def self.get_handler(conn, handler)
         return handler unless handler == Types::Undefined
 
-        conn.fetch(
-          Plugs::ParamSanitizationHandler::PARAM_SANITIZATION_HANDLER_KEY, DEFAULT_HANDLER
+        conn.fetch_config(
+          PARAM_SANITIZATION_HANDLER_KEY, DEFAULT_HANDLER
         )
       end
       private_class_method :get_handler

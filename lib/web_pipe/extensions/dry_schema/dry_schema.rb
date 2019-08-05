@@ -44,18 +44,15 @@ module WebPipe
   #                          ]
   #
   # A common workflow is applying the same handler for all param
-  # sanitization across your application. This can be achieved setting
-  # a `:param_sanitization_handler` bag key in a upstream operation
-  # which can be composed downstream for any number of
-  # pipes. `SanitizeParams` will used configured handler if none is
-  # injected as argument. Another plug `ParamSanitizationHandler`
-  # exists to help with this process:
+  # sanitization across your application. This can be achieved configuring
+  # a `:param_sanitization_handler` in a upstream operation which can
+  # be composed downstream for any number of pipes. `SanitizeParams`
+  # will used configured handler if none is injected as
+  # argument.
   #
   # @example
   #  class App
-  #    plug :sanitization_handler, WebPipe::Plugs::ParamSanitizationHandler[
-  #                                  ->(conn, result) { ... }
-  #                                ]
+  #    plug :sanitization_handler, ->(conn, result) { ... }
   #  end
   #
   #  class Subapp
