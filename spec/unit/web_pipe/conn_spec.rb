@@ -108,6 +108,38 @@ RSpec.describe WebPipe::Conn do
     end
   end
 
+  describe 'fetch_config' do
+    it 'returns item in config with given key' do
+      conn = build(default_env).new(config: { foo: :bar })
+
+      expect(conn.fetch_config(:foo)).to be(:bar)
+    end
+
+    it 'raises KeyNotFoundInConfigError when key does not exist' do
+      conn = build(default_env)
+      
+      expect {
+        conn.fetch_config(:foo)
+      }.to raise_error(WebPipe::ConnSupport::KeyNotFoundInConfigError)
+    end
+
+    it 'returns default when it is given and key does not exist' do
+      conn = build(default_env)
+
+      expect(conn.fetch_config(:foo, :bar)).to be(:bar)
+    end
+  end
+
+  describe 'add' do
+    it 'adds key/value pair to config' do
+      conn = build(default_env)
+
+      new_conn = conn.add_config(:foo, :bar)
+
+      expect(new_conn.config[:foo]).to be(:bar)
+    end
+  end
+
   describe '#rack_response' do
     let(:env) { default_env.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
     let(:conn) do
