@@ -210,6 +210,18 @@ module WebPipe
     # @return [Bag[]]
     attribute :bag, Bag
 
+    # @!attribute [r] config
+    #
+    # Instance level configuration.
+    #
+    # It is a hash where anything can be stored. Keys must be symbols.
+    #
+    # The idea of it is for extensions to have somewhere to store user
+    # provided values they may need at some point.
+    #
+    # @return [Bag[]]
+    attribute :config, Bag
+
     # Sets response status code.
     #
     # @param code [StatusCode]
@@ -317,6 +329,34 @@ module WebPipe
     def add(key, value)
       new(
         bag: bag.merge(key => value)
+      )
+    end
+
+    # Reads an item from {#config}.
+    #
+    # @param key [Symbol]
+    #
+    # @return [Object]
+    #
+    # @raise ConnSupport::KeyNotFoundInConfigError when key is not
+    # present in {#config}.
+    def fetch_config(key, default = Types::Undefined)
+      return config.fetch(key, default) unless default == Types::Undefined
+
+      config.fetch(key) { raise ConnSupport::KeyNotFoundInConfigError.new(key) }
+    end
+
+    # Writes an item to {#config}.
+    #
+    # If it already exists, it is overwritten.
+    #
+    # @param key [Symbol]
+    # @param value [Object]
+    #
+    # @return [Conn]
+    def add_config(key, value)
+      new(
+        config: config.merge(key => value)
       )
     end
 

@@ -1,13 +1,26 @@
 module WebPipe
   module ConnSupport
-    # Error raised when trying to fetch an entry in {Conn}'s bag for
-    # an unknown key.
+    # Error raised when trying to fetch an entry in {Conn#bag} for an
+    # unknown key.
     class KeyNotFoundInBagError < KeyError
       # @param key [Any] Key not found in the bag
       def initialize(key)
         super(
           <<~eos
             Bag does not contain a key with name +#{key}+.
+          eos
+        )
+      end
+    end
+
+    # Error raised when trying to fetch an entry in {Conn#config} for
+    # an unknown key.
+    class KeyNotFoundInConfigError < KeyError
+      # @param key [Any] Key not found in config
+      def initialize(key)
+        super(
+          <<~eos
+            Config does not contain a key with name +#{key}+.
           eos
         )
       end
