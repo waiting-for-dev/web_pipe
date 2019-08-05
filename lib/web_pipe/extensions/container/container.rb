@@ -1,10 +1,8 @@
 require 'web_pipe'
 
 module WebPipe
-  # Extension adding a `#container` method to fetch bag's `:container`
-  # key.
-  #
-  # Usually, the container is set with {WebPipe::Plugs::Container}.
+  # Extension adding a `#container` method which returns {Conn#config}
+  # `:container` key.
   #
   # @example
   #   require 'web_pipe'
@@ -14,15 +12,15 @@ module WebPipe
   #   class App
   #     include WebPipe
   #
-  #     plug :container, WebPipe::Plugs::Container[MyContainer]
+  #     plug :container, ->(conn) { conn.add_config(:container, MyContainer) }
   #     plug :render, ->(conn) { conn.set_response_body(conn.container['view']) }
   #   end
   module Container
-    # Returns bag `:container` value
+    # Returns {Conn#config} `:container` value
     #
     # @return [Any]
     def container
-      fetch(:container)
+      fetch_config(:container)
     end
   end
 
