@@ -1,9 +1,6 @@
 require 'dry/monads/result'
 require 'web_pipe/types'
 require 'web_pipe/conn'
-require 'dry/monads/result/extensions/either'
-
-Dry::Monads::Result.load_extensions(:either)
 
 module WebPipe
   module ConnSupport
