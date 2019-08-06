@@ -37,8 +37,16 @@ module WebPipe
     require 'web_pipe/extensions/flash/flash'
   end
 
+  register_extension :router_params do
+    require 'web_pipe/extensions/router_params/router_params'
+  end
+
   register_extension :redirect do
     require 'web_pipe/extensions/redirect/redirect'
+  end
+
+  register_extension :params do
+    require 'web_pipe/extensions/params/params'
   end
 
   register_extension :session do

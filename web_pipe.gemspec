@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-monads", "~> 1.3"
   spec.add_runtime_dependency "dry-types", "~> 1.1"
   spec.add_runtime_dependency "dry-struct", "~> 1.0"
+  spec.add_runtime_dependency "transproc", "~> 1.1"
 
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
