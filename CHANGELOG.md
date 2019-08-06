@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.6.1] - 2019-08-02
 - **BREAKING**. `Conn#config` instead of `Conn#bag` for extension configuration.
   [[#29]](https://github.com/waiting-for-dev/web_pipe/pull/29)
+  
+- **BREAKING**. `:params` extension extracted from `:url` extension.
+  [[#30]](https://github.com/waiting-for-dev/web_pipe/pull/30)
+  
+- **BREAKING**. Router params are extracted as a param transformation.
+  [[#30]](https://github.com/waiting-for-dev/web_pipe/pull/30)
+  
+- Integration with `transproc` gem to provide any number of params
+  transformations.
+  [[#30]](https://github.com/waiting-for-dev/web_pipe/pull/30)
 
 ### Fixed
 - Fixed support for ruby 2.4.
