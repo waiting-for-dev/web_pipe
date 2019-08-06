@@ -1,0 +1,10 @@
+require 'spec_helper'
+require 'web_pipe/extensions/params/params/transf'
+
+RSpec.describe WebPipe::Params::Transf do
+  describe '.id' do
+    it 'returns same value' do
+      expect(described_class[:id].(1)).to be(1)
+    end
+  end
+end
