@@ -1,5 +1,3 @@
-require 'transproc'
-
 module WebPipe
   # Adds helper methods related to the request URL.
   #
