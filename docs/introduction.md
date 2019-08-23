@@ -1,4 +1,4 @@
-# Web Pipe
+# Introduction
 
 `web_pipe` is a rack application builder.
 
