@@ -3,7 +3,8 @@
 
 # WebPipe
 
-- [Introduction](docs/introduction.md)
+1. [Introduction](docs/introduction.md)
+2. [Design model](docs/design_model.md)
 
 ## Current status
 
