@@ -5,6 +5,7 @@
 
 1. [Introduction](docs/introduction.md)
 2. [Design model](docs/design_model.md)
+3. [Building a rack application](docs/building_a_rack_application.md)
 
 ## Current status
 
