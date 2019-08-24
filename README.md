@@ -6,6 +6,10 @@
 1. [Introduction](docs/introduction.md)
 2. [Design model](docs/design_model.md)
 3. [Building a rack application](docs/building_a_rack_application.md)
+4. [Plugging operations](docs/plugging_operations.md)
+   1. [Resolving operations](docs/plugging_operations/resolving_operations.md)
+   2. [Injecting operations](docs/plugging_operations/injecting_operations.md)
+   3. [Composing operations](docs/plugging_operations/composing_operations.md)
 
 ## Current status
 
