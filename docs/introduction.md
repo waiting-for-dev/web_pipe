@@ -26,9 +26,9 @@ Following there is a simple example. It is a web application that will check
 the value of a `user` parameter. When it is `Alice` or `Joe`, it will kindly
 say hello. Otherwise, it will unauthorize:
 
-> All the examples in this documentation can be tried pasting them to a file
-with name `config.ru` and launching the rack command `rackup` within the same
-directory. The application will be available in `http://localhost:9292`.
+> In order to try the example you can paste it to a file with name `config.ru`
+and launch the rack command `rackup` within the same directory. The application
+will be available in `http://localhost:9292`.
 
 ```ruby
 require 'web_pipe'
