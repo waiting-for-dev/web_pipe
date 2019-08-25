@@ -13,6 +13,7 @@
 5. [Using rack middlewares](docs/using_rack_middlewares.md)
    1. [Injecting middlewares](docs/using_rack_middlewares/injecting_middlewares.md)
    2. [Composing middlewares](docs/using_rack_middlewares/composing_middlewares.md)
+6. [Composing applications](docs/composing_applications.md)
 
 ## Current status
 
