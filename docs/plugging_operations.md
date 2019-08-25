@@ -2,7 +2,7 @@
 
 Operations are plugged to your application through the use of the DSL method
 `plug`. The first argument it always takes is a symbol with the name you want
-to give to the operation.
+to give to the operation (needed to allow injection on initialization).
 
 Remember, an operation is nothing more than a function (in ruby anything
 responding to `#call`) which takes a struct with all the connection information
