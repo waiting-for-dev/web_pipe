@@ -1,9 +1,10 @@
 # Injecting operations
 
 Operations can be injected at the moment the application is initialized,
-allowing you to override what you plugged in the definition. For that, you use
-the `plugs:` keyword argument, which must be a hash where operations are
-matched by the name you gave them in the definition.
+allowing you to override what you plugged in the definition.
+
+For that, you use the `plugs:` keyword argument, which must be a hash where
+operations are matched by the name you gave them in the definition.
 
 This is mainly useful for testing purposes, where you can switch a heavy
 operation and use something lighter.
