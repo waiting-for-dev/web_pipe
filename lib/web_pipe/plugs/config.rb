@@ -10,10 +10,10 @@ module WebPipe
     #   class App
     #     include WebPipe
     #
-    #     plug :config, WebPipe::Plugs::Config[foo: :bar]
+    #     plug :config, WebPipe::Plugs::Config.(foo: :bar)
     #   end
     module Config
-      def self.[](pairs)
+      def self.call(pairs)
         lambda do |conn|
           conn.new(
             config: conn.config.merge(pairs)

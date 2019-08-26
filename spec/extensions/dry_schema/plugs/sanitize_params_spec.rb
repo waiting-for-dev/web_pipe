@@ -5,7 +5,7 @@ require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
 require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Plugs::SanitizeParams do
-  describe '.[]' do
+  describe '.call' do
     let(:schema) do
       schema = Dry::Schema.Params do
         required(:name)
@@ -16,7 +16,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
       it "sets sanitized_params bag's key" do
         env = default_env.merge(Rack::QUERY_STRING => 'name=Joe')
         conn = WebPipe::ConnSupport::Builder.(env)
-        operation = described_class[schema]
+        operation = described_class.(schema)
 
         new_conn = operation.(conn)
 
@@ -41,7 +41,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
         conn = WebPipe::ConnSupport::Builder.
                  (default_env).
                  add_config(:param_sanitization_handler, configured_handler)
-        operation = described_class[schema, injected_handler]
+        operation = described_class.(schema, injected_handler)
 
         new_conn = operation.(conn)
 
@@ -58,7 +58,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
         conn = WebPipe::ConnSupport::Builder.
                  (default_env).
                  add_config(:param_sanitization_handler, configured_handler)
-        operation = described_class[schema]
+        operation = described_class.(schema)
 
         new_conn = operation.(conn)
 
@@ -68,7 +68,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
 
       it 'uses default handler if none is injected nor configured' do
         conn = WebPipe::ConnSupport::Builder.(default_env)
-        operation = described_class[schema]
+        operation = described_class.(schema)
 
         new_conn = operation.(conn)
 
