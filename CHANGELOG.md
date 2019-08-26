@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - **BREAKING**. Router params are extracted as a param transformation.
   [[#30]](https://github.com/waiting-for-dev/web_pipe/pull/30)
   
+- **BREAKING**. Plugs now respond to `.call` instead of `.[]`.
+  [[#31]](https://github.com/waiting-for-dev/web_pipe/pull/31)
+  
 - Integration with `transproc` gem to provide any number of params
   transformations.
   [[#30]](https://github.com/waiting-for-dev/web_pipe/pull/30)
