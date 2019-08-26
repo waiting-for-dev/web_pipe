@@ -59,7 +59,7 @@ module WebPipe
   #    Schema = Dry::Schema.Params { ... }
   #
   #    plug :app, App.new
-  #    plug :sanitize_params, WebPipe::Plugs::SanitizeParams[Schema]
+  #    plug :sanitize_params, WebPipe::Plugs::SanitizeParams.call(Schema)
   #  end
   #
   # @see https://dry-rb.org/gems/dry-schema/

@@ -26,7 +26,7 @@ module WebPipe
       # @param handler [ParamSanitizationHandler::Handler[]]
       #
       # @return [ConnSupport::Composition::Operation[], Types::Undefined]
-      def self.[](schema, handler = Types::Undefined)
+      def self.call(schema, handler = Types::Undefined)
         lambda do |conn|
           result = schema.(conn.params)
           if result.success?

@@ -10,13 +10,13 @@ module WebPipe
     #   class App
     #     include WebPipe
     #
-    #     plug :html, WebPipe::Plugs::ContentType['text/html']
+    #     plug :html, WebPipe::Plugs::ContentType.call('text/html')
     #   end
     module ContentType
       # Content-Type header
       HEADER = 'Content-Type'
 
-      def self.[](content_type)
+      def self.call(content_type)
         ->(conn) { conn.add_response_header(HEADER, content_type) }
       end
     end
