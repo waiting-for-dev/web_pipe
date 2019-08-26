@@ -8,7 +8,7 @@ module WebPipe
   # This extension helps with the addition of the `Set-Cookie` header
   # to the response, which is the way the server has to instruct the
   # browser to keep a cookie. A cookie can be added with the
-  # {#add_cookie} method, while it can be marked for deletion with
+  # {#set_cookie} method, while it can be marked for deletion with
   # {#delete_cookie}. Remember that marking a cookie for deletion just
   # means adding the same cookie name with an expiration time in the
   # past.
