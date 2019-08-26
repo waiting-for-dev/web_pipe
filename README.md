@@ -14,6 +14,9 @@
    1. [Injecting middlewares](docs/using_rack_middlewares/injecting_middlewares.md)
    2. [Composing middlewares](docs/using_rack_middlewares/composing_middlewares.md)
 6. [Composing applications](docs/composing_applications.md)
+7. [Connection struct](docs/connection_struct.md)
+   1. [Sharing data downstream](docs/connection_struct/sharing_data_downstream.md)
+   2. [Halting the pipe](docs/connection_struct/halting_the_pipe.md)
 
 ## Current status
 
