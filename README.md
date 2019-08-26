@@ -25,7 +25,8 @@
 1. [Extensions](docs/extensions.md)
    1. [Container](docs/extensions/container.md)
    1. [Cookies](docs/extensions/cookies.md)
-   1. [URL](docs/extensions/url.md)
+   1. [Redirect](docs/extensions/redirect.md)
+   3. [URL](docs/extensions/url.md)
 
 ## Current status
 
