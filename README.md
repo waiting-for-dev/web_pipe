@@ -17,6 +17,7 @@
 7. [Connection struct](docs/connection_struct.md)
    1. [Sharing data downstream](docs/connection_struct/sharing_data_downstream.md)
    2. [Halting the pipe](docs/connection_struct/halting_the_pipe.md)
+   3. [Configuring the connection struct](docs/connection_struct/configuring_the_connection_struct.md)
 8. [DSL free usage](docs/dsl_free_usage.md)
 9. [Plugs](docs/plugs.md)
    1. [ContentType](docs/plugs/content_type.md)
