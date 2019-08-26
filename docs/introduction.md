@@ -19,8 +19,8 @@ to create an HTTP response. The pipe can be halted at any moment, withdrawing
 any chance to modify the response to all the operations downstream.
 
 `web_pipe` has a modular design, with only the minimal functionalities needed
-to build a web application enabled by default. However, there are a bunch of
-extensions to make your life easier.
+to build a web application enabled by default. However, there are
+several extensions to make your life easier.
 
 Following there is a simple example. It is a web application that will check
 the value of a `user` parameter. When it is `Alice` or `Joe`, it will kindly
