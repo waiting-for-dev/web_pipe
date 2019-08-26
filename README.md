@@ -24,6 +24,7 @@
    2. [Config](docs/plugs/config.md)
 10. [Extensions](docs/extensions.md)
    1. [Container](docs/extensions/container.md)
+   2. [Cookies](docs/extensions/cookies.md)
 
 ## Current status
 
