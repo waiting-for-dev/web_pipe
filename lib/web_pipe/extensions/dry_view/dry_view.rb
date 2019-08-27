@@ -39,7 +39,7 @@ module WebPipe
   #
   #     Container = { 'views.say_hello' => SayHelloView.new }.freeze
   #
-  #     plug :config_container, ->(conn) { conn.add_config(:container, Container[Container]) }
+  #     plug :config_container, ->(conn) { conn.add_config(:container, Container) }
   #     plug :render
   #
   #     def render(conn)
@@ -74,6 +74,8 @@ module WebPipe
   #
   #     expose :name
   #   end
+  #
+  #   WebPipe.load_extensions(:url)
   #
   #   class App
   #     include WebPipe
