@@ -6,7 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
-## [0.6.1] - 2019-08-02
 - **BREAKING**. `Conn#config` instead of `Conn#bag` for extension configuration.
   [[#29]](https://github.com/waiting-for-dev/web_pipe/pull/29)
   
@@ -32,6 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `:dry-schema` extension automatically loads `:params` extension.
   [[#32]](https://github.com/waiting-for-dev/web_pipe/pull/32)
 
+## [0.6.1] - 2019-08-02
 ### Fixed
 - Fixed support for ruby 2.4.
   [[#28]](https://github.com/waiting-for-dev/web_pipe/pull/28)
