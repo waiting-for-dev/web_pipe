@@ -25,6 +25,7 @@
 1. [Extensions](docs/extensions.md)
    1. [Container](docs/extensions/container.md)
    1. [Cookies](docs/extensions/cookies.md)
+   1. [Flash](docs/extensions/flash.md)
    1. [Dry View](docs/extensions/dry_view.md)
    1. [Redirect](docs/extensions/redirect.md)
    1. [URL](docs/extensions/url.md)
