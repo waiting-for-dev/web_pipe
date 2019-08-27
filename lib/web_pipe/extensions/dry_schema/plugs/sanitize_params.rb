@@ -12,16 +12,6 @@ module WebPipe
       # @return [Symbol]
       PARAM_SANITIZATION_HANDLER_KEY = :param_sanitization_handler
 
-      # Default handler if none is configured nor injected.
-      #
-      # @return [ParamSanitizationHandler::Handler[]]
-      DEFAULT_HANDLER = lambda do |conn, _result|
-        conn.
-          set_status(500).
-          set_response_body('Given params do not conform with the expected schema').
-          halt
-      end
-
       # @param schema [Dry::Schema::Processor]
       # @param handler [ParamSanitizationHandler::Handler[]]
       #
@@ -40,9 +30,7 @@ module WebPipe
       def self.get_handler(conn, handler)
         return handler unless handler == Types::Undefined
 
-        conn.fetch_config(
-          PARAM_SANITIZATION_HANDLER_KEY, DEFAULT_HANDLER
-        )
+        conn.fetch_config(PARAM_SANITIZATION_HANDLER_KEY)
       end
       private_class_method :get_handler
     end
