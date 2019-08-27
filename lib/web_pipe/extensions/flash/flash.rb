@@ -4,7 +4,7 @@ require 'web_pipe/conn'
 require 'web_pipe/conn_support/errors'
 
 module WebPipe
-  # Provides with a tipical flash messages functionality.
+  # Provides with a typical flash messages functionality.
   #
   # @example
   #   require 'web_pipe'
@@ -19,8 +19,8 @@ module WebPipe
   #     use :session, Rack::Session::Cookie, secret: 'secret'
   #     use :flash, Rack::Flash
   #
-  #     plug :add_in_flash, ->(conn) { conn.add_flash(:notice, 'Hello world') }
-  #     plug :add_in_flash_now, ->(conn) { conn.add_flash_now(:notice_now, 'Hello world now') }
+  #     plug :add_to_flash, ->(conn) { conn.add_flash(:notice, 'Hello world') }
+  #     plug :add_to_flash_now, ->(conn) { conn.add_flash_now(:notice_now, 'Hello world now') }
   #   end
   #
   # Usually, you will end up making `conn.flash` available to your view system:
