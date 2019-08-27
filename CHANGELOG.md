@@ -19,9 +19,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - **BREAKING**. Plugs now respond to `.call` instead of `.[]`.
   [[#31]](https://github.com/waiting-for-dev/web_pipe/pull/31)
   
+- **BREAKING**. `:dry-schema` extension has not a default handler.
+  [[#32]](https://github.com/waiting-for-dev/web_pipe/pull/32)
+  
+- **BREAKING**. `:dry-schema` extension stores output in `#config`.
+  [[#32]](https://github.com/waiting-for-dev/web_pipe/pull/32)
+  
 - Integration with `transproc` gem to provide any number of params
   transformations.
   [[#30]](https://github.com/waiting-for-dev/web_pipe/pull/30)
+  
+- `:dry-schema` extension automatically loads `:params` extension.
+  [[#32]](https://github.com/waiting-for-dev/web_pipe/pull/32)
 
 ### Fixed
 - Fixed support for ruby 2.4.
