@@ -1,5 +1,7 @@
 require 'web_pipe'
 
+WebPipe.load_extensions(:params)
+
 module WebPipe
   # Integration with `dry-schema` validation library.
   #
