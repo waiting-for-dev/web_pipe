@@ -30,7 +30,7 @@ module WebPipe
         lambda do |conn|
           result = schema.(conn.params)
           if result.success?
-            conn.add(DrySchema::SANITIZED_PARAMS_KEY, result.output)
+            conn.add_config(DrySchema::SANITIZED_PARAMS_KEY, result.output)
           else
             get_handler(conn, handler).(conn, result)
           end
