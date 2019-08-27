@@ -65,15 +65,6 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
         expect(new_conn).to be_halted
         expect(new_conn.response_body[0]).to eq('Something went wrong')
       end
-
-      it 'uses default handler if none is injected nor configured' do
-        conn = WebPipe::ConnSupport::Builder.(default_env)
-        operation = described_class.(schema)
-
-        new_conn = operation.(conn)
-
-        expect(new_conn.status).to be(500)
-      end
     end
   end
 end
