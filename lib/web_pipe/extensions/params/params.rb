@@ -32,7 +32,7 @@ module WebPipe
   # @example
   #   # http://www.example.com?foo=bar
   #   conn.
-  #     add_config(:param_transformation, [:deep_symbolize_keys]).
+  #     add_config(:param_transformations, [:deep_symbolize_keys]).
   #     params #=> { foo: 'bar' }
   #
   # You can register your own transformation functions:
