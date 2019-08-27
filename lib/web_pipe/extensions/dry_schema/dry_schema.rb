@@ -10,11 +10,10 @@ module WebPipe
   #
   # On its own, the library just provides with a
   # `Conn#sanitized_params` method, which will return what is set into
-  # bag's `:sanitized_params` key.
+  # config's `:sanitized_params` key.
   #
-  # This key in the bag is what will be populated by `SanitizeParams`
-  # plug, which accepts a `dry-validation` schema that will be applied
-  # to `Conn#params`:
+  # This key in config is what will be populated by `SanitizeParams` plug, which
+  # accepts a `dry-schema` schema that will be applied to `Conn#params`:
   #
   # @example
   #  require 'web_pipe'
@@ -69,7 +68,7 @@ module WebPipe
     SANITIZED_PARAMS_KEY = :sanitized_params
 
     def sanitized_params
-      fetch(SANITIZED_PARAMS_KEY)
+      fetch_config(SANITIZED_PARAMS_KEY)
     end
   end
 
