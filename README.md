@@ -28,6 +28,7 @@
    1. [Flash](docs/extensions/flash.md)
    1. [Dry View](docs/extensions/dry_view.md)
    1. [Redirect](docs/extensions/redirect.md)
+   1. [Session](docs/extensions/session.md)
    1. [URL](docs/extensions/url.md)
 
 ## Current status
