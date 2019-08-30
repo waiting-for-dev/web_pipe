@@ -34,7 +34,7 @@ module WebPipe
     #
     # @return [Rack::Session::Abstract::SessionHash]
     def session
-      env.fetch(::Rack::RACK_SESSION) do
+      env.fetch(Rack::RACK_SESSION) do
         raise ConnSupport::MissingMiddlewareError.new(
                 'session', 'Rack::Session', 'https://www.rubydoc.info/github/rack/rack/Rack/Session'
               )

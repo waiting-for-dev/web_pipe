@@ -1,9 +1,9 @@
 require 'dry/struct'
-require 'web_pipe/rack/middleware'
+require 'web_pipe/rack_support/middleware'
 require 'web_pipe/types'
 
 module WebPipe
-  module Rack
+  module RackSupport
     # Specification on how to resolve {Rack::Middleware}'s.
     #
     # Rack middlewares can be specified in two ways:
@@ -11,8 +11,8 @@ module WebPipe
     # - As an array where fist element is a rack middleware class
     # while the rest of elements are its initialization options.
     # - A single element array where it is an instance of a class
-    # including {WebPipe}. This specifies all {Rack::Middlewares}
-    # for that {WebPipe}.
+    # including {WebPipe}. This specifies all {RackSupport::Middlewares} for
+    # that {WebPipe}.
     #
     # @api private
     class MiddlewareSpecification < Dry::Struct
@@ -26,7 +26,7 @@ module WebPipe
       #
       # @see #inject_and_resolve
       Injections = Types::Strict::Hash.map(
-        Rack::MiddlewareSpecification::Name, Rack::MiddlewareSpecification::Spec
+        RackSupport::MiddlewareSpecification::Name, RackSupport::MiddlewareSpecification::Spec
       ).default(Types::EMPTY_HASH)
 
       # @!attribute [r] name
@@ -42,7 +42,7 @@ module WebPipe
       # @param middleware_specifications [Array<MiddlewareSpecification>]
       # @param injections [Injections[]]
       #
-      # @return [Array<Rack::Middleware>]
+      # @return [Array<RackSupport::Middleware>]
       def self.inject_and_resolve(middleware_specifications, injections)
         middleware_specifications.map do |spec|
           if injections.has_key?(spec.name)
@@ -53,9 +53,9 @@ module WebPipe
         end.flatten
       end
 
-      # Resolves {Rack::Middlewares} from given specification.
+      # Resolves {RackSupport::Middlewares} from given specification.
       #
-      # @return [Array<Rack::Middleware>]
+      # @return [Array<RackSupport::Middleware>]
       def call
         klass = spec[0]
         options = spec[1..-1] || Types::EMPTY_ARRAY
