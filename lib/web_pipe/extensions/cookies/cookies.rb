@@ -60,7 +60,7 @@ module WebPipe
     # @param value [String]
     # @param opts [SET_COOKIE_OPTIONS[]]
     def set_cookie(key, value, opts = Types::EMPTY_HASH)
-      ::Rack::Utils.set_cookie_header!(
+      Rack::Utils.set_cookie_header!(
         response_headers,
         key,
         { value: value }.merge(SET_COOKIE_OPTIONS[opts])
@@ -71,7 +71,7 @@ module WebPipe
     # @param key [String]
     # @param opts [DELETE_COOKIE_OPTIONS[]]
     def delete_cookie(key, opts = Types::EMPTY_HASH)
-      ::Rack::Utils.delete_cookie_header!(
+      Rack::Utils.delete_cookie_header!(
         response_headers,
         key,
         DELETE_COOKIE_OPTIONS[opts]

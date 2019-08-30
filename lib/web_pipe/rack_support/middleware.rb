@@ -2,7 +2,7 @@ require 'web_pipe/types'
 require 'dry/struct'
 
 module WebPipe
-  module Rack
+  module RackSupport
     # Simple data structure to represent a rack middleware class with
     # its initialization options.
     #

@@ -1,9 +1,9 @@
 require 'web_pipe/types'
-require 'web_pipe/rack/middleware'
+require 'web_pipe/rack_support/middleware'
 require 'rack'
 
 module WebPipe
-  module Rack
+  module RackSupport
     # Helper to build and call a rack application with middlewares.
     #
     # @api private
@@ -43,7 +43,7 @@ module WebPipe
       private
 
       def build_rack_app(rack_middlewares, app)
-        ::Rack::Builder.new.tap do |b|
+        Rack::Builder.new.tap do |b|
           rack_middlewares.each do |middleware|
             b.use(middleware.middleware, *middleware.options)
           end

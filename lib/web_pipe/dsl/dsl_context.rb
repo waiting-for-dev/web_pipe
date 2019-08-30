@@ -1,7 +1,7 @@
 require 'web_pipe'
 require 'web_pipe/types'
 require 'web_pipe/plug'
-require 'web_pipe/rack/middleware_specification'
+require 'web_pipe/rack_support/middleware_specification'
 
 module WebPipe
   module DSL
@@ -13,7 +13,7 @@ module WebPipe
     # @api private
     class DSLContext
       # @!attribute middleware_specifications
-      # @return [Array<Rack::MiddlewareSpecifications>]
+      # @return [Array<RackSupport::MiddlewareSpecifications>]
       attr_reader :middleware_specifications
 
       # @!attribute plugs
@@ -22,7 +22,7 @@ module WebPipe
 
       def initialize(middleware_specifications, plugs)
         @middleware_specifications = Types.Array(
-          Rack::MiddlewareSpecification
+          RackSupport::MiddlewareSpecification
         )[middleware_specifications]
         @plugs = Types.Array(Plug::Instance)[plugs]
       end
@@ -37,12 +37,12 @@ module WebPipe
       # - As a {WebPipe} class instance, in which case all its rack
       # middlewares will be considered.
       #
-      # @param name [Rack::MiddlewareSpecification::Name[]]
-      # @param spec [Rack::MiddlewareSpecification::Spec[]]
+      # @param name [RackSupport::MiddlewareSpecification::Name[]]
+      # @param spec [RackSupport::MiddlewareSpecification::Spec[]]
       #
-      # @return [Array<Rack::Middleware>]
+      # @return [Array<RackSupport::Middleware>]
       def use(name, *spec)
-        middleware_specifications << Rack::MiddlewareSpecification.new(name: name, spec: spec)
+        middleware_specifications << RackSupport::MiddlewareSpecification.new(name: name, spec: spec)
       end
 
       # Creates and adds a plug to the stack.

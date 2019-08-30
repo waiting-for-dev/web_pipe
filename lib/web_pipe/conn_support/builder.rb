@@ -14,7 +14,7 @@ module WebPipe
       #
       # @return [Conn::Ongoing]
       def self.call(env)
-        rr = ::Rack::Request.new(env)
+        rr = Rack::Request.new(env)
         Conn::Ongoing.new(
           request: rr,
           env: env,

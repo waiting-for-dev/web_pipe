@@ -11,7 +11,7 @@ module WebPipe
       include Dry.Types()
 
       Env = Strict::Hash
-      Request = Instance(::Rack::Request)
+      Request = Instance(Rack::Request)
 
       Scheme = Strict::Symbol.enum(:http, :https)
       Method = Strict::Symbol.enum(

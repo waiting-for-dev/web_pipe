@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'web_pipe'
-require 'web_pipe/rack/middleware'
-require 'web_pipe/rack/middleware_specification'
+require 'web_pipe/rack_support/middleware'
+require 'web_pipe/rack_support/middleware_specification'
 require 'support/middlewares'
 
-RSpec.describe WebPipe::Rack::MiddlewareSpecification do
+RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
   let(:pipe) do
     Class.new do
       include WebPipe
@@ -21,17 +21,17 @@ RSpec.describe WebPipe::Rack::MiddlewareSpecification do
     end
 
     context 'when spec is a class' do
-      it "returns it as a WebPipe::Rack::Middleware with empty options" do
+      it "returns it as a WebPipe::RackSupport::Middleware with empty options" do
         expect(described_class.new(name: :name, spec: [FirstNameMiddleware]).call).to eq(
-          [WebPipe::Rack::Middleware.new(middleware: FirstNameMiddleware, options: [])]
+          [WebPipe::RackSupport::Middleware.new(middleware: FirstNameMiddleware, options: [])]
         )
       end
     end
 
     context 'when spec is a class with options' do
-      it "returns it as a WebPipe::Rack::Middleware with given options" do
+      it "returns it as a WebPipe::RackSupport::Middleware with given options" do
         expect(described_class.new(name: :name, spec: [LastNameMiddleware, name: 'Joe']).call).to eq(
-          [WebPipe::Rack::Middleware.new(middleware: LastNameMiddleware, options: [name: 'Joe'])]
+          [WebPipe::RackSupport::Middleware.new(middleware: LastNameMiddleware, options: [name: 'Joe'])]
         )
       end
     end
@@ -69,7 +69,7 @@ RSpec.describe WebPipe::Rack::MiddlewareSpecification do
         middleware_specifications, injections
       )
 
-      rack_middleware = WebPipe::Rack::Middleware.new(middleware: FirstNameMiddleware, options: [])
+      rack_middleware = WebPipe::RackSupport::Middleware.new(middleware: FirstNameMiddleware, options: [])
       expect(result.freeze).to eq([rack_middleware]*2.freeze)
     end
   end

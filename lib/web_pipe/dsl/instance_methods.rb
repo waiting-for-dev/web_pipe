@@ -2,8 +2,8 @@ require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/app'
 require 'web_pipe/plug'
-require 'web_pipe/rack/app_with_middlewares'
-require 'web_pipe/rack/middleware_specification'
+require 'web_pipe/rack_support/app_with_middlewares'
+require 'web_pipe/rack_support/middleware_specification'
 require 'web_pipe/conn_support/composition'
 
 module WebPipe
@@ -29,7 +29,7 @@ module WebPipe
       # Type for how plugs and middlewares should be injected.
       Injections = Types::Strict::Hash.schema(
         plugs: Plug::Injections,
-        middlewares: Rack::MiddlewareSpecification::Injections
+        middlewares: RackSupport::MiddlewareSpecification::Injections
       )
 
       # @!attribute [r] injections [Injections[]]
@@ -37,26 +37,26 @@ module WebPipe
       # has been configured.
       attr_reader :injections
 
-      # @return [Rack::AppWithMiddlewares[]]
+      # @return [RackSupport::AppWithMiddlewares[]]
       attr_reader :rack_app
 
       # @return [ConnSupport::Composition::Operation[]]
       attr_reader :operations
 
-      # @return [Array<Rack::Middlewares>]
+      # @return [Array<RackSupport::Middlewares>]
       attr_reader :middlewares
 
       def initialize(injects = EMPTY_INJECTIONS)
         @injections = Injections[injects]
         container = self.class.container
-        @middlewares = Rack::MiddlewareSpecification.inject_and_resolve(
+        @middlewares = RackSupport::MiddlewareSpecification.inject_and_resolve(
           self.class.middleware_specifications, injections[:middlewares]
         )
         @operations = Plug.inject_and_resolve(
           self.class.plugs, injections[:plugs], container, self
         )
         app = App.new(operations)
-        @rack_app = Rack::AppWithMiddlewares.new(middlewares, app)
+        @rack_app = RackSupport::AppWithMiddlewares.new(middlewares, app)
       end
       
       # Expected interface for rack.
