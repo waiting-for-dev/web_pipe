@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'web_pipe'
 require 'support/conn'
 
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:url) }
-  
+
   def build(env)
     build_conn(env)
   end
@@ -14,7 +16,7 @@ RSpec.describe WebPipe::Conn do
       env = default_env.merge(
         Rack::HTTPS => 'on',
         Rack::HTTP_HOST => 'www.host.org',
-        Rack::SERVER_PORT => '8000',
+        Rack::SERVER_PORT => '8000'
       )
 
       conn = build(env)
@@ -40,7 +42,7 @@ RSpec.describe WebPipe::Conn do
     it 'returns request fullpath' do
       env = default_env.merge(
         Rack::PATH_INFO => '/foo',
-        Rack::QUERY_STRING => 'foo=bar',
+        Rack::QUERY_STRING => 'foo=bar'
       )
 
       conn = build(env)

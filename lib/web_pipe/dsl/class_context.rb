@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/dsl/dsl_context'
 
@@ -32,7 +34,7 @@ module WebPipe
         define_container
         define_dsl
       end
-      
+
       private
 
       def define_container
@@ -47,7 +49,7 @@ module WebPipe
         DSL_METHODS.each do |method|
           module_exec(dsl_context) do |dsl_context|
             define_method(method) do |*args, &block|
-              dsl_context.method(method).(*args, &block)
+              dsl_context.method(method).call(*args, &block)
             end
           end
         end

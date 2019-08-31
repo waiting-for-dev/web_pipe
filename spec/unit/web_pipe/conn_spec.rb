@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/errors'
 require 'support/conn'
@@ -33,9 +35,9 @@ RSpec.describe WebPipe::Conn do
       it 'it substitutes whole response_body' do
         conn = build(default_env).new(response_body: ['foo'])
 
-        new_conn = conn.set_response_body(['bar', 'var'])
+        new_conn = conn.set_response_body(%w[bar var])
 
-        expect(new_conn.response_body).to eq(['bar', 'var'])
+        expect(new_conn.response_body).to eq(%w[bar var])
       end
     end
   end
@@ -44,9 +46,9 @@ RSpec.describe WebPipe::Conn do
     it 'sets response headers' do
       conn = build(default_env)
 
-      new_conn = conn.set_response_headers({ 'foo' => 'bar' })
+      new_conn = conn.set_response_headers('foo' => 'bar')
 
-      expect(new_conn.response_headers).to eq({ 'Foo' => 'bar' })
+      expect(new_conn.response_headers).to eq('Foo' => 'bar')
     end
   end
 
@@ -60,7 +62,7 @@ RSpec.describe WebPipe::Conn do
 
       expect(
         new_conn.response_headers
-      ).to eq({ 'Foo' => 'Foo', 'Foo-Foo' => 'Bar' })
+      ).to eq('Foo' => 'Foo', 'Foo-Foo' => 'Bar')
     end
   end
 
@@ -72,7 +74,7 @@ RSpec.describe WebPipe::Conn do
 
       new_conn = conn.delete_response_header('zoo_zoo')
 
-      expect(new_conn.response_headers).to eq({ 'Foo' => 'Bar' })
+      expect(new_conn.response_headers).to eq('Foo' => 'Bar')
     end
   end
 
@@ -85,10 +87,10 @@ RSpec.describe WebPipe::Conn do
 
     it 'raises KeyNotFoundInBagError when key does not exist' do
       conn = build(default_env)
-      
-      expect {
+
+      expect do
         conn.fetch(:foo)
-      }.to raise_error(WebPipe::ConnSupport::KeyNotFoundInBagError)
+      end.to raise_error(WebPipe::ConnSupport::KeyNotFoundInBagError)
     end
 
     it 'returns default when it is given and key does not exist' do
@@ -117,10 +119,10 @@ RSpec.describe WebPipe::Conn do
 
     it 'raises KeyNotFoundInConfigError when key does not exist' do
       conn = build(default_env)
-      
-      expect {
+
+      expect do
         conn.fetch_config(:foo)
-      }.to raise_error(WebPipe::ConnSupport::KeyNotFoundInConfigError)
+      end.to raise_error(WebPipe::ConnSupport::KeyNotFoundInConfigError)
     end
 
     it 'returns default when it is given and key does not exist' do
@@ -141,13 +143,13 @@ RSpec.describe WebPipe::Conn do
   end
 
   describe '#rack_response' do
-    let(:env) { default_env.merge(Rack::RACK_SESSION => { "foo" => "bar" }) }
+    let(:env) { default_env.merge(Rack::RACK_SESSION => { 'foo' => 'bar' }) }
     let(:conn) do
       conn = build(env)
-      conn.
-        add_response_header('Content-Type', 'text/plain').
-        set_status(404).
-        set_response_body('Not found')
+      conn
+        .add_response_header('Content-Type', 'text/plain')
+        .set_status(404)
+        .set_response_body('Not found')
     end
     let(:rack_response) { conn.rack_response }
 
@@ -156,7 +158,7 @@ RSpec.describe WebPipe::Conn do
     end
 
     it 'builds response headers from response_headers attribute' do
-      expect(conn.rack_response[1]).to eq({ 'Content-Type' => 'text/plain' })
+      expect(conn.rack_response[1]).to eq('Content-Type' => 'text/plain')
     end
 
     it 'builds response body from response_body attribute' do

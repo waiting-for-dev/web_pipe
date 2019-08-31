@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WebPipe
   # Adds helper methods related to the request URL.
   #

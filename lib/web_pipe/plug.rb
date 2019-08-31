@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/struct'
 require 'web_pipe/types'
 require 'web_pipe/conn_support/composition'
@@ -81,10 +83,10 @@ module WebPipe
         spec
       elsif spec.nil?
         pipe.method(name)
-      elsif container[spec] && container[spec].respond_to?(:call)
+      elsif container[spec]&.respond_to?(:call)
         container[spec]
       else
-        raise InvalidPlugError.new(name)
+        raise InvalidPlugError, name
       end
     end
 
@@ -98,11 +100,11 @@ module WebPipe
     # @return [Array<ConnSupport::Composition::Operation[]>]
     def self.inject_and_resolve(plugs, injections, container, object)
       plugs.map do |plug|
-        if injections.has_key?(plug.name)
+        if injections.key?(plug.name)
           plug.with(injections[plug.name])
         else
           plug
-        end.(container, object)
+        end.call(container, object)
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 
@@ -12,7 +14,7 @@ RSpec.describe WebPipe::Conn do
 
       conn = build_conn(env)
 
-      expect(conn.request_cookies).to eq({ 'foo' => 'bar' })
+      expect(conn.request_cookies).to eq('foo' => 'bar')
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/conn'
 require 'web_pipe/types'
 require 'rack'
@@ -37,8 +39,8 @@ module WebPipe
     def session
       env.fetch(Rack::RACK_SESSION) do
         raise ConnSupport::MissingMiddlewareError.new(
-                'session', 'Rack::Session', 'https://www.rubydoc.info/github/rack/rack/Rack/Session'
-              )
+          'session', 'Rack::Session', 'https://www.rubydoc.info/github/rack/rack/Rack/Session'
+        )
       end
     end
 
@@ -53,7 +55,6 @@ module WebPipe
       SESSION_KEY[args[0]]
       session.fetch(*args, &block)
     end
-
 
     # Adds given key/value pair to the session.
     #

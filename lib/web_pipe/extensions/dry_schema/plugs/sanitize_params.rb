@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/extensions/dry_schema/dry_schema'
 
@@ -18,11 +20,11 @@ module WebPipe
       # @return [ConnSupport::Composition::Operation[], Types::Undefined]
       def self.call(schema, handler = Types::Undefined)
         lambda do |conn|
-          result = schema.(conn.params)
+          result = schema.call(conn.params)
           if result.success?
             conn.add_config(DrySchema::SANITIZED_PARAMS_KEY, result.output)
           else
-            get_handler(conn, handler).(conn, result)
+            get_handler(conn, handler).call(conn, result)
           end
         end
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FirstNameMiddleware
   attr_reader :app
 

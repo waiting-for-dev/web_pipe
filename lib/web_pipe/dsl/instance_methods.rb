@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/app'
@@ -58,7 +60,7 @@ module WebPipe
         app = App.new(operations)
         @rack_app = RackSupport::AppWithMiddlewares.new(middlewares, app)
       end
-      
+
       # Expected interface for rack.
       #
       # @param env [Hash] Rack env
@@ -100,10 +102,10 @@ module WebPipe
       #
       # @see ConnSupport::Composition
       def to_proc
-        ConnSupport::Composition.
-          new(operations).
-          method(:call).
-          to_proc
+        ConnSupport::Composition
+          .new(operations)
+          .method(:call)
+          .to_proc
       end
     end
   end

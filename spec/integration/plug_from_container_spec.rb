@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 
-RSpec.describe "Resolving plugs from a container" do
+RSpec.describe 'Resolving plugs from a container' do
   Container = Hash[
-    'plug.hello' => -> (conn) { conn.set_response_body('Hello, world!') }
+    'plug.hello' => ->(conn) { conn.set_response_body('Hello, world!') }
   ]
 
   let(:pipe) do
     Class.new do
-      include WebPipe.(container: Container)
+      include WebPipe.call(container: Container)
 
       plug :hello, 'plug.hello'
     end.new

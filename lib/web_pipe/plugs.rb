@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WebPipe
   # Namespace for builders of operations on {WebPipe::Conn}.
   #

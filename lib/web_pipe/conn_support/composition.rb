@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/monads/result'
 require 'web_pipe/types'
 require 'web_pipe/conn'
@@ -27,10 +29,10 @@ module WebPipe
         def initialize(returned)
           super(
             <<~eos
-            An operation returned +#{returned.inspect}+. To be valid,
-            an operation must return whether a
-            WebPipe::Conn::Ongoing or a WebPipe::Conn::Halted.
-          eos
+              An operation returned +#{returned.inspect}+. To be valid,
+              an operation must return whether a
+              WebPipe::Conn::Ongoing or a WebPipe::Conn::Halted.
+            eos
           )
         end
       end
@@ -66,14 +68,14 @@ module WebPipe
       end
 
       def apply_operation(conn, operation)
-        result = operation.(conn)
+        result = operation.call(conn)
         case result
         when Conn::Ongoing
           Success(result)
         when Conn::Halted
           Failure(result)
         else
-          raise InvalidOperationResult.new(result)
+          raise InvalidOperationResult, result
         end
       end
 

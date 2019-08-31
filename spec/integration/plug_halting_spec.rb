@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 
-RSpec.describe "Plug halting" do
+RSpec.describe 'Plug halting' do
   let(:pipe) do
     Class.new do
       include WebPipe

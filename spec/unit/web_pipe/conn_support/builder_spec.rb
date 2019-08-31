@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'web_pipe/conn_support/builder'
 require 'web_pipe/conn'
 require 'support/conn'
 
 RSpec.describe WebPipe::ConnSupport::Builder do
-  describe ".call" do
+  describe '.call' do
     it 'creates a Conn::Ongoing' do
       conn = described_class.call(default_env)
 
@@ -138,7 +140,7 @@ RSpec.describe WebPipe::ConnSupport::Builder do
 
         conn = described_class.call(env)
 
-        expect(conn.request_headers).to eq({ 'Foo-Bar' => 'BAR' })
+        expect(conn.request_headers).to eq('Foo-Bar' => 'BAR')
       end
     end
 

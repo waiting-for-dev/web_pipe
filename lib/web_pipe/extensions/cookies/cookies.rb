@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe'
 require 'web_pipe/types'
 require 'rack/utils'
@@ -54,8 +56,7 @@ module WebPipe
     def request_cookies
       request.cookies
     end
-    
-    
+
     # @param key [String]
     # @param value [String]
     # @param opts [SET_COOKIE_OPTIONS[]]

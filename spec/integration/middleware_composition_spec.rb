@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'support/middlewares'
 
-RSpec.describe "Middleware composition" do
+RSpec.describe 'Middleware composition' do
   class AppWithMiddlewares
     include WebPipe
 
@@ -23,8 +25,8 @@ RSpec.describe "Middleware composition" do
       def hello(conn)
         first_name = conn.env['first_name']
         last_name = conn.env['last_name']
-        conn.
-          set_response_body(
+        conn
+          .set_response_body(
             "Hello #{first_name} #{last_name}"
           )
       end

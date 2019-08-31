@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'dry/view'
@@ -17,7 +19,7 @@ module WebPipe
   #
   #     expose :name
   #   end
-  #     
+  #
   #   class App
   #     include WebPipe
   #
@@ -120,7 +122,7 @@ module WebPipe
     def view(view_spec, **kwargs)
       view_instance = view_instance(view_spec)
       view_input = view_input(kwargs, view_instance)
-      
+
       set_response_body(
         view_instance.call(
           view_input
@@ -139,12 +141,12 @@ module WebPipe
     def view_input(kwargs, view_instance)
       return kwargs if kwargs.key?(:context)
 
-      context =  view_instance.
-                   config.
-                   default_context.
-                   with(
-                     fetch_config(VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT).(self)
-                   )
+      context = view_instance
+                .config
+                .default_context
+                .with(
+                  fetch_config(VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT).call(self)
+                )
       kwargs.merge(context: context)
     end
   end

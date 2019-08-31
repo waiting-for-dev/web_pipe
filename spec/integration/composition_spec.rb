@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'support/middlewares'
 
-RSpec.describe "Composition" do
+RSpec.describe 'Composition' do
   class App
     include WebPipe
 
@@ -26,8 +28,8 @@ RSpec.describe "Composition" do
         first_name = conn.env['first_name']
         last_name = conn.env['last_name']
         greeting = conn.fetch(:greeting)
-        conn.
-          set_response_body(
+        conn
+          .set_response_body(
             "#{greeting} #{first_name} #{last_name}"
           )
       end

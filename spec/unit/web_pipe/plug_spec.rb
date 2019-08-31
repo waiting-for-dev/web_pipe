@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'web_pipe/plug'
 
@@ -85,9 +87,9 @@ RSpec.describe WebPipe::Plug do
         let(:spec) { 'not_callable' }
 
         it 'raises InvalidPlugError' do
-          expect {
+          expect do
             plug.call(container, object)
-          }.to raise_error(WebPipe::Plug::InvalidPlugError)
+          end.to raise_error(WebPipe::Plug::InvalidPlugError)
         end
       end
     end
@@ -109,7 +111,7 @@ RSpec.describe WebPipe::Plug do
         plugs, injected, container, Object.new
       )
 
-      expect(result.map(&:call)).to eq(['op1', 'injected'])
+      expect(result.map(&:call)).to eq(%w[op1 injected])
     end
   end
 end

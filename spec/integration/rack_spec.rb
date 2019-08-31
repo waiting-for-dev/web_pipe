@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'rack/test'
 
-RSpec.describe "Rack application" do
+RSpec.describe 'Rack application' do
   include Rack::Test::Methods
 
   let(:app) do
     Class.new do
       include WebPipe
 
-      plug :hello, -> (conn) do
-        conn.
-          set_response_body('Hello, world!').
-          set_status(200)
-      end
+      plug :hello, lambda { |conn|
+        conn
+          .set_response_body('Hello, world!')
+          .set_status(200)
+      }
     end.new
   end
 

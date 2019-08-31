@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'web_pipe'
 require 'web_pipe/rack_support/middleware'
@@ -21,7 +23,7 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
     end
 
     context 'when spec is a class' do
-      it "returns it as a WebPipe::RackSupport::Middleware with empty options" do
+      it 'returns it as a WebPipe::RackSupport::Middleware with empty options' do
         expect(described_class.new(name: :name, spec: [FirstNameMiddleware]).call).to eq(
           [WebPipe::RackSupport::Middleware.new(middleware: FirstNameMiddleware, options: [])]
         )
@@ -29,7 +31,7 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
     end
 
     context 'when spec is a class with options' do
-      it "returns it as a WebPipe::RackSupport::Middleware with given options" do
+      it 'returns it as a WebPipe::RackSupport::Middleware with given options' do
         expect(described_class.new(name: :name, spec: [LastNameMiddleware, name: 'Joe']).call).to eq(
           [WebPipe::RackSupport::Middleware.new(middleware: LastNameMiddleware, options: [name: 'Joe'])]
         )
@@ -70,7 +72,7 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
       )
 
       rack_middleware = WebPipe::RackSupport::Middleware.new(middleware: FirstNameMiddleware, options: [])
-      expect(result.freeze).to eq([rack_middleware]*2.freeze)
+      expect(result.freeze).to eq([rack_middleware] * 2)
     end
   end
 end

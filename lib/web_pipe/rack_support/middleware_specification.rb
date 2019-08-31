@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/struct'
 require 'web_pipe/rack_support/middleware'
 require 'web_pipe/types'
@@ -45,11 +47,11 @@ module WebPipe
       # @return [Array<RackSupport::Middleware>]
       def self.inject_and_resolve(middleware_specifications, injections)
         middleware_specifications.map do |spec|
-          if injections.has_key?(spec.name)
+          if injections.key?(spec.name)
             spec.with(injections[spec.name])
           else
             spec
-          end.()
+          end.call
         end.flatten
       end
 
@@ -69,7 +71,7 @@ module WebPipe
       # Returns new instance with {#spec} replaced.
       #
       # @param new_spec [Spec[]]
-      # 
+      #
       # @return [MiddlewareSpecification]
       def with(new_spec)
         new(spec: new_spec)

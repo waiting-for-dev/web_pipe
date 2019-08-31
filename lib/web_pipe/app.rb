@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/builder'
@@ -55,7 +57,7 @@ module WebPipe
     private
 
     def conn_from_env(env)
-      ConnSupport::Builder.(env)
+      ConnSupport::Builder.call(env)
     end
 
     def apply_operations(conn)

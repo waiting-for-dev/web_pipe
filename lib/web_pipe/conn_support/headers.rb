@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WebPipe
   module ConnSupport
     # Helpers to work with headers and its rack's env representation.
@@ -12,7 +14,7 @@ module WebPipe
       #
       # Headers are all those pairs which key begins with `HTTP_` plus
       # those detailed in {HEADERS_AS_CGI}.
-      # 
+      #
       # @param env [Types::Env[]]
       #
       # @return [Types::Headers[]]
@@ -21,14 +23,14 @@ module WebPipe
       # @see .normalize_key
       def self.extract(env)
         Hash[
-          env.
-            select { |k, _v| k.start_with?('HTTP_') }.
-            map { |k, v| pair(k[5 .. -1], v) }.
-            concat(
-              env.
-                select { |k, _v| HEADERS_AS_CGI.include?(k) }.
-                map { |k, v| pair(k, v) }
-            )
+          env
+          .select { |k, _v| k.start_with?('HTTP_') }
+          .map { |k, v| pair(k[5..-1], v) }
+          .concat(
+            env
+              .select { |k, _v| HEADERS_AS_CGI.include?(k) }
+              .map { |k, v| pair(k, v) }
+          )
         ]
       end
 

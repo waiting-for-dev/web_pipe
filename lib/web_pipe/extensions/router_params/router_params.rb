@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe'
 require 'web_pipe/types'
 
@@ -45,7 +47,7 @@ module WebPipe
   # @see https://github.com/hanami/router#string-matching-with-variables
   module RouterParams
     ROUTER_PARAM_KEY = 'router.params'
-    
+
     # @param params [Hash]
     # @param conn [WebPipe::Conn]
     #

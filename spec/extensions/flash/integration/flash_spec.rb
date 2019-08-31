@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'web_pipe'
@@ -6,7 +8,7 @@ require 'rack-flash'
 
 RSpec.describe 'Using flash' do
   before { WebPipe.load_extensions(:flash) }
-  
+
   let(:pipe) do
     Class.new do
       include WebPipe
@@ -20,9 +22,9 @@ RSpec.describe 'Using flash' do
       private
 
       def add_to_flash(conn)
-        conn.
-          add_flash(:error, 'Error').
-          add_flash_now(:now, 'now')
+        conn
+          .add_flash(:error, 'Error')
+          .add_flash_now(:now, 'now')
       end
 
       def build_response(conn)

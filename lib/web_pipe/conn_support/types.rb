@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/types'
 require 'rack/request'
 
@@ -25,18 +27,18 @@ module WebPipe
       QueryString = Strict::String
       RequestBody = Interface(:gets, :each, :read, :rewind)
 
-      Status = Strict::Integer.
-                 default(200).
-                 constrained(gteq: 100, lteq: 599)
+      Status = Strict::Integer
+               .default(200)
+               .constrained(gteq: 100, lteq: 599)
       ResponseBody = Interface(:each).default { [''] }
 
-      Headers = Strict::Hash.
-                  map(Strict::String, Strict::String).
-                  default { {} }
+      Headers = Strict::Hash
+                .map(Strict::String, Strict::String)
+                .default { {} }
 
-      Bag = Strict::Hash.
-              map(Strict::Symbol, Strict::Any).
-              default { {} }
+      Bag = Strict::Hash
+            .map(Strict::Symbol, Strict::Any)
+            .default { {} }
     end
   end
 end

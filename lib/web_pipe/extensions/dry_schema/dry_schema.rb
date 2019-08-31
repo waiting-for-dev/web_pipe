@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe'
 
 WebPipe.load_extensions(:params)

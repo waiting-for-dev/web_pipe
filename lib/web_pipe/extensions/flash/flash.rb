@@ -12,7 +12,7 @@ module WebPipe
   #   require 'rack-flash'
   #
   #   WebPipe.load_extensions(:flash)
-  #   
+  #
   #   class MyApp
   #     include WebPipe
   #
@@ -37,7 +37,7 @@ module WebPipe
   # @see https://github.com/nakajima/rack-flash
   module Flash
     RACK_FLASH_KEY = 'x-rack.flash'
-    
+
     # Returns the flash bag.
     #
     # @return [Rack::Flash::FlashHash]
@@ -47,8 +47,8 @@ module WebPipe
     def flash
       env.fetch(RACK_FLASH_KEY) do
         raise ConnSupport::MissingMiddlewareError.new(
-                'flash', 'Rack::Flash', 'https://rubygems.org/gems/rack-flash3'
-              )
+          'flash', 'Rack::Flash', 'https://rubygems.org/gems/rack-flash3'
+        )
       end
     end
 

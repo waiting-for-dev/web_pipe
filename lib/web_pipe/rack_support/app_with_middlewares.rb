@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/rack_support/middleware'
 require 'rack'
@@ -24,7 +26,7 @@ module WebPipe
 
       # @return [Rack::Builder]
       attr_reader :builder
-      
+
       def initialize(rack_middlewares, app)
         @rack_middlewares = Types.Array(Middleware)[rack_middlewares]
         @app = App[app]

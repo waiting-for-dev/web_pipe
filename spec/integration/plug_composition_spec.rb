@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 
-RSpec.describe "Plug composition" do
+RSpec.describe 'Plug composition' do
   class One
     include WebPipe
 

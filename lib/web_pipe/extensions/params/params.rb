@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/types'
 require 'web_pipe/extensions/params/params/transf'
 
@@ -61,7 +63,7 @@ module WebPipe
   #   # http://www.example.com?foo=bar
   #   fake = ->(_params) { { fake: :params } }
   #   conn.
-  #     params(fake) #=> { fake: :params } 
+  #     params(fake) #=> { fake: :params }
   #
   # @see https://github.com/solnic/transproc
   module Params
@@ -80,7 +82,7 @@ module WebPipe
         acc.>>transformation(t)
       end
 
-      Transf[transformations].(request.params)
+      Transf[transformations].call(request.params)
     end
 
     private
@@ -90,7 +92,7 @@ module WebPipe
       if (transformation.fn.arity - transformation.args.count) == 1
         transformation
       else
-        Transf[*[spec, self]]
+        Transf[spec, self]
       end
     end
   end

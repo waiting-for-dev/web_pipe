@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 
@@ -10,7 +12,7 @@ RSpec.describe WebPipe::Params::Transf do
       conn = build_conn(env)
 
       expect(
-        described_class[:router_params].with(conn).(bar: :foo)
+        described_class[:router_params].with(conn).call(bar: :foo)
       ).to eq(foo: :bar, bar: :foo)
     end
 
@@ -18,7 +20,7 @@ RSpec.describe WebPipe::Params::Transf do
       conn = build_conn(default_env)
 
       expect(
-        described_class[:router_params].with(conn).(bar: :foo)
+        described_class[:router_params].with(conn).call(bar: :foo)
       ).to eq(bar: :foo)
     end
   end

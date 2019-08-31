@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe/dsl/builder'
 
 # See [the
@@ -9,7 +11,7 @@ module WebPipe
   # Including just delegates to an instance of `Builder`, so
   # `Builder#included` is finally called.
   def self.included(klass)
-    klass.include(call())
+    klass.include(call)
   end
 
   def self.call(*args)
@@ -24,7 +26,7 @@ module WebPipe
     require 'web_pipe/extensions/dry_schema/dry_schema'
     require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
   end
-  
+
   register_extension :dry_view do
     require 'web_pipe/extensions/dry_view/dry_view'
   end

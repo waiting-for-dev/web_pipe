@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'support/middlewares'
 
-RSpec.describe "Using rack middlewares" do
+RSpec.describe 'Using rack middlewares' do
   let(:pipe) do
     Class.new do
       include WebPipe
@@ -17,8 +19,8 @@ RSpec.describe "Using rack middlewares" do
       def hello(conn)
         first_name = conn.env['first_name']
         last_name = conn.env['last_name']
-        conn.
-          set_response_body(
+        conn
+          .set_response_body(
             "Hello #{first_name} #{last_name}"
           )
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/struct'
 require 'web_pipe/types'
 require 'web_pipe/conn_support/types'
@@ -315,7 +317,7 @@ module WebPipe
     def fetch(key, default = Types::Undefined)
       return bag.fetch(key, default) unless default == Types::Undefined
 
-      bag.fetch(key) { raise ConnSupport::KeyNotFoundInBagError.new(key) }
+      bag.fetch(key) { raise ConnSupport::KeyNotFoundInBagError, key }
     end
 
     # Writes an item to the {#bag}.
@@ -343,7 +345,7 @@ module WebPipe
     def fetch_config(key, default = Types::Undefined)
       return config.fetch(key, default) unless default == Types::Undefined
 
-      config.fetch(key) { raise ConnSupport::KeyNotFoundInConfigError.new(key) }
+      config.fetch(key) { raise ConnSupport::KeyNotFoundInConfigError, key }
     end
 
     # Writes an item to {#config}.

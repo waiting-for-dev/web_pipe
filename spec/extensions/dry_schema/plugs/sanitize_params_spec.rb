@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'dry/schema'
@@ -15,9 +17,9 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
       it "sets sanitized_params bag's key" do
         env = default_env.merge(Rack::QUERY_STRING => 'name=Joe')
         conn = build_conn(env)
-        operation = described_class.(schema)
+        operation = described_class.call(schema)
 
-        new_conn = operation.(conn)
+        new_conn = operation.call(conn)
 
         expect(new_conn.sanitized_params).to eq(name: 'Joe')
       end
@@ -26,38 +28,38 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
     context 'operation on failure' do
       it 'uses given handler if it is injected' do
         configured_handler = lambda do |conn, _result|
-          conn.
-            set_response_body('Something went wrong').
-            set_status(500).
-            halt
+          conn
+            .set_response_body('Something went wrong')
+            .set_status(500)
+            .halt
         end
         injected_handler = lambda do |conn, result|
-          conn.
-            set_response_body(result.errors.messages.inspect).
-            set_status(500).
-            halt
+          conn
+            .set_response_body(result.errors.messages.inspect)
+            .set_status(500)
+            .halt
         end
-        conn = build_conn(default_env).
-          add_config(:param_sanitization_handler, configured_handler)
-        operation = described_class.(schema, injected_handler)
+        conn = build_conn(default_env)
+               .add_config(:param_sanitization_handler, configured_handler)
+        operation = described_class.call(schema, injected_handler)
 
-        new_conn = operation.(conn)
+        new_conn = operation.call(conn)
 
         expect(new_conn.response_body[0]).to include('is missing')
       end
 
       it 'uses configured handler if none is injected' do
         configured_handler = lambda do |conn, _result|
-          conn.
-            set_response_body('Something went wrong').
-            set_status(500).
-            halt
+          conn
+            .set_response_body('Something went wrong')
+            .set_status(500)
+            .halt
         end
-        conn = build_conn(default_env).
-          add_config(:param_sanitization_handler, configured_handler)
-        operation = described_class.(schema)
+        conn = build_conn(default_env)
+               .add_config(:param_sanitization_handler, configured_handler)
+        operation = described_class.call(schema)
 
-        new_conn = operation.(conn)
+        new_conn = operation.call(conn)
 
         expect(new_conn).to be_halted
         expect(new_conn.response_body[0]).to eq('Something went wrong')

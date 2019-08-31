@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 
-RSpec.describe "Chaining plugs" do
+RSpec.describe 'Chaining plugs' do
   let(:pipe) do
     Class.new do
       include WebPipe

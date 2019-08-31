@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WebPipe
   module ConnSupport
     # Error raised when trying to fetch an entry in {Conn#bag} for an

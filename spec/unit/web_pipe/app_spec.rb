@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'web_pipe/conn_support/composition'
@@ -30,10 +32,10 @@ RSpec.describe WebPipe::App do
 
       app = described_class.new([op])
 
-      expect {
+      expect do
         app.call(default_env)
-      }.to raise_error(
-             WebPipe::ConnSupport::Composition::InvalidOperationResult
+      end.to raise_error(
+        WebPipe::ConnSupport::Composition::InvalidOperationResult
       )
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'dry/view'
@@ -45,8 +47,8 @@ RSpec.describe WebPipe::Conn do
         config.template = 'template_without_input'
       end
       container = { 'view' => view.new }.freeze
-      conn = build_conn(default_env).
-        add_config(:container, container)
+      conn = build_conn(default_env)
+             .add_config(:container, container)
 
       new_conn = conn.view('view')
 
@@ -65,16 +67,16 @@ RSpec.describe WebPipe::Conn do
           end
         end.new
       end
-      conn = build_conn(default_env).
-        add(:name, 'Joe').
-        add_config(:view_context, ->(conn) { { name: conn.fetch(:name) } })
+      conn = build_conn(default_env)
+             .add(:name, 'Joe')
+             .add_config(:view_context, ->(conn) { { name: conn.fetch(:name) } })
 
       new_conn = conn.view(view.new)
 
       expect(new_conn.response_body).to eq(['Hello Joe'])
     end
 
-    it "does not inject configured view_context when it is explicit" do
+    it 'does not inject configured view_context when it is explicit' do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
       end
@@ -83,8 +85,8 @@ RSpec.describe WebPipe::Conn do
           'Alice'
         end
       end.new
-      conn = build_conn(default_env).
-        add_config(:view_context, ->(_conn) { { name: 'Joe' } })
+      conn = build_conn(default_env)
+             .add_config(:view_context, ->(_conn) { { name: 'Joe' } })
 
       new_conn = conn.view(view.new, context: context)
 

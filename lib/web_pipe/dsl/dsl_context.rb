@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'web_pipe'
 require 'web_pipe/types'
 require 'web_pipe/plug'
@@ -59,11 +61,11 @@ module WebPipe
       # @return [Array<Plug>]
       def plug(name, spec = nil, &block_spec)
         plug_spec = if spec.is_a?(WebPipe)
-                 spec.to_proc
-               elsif spec
-                 spec
-               else
-                 block_spec
+                      spec.to_proc
+                    elsif spec
+                      spec
+                    else
+                      block_spec
                end
 
         plugs << Plug.new(name: name, spec: plug_spec)

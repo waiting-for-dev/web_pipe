@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'web_pipe'
 require 'support/conn'
 
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:params) }
-  
+
   describe '#params' do
     context 'without transformations' do
       it 'returns request params' do
@@ -22,10 +24,10 @@ RSpec.describe WebPipe::Conn do
         env = default_env.merge(
           Rack::QUERY_STRING => 'foo=bar&zoo=zoo'
         )
-        conn = build_conn(env).
-                 add_config(
-                   :param_transformations, [:symbolize_keys, [:reject_keys, [:zoo]]]
-                 )
+        conn = build_conn(env)
+               .add_config(
+                 :param_transformations, [:symbolize_keys, [:reject_keys, [:zoo]]]
+               )
 
         expect(conn.params).to eq(foo: 'bar')
       end
@@ -34,10 +36,10 @@ RSpec.describe WebPipe::Conn do
         env = default_env.merge(
           Rack::QUERY_STRING => 'foo=bar'
         )
-        conn = build_conn(env).
-                 add_config(
-                   :param_transformations, [:symbolize_keys]
-                 )
+        conn = build_conn(env)
+               .add_config(
+                 :param_transformations, [:symbolize_keys]
+               )
 
         expect(conn.params([:id])).to eq('foo' => 'bar')
       end

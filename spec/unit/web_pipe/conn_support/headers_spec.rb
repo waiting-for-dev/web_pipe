@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'web_pipe/conn_support/headers'
@@ -9,7 +11,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
 
       headers = described_class.extract(env)
 
-      expect(headers).to eq({ 'F' => 'BAR' })
+      expect(headers).to eq('F' => 'BAR')
     end
 
     it 'normalize keys' do
@@ -17,7 +19,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
 
       headers = described_class.extract(env)
 
-      expect(headers).to eq({ 'Foo-Bar' => 'foobar' })
+      expect(headers).to eq('Foo-Bar' => 'foobar')
     end
 
     it 'includes content type CGI-like var' do
@@ -49,13 +51,13 @@ RSpec.describe WebPipe::ConnSupport::Headers do
 
       new_headers = described_class.add(headers, 'Bar', 'Foo')
 
-      expect(new_headers).to eq({ 'Foo' => 'Bar', 'Bar' => 'Foo' })
+      expect(new_headers).to eq('Foo' => 'Bar', 'Bar' => 'Foo')
     end
 
     it 'normalize key' do
       headers = described_class.add({}, 'foo_foo', 'Bar')
 
-      expect(headers).to eq({ 'Foo-Foo' => 'Bar' })
+      expect(headers).to eq('Foo-Foo' => 'Bar')
     end
   end
 
@@ -65,7 +67,7 @@ RSpec.describe WebPipe::ConnSupport::Headers do
 
       new_headers = described_class.delete(headers, 'Zoo')
 
-      expect(new_headers).to eq({ 'Foo' => 'Bar' })
+      expect(new_headers).to eq('Foo' => 'Bar')
     end
 
     it 'accepts non normalized key' do

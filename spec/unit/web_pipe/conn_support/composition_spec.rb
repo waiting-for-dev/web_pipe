@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'support/conn'
 require 'web_pipe/conn_support/composition'
 
 RSpec.describe WebPipe::ConnSupport::Composition do
   let(:conn) { build_conn(default_env) }
-  
+
   describe '#call' do
     it 'chains operations on Conn' do
       op_1 = ->(conn) { conn.set_status(200) }
@@ -13,7 +15,7 @@ RSpec.describe WebPipe::ConnSupport::Composition do
       app = described_class.new([op_1, op_2])
 
       expect(app.call(conn)).to eq(
-        op_2.(op_1.(conn))
+        op_2.call(op_1.call(conn))
       )
     end
 
@@ -26,7 +28,7 @@ RSpec.describe WebPipe::ConnSupport::Composition do
       app = described_class.new([op_1, op_2, op_3, op_4])
 
       expect(app.call(conn)).to eq(
-        op_3.(op_2.(op_1.(conn)))
+        op_3.call(op_2.call(op_1.call(conn)))
       )
     end
 
@@ -35,9 +37,9 @@ RSpec.describe WebPipe::ConnSupport::Composition do
 
       app = described_class.new([op])
 
-      expect {
+      expect do
         app.call(conn)
-      }.to raise_error(WebPipe::ConnSupport::Composition::InvalidOperationResult)
+      end.to raise_error(WebPipe::ConnSupport::Composition::InvalidOperationResult)
     end
   end
 end
