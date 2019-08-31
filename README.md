@@ -6,6 +6,10 @@
 `web_pipe` is a modular rack application builder through a pipe of
 operations on an immutable struct.
 
+In order to use in conjunction with [dry-rb](https://dry-rb.org/)
+ecosystem, see also
+[`dry-web-web_pipe`](https://github.com/waiting-for-dev/dry-web-web_pipe).
+
 1. [Introduction](/docs/introduction.md)
 1. [Design model](/docs/design_model.md)
 1. [Building a rack application](/docs/building_a_rack_application.md)
@@ -37,6 +41,7 @@ operations on an immutable struct.
    1. [Session](/docs/extensions/session.md)
    1. [URL](/docs/extensions/url.md)
 1. Recipes
+   1. [dry-rb integration](/docs/recipes/dry_rb_integration.md)
    1. [hanami-router integration](/docs/recipes/hanami_router_integration.md)
    1. [Using all RESTful methods](/docs/recipes/using_all_restful_methods.mb)
 
