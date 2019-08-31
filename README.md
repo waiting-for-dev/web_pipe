@@ -3,6 +3,9 @@
 
 # WebPipe
 
+`web_pipe` is a modular rack application builder through a pipe of
+operations on an immutable struct.
+
 1. [Introduction](docs/introduction.md)
 1. [Design model](docs/design_model.md)
 1. [Building a rack application](docs/building_a_rack_application.md)
@@ -33,6 +36,47 @@
    1. [Router params](docs/extensions/router_params.md)
    1. [Session](docs/extensions/session.md)
    1. [URL](docs/extensions/url.md)
+
+```ruby
+# config.ru
+require 'web_pipe'
+
+WebPipe.load_extensions(:params)
+
+class HelloApp
+  include WebPipe
+  
+  AUTHORIZED_USERS = %w[Alice Joe]
+  
+  plug :html
+  plug :authorize
+  plug :greet
+  
+  private
+  
+  def html(conn)
+    conn.add_response_header('Content-Type', 'text/html')
+  end
+  
+  def authorize(conn)
+    user = conn.params['user']
+    if AUTHORIZED_USERS.include?(user)
+      conn.add(:user, user)
+    else
+      conn.
+        set_status(401).
+        set_response_body('<h1>Not authorized</h1>').
+        halt
+    end
+  end
+  
+  def greet(conn)
+    conn.set_response_body("<h1>Hello #{conn.fetch(:user)}</h1>")
+  end
+end
+
+run HelloApp.new
+```
 
 ## Current status
 
