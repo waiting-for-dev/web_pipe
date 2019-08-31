@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'support/conn'
 require 'dry/schema'
 require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
-require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Plugs::SanitizeParams do
   describe '.call' do
@@ -15,7 +14,7 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
     context 'operation on success' do
       it "sets sanitized_params bag's key" do
         env = default_env.merge(Rack::QUERY_STRING => 'name=Joe')
-        conn = WebPipe::ConnSupport::Builder.(env)
+        conn = build_conn(env)
         operation = described_class.(schema)
 
         new_conn = operation.(conn)
@@ -38,9 +37,8 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
             set_status(500).
             halt
         end
-        conn = WebPipe::ConnSupport::Builder.
-                 (default_env).
-                 add_config(:param_sanitization_handler, configured_handler)
+        conn = build_conn(default_env).
+          add_config(:param_sanitization_handler, configured_handler)
         operation = described_class.(schema, injected_handler)
 
         new_conn = operation.(conn)
@@ -55,9 +53,8 @@ RSpec.describe WebPipe::Plugs::SanitizeParams do
             set_status(500).
             halt
         end
-        conn = WebPipe::ConnSupport::Builder.
-                 (default_env).
-                 add_config(:param_sanitization_handler, configured_handler)
+        conn = build_conn(default_env).
+          add_config(:param_sanitization_handler, configured_handler)
         operation = described_class.(schema)
 
         new_conn = operation.(conn)

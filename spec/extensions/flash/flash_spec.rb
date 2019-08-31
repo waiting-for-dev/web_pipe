@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'support/conn'
 require 'web_pipe/conn'
-require 'web_pipe/conn_support/builder'
 require 'web_pipe/conn_support/errors'
 require 'rack-flash'
 

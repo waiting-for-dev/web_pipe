@@ -1,17 +1,16 @@
 require 'spec_helper'
 require 'support/conn'
-require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:cookies) }
 
-  let(:conn) { WebPipe::ConnSupport::Builder.(default_env) }
+  let(:conn) { build_conn(default_env) }
 
   describe '#request_cookies' do
     it 'returns request cookies' do
       env = default_env.merge('HTTP_COOKIE' => 'foo=bar')
 
-      conn = WebPipe::ConnSupport::Builder.(env)
+      conn = build_conn(env)
 
       expect(conn.request_cookies).to eq({ 'foo' => 'bar' })
     end
@@ -19,7 +18,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#set_cookie' do
     it 'sets given name/value pair to the Set-Cookie header' do
-      conn = WebPipe::ConnSupport::Builder.(default_env)
+      conn = build_conn(default_env)
 
       new_conn = conn.set_cookie('foo', 'bar')
 
@@ -27,7 +26,7 @@ RSpec.describe WebPipe::Conn do
     end
 
     it 'adds given options to the cookie value' do
-      conn = WebPipe::ConnSupport::Builder.(default_env)
+      conn = build_conn(default_env)
 
       new_conn = conn.set_cookie('foo', 'bar', path: '/')
 
@@ -37,7 +36,7 @@ RSpec.describe WebPipe::Conn do
 
   describe '#delete_cookie' do
     it 'marks given key/value pair cookie for deletion' do
-      conn = WebPipe::ConnSupport::Builder.(default_env)
+      conn = build_conn(default_env)
 
       new_conn = conn.delete_cookie('foo')
 
@@ -47,7 +46,7 @@ RSpec.describe WebPipe::Conn do
     end
 
     it 'adds given options to the cookie value' do
-      conn = WebPipe::ConnSupport::Builder.(default_env)
+      conn = build_conn(default_env)
 
       new_conn = conn.delete_cookie('foo', domain: '/')
 
