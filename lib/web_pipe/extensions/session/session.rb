@@ -13,13 +13,14 @@ module WebPipe
   #
   # @example
   #   require 'web_pipe'
+  #   require 'rack/session'
   #
   #   WebPipe.load_extensions(:session)
   #
   #   class MyApp
   #     include WebPipe
   #
-  #     use Rack::Cookie, secret: 'top_secret'
+  #     use Rack::Session::Cookie, secret: 'top_secret'
   #
   #     plug :add_session, ->(conn) { conn.add_session('foo', 'bar') }
   #     plug :fetch_session, ->(conn) { conn.add(:foo, conn.fetch_session('foo')) }
