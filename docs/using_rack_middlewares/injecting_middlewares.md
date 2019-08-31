@@ -1,14 +1,14 @@
 # Injecting middlewares
 
-Middlewares can be injected at the moment the application is initialized,
-allowing you to override what you had defined in the DSL.
+Middlewares can be injected at the moment an application is initialized,
+allowing you to override what you have defined in the DSL.
 
-For that, you use the `middlewares:` keyword argument, which must be a hash
-where middlewares are matched by the name you gave them in the definition.
+For that purpose, you have to use `middlewares:` keyword argument. It must be a
+hash where middlewares are matched by the name you gave them in its definition.
 
-The middleware must be specified as an Array. First item in it must be the
-injected rack middleware class, while the rest of arguments (if any) must be
-the options it needs.
+A middleware must be specified as an `Array`. First item must be a rack
+middleware class. The rest of arguments (if any) should be any option it may
+need.
 
 This is mainly useful for testing purposes, where you can switch a heavy
 middleware and use a mocked one instead.

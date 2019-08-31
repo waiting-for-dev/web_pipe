@@ -1,6 +1,6 @@
 # ContentType
 
-`ContentType` plug is just a helper to set the `Content-Type` response header.
+`ContentType` plug is just a helper to set `Content-Type` response header.
 
 Example:
 

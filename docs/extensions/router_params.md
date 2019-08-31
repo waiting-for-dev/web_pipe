@@ -1,11 +1,13 @@
 # Router params
 
 This extension can be used in order to merge placeholder parameters
-that usually routers support (like `get /users/:id`) to the
-parameters hash in the `:params` extension (which is automatically
-loaded).
+that usually routers support (like `get /users/:id`) to the parameters hash
+added through [`:params` extension](extensions/params.md) (which is
+automatically loaded).
 
-What it does is adding a transformation function to the registry with name `:router_params`. Internally, it merges what is present in rack env's `router.params` key.
+What this extension does is adding a transformation function to the registry
+with name `:router_params`. Internally, it merges what is present in rack env's
+`router.params` key.
 
 It automatically integrates with
 [`hanami-router`](https://github.com/hanami/router).

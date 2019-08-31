@@ -1,10 +1,10 @@
 # Resolving operations
 
-There are several ways you can specify how the operation is resolved.
+There are several ways you can specify how an operation is resolved.
 
 ## Instance method
 
-Operations can be plugged through methods (whether public or private) in the
+Operations can be plugged as methods (both public and private) in the
 application class:
 
 ```ruby
@@ -15,22 +15,22 @@ class MyApp
   
   private
   
-  def plug(conn)
+  def html(conn)
     conn.add_response_header('Content-Type' => 'text/html')
   end
 end
 ```
 
-## Something responding to `#call`
+## `#call`
 
-Operations can also be plugged inline as anything that responds to `#call`,
-like a `Proc` or a `lambda`:
+Operations can be plugged inline as anything responding to `#call`, like a
+`Proc` or a `lambda`:
 
 ```ruby
 class MyApp
   include WebPipe
   
-  plug(:html) { |conn| conn.add_response_header('Content-Type' => 'text/html') }
+  plug :html, ->(conn) { conn.add_response_header('Content-Type' => 'text/html') }
 end
 ```
 
@@ -42,7 +42,7 @@ In the same way that `#call`, operations can also be plugged inline as blocks:
 class MyApp
   include WebPipe
   
-  plug(:html) |conn|
+  plug :html do |conn|
     conn.add_response_header('Content-Type' => 'text/html')
   end
 end
@@ -52,9 +52,9 @@ end
 
 Operations can be resolved from a dependency injection container.
 
-The container must be anything that responds to `#[]` (accepting symbols or
-strings) in order to resolve the dependency. It is configured at the moment
-`WebPipe` module is included:
+A container is anything that responds to `#[]` (accepting `Symbol` or `String`
+as argument) in order to resolve a dependency. It can be configured at the
+moment `WebPipe` module is included:
 
 ```ruby
 MyContainer = Hash[

@@ -13,8 +13,8 @@ conn.params # => { 'foo' => 'bar' }
 
 You can configure a stack of transformations to be applied to the
 parameter hash. For that, we lean on [`transproc`
-gem](https://github.com/solnic/transproc). All hash transformations
-in `transproc` are available by default.
+gem](https://github.com/solnic/transproc) (you have to add it yourself to your
+Gemfile). All hash transformations in `transproc` are available by default.
 
 Transformations must be configured under `:param_transformations`
 key:
@@ -78,8 +78,8 @@ end
 ```
 
 Your own transformation functions can depend on the `WebPipe::Conn`
-instance at the moment of calling `#params`. Those functions must
-connection struct as its last argument:
+instance at the moment of calling `#params`. Those functions must accept
+the connection struct as its last argument:
 
 ```ruby
 add_name = ->(params, conn) { params.merge(name: conn.fetch(:name)) }

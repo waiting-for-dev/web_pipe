@@ -1,18 +1,18 @@
 # Container
 
 `:container` is a very simple extension which allows you to configure a
-dependency injection container to be accessible from the `WebPipe::Conn`
+dependency injection container to be accessible from a `WebPipe::Conn`
 instance.
 
-The container to use must be configured under the `:configuration` key, and it
-will be accessible though the `#container` method.
+The container to use must be configured under `:configuration` key. It will be
+accessible through the `#container` method.
 
-You may be thinking why you should worry about configuring a container for the
+You may be thinking why you should worry about configuring a container for a
 connection instance when you already have access to the container configured
-for the application (from where you can resolve plugged operations). The idea
-here is decoupling the operations from the application DSL. If at sometime you
-decide to get rid off the DSL, the process will be straightforward if
-operations are using the container configured in the connection instance.
+for an application (from where you can resolve plugged operations). The idea
+here is decoupling operations from application DSL. If at anytime in the future
+you decide to get rid off the DSL, the process will be straightforward if
+operations are using the container configured in a connection instance.
 
 ```ruby
 require 'web_pipe'
