@@ -38,6 +38,7 @@ operations on an immutable struct.
    1. [URL](/docs/extensions/url.md)
 1. Recipes
    1. [hanami-router integration](/docs/recipes/hanami_router_integration.md)
+   1. [Using all RESTful methods](/docs/recipes/using_all_restful_methods.mb)
 
 ```ruby
 # config.ru
