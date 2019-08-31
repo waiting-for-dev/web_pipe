@@ -1,12 +1,11 @@
 require 'spec_helper'
 require 'support/conn'
-require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:redirect) }
 
   describe '#redirect' do
-    let(:conn) { WebPipe::ConnSupport::Builder.(default_env) }
+    let(:conn) { build_conn(default_env) }
     let(:new_conn) { conn.redirect('/here') }
 
     it 'uses 302 as default status code' do

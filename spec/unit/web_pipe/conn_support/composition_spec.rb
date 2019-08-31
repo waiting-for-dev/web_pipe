@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'support/conn'
 require 'web_pipe/conn_support/composition'
-require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::ConnSupport::Composition do
   let(:conn) { build_conn(default_env) }

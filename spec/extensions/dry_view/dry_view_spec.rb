@@ -3,7 +3,6 @@ require 'support/conn'
 require 'dry/view'
 require 'dry/view/context'
 require 'web_pipe/conn'
-require 'web_pipe/conn_support/builder'
 
 RSpec.describe WebPipe::Conn do
   before do
@@ -46,9 +45,8 @@ RSpec.describe WebPipe::Conn do
         config.template = 'template_without_input'
       end
       container = { 'view' => view.new }.freeze
-      conn = WebPipe::ConnSupport::Builder.
-               call(default_env).
-               add_config(:container, container)
+      conn = build_conn(default_env).
+        add_config(:container, container)
 
       new_conn = conn.view('view')
 
@@ -67,10 +65,9 @@ RSpec.describe WebPipe::Conn do
           end
         end.new
       end
-      conn = WebPipe::ConnSupport::Builder.
-               call(default_env).
-               add(:name, 'Joe').
-               add_config(:view_context, ->(conn) { { name: conn.fetch(:name) } })
+      conn = build_conn(default_env).
+        add(:name, 'Joe').
+        add_config(:view_context, ->(conn) { { name: conn.fetch(:name) } })
 
       new_conn = conn.view(view.new)
 
@@ -86,9 +83,8 @@ RSpec.describe WebPipe::Conn do
           'Alice'
         end
       end.new
-      conn = WebPipe::ConnSupport::Builder.
-               call(default_env).
-               add_config(:view_context, ->(_conn) { { name: 'Joe' } })
+      conn = build_conn(default_env).
+        add_config(:view_context, ->(_conn) { { name: 'Joe' } })
 
       new_conn = conn.view(view.new, context: context)
 
