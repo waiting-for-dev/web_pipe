@@ -9,7 +9,7 @@ request method in rack's env if a magical `_method` parameter or
 
 You have to be aware that if you use this middleware within a
 `web_pipe` application (through [`use` DSL
-method](docs/using_rack_middlewares.md)) it will have no effect.
+method](../using_rack_middlewares.md)) it will have no effect.
 When your `web_pipe` application takes control of the request it
 has already gone through the router, which is the one who should
 read the request method set by rack.

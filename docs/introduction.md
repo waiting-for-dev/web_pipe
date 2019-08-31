@@ -12,17 +12,17 @@ with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you can think of it
 as a decoupled web controller (as the C in MVC).
 
 `web_pipe` applications are built as a [pipe of
-operations](/docs/design_model.md) on an [immutable
-struct](/docs/connection_struct.md). The struct is automatically created
+operations](design_model.md) on an [immutable
+struct](connection_struct.md). The struct is automatically created
 with data from an HTTP request, and it contains methods to
 incrementally add data to generate an HTTP response. The pipe can
-be [halted](/docs/connection_struct/halting_the_pipe.md) at any moment,
+be [halted](connection_struct/halting_the_pipe.md) at any moment,
 taking away from all operations downstream any chance to modify the
 response.
 
 `web_pipe` has a modular design, with only the minimal functionalities needed
 to build a web application enabled by default. However, it ships with several
-[extensions](/docs/extensions.md) to make your life easier.
+[extensions](extensions.md) to make your life easier.
 
 Following there is a simple example. It is a web application that will check
 the value of a `user` parameter. When it is `Alice` or `Joe`, it will kindly

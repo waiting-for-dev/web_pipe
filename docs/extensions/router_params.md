@@ -2,7 +2,7 @@
 
 This extension can be used in order to merge placeholder parameters
 that usually routers support (like `get /users/:id`) to the parameters hash
-added through [`:params` extension](/docs/extensions/params.md) (which is
+added through [`:params` extension](params.md) (which is
 automatically loaded).
 
 What this extension does is adding a transformation function to the registry

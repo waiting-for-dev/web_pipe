@@ -4,8 +4,8 @@
 [dry-rb](https://dry-rb.org/) ecosystem. It shares same design
 principles and it ships with some extensions which even make this
 integration tighter (like
-[`:dry-view`](/docs/extensions/dry_view.md) or
-[`:dry-schema`](/docs/extensions/dry_schema.md) extensions).
+[`:dry-view`](../extensions/dry_view.md) or
+[`:dry-schema`](../extensions/dry_schema.md) extensions).
 
 If you want to use `web_pipe` with the rest of dry-rb libraries,
 your best bet is to use

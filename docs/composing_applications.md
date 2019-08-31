@@ -1,8 +1,8 @@
 # Composing applications
 
 Previously, we have seen how to [compose plugged
-operations](/docs/plugging_operations/composing_operations.md) and how to [compose
-rack middlewares](/docs/using_rack_middlewares/composing_middlewares.md). The logical
+operations](plugging_operations/composing_operations.md) and how to [compose
+rack middlewares](using_rack_middlewares/composing_middlewares.md). The logical
 next step is thinking about composing `web_pipe` applications, which is exactly
 the same as composing both operations and middlewares at the same time.
 

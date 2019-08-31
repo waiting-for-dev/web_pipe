@@ -1,6 +1,6 @@
 # Configuring the connection struct
 
-[Extensions](/docs/extensions.md) add extra behaviour to the connection struct.
+[Extensions](../extensions.md) add extra behaviour to the connection struct.
 Sometimes they need some user provided value to work properly or they may allow
 some tweak depending on user needs.
 
@@ -10,7 +10,7 @@ what they need is `#config` attribute, which is very similar to `#bag` except
 for its more private intention.
 
 In order to interact with `#config`, you can use the method `#add_config(key,
-value)` or [`Config` plug](/docs/plugs/config.md).
+value)` or [`Config` plug](../plugs/config.md).
 
 ```ruby
 class MyApp
