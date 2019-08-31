@@ -36,6 +36,8 @@ operations on an immutable struct.
    1. [Router params](docs/extensions/router_params.md)
    1. [Session](docs/extensions/session.md)
    1. [URL](docs/extensions/url.md)
+1. Recipes
+   1. [hanami-router integration](docs/recipes/hanami_router_integration.md)
 
 ```ruby
 # config.ru
