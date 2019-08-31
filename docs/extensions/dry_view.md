@@ -37,7 +37,7 @@ end
 ```
 
 However, you can resolve a view from a container if you also use (`:container`
-extension)[extensions/container.md]:
+extension)[/docs/extensions/container.md]:
 
 ```ruby
 require 'dry_view'

@@ -69,7 +69,7 @@ run DummyApp.new
 
 As you can see, default available features are the very minimal to read from a
 request and to write a response. However, you can pick from several
-(extensions)[extensions.md] which will make your life much easier.
+(extensions)[/docs/extensions.md] which will make your life much easier.
 
 Immutability is a core design principle in `web_pipe`. All methods in
 `WebPipe::Conn` which are used to add data to it (both in core behaviour and

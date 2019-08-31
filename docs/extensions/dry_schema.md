@@ -9,7 +9,7 @@ pipe of operations. It takes as arguments a `dry-schema` schema and a handler.
 On success, it makes output available at `WebPipe::Conn#sanitized_params`. On
 error, it calls given handler with the connection struct and validation result.
 
-This extension automatically loads [`:params` extension](extensions/params.md),
+This extension automatically loads [`:params` extension](/docs/extensions/params.md),
 as it takes `WebPipe::Conn#params` as input for the validation schema.
 
 Instead of providing an error handler as the second argument for the plug, you
