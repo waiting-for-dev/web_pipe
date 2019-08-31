@@ -4,29 +4,31 @@
 
 It means that with it and a rack router (like
 [`hanami-router`](https://github.com/hanami/router),
-[`http_router`](https://github.com/joshbuddy/http_router) or plain [rack's
-`map`
-method](https://www.rubydoc.info/github/rack/rack/Rack/Builder#map-instance_method))
-you can build a complete web application. However, the idea with `web_pipe` is
-to be a decoupled component within a web framework. For this reason, it plays
-extremely well with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you
-can think of it as a decoupled web controller (as the C in MVC).
+[`http_router`](https://github.com/joshbuddy/http_router) or plain
+[rack](https://github.com/rack/rack) routing methods you can build a complete
+web application.  However, the idea behind `web_pipe` is being a decoupled
+component within a web framework.  For this reason, it plays extremely well
+with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you can think of it
+as a decoupled web controller (as the C in MVC).
 
-`web_pipe` applications are built as a pipe of operations applied to an
-immutable struct. This struct is automatically created with all the data of an
-HTTP request, and contains methods to incrementally add to it the data needed
-to create an HTTP response. The pipe can be halted at any moment, withdrawing
-any chance to modify the response to all the operations downstream.
+`web_pipe` applications are built as a [pipe of
+operations](design_model.md) on an [immutable
+struct](connection_struct.md). The struct is automatically created
+with data from an HTTP request, and it contains methods to
+incrementally add data to generate an HTTP response. The pipe can
+be [halted](connection_struct/halting_the_pipe.md) at any moment,
+taking away from all operations downstream any chance to modify the
+response.
 
 `web_pipe` has a modular design, with only the minimal functionalities needed
-to build a web application enabled by default. However, there are
-several extensions to make your life easier.
+to build a web application enabled by default. However, it ships with several
+[extensions](extensions.md) to make your life easier.
 
 Following there is a simple example. It is a web application that will check
 the value of a `user` parameter. When it is `Alice` or `Joe`, it will kindly
 say hello. Otherwise, it will unauthorize:
 
-> In order to try the example you can paste it to a file with name `config.ru`
+> In order to try this example you can paste it to a file with name `config.ru`
 and launch the rack command `rackup` within the same directory. The application
 will be available in `http://localhost:9292`.
 
@@ -68,4 +70,4 @@ class HelloApp
 end
 
 run HelloApp.new
-```
+``

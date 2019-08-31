@@ -1,7 +1,7 @@
 # URL
 
-The `:url` extension just adds a few methods which cook the raw request
-information about the URL into something more digestible.
+`:url` extension just adds a few methods which cook raw request information
+about the URL into something more digestible.
 
 Specifically, it adds:
 

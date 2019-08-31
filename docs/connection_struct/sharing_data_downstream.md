@@ -1,9 +1,8 @@
 # Sharing data downstream
 
-Usually you'll need to prepare some data in one operation with the
-intention for it to be consumed by another downstream operation.
-The connection struct has a `#bag` attribute which is useful for
-this purpose.
+Usually you'll find the need to prepare some data in one operation with the
+intention for it to be consumed by another downstream operation. The connection
+struct has a `#bag` attribute which is useful for this purpose.
 
 `WebPipe::Conn#bag` is a `Hash` with `Symbol` keys where values can
 be anything you need to share. To help with the process we have following methods:
@@ -14,7 +13,7 @@ be anything you need to share. To help with the process we have following method
   provided.
 
 This is a simple example of a web application which reads a `name`
-parameter and normalizes it before using it in the response body.
+parameter and normalizes it before using in the response body.
 
 ```ruby
 # config.ru

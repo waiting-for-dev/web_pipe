@@ -1,9 +1,10 @@
 # Composing applications
 
-Previously, we have seen how to compose plugged operations and how to compose
-rack middlewares. The logical next step is thinking about composing `web_pipe`
-applications, which is exactly the same as composing both operations and
-middlewares at the same time.
+Previously, we have seen how to [compose plugged
+operations](plugging_operations/composing_operations.md) and how to [compose
+rack middlewares](using_rack_middlewares/composing_middlewares.md). The logical
+next step is thinking about composing `web_pipe` applications, which is exactly
+the same as composing both operations and middlewares at the same time.
 
 The DSL method `compose` does exactly that:
 
@@ -33,8 +34,8 @@ class MyApp
   
   compose :web, HtmlApp.new
   # It does exactly the same than:
-  # use HtmlApp.new
-  # plug HtmlApp.new
+  # use :web, HtmlApp.new
+  # plug :web, HtmlApp.new
   
   # use ...
   # plug ...

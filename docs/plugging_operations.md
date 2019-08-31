@@ -1,12 +1,21 @@
 # Plugging operations
 
-Operations are plugged to your application through the use of the DSL method
-`plug`. The first argument it always takes is a symbol with the name you want
-to give to the operation (needed to allow injection on initialization).
+You can plug operations to your application with the DSL method `plug`. The
+first argument it always takes is a symbol with the name you want
+to give to the operation (which is needed to allow
+[injection](plugging_operations/injecting_operations.md) on
+initialization).
 
-Remember, an operation is nothing more than a function (in ruby anything
-responding to `#call`) which takes a struct with all the connection information
-and which must return another instance of it. The first operation in the stack
-receives a struct which has been automatically created with all the request
-information. Then, any operation can add to it the needed information to create
-a response.
+```ruby
+class MyApp
+  include WebPipe
+  
+  plug :dummy_operation, ->(conn) { conn }
+end
+```
+
+Remember, an operation is just a function (in ruby, anything responding to
+`#call`) that takes a struct with connection information and returns another
+instance of it. First operation in the stack receives a struct which has been
+automatically created with the request data. From then on, any operation can
+add to it response data.

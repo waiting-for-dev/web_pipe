@@ -1,12 +1,13 @@
 # Composing operations
 
-As we said, operations are functions taking a connection struct and returning a
-connection struct. As a result, a composition of operations is an operation in
-itself (as it also takes a connection struct and returns a connection struct).
+As we already have said, operations are functions taking a connection struct
+and returning a connection struct. As a result, a composition of operations is
+an operation in itself (as it also takes a connection struct and returns a
+connection struct).
 
 This can be leveraged to plug a whole `web_pipe` application as an operation
-for another application. When you do so, you are plugging an operation which is
-the composition of all the operations for the given application.
+to another application. Doing so, you are plugging an operation which is the
+composition of all operations for given application.
 
 ```ruby
 class HtmlApp

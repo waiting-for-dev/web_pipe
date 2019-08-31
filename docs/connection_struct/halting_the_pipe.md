@@ -1,37 +1,36 @@
 # Halting the pipe
 
-You now that each operation in the pipe takes a single
-`WebPipe::Conn` instance as argument and must return another (or
-the same) instance of it. In this way, you propagate a series of
-operations on the connection struct until you eventually create the
-response you want.
+Each operation in a pipe takes a single `WebPipe::Conn` instance as argument
+and returns another (or same) instance of it. In this way, a series of
+operations on the connection struct is propagated until final response is sent
+to the client.
 
-More often than not, you may need to conditionally stop the
-propagation of a pipe at a given operation. A lot of times the
-requirement to do something like that will be authorization
-policies. For example, you fetch the user requesting the resource.
-If she is granted to perform required action you go on. Otherwise,
-you halt the connection and respond with an unauthorized http
-status code.
+More often than not, you may need to conditionally stop the propagation of a
+pipe at a given operation. A lot of times the requirement to do something like
+that will be authorization policies. For example, you could fetch the user
+requesting a resource. In the case she was granted to perform required action
+you would go on.  However, if she wasn't you would like to halt the connection
+and respond with a 4xx http status code.
 
-In order to stop the pipe, you simply have to call `#halt` on the
-connection struct.
+In order to stop the pipe, you simply have to call `#halt` on the connection
+struct.
 
-At the implementation level, we must admit that we've not been 100%
-accurate until now.  We said that the first operation in the pipe
-was provided with a `WebPipe::Conn` instance. That's true. However,
-it is more precise to say that it gets a `WebPipe::Conn::Ongoing`
-instance (`WebPipe::Conn::Ongoing` being a subclass of
+At implementation level, we must admit that we've not been 100% accurate until
+now. We said that the first operation in the pipe recerived a `WebPipe::Conn`
+instance. That's true. However, it is more precise saying that it gets a
+`WebPipe::Conn::Ongoing` instance (`WebPipe::Conn::Ongoing` being a subclass of
 `WebPipe::Conn`).
 
 As long as an operation responds with a `WebPipe::Conn::Ongoing`
 instance, the propagation will go on. However, when an operation
 returns a `WebPipe::Conn::Halted` instance (another subclass of
 `WebPipe::Conn`) then any operation downstream will be ignored.
-Calling `#halt` simply copies all the attributes to a
-`WebPipe::Conn::Halted` instance and returns it.
+Calling `#halt` simply copies all attributes to a `WebPipe::Conn::Halted`
+instance and returns it.
 
-This made-up example checks if the user in the request has an admin role. If she does, it returns solicited resource. Otherwise she is unauthorized and never gets the resource.
+This made-up example checks if the user in the request has an admin role. If
+she has, it returns solicited resource. Otherwise she is unauthorized and never
+gets the resource.
 
 ```ruby
 WebPipe.load_extensions(:params)

@@ -5,7 +5,7 @@ This extensions integrates with
 set a dry-view output as response body.
 
 `WebPipe::Conn#view` method is at the core of this extension. In its basic
-behaviour, you provide to it the view instance you want to render and any
+behaviour, you provide to it a view instance you want to render and any
 exposures or options it may need:
 
 ```ruby
@@ -31,12 +31,13 @@ class MyApp
   private
   
   def render(conn)
-    conn.view(SayHello.new, name: 'Joe')
+    conn.view(SayHelloView.new, name: 'Joe')
   end
 end
 ```
 
-However, you can resolve the view from a container if you also use the `:container` extension:
+However, you can resolve a view from a container if you also use (`:container`
+extension)[extensions/container.md]:
 
 ```ruby
 require 'dry_view'
@@ -61,9 +62,9 @@ end
 ```
 
 As in a standard call to `Dry::View#call`, you can override the context
-(`Dry::View::Context`) to use through the `context:` option. However, it is
-still possible to leverage configured default context while being able to
-inject request specific data to it.
+(`Dry::View::Context`) to use through `context:` option. However, it is still
+possible to leverage configured default context while being able to inject
+request specific data to it.
 
 For that to work, you have to specify required dependencies (in this case,
 request specific data) to your dry-view's context. A very convenient way to do
@@ -76,7 +77,7 @@ require 'my_import'
 class MyContext < Dry::View::Context
  include MyImport::Import[:current_path]
  
- # Without `dry-auto_inject` you have to manually specify the dependencies and
+ # Without `dry-auto_inject` you have to manually specify dependencies and
  # override the initializer:
  #
  # attr_reader :current_path
@@ -89,7 +90,7 @@ end
 ```
 
 Then, you have to configure a `:view_context` setting, which must be a lambda
-accepting the `WebPipe::Conn` instance and returning a hash matching required
+accepting a `WebPipe::Conn` instance and returning a hash matching required
 dependencies:
 
 ```ruby

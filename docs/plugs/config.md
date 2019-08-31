@@ -1,6 +1,7 @@
 # Config
 
-`Config` plug helps in the addition of several configuration settings for the instance of `WebPipe::Conn` in a single shot.
+`Config` plug helps in the addition of configuration settings (`#config` hash
+attribute) to an instance of `WebPipe::Conn`.
 
 ```ruby
 require 'web_pipe'

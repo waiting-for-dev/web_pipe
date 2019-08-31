@@ -4,12 +4,11 @@ This extension helps with creating a redirect response.
 
 Redirect responses consist of two pieces:
 
-- The `Location` response header with the URL to which the browser should
-  redirect.
+- `Location` response header with the URL to which browsers should redirect.
 - A 3xx status code.
 
 A `#redirect(location, code)` method is added to `WebPipe::Conn` which takes
-care of both steps. The `code` argument is optional, defaulting to `302`.
+care of both steps. `code` argument is optional, defaulting to `302`.
 
 ```ruby
 require 'web_pipe'
