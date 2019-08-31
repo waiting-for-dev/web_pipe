@@ -9,7 +9,7 @@ encapsulate them in your application definition.
 In order to add rack middlewares to the stack, you have to use the DSL method
 `use`. The first argument it takes is a `Symbol` with the name you want to
 assign to it (which is needed to allow
-[injection](using_rack_middlewares/injecting_middlewares.md) on
+[injection](/docs/using_rack_middlewares/injecting_middlewares.md) on
 initialization). Then, it must follow the middleware class and any option it
 may need:
 
