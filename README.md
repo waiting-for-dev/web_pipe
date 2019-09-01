@@ -43,7 +43,7 @@ ecosystem, see also
 1. Recipes
    1. [dry-rb integration](docs/recipes/dry_rb_integration.md)
    1. [hanami-router integration](docs/recipes/hanami_router_integration.md)
-   1. [Using all RESTful methods](docs/recipes/using_all_restful_methods.mb)
+   1. [Using all RESTful methods](docs/recipes/using_all_restful_methods.md)
 
 ```ruby
 # config.ru
