@@ -51,6 +51,10 @@ module WebPipe
     require 'web_pipe/extensions/params/params'
   end
 
+  register_extension :rails do
+    require 'web_pipe/extensions/rails/rails'
+  end
+
   register_extension :session do
     require 'web_pipe/extensions/session/session'
   end

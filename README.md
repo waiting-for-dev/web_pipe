@@ -10,6 +10,9 @@ In order to use in conjunction with [dry-rb](https://dry-rb.org/)
 ecosystem, see also
 [`dry-web-web_pipe`](https://github.com/waiting-for-dev/dry-web-web_pipe).
 
+If you want to use it with a Rails project, don't miss docs for the [rails
+extension](docs/extensions/rails.md).
+
 1. [Introduction](docs/introduction.md)
 1. [Design model](docs/design_model.md)
 1. [Building a rack application](docs/building_a_rack_application.md)
@@ -36,6 +39,7 @@ ecosystem, see also
    1. [Dry Schema](docs/extensions/dry_schema.md)
    1. [Dry View](docs/extensions/dry_view.md)
    1. [Params](docs/extensions/params.md)
+   1. [Rails](docs/extensions/rails.md)
    1. [Redirect](docs/extensions/redirect.md)
    1. [Router params](docs/extensions/router_params.md)
    1. [Session](docs/extensions/session.md)
