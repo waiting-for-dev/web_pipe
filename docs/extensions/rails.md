@@ -36,7 +36,7 @@ option that will play specially well here is
 itself easily with Rails. Furthermore, we have a tailored `dry_view`
 [extension](https://waiting-for-dev.github.io/web_pipe/docs/extensions/dry_view.html).
 
-You need to use this extension if:
+You need to use `:rails` extension if:
 
 - You want to use `action_view` as rendering system.
 - You want to use rails url helpers from your `WebPipe` application.
@@ -50,7 +50,6 @@ some behaviour for the view layer:
 
 - Which layout is applied to the template.
 - Which helpers will become available to the templates.
-- Where within `app/views/` templates are looked up.
 
 By default, the controller in use is `ActionController::Base`, which means that
 no layout is applied and only built-in helpers (for example,
@@ -95,7 +94,9 @@ end
 
 Notice that we used the keyword `template:` instead of taking advantage of
 automatic template lookup. We did that way so that we don't have to create also
-an `ArticlesController`, but it's up to you.
+an `ArticlesController`, but it's up to you. In the case of having an
+`ArticlesController` we could just do `conn.render(:index, assigns: {
+articles: Article.all })`.
 
 Besides, this extension provides with two other methods:
 
