@@ -92,10 +92,9 @@ run HelloApp.new
 
 ## Current status
 
-`web_pipe` is in active development. The very basic features to build
-a rack application are all available. However, very necessary
-conveniences to build a production application, for example a session
-mechanism, are still missing.
+`web_pipe` is in active development but ready to be used in any environment.
+Common needs are covered and while you can expect some API changes, they won't
+be very important and everything will be properly documented.
 
 ## Contributing
 
