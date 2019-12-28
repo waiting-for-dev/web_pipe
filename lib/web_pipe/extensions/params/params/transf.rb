@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'transproc'
+require 'dry/transformer'
 
 module WebPipe
   module Params
     module Transf
-      extend Transproc::Registry
+      extend Dry::Transformer::Registry
 
-      import Transproc::HashTransformations
+      import Dry::Transformer::HashTransformations
 
       def self.id(params)
         params
