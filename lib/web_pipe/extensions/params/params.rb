@@ -14,9 +14,9 @@ module WebPipe
   #   # http://www.example.com?foo=bar
   #   conn.params #=> { 'foo' => 'bar' }
   #
-  # Further processing can be specified thanks to `transproc` gem (you
+  # Further processing can be specified thanks to `dry-transformer` gem (you
   # need to add it yourself to the Gemfile). All hash transformations
-  # in `transproc` are available:
+  # in `dry-transformer` are available:
   #
   # @example
   #   # http://www.example.com?foo=bar
@@ -65,7 +65,7 @@ module WebPipe
   #   conn.
   #     params(fake) #=> { fake: :params }
   #
-  # @see https://github.com/solnic/transproc
+  # @see https://github.com/dry-rb/dry-transformer
   module Params
     # Key where configured transformations are set
     PARAM_TRANSFORMATION_KEY = :param_transformations
