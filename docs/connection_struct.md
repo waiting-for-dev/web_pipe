@@ -75,3 +75,14 @@ Immutability is a core design principle in `web_pipe`. All methods in
 `WebPipe::Conn` which are used to add data to it (both in core behaviour and
 extensions) return a fresh new instance. It also makes possible chaining
 methods in a very readable way.
+
+You can use ruby 2.7 pattern matching on a `WebPipe::Conn` struct, as in:
+
+```ruby
+# GET http://example.org
+conn in { request_method:, host: }
+request_method
+# :get
+host
+# 'example.org'
+```
