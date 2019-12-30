@@ -125,7 +125,7 @@ module WebPipe
 
       set_response_body(
         view_instance.call(
-          view_input
+          **view_input
         ).to_str
       )
     end
@@ -145,7 +145,9 @@ module WebPipe
                 .config
                 .default_context
                 .with(
-                  fetch_config(VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT).call(self)
+                  **fetch_config(
+                    VIEW_CONTEXT_KEY, DEFAULT_VIEW_CONTEXT
+                  ).call(self)
                 )
       kwargs.merge(context: context)
     end
