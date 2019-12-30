@@ -14,8 +14,8 @@ module WebPipe
     klass.include(call)
   end
 
-  def self.call(*args)
-    DSL::Builder.new(*args)
+  def self.call(**opts)
+    DSL::Builder.new(**opts)
   end
 
   register_extension :cookies do

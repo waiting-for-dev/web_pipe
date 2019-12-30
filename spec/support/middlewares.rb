@@ -17,9 +17,9 @@ class LastNameMiddleware
   attr_reader :app
   attr_reader :name
 
-  def initialize(app, name:)
+  def initialize(app, opts)
     @app = app
-    @name = name
+    @name = opts[:name]
   end
 
   def call(env)
