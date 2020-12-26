@@ -12,9 +12,10 @@ conn.params # => { 'foo' => 'bar' }
 ```
 
 You can configure a stack of transformations to be applied to the
-parameter hash. For that, we lean on [`transproc`
-gem](https://github.com/solnic/transproc) (you have to add it yourself to your
-Gemfile). All hash transformations in `transproc` are available by default.
+parameter hash. For that, we lean on [`dry-transformer`
+gem](https://github.com/dry-rb/dry-transformer) (you have to add it yourself to
+your Gemfile). All hash transformations in `dry-transformer` are available by
+default.
 
 Transformations must be configured under `:param_transformations`
 key:
