@@ -11,3 +11,7 @@
 .rspec_status
 
 Gemfile.lock
+
+Dockerfile
+docker-compose.yml
+.dockerignore
