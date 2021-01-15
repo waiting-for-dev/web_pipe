@@ -8,9 +8,9 @@ module WebPipe
       # @param key [Any] Key not found in the bag
       def initialize(key)
         super(
-          <<~eos
+          <<~MSG
             Bag does not contain a key with name +#{key}+.
-          eos
+          MSG
         )
       end
     end
@@ -21,9 +21,9 @@ module WebPipe
       # @param key [Any] Key not found in config
       def initialize(key)
         super(
-          <<~eos
+          <<~MSG
             Config does not contain a key with name +#{key}+.
-          eos
+          MSG
         )
       end
     end
@@ -36,10 +36,10 @@ module WebPipe
       # @param gem [String] Gem name for the middleware
       def initialize(feature, middleware, gem)
         super(
-          <<~eos
+          <<~MSG
             In order to use #{feature} you must use #{middleware} middleware:
             https://rubygems.org/gems/#{gem}
-          eos
+          MSG
         )
       end
     end

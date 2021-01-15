@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+#:nodoc:
 module WebPipe
   # Adds helper methods related to the request URL.
   #

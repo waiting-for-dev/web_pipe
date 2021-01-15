@@ -25,6 +25,7 @@ module WebPipe
       def initialize(container: EMPTY_CONTAINER)
         @container = Types::Container[container]
         @class_context = ClassContext.new(container: container)
+        super()
       end
 
       def included(klass)

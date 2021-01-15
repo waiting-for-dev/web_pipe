@@ -15,12 +15,12 @@ module WebPipe
       # @param env [Types::Env] Rack's env
       #
       # @return [Conn::Ongoing]
+      # rubocop:disable Metrics/MethodLength
       def self.call(env)
         rr = Rack::Request.new(env)
         Conn::Ongoing.new(
           request: rr,
           env: env,
-
           scheme: rr.scheme.to_sym,
           request_method: rr.request_method.downcase.to_sym,
           host: rr.host,
@@ -33,6 +33,7 @@ module WebPipe
           request_headers: Headers.extract(env)
         )
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

@@ -66,7 +66,7 @@ module WebPipe
                       spec
                     else
                       block_spec
-               end
+                    end
 
         plugs << Plug.new(name: name, spec: plug_spec)
       end

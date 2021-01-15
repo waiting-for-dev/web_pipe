@@ -4,6 +4,7 @@ require 'web_pipe'
 
 WebPipe.load_extensions(:params)
 
+#:nodoc:
 module WebPipe
   # Integration with `dry-schema` validation library.
   #

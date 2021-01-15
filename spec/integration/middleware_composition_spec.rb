@@ -5,15 +5,17 @@ require 'support/conn'
 require 'support/middlewares'
 
 RSpec.describe 'Middleware composition' do
-  class AppWithMiddlewares
-    include WebPipe
-
-    use :first_name, FirstNameMiddleware
-    use :last_name, LastNameMiddleware, name: 'Doe'
-  end
-
   let(:pipe) do
     Class.new do
+      # rubocop:disable Lint/ConstantDefinitionInBlock
+      class AppWithMiddlewares
+        include WebPipe
+
+        use :first_name, FirstNameMiddleware
+        use :last_name, LastNameMiddleware, name: 'Doe'
+      end
+      # rubocop:enable Lint/ConstantDefinitionInBlock
+
       include WebPipe
 
       use :app, AppWithMiddlewares.new

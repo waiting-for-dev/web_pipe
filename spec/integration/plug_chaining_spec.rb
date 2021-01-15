@@ -19,7 +19,7 @@ RSpec.describe 'Chaining plugs' do
 
       def two(conn)
         conn.set_response_body(
-          conn.response_body[0] + 'Two'
+          "#{conn.response_body[0]}Two"
         )
       end
     end.new

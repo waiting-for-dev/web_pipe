@@ -4,6 +4,7 @@ require 'dry/transformer'
 
 module WebPipe
   module Params
+    # Parameter transformations from dry-transformer.
     module Transf
       extend Dry::Transformer::Registry
 

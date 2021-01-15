@@ -1,0 +1,15 @@
+AllCops:
+  TargetRubyVersion: 2.7.2
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "*.gemspec"
+    - vendor/**/*
+    - Gemfile
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Naming/AccessorMethodName:
+  Enabled: false

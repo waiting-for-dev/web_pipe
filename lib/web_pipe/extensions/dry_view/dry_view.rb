@@ -4,6 +4,7 @@ require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'dry/view'
 
+#:nodoc:
 module WebPipe
   # Integration with `dry-view` rendering system.
   #

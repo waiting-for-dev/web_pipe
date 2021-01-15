@@ -14,8 +14,7 @@ class FirstNameMiddleware
 end
 
 class LastNameMiddleware
-  attr_reader :app
-  attr_reader :name
+  attr_reader :app, :name
 
   def initialize(app, opts)
     @app = app

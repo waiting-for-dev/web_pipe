@@ -2,6 +2,7 @@
 
 require 'web_pipe/types'
 
+#:nodoc:
 module WebPipe
   # Helper method to create redirect responses.
   #

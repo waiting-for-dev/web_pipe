@@ -2,6 +2,7 @@
 
 require 'web_pipe/conn'
 
+#:nodoc:
 module WebPipe
   # Integrates with Rails framework.
   #
@@ -73,7 +74,7 @@ module WebPipe
   # class ApplicationController < ActionController::Base
   #   # By default uses the layout in `layouts/application`
   # end
-  # 
+  #
   # # app/controllers/articles_index.rb
   # require 'web_pipe/plugs/config'
   #

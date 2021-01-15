@@ -5,16 +5,18 @@ require 'support/conn'
 require 'support/middlewares'
 
 RSpec.describe 'Composition' do
-  class App
-    include WebPipe
-
-    use :first_name, FirstNameMiddleware
-
-    plug :gretting, ->(conn) { conn.add(:greeting, 'Hello') }
-  end
-
   let(:pipe) do
     Class.new do
+      # rubocop:disable Lint/ConstantDefinitionInBlock
+      class App
+        include WebPipe
+
+        use :first_name, FirstNameMiddleware
+
+        plug :gretting, ->(conn) { conn.add(:greeting, 'Hello') }
+      end
+      # rubocop:enable Lint/ConstantDefinitionInBlock
+
       include WebPipe
 
       compose :app, App.new

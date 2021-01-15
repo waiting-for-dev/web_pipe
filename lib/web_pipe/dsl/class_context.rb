@@ -33,6 +33,7 @@ module WebPipe
         @dsl_context = DSLContext.new([], [])
         define_container
         define_dsl
+        super()
       end
 
       private

@@ -4,6 +4,7 @@ require 'web_pipe'
 require 'web_pipe/types'
 require 'rack/utils'
 
+#:nodoc:
 module WebPipe
   # Extension to help dealing with request and response cookies.
   #

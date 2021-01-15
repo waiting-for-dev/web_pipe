@@ -4,20 +4,22 @@ require 'spec_helper'
 require 'support/conn'
 
 RSpec.describe 'Plug composition' do
-  class One
-    include WebPipe
-
-    plug :one
-
-    private
-
-    def one(conn)
-      conn.set_response_body('One')
-    end
-  end
-
   let(:pipe) do
     Class.new do
+      # rubocop:disable Lint/ConstantDefinitionInBlock
+      class One
+        include WebPipe
+
+        plug :one
+
+        private
+
+        def one(conn)
+          conn.set_response_body('One')
+        end
+      end
+      # rubocop:enable Lint/ConstantDefinitionInBlock
+
       include WebPipe
 
       plug :one, One.new
@@ -27,7 +29,7 @@ RSpec.describe 'Plug composition' do
 
       def two(conn)
         conn.set_response_body(
-          conn.response_body[0] + 'Two'
+          "#{conn.response_body[0]}Two"
         )
       end
     end.new

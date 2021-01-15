@@ -3,6 +3,7 @@
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/errors'
 
+#:nodoc:
 module WebPipe
   # Provides with a typical flash messages functionality.
   #

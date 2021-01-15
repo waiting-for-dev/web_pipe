@@ -32,7 +32,7 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
 
     context 'when spec is a class with options' do
       it 'returns it as a WebPipe::RackSupport::Middleware with given options' do
-        expect(described_class.new(name: :name, spec: [LastNameMiddleware, name: 'Joe']).call).to eq(
+        expect(described_class.new(name: :name, spec: [LastNameMiddleware, { name: 'Joe' }]).call).to eq(
           [WebPipe::RackSupport::Middleware.new(middleware: LastNameMiddleware, options: [name: 'Joe'])]
         )
       end
@@ -62,10 +62,10 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
   describe '.inject_and_resolve' do
     it 'inject specs and resolves resulting list of middlewares' do
       middleware_specifications = [
-        described_class.new(name: :middleware_1, spec: [FirstNameMiddleware]),
-        described_class.new(name: :middleware_2, spec: [pipe.new])
+        described_class.new(name: :middleware1, spec: [FirstNameMiddleware]),
+        described_class.new(name: :middleware2, spec: [pipe.new])
       ]
-      injections = { middleware_2: [FirstNameMiddleware] }
+      injections = { middleware2: [FirstNameMiddleware] }
 
       result = described_class.inject_and_resolve(
         middleware_specifications, injections

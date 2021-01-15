@@ -9,33 +9,33 @@ RSpec.describe WebPipe::Conn do
     WebPipe.load_extensions(:rails)
   end
 
-  before(:all) do
-    module ActionController
-      module Base
-        def self.renderer
-          Renderer.new
-        end
-
-        def self.helpers
-          {
-            helper1: 'foo'
-          }
-        end
+  # rubocop:disable Lint/ConstantDefinitionInBlock
+  module ActionController
+    module Base
+      def self.renderer
+        Renderer.new
       end
 
-      class Renderer
-        def render(*args)
-          action = args[0]
-          case action
-          when 'show'
-            'Show'
-          else
-            'Not found'
-          end
+      def self.helpers
+        {
+          helper1: 'foo'
+        }
+      end
+    end
+
+    class Renderer
+      def render(*args)
+        action = args[0]
+        case action
+        when 'show'
+          'Show'
+        else
+          'Not found'
         end
       end
     end
   end
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   after(:all) { Object.send(:remove_const, :ActionController) }
 
@@ -49,26 +49,26 @@ RSpec.describe WebPipe::Conn do
     end
 
     it 'uses configured controller' do
-      module MyController
+      my_controller = Class.new do
         def self.renderer
           Renderer.new
         end
 
+        # rubocop:disable Lint/ConstantDefinitionInBlock
         class Renderer
-          def render(*args)
+          def render(*_args)
             'Rendered from MyController'
           end
         end
+        # rubocop:enable Lint/ConstantDefinitionInBlock
       end
       conn = build_conn(default_env)
 
       new_conn = conn
-        .add_config(:rails_controller, MyController)
-        .render(:whatever)
+                 .add_config(:rails_controller, my_controller)
+                 .render(:whatever)
 
       expect(new_conn.response_body).to eq(['Rendered from MyController'])
-
-      Object.send(:remove_const, :MyController)
     end
   end
 
@@ -80,18 +80,16 @@ RSpec.describe WebPipe::Conn do
     end
 
     it 'uses configured controller' do
-      module MyController
+      my_controller = Class.new do
         def self.helpers
           { helper1: 'bar' }
         end
       end
       conn = build_conn(default_env)
 
-      new_conn = conn.add_config(:rails_controller, MyController)
+      new_conn = conn.add_config(:rails_controller, my_controller)
 
       expect(new_conn.helpers).to eq(helper1: 'bar')
-
-      Object.send(:remove_const, :MyController)
     end
   end
 end

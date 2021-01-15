@@ -2,6 +2,7 @@
 
 require 'web_pipe'
 
+#:nodoc:
 module WebPipe
   # Extension adding a `#container` method which returns {Conn#config}
   # `:container` key.

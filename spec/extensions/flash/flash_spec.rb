@@ -37,7 +37,7 @@ RSpec.describe WebPipe::Conn do
       env = default_env.merge('x-rack.flash' => flash)
       conn = build_conn(env)
 
-      conn = conn.add_flash(:error, 'error')
+      conn.add_flash(:error, 'error')
 
       expect(flash[:error]).to eq('error')
     end
@@ -48,7 +48,7 @@ RSpec.describe WebPipe::Conn do
       env = default_env.merge('x-rack.flash' => flash)
       conn = build_conn(env)
 
-      conn = conn.add_flash_now(:error, 'error')
+      conn.add_flash_now(:error, 'error')
 
       expect(flash.send(:cache)[:error]).to eq('error')
     end

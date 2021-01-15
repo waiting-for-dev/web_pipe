@@ -48,6 +48,7 @@ module WebPipe
       # @return [Array<RackSupport::Middlewares>]
       attr_reader :middlewares
 
+      # rubocop:disable Metrics/AbcSize
       def initialize(injects = EMPTY_INJECTIONS)
         @injections = Injections[injects]
         container = self.class.container
@@ -60,6 +61,7 @@ module WebPipe
         app = App.new(operations)
         @rack_app = RackSupport::AppWithMiddlewares.new(middlewares, app)
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Expected interface for rack.
       #

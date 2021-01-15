@@ -25,7 +25,7 @@ module WebPipe
         Hash[
           env
           .select { |k, _v| k.start_with?('HTTP_') }
-          .map { |k, v| pair(k[5..-1], v) }
+          .map { |k, v| pair(k[5..], v) }
           .concat(
             env
               .select { |k, _v| HEADERS_AS_CGI.include?(k) }
@@ -99,9 +99,7 @@ module WebPipe
       #
       # @see #normalize_key
       def self.normalize(headers)
-        Hash[
-          headers.map { |k, v| [normalize_key(k), v] }
-        ]
+        headers.transform_keys { |k| normalize_key(k) }
       end
     end
   end

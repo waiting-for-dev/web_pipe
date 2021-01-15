@@ -22,7 +22,7 @@ RSpec.describe 'Injecting middlewares' do
             "Hello Mr./Ms. #{last_name}"
           )
       end
-    end.new(middlewares: { last_name: [LastNameMiddleware, name: 'Smith'] })
+    end.new(middlewares: { last_name: [LastNameMiddleware, { name: 'Smith' }] })
   end
 
   it 'can use middlewares' do

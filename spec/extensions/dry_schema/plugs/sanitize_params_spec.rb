@@ -8,7 +8,7 @@ require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
 RSpec.describe WebPipe::Plugs::SanitizeParams do
   describe '.call' do
     let(:schema) do
-      schema = Dry::Schema.Params do
+      Dry::Schema.Params do
         required(:name)
       end
     end

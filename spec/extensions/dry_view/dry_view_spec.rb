@@ -69,7 +69,7 @@ RSpec.describe WebPipe::Conn do
       end
       conn = build_conn(default_env)
              .add(:name, 'Joe')
-             .add_config(:view_context, ->(conn) { { name: conn.fetch(:name) } })
+             .add_config(:view_context, ->(c) { { name: c.fetch(:name) } })
 
       new_conn = conn.view(view.new)
 

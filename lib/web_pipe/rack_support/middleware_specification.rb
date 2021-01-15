@@ -60,10 +60,11 @@ module WebPipe
       # @return [Array<RackSupport::Middleware>]
       def call
         klass = spec[0]
-        options = spec[1..-1] || Types::EMPTY_ARRAY
-        if klass.is_a?(WebPipe)
+        options = spec[1..] || Types::EMPTY_ARRAY
+        case klass
+        when WebPipe
           klass.middlewares
-        elsif klass.is_a?(Class)
+        when Class
           [Middleware.new(middleware: klass, options: options)]
         end
       end

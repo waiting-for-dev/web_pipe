@@ -25,11 +25,11 @@ module WebPipe
       # @param name [Any] Name for the plug that can't be resolved
       def initialize(name)
         super(
-          <<~eos
+          <<~MSG
             Plug with name +#{name}+ is invalid. It must be something
             callable, an instance method when no operation is given,
             or something callable registered in the container."
-          eos
+          MSG
         )
       end
     end
@@ -83,7 +83,7 @@ module WebPipe
         spec
       elsif spec.nil?
         pipe.method(name)
-      elsif container[spec]&.respond_to?(:call)
+      elsif container[spec].respond_to?(:call)
         container[spec]
       else
         raise InvalidPlugError, name

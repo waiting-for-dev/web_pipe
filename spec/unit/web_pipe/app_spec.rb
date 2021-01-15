@@ -8,21 +8,21 @@ require 'web_pipe/app'
 RSpec.describe WebPipe::App do
   describe '#call' do
     it 'chains operations on Conn' do
-      op_1 = ->(conn) { conn.set_status(200) }
-      op_2 = ->(conn) { conn.set_response_body('foo') }
+      op1 = ->(conn) { conn.set_status(200) }
+      op2 = ->(conn) { conn.set_response_body('foo') }
 
-      app = described_class.new([op_1, op_2])
+      app = described_class.new([op1, op2])
 
       expect(app.call(default_env)).to eq([200, {}, ['foo']])
     end
 
     it 'stops chain propagation once a conn is halted' do
-      op_1 = ->(conn) { conn.set_status(200) }
-      op_2 = ->(conn) { conn.set_response_body('foo') }
-      op_3 = ->(conn) { conn.halt }
-      op_4 = ->(conn) { conn.set_response_body('bar') }
+      op1 = ->(conn) { conn.set_status(200) }
+      op2 = ->(conn) { conn.set_response_body('foo') }
+      op3 = ->(conn) { conn.halt }
+      op4 = ->(conn) { conn.set_response_body('bar') }
 
-      app = described_class.new([op_1, op_2, op_3, op_4])
+      app = described_class.new([op1, op2, op3, op4])
 
       expect(app.call(default_env)).to eq([200, {}, ['foo']])
     end

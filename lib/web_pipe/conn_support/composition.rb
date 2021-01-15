@@ -28,11 +28,11 @@ module WebPipe
         # @param returned [Any] What was returned from the {Operation}
         def initialize(returned)
           super(
-            <<~eos
+            <<~MSG
               An operation returned +#{returned.inspect}+. To be valid,
               an operation must return whether a
               WebPipe::Conn::Ongoing or a WebPipe::Conn::Halted.
-            eos
+            MSG
           )
         end
       end

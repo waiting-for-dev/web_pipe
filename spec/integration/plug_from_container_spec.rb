@@ -4,12 +4,14 @@ require 'spec_helper'
 require 'support/conn'
 
 RSpec.describe 'Resolving plugs from a container' do
-  Container = Hash[
-    'plug.hello' => ->(conn) { conn.set_response_body('Hello, world!') }
-  ]
-
   let(:pipe) do
     Class.new do
+      # rubocop:disable Lint/ConstantDefinitionInBlock
+      Container = Hash[
+        'plug.hello' => ->(conn) { conn.set_response_body('Hello, world!') }
+      ]
+      # rubocop:enable Lint/ConstantDefinitionInBlock
+
       include WebPipe.call(container: Container)
 
       plug :hello, 'plug.hello'
