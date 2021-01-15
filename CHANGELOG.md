@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0] - 2021-01-15
+### Added
+- **BREAKING**. Ruby 2.5 deprecated.
+  [#40](https://github.com/waiting-for-dev/web_pipe/pull/40)
+-  Ruby 3.0 supported.
+  [#41](https://github.com/waiting-for-dev/web_pipe/pull/41)
+
 ## [0.12.1] - 2019-03-18
 ### Fixed
 - Update rake to fix security alert
