@@ -42,8 +42,8 @@ RSpec.describe WebPipe::Conn do
 
       new_conn = conn.delete_cookie('foo')
 
-      expect(new_conn.response_headers['Set-Cookie']).to eq(
-        'foo=; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 -0000'
+      expect(new_conn.response_headers['Set-Cookie']).to include(
+        'foo=; max-age=0; expires='
       )
     end
 
@@ -52,8 +52,8 @@ RSpec.describe WebPipe::Conn do
 
       new_conn = conn.delete_cookie('foo', domain: '/')
 
-      expect(new_conn.response_headers['Set-Cookie']).to eq(
-        'foo=; domain=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 -0000'
+      expect(new_conn.response_headers['Set-Cookie']).to include(
+        'foo=; domain=/; max-age=0; expires='
       )
     end
   end
