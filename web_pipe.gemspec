@@ -43,7 +43,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'dry-schema', '~> 1.0'
   spec.add_development_dependency 'dry-transformer', '~> 0.1'
-  spec.add_development_dependency 'dry-view', '~> 0.7'
+  # TODO: Readd when dry-rb 0.8 is released (ruby 3.0 support)
+  # spec.add_development_dependency 'dry-view', '~> 0.8'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rack-flash3', '~> 1.0'
   spec.add_development_dependency 'rack-test', '~> 1.1'
