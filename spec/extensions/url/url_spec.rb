@@ -15,8 +15,7 @@ RSpec.describe WebPipe::Conn do
     it 'returns request base url' do
       env = default_env.merge(
         Rack::HTTPS => 'on',
-        Rack::HTTP_HOST => 'www.host.org',
-        Rack::SERVER_PORT => '8000'
+        Rack::HTTP_HOST => 'www.host.org:8000'
       )
 
       conn = build(env)
@@ -55,9 +54,8 @@ RSpec.describe WebPipe::Conn do
     it 'returns request url' do
       env = default_env.merge(
         Rack::HTTPS => 'on',
-        Rack::HTTP_HOST => 'www.host.org',
+        Rack::HTTP_HOST => 'www.host.org:8000',
         Rack::PATH_INFO => '/home',
-        Rack::SERVER_PORT => '8000',
         Rack::QUERY_STRING => 'foo=bar'
       )
 
