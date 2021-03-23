@@ -20,6 +20,7 @@ extension](docs/extensions/rails.md).
    1. [Resolving operations](docs/plugging_operations/resolving_operations.md)
    1. [Injecting operations](docs/plugging_operations/injecting_operations.md)
    1. [Composing operations](docs/plugging_operations/composing_operations.md)
+   1. [Inspecting operations](docs/plugging_operations/inspecting_operations.md)
 1. [Using rack middlewares](docs/using_rack_middlewares.md)
    1. [Injecting middlewares](docs/using_rack_middlewares/injecting_middlewares.md)
    1. [Composing middlewares](docs/using_rack_middlewares/composing_middlewares.md)

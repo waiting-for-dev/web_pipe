@@ -42,7 +42,7 @@ module WebPipe
       # @return [RackSupport::AppWithMiddlewares[]]
       attr_reader :rack_app
 
-      # @return [ConnSupport::Composition::Operation[]]
+      # @return [Hash<WebPipe::Plug::Name[], ConnSupport::Composition::Operation[]>]
       attr_reader :operations
 
       # @return [Array<RackSupport::Middlewares>]
@@ -58,7 +58,7 @@ module WebPipe
         @operations = Plug.inject_and_resolve(
           self.class.plugs, injections[:plugs], container, self
         )
-        app = App.new(operations)
+        app = App.new(operations.values)
         @rack_app = RackSupport::AppWithMiddlewares.new(middlewares, app)
       end
       # rubocop:enable Metrics/AbcSize
@@ -105,7 +105,7 @@ module WebPipe
       # @see ConnSupport::Composition
       def to_proc
         ConnSupport::Composition
-          .new(operations)
+          .new(operations.values)
           .method(:call)
           .to_proc
       end

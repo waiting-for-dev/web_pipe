@@ -96,7 +96,7 @@ RSpec.describe WebPipe::Plug do
   end
 
   describe '.inject_and_resolve' do
-    it 'inject specs and resolves resulting list of plugs' do
+    it 'inject specs and resolves plugs' do
       container = {
         'op1' => -> { 'op1' },
         'op2' => -> { 'op2' }
@@ -111,7 +111,8 @@ RSpec.describe WebPipe::Plug do
         plugs, injected, container, Object.new
       )
 
-      expect(result.map(&:call)).to eq(%w[op1 injected])
+      expect(result.keys).to eq(%i[op1 op2])
+      expect(result.values.map(&:call)).to eq(%w[op1 injected])
     end
   end
 end

@@ -13,3 +13,6 @@ Metrics/BlockLength:
 
 Naming/AccessorMethodName:
   Enabled: false
+
+Style/HashConversion:
+  Enabled: false
