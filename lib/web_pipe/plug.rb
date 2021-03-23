@@ -97,15 +97,26 @@ module WebPipe
     # @container container [Types::Container[]]
     # @object [Object]
     #
-    # @return [Array<ConnSupport::Composition::Operation[]>]
+    # @return [Hash<Name[], ConnSupport::Composition::Operation[]>]
     def self.inject_and_resolve(plugs, injections, container, object)
-      plugs.map do |plug|
-        if injections.key?(plug.name)
-          plug.with(injections[plug.name])
+      Hash[
+        plugs.map do |plug|
+          inject_and_resolve_plug(plug, injections, container, object)
+        end
+      ]
+    end
+
+    def self.inject_and_resolve_plug(plug, injections, container, object)
+      name = plug.name
+      [
+        name,
+        if injections.key?(name)
+          plug.with(injections[name])
         else
           plug
         end.call(container, object)
-      end
+      ]
     end
+    private_class_method :inject_and_resolve_plug
   end
 end
