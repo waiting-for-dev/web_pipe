@@ -42,10 +42,10 @@ module WebPipe
       # @return [RackSupport::AppWithMiddlewares[]]
       attr_reader :rack_app
 
-      # @return [Hash<WebPipe::Plug::Name[], ConnSupport::Composition::Operation[]>]
+      # @return [Hash<Plug::Name[], ConnSupport::Composition::Operation[]>]
       attr_reader :operations
 
-      # @return [Array<RackSupport::Middlewares>]
+      # @return [Hash<RackSupport::MiddlewareSpecification::Name[], Array<RackSupport::Middlewares>]
       attr_reader :middlewares
 
       # rubocop:disable Metrics/AbcSize
@@ -59,7 +59,7 @@ module WebPipe
           self.class.plugs, injections[:plugs], container, self
         )
         app = App.new(operations.values)
-        @rack_app = RackSupport::AppWithMiddlewares.new(middlewares, app)
+        @rack_app = RackSupport::AppWithMiddlewares.new(middlewares.values.flatten, app)
       end
       # rubocop:enable Metrics/AbcSize
 

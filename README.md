@@ -24,6 +24,7 @@ extension](docs/extensions/rails.md).
 1. [Using rack middlewares](docs/using_rack_middlewares.md)
    1. [Injecting middlewares](docs/using_rack_middlewares/injecting_middlewares.md)
    1. [Composing middlewares](docs/using_rack_middlewares/composing_middlewares.md)
+   1. [Inspecting middlewares](docs/using_rack_middlewares/inspecting_middlewares.md)
 1. [Composing applications](docs/composing_applications.md)
 1. [Connection struct](docs/connection_struct.md)
    1. [Sharing data downstream](docs/connection_struct/sharing_data_downstream.md)
