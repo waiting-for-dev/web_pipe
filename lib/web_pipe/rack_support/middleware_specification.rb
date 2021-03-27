@@ -15,8 +15,6 @@ module WebPipe
     # - A single element array where it is an instance of a class
     # including {WebPipe}. This specifies all {RackSupport::Middlewares} for
     # that {WebPipe}.
-    #
-    # @api private
     class MiddlewareSpecification < Dry::Struct
       # Type for the name given to a middleware.
       Name = Types::Strict::Symbol.constructor(&:to_sym)
@@ -44,16 +42,27 @@ module WebPipe
       # @param middleware_specifications [Array<MiddlewareSpecification>]
       # @param injections [Injections[]]
       #
-      # @return [Array<RackSupport::Middleware>]
+      # @return [Hash<Name[], Array<RackSupport::Middleware>]
       def self.inject_and_resolve(middleware_specifications, injections)
-        middleware_specifications.map do |spec|
-          if injections.key?(spec.name)
-            spec.with(injections[spec.name])
-          else
-            spec
-          end.call
-        end.flatten
+        Hash[
+          middleware_specifications.map do |middleware_spec|
+            inject_and_resolve_middleware(middleware_spec, injections)
+          end
+        ]
       end
+
+      def self.inject_and_resolve_middleware(middleware_spec, injections)
+        name = middleware_spec.name
+        [
+          name,
+          if injections.key?(name)
+            middleware_spec.with(injections[name])
+          else
+            middleware_spec
+          end.call
+        ]
+      end
+      private_class_method :inject_and_resolve_middleware
 
       # Resolves {RackSupport::Middlewares} from given specification.
       #
@@ -63,7 +72,7 @@ module WebPipe
         options = spec[1..] || Types::EMPTY_ARRAY
         case klass
         when WebPipe
-          klass.middlewares
+          klass.middlewares.values
         when Class
           [Middleware.new(middleware: klass, options: options)]
         end
