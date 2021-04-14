@@ -34,6 +34,7 @@ extension](docs/extensions/rails.md).
 1. [Plugs](docs/plugs.md)
    1. [Config](docs/plugs/config.md)
    1. [ContentType](docs/plugs/content_type.md)
+1. [Testing](docs/testing.md)
 1. [Extensions](docs/extensions.md)
    1. [Container](docs/extensions/container.md)
    1. [Cookies](docs/extensions/cookies.md)
