@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.0] - 2021-04-14
+### Added
+- Inspecting operations
+  [#42](https://github.com/waiting-for-dev/web_pipe/pull/42)
+- Inspecting middlewares
+  [#43](https://github.com/waiting-for-dev/web_pipe/pull/43)
+- Testing support
+  [#44](https://github.com/waiting-for-dev/web_pipe/pull/44)
+
 ## [0.13.0] - 2021-01-15
 ### Added
 - **BREAKING**. Ruby 2.5 deprecated.
