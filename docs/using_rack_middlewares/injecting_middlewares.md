@@ -1,19 +1,19 @@
 # Injecting middlewares
 
-Middlewares can be injected at the moment an application is initialized,
+You can inject middlewares at the moment an application is initialized,
 allowing you to override what you have defined in the DSL.
 
-For that purpose, you have to use `middlewares:` keyword argument. It must be a
+For that purpose, you have to use the `middlewares:` keyword argument. It must be a
 hash where middlewares are matched by the name you gave them in its definition.
 
-A middleware must be specified as an `Array`. First item must be a rack
-middleware class. The rest of arguments (if any) should be any option it may
+A middleware must be specified as an `Array`. The first item must be a rack
+middleware class. The rest of the arguments (if any) should be any options it may
 need.
 
-This is mainly useful for testing purposes, where you can switch a heavy
+That is mainly useful for testing purposes, where you can switch a heavy
 middleware and use a mocked one instead.
 
-In the following example, rack session mechanism is being mocked:
+In the following example, we mock the rack session mechanism:
 
 ```ruby
 # config.ru

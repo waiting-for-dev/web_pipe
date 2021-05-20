@@ -1,10 +1,10 @@
 # Plugging operations
 
-You can plug operations to your application with the DSL method `plug`. The
+You can plug operations into your application with the DSL method `plug`. The
 first argument it always takes is a symbol with the name you want
 to give to the operation (which is needed to allow
-[injection](plugging_operations/injecting_operations.md) on
-initialization).
+[injection](plugging_operations/injecting_operations.md) at
+initialization time).
 
 ```ruby
 class MyApp

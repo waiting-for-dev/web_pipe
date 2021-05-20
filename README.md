@@ -6,8 +6,8 @@
 `web_pipe` is a modular rack application builder through a pipe of
 operations on an immutable struct.
 
-In order to use in conjunction with [dry-rb](https://dry-rb.org/)
-ecosystem, see also
+To use in conjunction with [dry-rb](https://dry-rb.org/) ecosystem,
+see also
 [`dry-web-web_pipe`](https://github.com/waiting-for-dev/dry-web-web_pipe).
 
 If you want to use it with a Rails project, don't miss docs for the [rails
@@ -97,8 +97,8 @@ run HelloApp.new
 ## Current status
 
 `web_pipe` is in active development but ready to be used in any environment.
-Common needs are covered and while you can expect some API changes, they won't
-be very important and everything will be properly documented.
+Everyday needs are covered, and while you can expect some API changes,
+they won't be essential, and we'll document everything appropriately.
 
 ## Contributing
 

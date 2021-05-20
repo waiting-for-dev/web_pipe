@@ -1,6 +1,6 @@
 # Building a rack application
 
-In order to build a rack application with `web_pipe` you have to include
+To build a rack application with `web_pipe`, you have to include
 `WebPipe` module in a class:
 
 ```ruby

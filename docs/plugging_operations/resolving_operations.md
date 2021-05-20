@@ -1,6 +1,6 @@
 # Resolving operations
 
-There are several ways you can specify how an operation is resolved.
+There are several ways you can specify how to resolve an operation.
 
 ## Instance method
 
@@ -53,8 +53,8 @@ end
 Operations can be resolved from a dependency injection container.
 
 A container is anything that responds to `#[]` (accepting `Symbol` or `String`
-as argument) in order to resolve a dependency. It can be configured at the
-moment `WebPipe` module is included:
+as argument) to resolve a dependency. It can be configured at the
+moment you include the `WebPipe` module:
 
 ```ruby
 MyContainer = Hash[

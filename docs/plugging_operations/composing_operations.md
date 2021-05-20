@@ -5,9 +5,9 @@ and returning a connection struct. As a result, a composition of operations is
 an operation in itself (as it also takes a connection struct and returns a
 connection struct).
 
-This can be leveraged to plug a whole `web_pipe` application as an operation
-to another application. Doing so, you are plugging an operation which is the
-composition of all operations for given application.
+We can leverage that to plug a whole `web_pipe` application as an operation to
+another application. By doing so, you are plugging an operation which is the
+composition of all operations for a given application.
 
 ```ruby
 class HtmlApp

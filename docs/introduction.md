@@ -6,10 +6,10 @@ It means that with it and a rack router (like
 [`hanami-router`](https://github.com/hanami/router),
 [`http_router`](https://github.com/joshbuddy/http_router) or plain
 [rack](https://github.com/rack/rack) routing methods you can build a complete
-web application.  However, the idea behind `web_pipe` is being a decoupled
-component within a web framework.  For this reason, it plays extremely well
-with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you can think of it
-as a decoupled web controller (as the C in MVC).
+web application.  However, the idea behind `web_pipe` is for it to be a
+decoupled component within a web framework.  For this reason, it plays
+extremely well with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you
+can think of it as a decoupled web controller (as the C in MVC).
 
 `web_pipe` applications are built as a [pipe of
 operations](design_model.md) on an [immutable
@@ -28,9 +28,9 @@ Following there is a simple example. It is a web application that will check
 the value of a `user` parameter. When it is `Alice` or `Joe`, it will kindly
 say hello. Otherwise, it will unauthorize:
 
-> In order to try this example you can paste it to a file with name `config.ru`
-and launch the rack command `rackup` within the same directory. The application
-will be available in `http://localhost:9292`.
+> To try this example, you can paste it to a file with the name `config.ru` and
+launch the rack command `rackup` within the same directory. The application
+will be available at `http://localhost:9292`.
 
 ```ruby
 require 'web_pipe'

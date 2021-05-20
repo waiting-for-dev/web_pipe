@@ -3,10 +3,10 @@
 Previously, we have seen how to [compose plugged
 operations](plugging_operations/composing_operations.md) and how to [compose
 rack middlewares](using_rack_middlewares/composing_middlewares.md). The logical
-next step is thinking about composing `web_pipe` applications, which is exactly
-the same as composing both operations and middlewares at the same time.
+next step is composing `web_pipe` applications, which is the same as composing
+operations and middlewares simultaneously.
 
-The DSL method `compose` does exactly that:
+The DSL method `compose` does precisely that:
 
 ```ruby
 class HtmlApp
@@ -33,7 +33,7 @@ class MyApp
   include WebPipe
   
   compose :web, HtmlApp.new
-  # It does exactly the same than:
+  # It does exactly the same as:
   # use :web, HtmlApp.new
   # plug :web, HtmlApp.new
   
