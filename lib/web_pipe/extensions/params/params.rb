@@ -3,7 +3,7 @@
 require 'web_pipe/types'
 require 'web_pipe/extensions/params/params/transf'
 
-#:nodoc:
+# :nodoc:
 module WebPipe
   # Adds a {Conn#params} method which can perform any number of
   # transformations to the request parameters.

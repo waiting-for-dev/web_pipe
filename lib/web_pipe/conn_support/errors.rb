@@ -2,7 +2,7 @@
 
 module WebPipe
   module ConnSupport
-    # Error raised when trying to fetch an entry in {Conn#bag} for an
+    # Error raised when trying to fetch an entry in {WebPipe::Conn#bag} for an
     # unknown key.
     class KeyNotFoundInBagError < KeyError
       # @param key [Any] Key not found in the bag
@@ -15,8 +15,8 @@ module WebPipe
       end
     end
 
-    # Error raised when trying to fetch an entry in {Conn#config} for
-    # an unknown key.
+    # Error raised when trying to fetch an entry in {WebPipeConn#config} for an
+    # unknown key.
     class KeyNotFoundInConfigError < KeyError
       # @param key [Any] Key not found in config
       def initialize(key)
@@ -28,8 +28,8 @@ module WebPipe
       end
     end
 
-    # Error raised when trying to use a conn's feature which requires
-    # a rack middleware which is not present
+    # Error raised when trying to use a {WebPipe::Conn} feature which requires a
+    # rack middleware that is not present
     class MissingMiddlewareError < RuntimeError
       # @param feature [String] Name of the feature intended to be used
       # @param middleware [String] Name of the missing middleware

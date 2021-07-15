@@ -1,57 +1,32 @@
 # frozen_string_literal: true
 
-require 'web_pipe/types'
-require 'web_pipe/dsl/dsl_context'
-
 module WebPipe
   module DSL
-    # Defines the DSL and keeps the state for the pipe.
-    #
-    # This is good to be an instance because it keeps the
-    # configuration (state) for the pipe class: the container
-    # configured on initialization and both rack middlewares and plugs
-    # added through the DSL {DSLContext}.
-    #
-    # As the pipe is extended with an instance of this class, methods
-    # that are meant to be class methods in the pipe are defined as
-    # singleton methods of the instance.
-    #
     # @api private
     class ClassContext < Module
-      # Methods to be imported from the {DSLContext}.
-      DSL_METHODS = %i[middleware_specifications use plugs plug compose].freeze
+      DSL_METHODS = %i[use plug compose].freeze
 
-      # @!attribute [r] container
-      # @return [Types::Container[]]
-      attr_reader :container
+      attr_reader :ast
 
-      # @return [DSLContext]
-      attr_reader :dsl_context
+      def initialize
+        @ast = []
+        super
+      end
 
-      def initialize(container:)
-        @container = Types::Container[container]
-        @dsl_context = DSLContext.new([], [])
-        define_container
-        define_dsl
-        super()
+      def extended(klass)
+        define_dsl_methods(klass, ast)
       end
 
       private
 
-      def define_container
-        module_exec(container) do |container|
-          define_method(:container) do
-            container
-          end
-        end
-      end
-
-      def define_dsl
+      def define_dsl_methods(klass, ast)
         DSL_METHODS.each do |method|
-          module_exec(dsl_context) do |dsl_context|
-            define_method(method) do |*args, &block|
-              dsl_context.method(method).call(*args, &block)
-            end
+          klass.define_singleton_method(method) do |*args, **kwargs, &block|
+            ast << if block_given?
+                     [method, args, kwargs, block]
+                   else
+                     [method, args, kwargs]
+                   end
           end
         end
       end

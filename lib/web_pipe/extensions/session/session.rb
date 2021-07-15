@@ -4,7 +4,7 @@ require 'web_pipe/conn'
 require 'web_pipe/types'
 require 'rack'
 
-#:nodoc:
+# :nodoc:
 module WebPipe
   # Wrapper around Rack::Session middlewares.
   #

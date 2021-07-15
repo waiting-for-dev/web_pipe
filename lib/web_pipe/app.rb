@@ -1,54 +1,51 @@
 # frozen_string_literal: true
 
-require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'web_pipe/conn_support/builder'
 require 'web_pipe/conn_support/composition'
 
 module WebPipe
-  # Rack application built around applying a pipe of {Operation} to
-  # a {Conn}.
+  # Rack app built from a chain of functions that take and return a
+  # {WebPipe::Conn}.
   #
-  # A rack application is something callable accepting rack's `env`
-  # as argument and returning a rack response. So, the workflow
-  # followed to build it is:
+  # This is the abstraction encompassing a rack application built only with the
+  # functions on {WebPipe::Conn}. {WebPipe::RackSupport::AppWithMiddlewares}
+  # takes middlewares also into account.
   #
-  # - Take rack's `env` and create a {Conn} from here.
-  # - Starting from it, apply the pipe of operations (anything
-  # callable accepting a {Conn} and returning a {Conn}).
-  # - Convert last {Conn} back to a rack response and
-  # return it.
+  # A rack application is something callable that takes the rack environment as
+  # an argument, and returns a rack response. So, this class needs to:
   #
-  # {Conn} can itself be of two different types (subclasses of it}:
-  # {Conn::Ongoing} and {Conn::Halted}. The pipe is stopped
-  # whenever the stack is emptied or a {Conn::Halted} is
-  # returned in any of the steps.
+  # - Take rack's environment and create a {WebPipe::Conn} struct from there.
+  # - Starting from the initial struct, apply the pipe of functions.
+  # - Convert the last {WebPipe::Conn} back to a rack response.
+  #
+  # {WebPipe::Conn} can itself be of two different types (subclasses of it}:
+  # {Conn::Ongoing} and {Conn::Halted}. The pipe is stopped on two scenarios:
+  #
+  # - The end of the pipe is reached.
+  # - One function returns a {Conn::Halted}.
   class App
-    # Type for a rack environment.
-    RackEnv = Types::Strict::Hash
-
     include Dry::Monads::Result::Mixin
 
     # @!attribute [r] operations
-    #   @return [Array<Operation[]>]
+    #   @return [Array<Proc>]
     attr_reader :operations
 
+    # @param operations [Array<Proc>]
     def initialize(operations)
-      @operations = Types.Array(
-        ConnSupport::Composition::Operation
-      )[operations]
+      @operations = operations
     end
 
-    # @param env [Hash] Rack env
+    # @param env [Hash] Rack environment
     #
     # @return env [Array] Rack response
     # @raise ConnSupport::Composition::InvalidOperationResult when an
-    # operation does not return a {Conn}
+    # operation doesn't return a {WebPipe::Conn}
     def call(env)
       extract_rack_response(
         apply_operations(
           conn_from_env(
-            RackEnv[env]
+            env
           )
         )
       )

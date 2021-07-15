@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#:nodoc:
+# :nodoc:
 module WebPipe
   # Generates a not-found response
   #
