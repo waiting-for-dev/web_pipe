@@ -2,7 +2,7 @@
 
 require 'web_pipe/conn'
 
-#:nodoc:
+# :nodoc:
 module WebPipe
   # Integrates with Rails framework.
   #

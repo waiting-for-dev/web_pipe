@@ -19,9 +19,6 @@ RSpec.describe 'Rack application' do
   end
 
   it 'is a rack application' do
-    builder = Rack::Builder.new
-    builder.run app
-
     get '/'
 
     expect(last_response.body).to eq('Hello, world!')

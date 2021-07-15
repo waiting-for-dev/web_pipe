@@ -6,8 +6,8 @@ require 'web_pipe/plug'
 RSpec.describe WebPipe::Plug do
   let(:container) do
     {
-      'callable' => -> {},
-      'not_callable' => nil
+      callable: -> {},
+      not_callable: nil
     }
   end
   let(:object) do
@@ -43,6 +43,30 @@ RSpec.describe WebPipe::Plug do
   describe '#call' do
     let(:plug) { described_class.new(name: name, spec: spec) }
 
+    context 'when spec responds to #to_proc' do
+      let(:name) { 'name' }
+      let(:spec) do
+        Class.new do
+          def to_proc
+            -> { 'hey' }
+          end
+        end.new
+      end
+
+      it 'returns the result of calling it' do
+        expect(plug.call(container, object).call).to eq('hey')
+      end
+    end
+
+    context "when spec responds to #to_proc but it's a symbol" do
+      let(:name) { 'name' }
+      let(:spec) { :callable }
+
+      it 'resolves from the container' do
+        expect(plug.call(container, object)).to be(container[:callable])
+      end
+    end
+
     context 'when spec is callable' do
       let(:name) { 'name' }
       let(:spec) { -> {} }
@@ -76,15 +100,15 @@ RSpec.describe WebPipe::Plug do
       let(:name) { 'name' }
 
       context 'when container resolves from it a callable object' do
-        let(:spec) { 'callable' }
+        let(:spec) { :callable }
 
         it 'returns it' do
-          expect(plug.call(container, object)).to be(container['callable'])
+          expect(plug.call(container, object)).to be(container[:callable])
         end
       end
 
       context 'when container resolves from it a not callable object' do
-        let(:spec) { 'not_callable' }
+        let(:spec) { :not_callable }
 
         it 'raises InvalidPlugError' do
           expect do
@@ -95,8 +119,8 @@ RSpec.describe WebPipe::Plug do
     end
   end
 
-  describe '.inject_and_resolve' do
-    it 'inject specs and resolves plugs' do
+  describe '.inject' do
+    it 'inject specs' do
       container = {
         'op1' => -> { 'op1' },
         'op2' => -> { 'op2' }
@@ -107,12 +131,12 @@ RSpec.describe WebPipe::Plug do
       ]
       injected = { op2: -> { 'injected' } }
 
-      result = described_class.inject_and_resolve(
-        plugs, injected, container, Object.new
+      result = described_class.inject(
+        plugs, injected
       )
 
-      expect(result.keys).to eq(%i[op1 op2])
-      expect(result.values.map(&:call)).to eq(%w[op1 injected])
+      expect(result.map(&:name)).to eq(%i[op1 op2])
+      expect(result.map { |plug| plug.call(container, self) }.map(&:call)).to eq(%w[op1 injected])
     end
   end
 end

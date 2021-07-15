@@ -16,9 +16,11 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
   end
 
   describe '#call' do
-    context 'when spec is a WebPipe class' do
+    context 'when spec responds to to_middlewares' do
       it "returns an array with its WebPipe::Rack::Middleware's" do
-        expect(described_class.new(name: :name, spec: [pipe.new]).call).to include(*pipe.new.middlewares.values)
+        expect(described_class.new(name: :name, spec: [pipe.new]).call).to include(
+          WebPipe::RackSupport::Middleware.new(middleware: FirstNameMiddleware, options: [])
+        )
       end
     end
 
@@ -59,20 +61,21 @@ RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do
     end
   end
 
-  describe '.inject_and_resolve' do
-    it 'inject specs and resolves middlewares' do
+  describe '.inject' do
+    it 'inject specs' do
+      spec1 = described_class.new(name: :middleware1, spec: [FirstNameMiddleware])
+      spec2 = described_class.new(name: :middleware2, spec: [pipe.new])
       middleware_specifications = [
-        described_class.new(name: :middleware1, spec: [FirstNameMiddleware]),
-        described_class.new(name: :middleware2, spec: [pipe.new])
+        spec1,
+        spec2
       ]
       injections = { middleware2: [FirstNameMiddleware] }
 
-      result = described_class.inject_and_resolve(
+      result = described_class.inject(
         middleware_specifications, injections
       )
 
-      rack_middleware = WebPipe::RackSupport::Middleware.new(middleware: FirstNameMiddleware, options: [])
-      expect(result).to eq(middleware1: [rack_middleware], middleware2: [rack_middleware])
+      expect(result.map(&:spec)).to eq([[FirstNameMiddleware], [FirstNameMiddleware]])
     end
   end
 end

@@ -6,15 +6,8 @@ require 'web_pipe/conn_support/headers'
 
 module WebPipe
   module ConnSupport
-    # Helper module to build a {Conn} from a rack's env.
-    #
-    # It always return a {Conn::Ongoing} subclass.
-    #
     # @api private
     module Builder
-      # @param env [Types::Env] Rack's env
-      #
-      # @return [Conn::Ongoing]
       # rubocop:disable Metrics/MethodLength
       def self.call(env)
         rr = Rack::Request.new(env)

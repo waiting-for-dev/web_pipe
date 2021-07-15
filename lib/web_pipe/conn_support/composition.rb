@@ -1,31 +1,14 @@
 # frozen_string_literal: true
 
 require 'dry/monads/result'
-require 'web_pipe/types'
 require 'web_pipe/conn'
 
 module WebPipe
   module ConnSupport
-    # Composition of a pipe of {Operation} on a {Conn}.
-    #
-    # It represents the composition of a series of functions which
-    # take a {Conn} as argument and return a {Conn}.
-    #
-    # However, {Conn} can itself be of two different types (subclasses
-    # of it): a {Conn::Ongoing} or a {Conn::Halted}. On execution time,
-    # the composition is stopped whenever the stack is emptied or a
-    # {Conn::Halted} is returned in any of the steps.
+    # @api private
     class Composition
-      # Type for an operation.
-      #
-      # It should be anything callable expecting a {Conn} and
-      # returning a {Conn}.
-      Operation = Types.Interface(:call)
-
-      # Error raised when an {Operation} returns something that is not
-      # a {Conn}.
+      # Raised when operation doesn't return a {WebPipe::Conn}.
       class InvalidOperationResult < RuntimeError
-        # @param returned [Any] What was returned from the {Operation}
         def initialize(returned)
           super(
             <<~MSG
@@ -39,18 +22,12 @@ module WebPipe
 
       include Dry::Monads::Result::Mixin
 
-      # @!attribute [r] operations
-      #   @return [Array<Operation[]>]
       attr_reader :operations
 
       def initialize(operations)
-        @operations = Types.Array(Operation)[operations]
+        @operations = operations
       end
 
-      # @param conn [Conn]
-      # @return [Conn]
-      # @raise InvalidOperationResult when an operation does not
-      # return a {Conn}
       def call(conn)
         extract_result(
           apply_operations(

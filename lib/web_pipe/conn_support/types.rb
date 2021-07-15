@@ -5,10 +5,10 @@ require 'rack/request'
 
 module WebPipe
   module ConnSupport
-    # Types used for {Conn} struct.
+    # Types used in the {WebPipe::Conn} struct.
     #
-    # Implementation self-describes them, but you can look at {Conn}
-    # attributes for documentation.
+    # The implementation self-describes them, but you can look at the
+    # {WebPipe::Conn} attributes for documentation.
     module Types
       include Dry.Types()
 

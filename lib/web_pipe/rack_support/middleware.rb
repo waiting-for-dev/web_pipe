@@ -5,10 +5,10 @@ require 'dry/struct'
 
 module WebPipe
   module RackSupport
+    # Wrapper for a rack middleware.
+    #
     # Simple data structure to represent a rack middleware class with
     # its initialization options.
-    #
-    # @api private
     class Middleware < Dry::Struct
       # Type for a rack middleware class.
       MiddlewareClass = Types.Instance(Class)

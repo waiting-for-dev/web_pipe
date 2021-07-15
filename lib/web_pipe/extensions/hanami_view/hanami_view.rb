@@ -4,7 +4,7 @@ require 'web_pipe/types'
 require 'web_pipe/conn'
 require 'hanami/view'
 
-#:nodoc:
+# :nodoc:
 module WebPipe
   # Integration with `hanami-view` rendering system.
   #
