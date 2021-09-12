@@ -5,10 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.15.0] - 2021-09-12
+### Added
 - **BREAKING**. Switch `dry_view` extension with `hanami_view`.
   [#45](https://github.com/waiting-for-dev/web_pipe/pull/45)
 
-### Added
 ## [0.14.0] - 2021-04-14
 ### Added
 - Inspecting operations
