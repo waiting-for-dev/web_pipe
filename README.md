@@ -40,7 +40,7 @@ extension](docs/extensions/rails.md).
    1. [Cookies](docs/extensions/cookies.md)
    1. [Flash](docs/extensions/flash.md)
    1. [Dry Schema](docs/extensions/dry_schema.md)
-   1. [Dry View](docs/extensions/dry_view.md)
+   1. [Hanami View](docs/extensions/hanami_view.md)
    1. [Params](docs/extensions/params.md)
    1. [Rails](docs/extensions/rails.md)
    1. [Redirect](docs/extensions/redirect.md)

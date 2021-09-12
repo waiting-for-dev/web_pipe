@@ -27,8 +27,8 @@ module WebPipe
     require 'web_pipe/extensions/dry_schema/plugs/sanitize_params'
   end
 
-  register_extension :dry_view do
-    require 'web_pipe/extensions/dry_view/dry_view'
+  register_extension :hanami_view do
+    require 'web_pipe/extensions/hanami_view/hanami_view'
   end
 
   register_extension :container do

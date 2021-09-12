@@ -31,10 +31,9 @@ It's quite possible that you don't need more than that in terms of rails
 integration. Of course, surely you want something more elaborate to generate
 responses. For that, you can use the view or template system you like. One
 option that will play specially well here is
-[`dry-view`](https://dry-rb.org/gems/dry-view/), which
-[integrates](https://github.com/dry-rb/dry-view/tree/master/examples/rails)
-itself easily with Rails. Furthermore, we have a tailored `dry_view`
-[extension](https://waiting-for-dev.github.io/web_pipe/docs/extensions/dry_view.html).
+[`hanami-view`](https://github.com/hanami/view). Furthermore, we have a
+tailored `hanami_view`
+[extension](https://waiting-for-dev.github.io/web_pipe/docs/extensions/hanami_view.html).
 
 You need to use `:rails` extension if:
 

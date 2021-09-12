@@ -2,18 +2,18 @@
 
 require 'spec_helper'
 require 'support/conn'
-require 'dry/view'
-require 'dry/view/context'
+require 'hanami/view'
+require 'hanami/view/context'
 require 'web_pipe/conn'
 
 RSpec.describe WebPipe::Conn do
   before do
-    WebPipe.load_extensions(:dry_view)
+    WebPipe.load_extensions(:hanami_view)
   end
 
   describe '#view' do
     let(:view_class) do
-      Class.new(Dry::View) do
+      Class.new(Hanami::View) do
         config.paths = [File.join(__dir__, 'fixtures')]
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe WebPipe::Conn do
     it 'injects configured view_context to the context' do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
-        config.default_context = Class.new(Dry::View::Context) do
+        config.default_context = Class.new(Hanami::View::Context) do
           attr_reader :name
 
           def initialize(name: nil, **options)
@@ -80,7 +80,7 @@ RSpec.describe WebPipe::Conn do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
       end
-      context = Class.new(Dry::View::Context) do
+      context = Class.new(Hanami::View::Context) do
         def name
           'Alice'
         end
