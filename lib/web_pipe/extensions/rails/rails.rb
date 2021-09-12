@@ -37,9 +37,8 @@ module WebPipe
   # It's quite possible that you don't need more than that in terms of rails
   # integration. Of course, surely you want something more elaborate to generate
   # responses. For that, you can use the view or template system you like. One
-  # option that will play specially well here is `dry-view`, which integrates
-  # itself easily with Rails. Furthermore, we have a tailored `dry_view`
-  # extension.
+  # option that will play specially well here is `hanami-view`. Furthermore, we
+  # have a tailored `hanami_view` extension.
   #
   # You need to use `:rails` extension if:
   #
@@ -118,9 +117,6 @@ module WebPipe
   # https://github.com/waiting-for-dev/rails-web_pipe
   #
   # @see https://guides.rubyonrails.org/routing.html#routing-to-rack-applications
-  # @see https://dry-rb.org/gems/dry-view/
-  # @see https://github.com/dry-rb/dry-view/tree/master/examples/rails
-  # @see https://waiting-for-dev.github.io/web_pipe/docs/extensions/dry_view.html
   # @see https://api.rubyonrails.org/v6.0.1/classes/ActionController/Renderer.html
   # @see https://api.rubyonrails.org/v6.0.1/classes/ActionController/Renderer.html
   # @see https://api.rubyonrails.org/v6.0.1/classes/ActionView/Helpers/UrlHelper.html

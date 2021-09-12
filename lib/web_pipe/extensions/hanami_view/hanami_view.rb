@@ -2,19 +2,19 @@
 
 require 'web_pipe/types'
 require 'web_pipe/conn'
-require 'dry/view'
+require 'hanami/view'
 
 #:nodoc:
 module WebPipe
-  # Integration with `dry-view` rendering system.
+  # Integration with `hanami-view` rendering system.
   #
   # This extensions adds a {#view} method to {WebPipe::Conn} which
-  # sets the string output of a `dry-view` view as response body.
+  # sets the string output of a `hanami-view` view as response body.
   #
   # @example
-  #   WebPipe.load_extensions(:dry_view)
+  #   WebPipe.load_extensions(:hanami_view)
   #
-  #   class SayHelloView < Dry::View
+  #   class SayHelloView < Hanami::View
   #     config.paths = [File.join(__dir__, '..', 'templates')]
   #     config.template = 'say_hello'
   #
@@ -35,7 +35,7 @@ module WebPipe
   # instance can be resolved from it.
   #
   # @example
-  #   WebPipe.load_extensions(:dry_view, :container)
+  #   WebPipe.load_extensions(:hanami_view, :container)
   #
   #   class App
   #     include WebPipe
@@ -50,18 +50,18 @@ module WebPipe
   #     end
   #  end
   #
-  # Context ({Dry::View::Context}) for the view can be set explicetly
+  # Context ({Hanami::View::Context}) for the view can be set explicetly
   # through the `context:` argument, as in a standard call to
-  # {Dry::View#call}. However, it is possible to leverage configured
+  # {Hanami::View#call}. However, it is possible to leverage configured
   # default context while still being able to inject request specific
   # context. For that to work, `:view_context` should be present in
   # {WebPipe::Conn#config}. Its value must be a lambda accepting the
   # {Conn} instance and returning a hash, which will be passed to
-  # {Dry::View::Context#with} to create the final context at the
+  # {Hanami::View::Context#with} to create the final context at the
   # moment {#view} is called.
   #
   # @example
-  #   class MyContext < Dry::View::Context
+  #   class MyContext < Hanami::View::Context
   #     attr_reader :current_path
   #
   #     def initialize(current_path: nil, **options)
@@ -70,7 +70,7 @@ module WebPipe
   #     end
   #   end
   #
-  #   class SayHelloView < Dry::View
+  #   class SayHelloView < Hanami::View
   #     config.paths = [File.join(__dir__, '..', 'templates')]
   #     config.template = 'say_hello'
   #     config.default_context = MyContext.new
@@ -96,7 +96,7 @@ module WebPipe
   #     end
   #   end
   #
-  # @see https://dry-rb.org/gems/dry-view/
+  # @see https://github.com/hanami/view
   # @see WebPipe::Container
   module DryView
     # Where to find in {#config} request's view context generator.
@@ -107,17 +107,17 @@ module WebPipe
 
     # Sets string output of a view as response body.
     #
-    # If the view is not a {Dry::View} instance, it is resolved from
+    # If the view is not a {Hanami::View} instance, it is resolved from
     # the configured container.
     #
     # `kwargs` is used as the input for the view (the arguments that
-    # {Dry::View#call} receives). If they doesn't contain an explicit
+    # {Hanami::View#call} receives). If they doesn't contain an explicit
     # `context:` key, it can be added through the injection of the
     # result of a lambda present in context's `:view_context`.(see
-    # {Dry::View::Context#with}).
+    # {Hanami::View::Context#with}).
     #
-    # @param view_spec [Dry::View, Any]
-    # @param kwargs [Hash] Arguments to pass along to `Dry::View#call`
+    # @param view_spec [Hanami::View, Any]
+    # @param kwargs [Hash] Arguments to pass along to `Hanami::View#call`
     #
     # @return WebPipe::Conn
     def view(view_spec, **kwargs)
@@ -134,7 +134,7 @@ module WebPipe
     private
 
     def view_instance(view_spec)
-      return view_spec if view_spec.is_a?(Dry::View)
+      return view_spec if view_spec.is_a?(Hanami::View)
 
       fetch_config(:container)[view_spec]
     end
