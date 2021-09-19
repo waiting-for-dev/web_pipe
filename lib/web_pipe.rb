@@ -62,4 +62,8 @@ module WebPipe
   register_extension :url do
     require 'web_pipe/extensions/url/url'
   end
+
+  register_extension :not_found do
+    require 'web_pipe/extensions/not_found/not_found'
+  end
 end
