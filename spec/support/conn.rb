@@ -29,6 +29,6 @@ end
 #
 # @param env [Hash]
 # @return Conn [WebPipe::Conn]
-def build_conn(env)
+def build_conn(env = default_env)
   WebPipe::ConnSupport::Builder.call(env)
 end
