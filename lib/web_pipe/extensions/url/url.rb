@@ -2,10 +2,7 @@
 
 # :nodoc:
 module WebPipe
-  # Adds helper methods related to the request URL.
-  #
-  # This methods are in fact redundant with the information already
-  # present in {Conn} struct but, of course, they are very useful.
+  # See the docs for the extension linked from the README.
   module Url
     # Base part of the URL.
     #

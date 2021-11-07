@@ -5,35 +5,7 @@ require 'rack/utils'
 
 # :nodoc:
 module WebPipe
-  # Extension to help dealing with request and response cookies.
-  #
-  # This extension helps with the addition of the `Set-Cookie` header
-  # to the response, which is the way the server has to instruct the
-  # browser to keep a cookie. A cookie can be added with the
-  # {#set_cookie} method, while it can be marked for deletion with
-  # {#delete_cookie}. Remember that marking a cookie for deletion just
-  # means adding the same cookie name with an expiration time in the
-  # past.
-  #
-  # Besides, it also adds a {#request_cookies} method to get the
-  # cookies in the request.
-  #
-  # @example
-  #  require 'web_pipe'
-  #
-  #  WebPipe.load_extensions(:cookies)
-  #
-  #  class SetCookie
-  #    include WebPipe
-  #
-  #    plug :set_cookie, ->(conn) { conn.set_cookie('foo', 'bar', path: '/') }
-  #  end
-  #
-  #  class DeleteCookie
-  #    include WebPipe
-  #
-  #    plug :delete_cookie, ->(conn) { conn.delete_cookie('foo', path: '/') }
-  #  end
+  # See the docs for the extension linked from the README.
   module Cookies
     # Valid options for {#set_cookie}.
     SET_COOKIE_OPTIONS = Types::Strict::Hash.schema(

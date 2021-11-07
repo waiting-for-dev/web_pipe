@@ -4,25 +4,7 @@ require 'web_pipe/types'
 
 # :nodoc:
 module WebPipe
-  # Helper method to create redirect responses.
-  #
-  # This extensions adds a {#redirect} method to {Conn} which helps
-  # setting the `Location` header and the status code needed to
-  # instruct the browser to perform a redirect. By default, `302`
-  # status code is used.
-  #
-  # @example
-  #  require 'web_pipe'
-  #
-  #  WebPipe.load_extensions(:redirect)
-  #
-  #  class MyApp
-  #    include WebPipe
-  #
-  #    plug(:redirect) do |conn|
-  #      conn.redirect('/', 301)
-  #    end
-  #  end
+  # See the docs for the extension linked from the README.
   module Redirect
     # Location header
     LOCATION_HEADER = 'Location'

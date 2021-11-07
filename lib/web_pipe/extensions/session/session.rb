@@ -6,30 +6,7 @@ require 'rack'
 
 # :nodoc:
 module WebPipe
-  # Wrapper around Rack::Session middlewares.
-  #
-  # This extension provides with helper methods to retrieve rack
-  # session and work with it while still being able to chain {Conn}
-  # method calls.
-  #
-  # It requires one of `Rack::Session` middlewares to be present.
-  #
-  # @example
-  #   require 'web_pipe'
-  #   require 'rack/session'
-  #
-  #   WebPipe.load_extensions(:session)
-  #
-  #   class MyApp
-  #     include WebPipe
-  #
-  #     use Rack::Session::Cookie, secret: 'top_secret'
-  #
-  #     plug :add_session, ->(conn) { conn.add_session('foo', 'bar') }
-  #     plug :fetch_session, ->(conn) { conn.add(:foo, conn.fetch_session('foo')) }
-  #     plug :delete_session, ->(conn) { conn.delete_session('foo') }
-  #     plug :clear_session, ->(conn) { conn.clear_session }
-  #   end
+  # See the docs for the extension linked from the README.
   module Session
     # Type for session keys.
     SESSION_KEY = Types::Strict::String

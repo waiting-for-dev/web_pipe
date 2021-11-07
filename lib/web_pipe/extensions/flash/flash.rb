@@ -5,37 +5,7 @@ require 'web_pipe/conn_support/errors'
 
 # :nodoc:
 module WebPipe
-  # Provides with a typical flash messages functionality.
-  #
-  # @example
-  #   require 'web_pipe'
-  #   require 'rack/session/cookie'
-  #   require 'rack-flash'
-  #
-  #   WebPipe.load_extensions(:flash)
-  #
-  #   class MyApp
-  #     include WebPipe
-  #
-  #     use :session, Rack::Session::Cookie, secret: 'secret'
-  #     use :flash, Rack::Flash
-  #
-  #     plug :add_to_flash, ->(conn) { conn.add_flash(:notice, 'Hello world') }
-  #     plug :add_to_flash_now, ->(conn) { conn.add_flash_now(:notice_now, 'Hello world now') }
-  #   end
-  #
-  # Usually, you will end up making `conn.flash` available to your view system:
-  #
-  # @example
-  #   <div class="notice"><%= flash[:notice] %></div>
-  #
-  # For this extension to be used, `Rack::Flash` middleware must be
-  # added to the stack (gem name is `rack-flash3`. This middleware in
-  # turns depend on `Rack::Session` middleware.
-  #
-  # This extension is a very simple wrapper around `Rack::Flash` API.
-  #
-  # @see https://github.com/nakajima/rack-flash
+  # See the docs for the extension linked from the README.
   module Flash
     RACK_FLASH_KEY = 'x-rack.flash'
 
