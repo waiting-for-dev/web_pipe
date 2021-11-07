@@ -1,9 +1,9 @@
 # dry-rb integration
 
 `web_pipe` has been designed to integrate smoothly with
-[dry-rb](https://dry-rb.org/) ecosystem. It shares same design
-principles and it ships with some extensions which even make this
-integration tighter (like [`:dry-schema`](../extensions/dry_schema.md)
+the [dry-rb](https://dry-rb.org/) ecosystem. It shares the same design
+principles, and it ships with some extensions that even make this
+integration painless (like [`:dry-schema`](../extensions/dry_schema.md)
 extension).
 
 If you want to use `web_pipe` with the rest of dry-rb libraries,

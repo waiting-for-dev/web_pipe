@@ -1,10 +1,9 @@
 # Inspecting operations
 
-Once a `WebPipe` class is initialized all its operations get resolved. It
+Once a `WebPipe` class is initialized, all its operations get resolved. It
 happens because they are whether [resolved](resolving_operations.md) or
 [injected](injecting_operations.md). The final result can be accessed through
 the `#operations` method:
-
 
 ```ruby
 require 'web_pipe'

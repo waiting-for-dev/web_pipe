@@ -1,11 +1,11 @@
 # Session
 
-Wrapper around `Rack::Session` middleware to help working with
-sessions in your plugged operations.
+Wrapper around `Rack::Session` middleware to help work with sessions in your
+plugged operations.
 
-It depends on `Rack::Session` middleware, which is shipped by rack.
+It depends on the `Rack::Session` middleware, which is shipped by rack.
 
-It adds following methods to `WebPipe::Conn`:
+It adds the following methods to `WebPipe::Conn`:
 
 - `#fetch_session(key)`, `#fetch_session(key, default)` or
   `#fetch_session(key) { default }`. Returns what is stored under

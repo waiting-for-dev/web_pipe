@@ -1,11 +1,11 @@
 # URL
 
-`:url` extension just adds a few methods which cook raw request information
-about the URL into something more digestible.
+The `:url` extension adds a few methods that process the raw URL information
+into something more digestable.
 
 Specifically, it adds:
 
-- `#base_url`: Which is schema + host + port (unless it is the default for the scheme). I.e. `'https://example.org'` or `'http://example.org:8000'`.
-- `#path`: Which is script name (if any) + path information. I.e. `'index.rb/users/1'` or `'users/1'`.
-- `#full_path`: Which is path + query string (if any). I.e. `'users/1?view=table'`.
-- `#url`: Which is base url + full path. I.e. `'http://example.org:8000/users/1?view=table'`.
+- `#base_url`: That's schema + host + port (unless it is the default for the scheme). E.g. `'https://example.org'` or `'http://example.org:8000'`.
+- `#path`: That's script name (if any) + path information. E.g. `'index.rb/users/1'` or `'users/1'`.
+- `#full_path`: That's path + query string (if any). E.g. `'users/1?view=table'`.
+- `#url`: That's base url + full path. E.g. `'http://example.org:8000/users/1?view=table'`.

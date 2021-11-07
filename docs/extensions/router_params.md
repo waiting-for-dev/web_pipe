@@ -1,12 +1,12 @@
 # Router params
 
-This extension can be used in order to merge placeholder parameters
+This extension can be used to merge placeholder parameters
 that usually routers support (like `get /users/:id`) to the parameters hash
-added through [`:params` extension](params.md) (which is
-automatically loaded).
+added through the [`:params` extension](params.md) (which is
+automatically loaded if using `:router_params`).
 
-What this extension does is adding a transformation function to the registry
-with name `:router_params`. Internally, it merges what is present in rack env's
+This extension adds a transformation function named `:router_params`to the
+registry. Internally, it merges what is present in rack env's
 `router.params` key.
 
 It automatically integrates with

@@ -1,10 +1,11 @@
 # Params
 
 This extension adds a `WebPipe::Conn#params` method which returns
-request parameters as a Hash where any number of transformations
-can be configured.
+request parameters as a Hash. Then, any number of transformations on it can be
+configured.
 
-When no transformations are configured, `#params` just returns GET and POST parameters as a hash:
+When no transformations are configured, `#params` returns GET and POST
+parameters as a hash:
 
 ```ruby
 # http://www.example.com?foo=bar
@@ -102,7 +103,8 @@ plug(:this) do |conn|
 end
 # ...
 ```
-Finally, you can override configured transformations injecting another set at the moment of calling `#params`:
+Finally, you can override the configured transformations injecting another set
+at the moment of calling `#params`:
 
 ```ruby
 # ...

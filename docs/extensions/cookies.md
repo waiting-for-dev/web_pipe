@@ -24,8 +24,10 @@ This extension adds following methods:
   - `same_site:` must be one of the symbols `:none`, `:lax` or `:strict`.
 
 - `#delete_cookie(key)` or `#delete_cookie(key, options)`: Instructs browser to
-  delete a previously sent cookie. Deleting a cookie just means setting again
-  the same key with an expiration time in the past.
+  delete a previously sent cookie.
+  
+  Deleting a cookie just means setting again the same key with an expiration
+  time in the past.
   
   It accepts `domain:` and `path:` options (see above for a description of
   them).

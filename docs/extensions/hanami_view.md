@@ -1,13 +1,13 @@
 # Hanami View
 
-> This extension currently works with `hanami-view` v2.0.0.alpha2, which is not
-still released but it's available on the gem repository.
+This extension currently works with `hanami-view` v2.0.0.alpha2, which is not
+still released but available on the gem repository.
 
-This extensions integrates with [hanami-view](https://github.com/hanami/view)
-rendering system to set a hanami-view output as response body.
+This extension integrates with [hanami-view](https://github.com/hanami/view)
+rendering system to set a hanami-view output as the response body.
 
 `WebPipe::Conn#view` method is at the core of this extension. In its basic
-behaviour, you provide to it a view instance you want to render and any
+behavior, you provide to it a view instance you want to render and any
 exposures or options it may need:
 
 ```ruby
@@ -37,9 +37,8 @@ class MyApp
   end
 end
 ```
-
-However, you can resolve a view from a container if you also use (`:container`
-extension)[container.md]:
+However, you can resolve a view from a container if you also use the
+(`:container` extension)[container.md]:
 
 ```ruby
 require 'hanami_view'
@@ -64,13 +63,10 @@ end
 ```
 
 As in a standard call to `Hanami::View#call`, you can override the context
-(`Hanami::View::Context`) to use through `context:` option. However, it is still
-possible to leverage configured default context while being able to inject
-request specific data to it.
+(`Hanami::View::Context`) to use through the `context:` option. However, it is still possible to leverage the configured default context while injecting specific data to it.
 
-For that to work, you have to specify required dependencies (in this case,
-request specific data) to your hanami-view's context. A very convenient way to do
-that is with [`dry-auto_inject`](https://dry-rb.org/gems/dry-auto_inject):
+To work, you have to specify required dependencies (in this case,
+request specific data) to your hanami-view's context. A very convenient way to do that is with [`dry-auto_inject`](https://dry-rb.org/gems/dry-auto_inject):
 
 ```ruby
 require 'hanami/view/context'

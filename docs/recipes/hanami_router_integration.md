@@ -22,4 +22,6 @@ end
 run router
 ```
 
-In order to perform [string matching with variables](https://github.com/hanami/router#string-matching-with-variables) you just need to load [`:router_params` extension](../extensions/router_params.md).
+To perform [string matching with
+variables](https://github.com/hanami/router#string-matching-with-variables) you
+just need to load [`:router_params` extension](../extensions/router_params.md).
