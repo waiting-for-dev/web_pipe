@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.16.0] - 2021-11-07
+### Added
+- Extract the DSL as an optional convenience layer and introduce
+  `WebPipe::Pipe` as top abstraction.
+  [#47](https://github.com/waiting-for-dev/web_pipe/pull/47)
+- Be able to plug anything responding to `#to_proc`.
+  [#47](https://github.com/waiting-for-dev/web_pipe/pull/47)
+- Be able to use anything responding to `#to_middlewares`.
+  [#47](https://github.com/waiting-for-dev/web_pipe/pull/47)
+
 ## [0.15.1] - 2021-09-19
 ### Added
 - `:not_found` extension
