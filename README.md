@@ -3,15 +3,18 @@
 
 # WebPipe
 
-`web_pipe` is a modular rack application builder through a pipe of
-operations on an immutable struct.
+`web_pipe` is a builder of composable rack applications through a pipe of
+functions on an immutable struct.
 
-To use in conjunction with [dry-rb](https://dry-rb.org/) ecosystem,
+> `web_pipe` plays incredibly well with `hanami 2`. If you want to create a
+> `hanami 2` app with `web_pipe`, you can take inspiration from this sample todo
+> application:
+>
+> https://github.com/waiting-for-dev/hanami_2_web_pipe_todo_app
+
+To use in conjunction with [hanami](https://hanamirb.org/) [dry-rb](https://dry-rb.org/) ecosystem,
 see also
 [`dry-web-web_pipe`](https://github.com/waiting-for-dev/dry-web-web_pipe).
-
-If you want to use it with a Rails project, don't miss docs for the [rails
-extension](docs/extensions/rails.md).
 
 1. [Introduction](docs/introduction.md)
 1. [Design model](docs/design_model.md)
@@ -49,7 +52,7 @@ extension](docs/extensions/rails.md).
    1. [Session](docs/extensions/session.md)
    1. [URL](docs/extensions/url.md)
 1. Recipes
-   1. [dry-rb integration](docs/recipes/dry_rb_integration.md)
+   1. [hanami 2 & dry-rb integration](docs/recipes/hanami_2_and_dry_rb_integration.md)
    1. [hanami-router integration](docs/recipes/hanami_router_integration.md)
    1. [Using all RESTful methods](docs/recipes/using_all_restful_methods.md)
 

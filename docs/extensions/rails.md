@@ -107,9 +107,3 @@ We have placed `WebPipe` applications within `app/controllers/` directory in
 all the examples. However, remember you can put them wherever you like as long
 as you respect rails
 [`autoload_paths`](https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoload-paths).
-
-Here you have a link to a straightforward and contrived example of a rails
-application integrating `web_pipe`:
-
-https://github.com/waiting-for-dev/rails-web_pipe
-
