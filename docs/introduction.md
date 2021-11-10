@@ -5,7 +5,7 @@
 It means that with it and a rack router (like
 [`hanami-router`](https://github.com/hanami/router),
 [`http_router`](https://github.com/joshbuddy/http_router) or plain
-[rack](https://github.com/rack/rack) routing methods you can build a complete
+[rack](https://github.com/rack/rack) routing methods) you can build a complete
 web application.  However, the idea behind `web_pipe` is for it to be a
 decoupled component within a web framework.  For this reason, it plays
 extremely well with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you
