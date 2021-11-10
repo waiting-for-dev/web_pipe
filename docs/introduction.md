@@ -8,8 +8,9 @@ It means that with it and a rack router (like
 [rack](https://github.com/rack/rack) routing methods) you can build a complete
 web application.  However, the idea behind `web_pipe` is for it to be a
 decoupled component within a web framework.  For this reason, it plays
-extremely well with [dry-rb](https://dry-rb.org/) ecosystem. If it helps, you
-can think of it as a decoupled web controller (as the C in MVC).
+extremely well with the [hanami](https://hanamirb.org/) &
+[dry-rb](https://dry-rb.org/) ecosystems. If it helps, you can think of it as a
+decoupled web controller (as the C in MVC).
 
 `web_pipe` applications are built as a [pipe of
 operations](design_model.md) on an [immutable
