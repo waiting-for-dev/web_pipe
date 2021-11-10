@@ -12,10 +12,6 @@ functions on an immutable struct.
 >
 > https://github.com/waiting-for-dev/hanami_2_web_pipe_todo_app
 
-To use in conjunction with [hanami](https://hanamirb.org/) [dry-rb](https://dry-rb.org/) ecosystem,
-see also
-[`dry-web-web_pipe`](https://github.com/waiting-for-dev/dry-web-web_pipe).
-
 1. [Introduction](docs/introduction.md)
 1. [Design model](docs/design_model.md)
 1. [Building a rack application](docs/building_a_rack_application.md)
