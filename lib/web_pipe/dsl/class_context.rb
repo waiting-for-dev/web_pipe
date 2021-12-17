@@ -22,11 +22,7 @@ module WebPipe
       def define_dsl_methods(klass, ast)
         DSL_METHODS.each do |method|
           klass.define_singleton_method(method) do |*args, **kwargs, &block|
-            ast << if block_given?
-                     [method, args, kwargs, block]
-                   else
-                     [method, args, kwargs]
-                   end
+            ast << [method, args, kwargs, block]
           end
         end
       end
