@@ -29,6 +29,7 @@ functions on an immutable struct.
    1. [Sharing data downstream](docs/connection_struct/sharing_data_downstream.md)
    1. [Halting the pipe](docs/connection_struct/halting_the_pipe.md)
    1. [Configuring the connection struct](docs/connection_struct/configuring_the_connection_struct.md)
+1. [Overriding instance methods](docs/overriding_instance_methods.md)
 1. [DSL free usage](docs/dsl_free_usage.md)
 1. [Plugs](docs/plugs.md)
    1. [Config](docs/plugs/config.md)
