@@ -19,15 +19,21 @@ module WebPipe
       end
 
       def included(klass)
-        define_initialize(klass, class_context.ast, container)
-        define_pipe_methods(klass)
+        klass.include(dynamic_module(class_context.ast, container))
       end
 
       private
 
+      def dynamic_module(ast, container)
+        Module.new.tap do |mod|
+          define_initialize(mod, ast, container)
+          define_pipe_methods(mod)
+        end
+      end
+
       # rubocop:disable Metrics/MethodLength
-      def define_initialize(klass, ast, container)
-        klass.define_method(:initialize) do |plugs: {}, middlewares: {}|
+      def define_initialize(mod, ast, container)
+        mod.define_method(:initialize) do |plugs: {}, middlewares: {}, **kwargs|
           acc = Pipe.new(container: container, context: self)
           @pipe = ast.reduce(acc) do |pipe, node|
             method, args, kwargs, block = node
@@ -38,12 +44,12 @@ module WebPipe
             end
           end.inject(plugs: plugs, middleware_specifications: middlewares)
         end
-        # rubocop:enable Metrics/MethodLength
       end
+      # rubocop:enable Metrics/MethodLength
 
-      def define_pipe_methods(klass)
+      def define_pipe_methods(mod)
         PIPE_METHODS.each do |method|
-          klass.define_method(method) do |*args|
+          mod.define_method(method) do |*args|
             @pipe.send(method, *args)
           end
         end
