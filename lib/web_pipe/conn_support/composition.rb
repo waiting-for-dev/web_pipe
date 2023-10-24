@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads/result'
+require 'dry/monads'
 require 'web_pipe/conn'
 
 module WebPipe
@@ -20,7 +20,7 @@ module WebPipe
         end
       end
 
-      include Dry::Monads::Result::Mixin
+      include Dry::Monads[:result]
 
       attr_reader :operations
 
