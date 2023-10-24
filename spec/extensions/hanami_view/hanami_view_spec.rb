@@ -55,28 +55,29 @@ RSpec.describe WebPipe::Conn do
       expect(new_conn.response_body).to eq(['Hello world'])
     end
 
-    it 'injects configured view_context to the context' do
+    it 'initializes view_context class with the generated view_context_options hash' do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
-        config.default_context = Class.new(Hanami::View::Context) do
-          attr_reader :name
+      end
+      context_class = Class.new(Hanami::View::Context) do
+        attr_reader :name
 
-          def initialize(name: nil, **options)
-            @name = name
-            super
-          end
-        end.new
+        def initialize(name:)
+          super
+          @name = name
+        end
       end
       conn = build_conn(default_env)
              .add(:name, 'Joe')
-             .add_config(:view_context, ->(c) { { name: c.fetch(:name) } })
+             .add_config(:view_context_class, context_class)
+             .add_config(:view_context_options, ->(c) { { name: c.fetch(:name) } })
 
       new_conn = conn.view(view.new)
 
       expect(new_conn.response_body).to eq(['Hello Joe'])
     end
 
-    it 'does not inject configured view_context when it is explicit' do
+    it 'respects context given at render time if given' do
       view = Class.new(view_class) do
         config.template = 'template_with_input'
       end
@@ -86,7 +87,6 @@ RSpec.describe WebPipe::Conn do
         end
       end.new
       conn = build_conn(default_env)
-             .add_config(:view_context, ->(_conn) { { name: 'Joe' } })
 
       new_conn = conn.view(view.new, context: context)
 
