@@ -28,7 +28,7 @@ RSpec.describe 'Overriding instance methods' do
       def render(conn)
         conn.set_response_body(greeting + conn.fetch(:name))
       end
-    end.new(greeting: 'Hello, ', plugs: { name: ->(conn) { conn.add(:name, 'Alice') } } )
+    end.new(greeting: 'Hello, ', plugs: { name: ->(conn) { conn.add(:name, 'Alice') } })
 
     expect(pipe.call(default_env).last[0]).to eq('Hello, Alice')
   end
