@@ -13,8 +13,8 @@ RSpec.describe 'Using flash' do
     Class.new do
       include WebPipe
 
-      use :session, ::Rack::Session::Cookie, secret: 'secret'
-      use :flash, ::Rack::Flash
+      use :session, Rack::Session::Cookie, secret: 'secret'
+      use :flash, Rack::Flash
 
       plug :add_to_flash
       plug :build_response

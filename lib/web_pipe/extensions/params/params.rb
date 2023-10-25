@@ -19,7 +19,7 @@ module WebPipe
                 transformation_specs
               end
       transformations = specs.reduce(Transf[:id]) do |acc, t|
-        acc.>>transformation(t)
+        acc >> transformation(t)
       end
 
       Transf[transformations].call(request.params)
