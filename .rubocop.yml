@@ -3,9 +3,7 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
   Exclude:
-    - "*.gemspec"
     - vendor/**/*
-    - Gemfile
 
 Metrics/BlockLength:
   Exclude:
