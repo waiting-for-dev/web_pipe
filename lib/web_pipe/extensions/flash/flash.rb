@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'web_pipe/conn'
-require 'web_pipe/conn_support/errors'
+require "web_pipe/conn"
+require "web_pipe/conn_support/errors"
 
 # :nodoc:
 module WebPipe
   # See the docs for the extension linked from the README.
   module Flash
-    RACK_FLASH_KEY = 'x-rack.flash'
+    RACK_FLASH_KEY = "x-rack.flash"
 
     # Returns the flash bag.
     #
@@ -18,7 +18,7 @@ module WebPipe
     def flash
       env.fetch(RACK_FLASH_KEY) do
         raise ConnSupport::MissingMiddlewareError.new(
-          'flash', 'Rack::Flash', 'https://rubygems.org/gems/rack-flash3'
+          "flash", "Rack::Flash", "https://rubygems.org/gems/rack-flash3"
         )
       end
     end

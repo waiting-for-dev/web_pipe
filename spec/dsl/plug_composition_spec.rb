@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
+require "spec_helper"
+require "support/conn"
 
-RSpec.describe 'Plug composition' do
+RSpec.describe "Plug composition" do
   let(:pipe) do
     Class.new do
       # rubocop:disable Lint/ConstantDefinitionInBlock
@@ -15,7 +15,7 @@ RSpec.describe 'Plug composition' do
         private
 
         def one(conn)
-          conn.set_response_body('One')
+          conn.set_response_body("One")
         end
       end
       # rubocop:enable Lint/ConstantDefinitionInBlock
@@ -35,7 +35,7 @@ RSpec.describe 'Plug composition' do
     end.new
   end
 
-  it 'plugging a WebPipe composes its plug operations' do
-    expect(pipe.call(default_env).last).to eq(['OneTwo'])
+  it "plugging a WebPipe composes its plug operations" do
+    expect(pipe.(default_env).last).to eq(["OneTwo"])
   end
 end

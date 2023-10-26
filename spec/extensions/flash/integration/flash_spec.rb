@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
-require 'web_pipe'
-require 'rack/session/cookie'
-require 'rack-flash'
+require "spec_helper"
+require "support/conn"
+require "web_pipe"
+require "rack/session/cookie"
+require "rack-flash"
 
-RSpec.describe 'Using flash' do
+RSpec.describe "Using flash" do
   before { WebPipe.load_extensions(:flash) }
 
   let(:pipe) do
     Class.new do
       include WebPipe
 
-      use :session, Rack::Session::Cookie, secret: 'secret'
+      use :session, Rack::Session::Cookie, secret: "secret"
       use :flash, Rack::Flash
 
       plug :add_to_flash
@@ -23,8 +23,8 @@ RSpec.describe 'Using flash' do
 
       def add_to_flash(conn)
         conn
-          .add_flash(:error, 'Error')
-          .add_flash_now(:now, 'now')
+          .add_flash(:error, "Error")
+          .add_flash_now(:now, "now")
       end
 
       def build_response(conn)
@@ -35,7 +35,7 @@ RSpec.describe 'Using flash' do
     end.new
   end
 
-  it 'can adadd and read from flash' do
-    expect(pipe.call(default_env).last[0]).to eq('Error now')
+  it "can adadd and read from flash" do
+    expect(pipe.(default_env).last[0]).to eq("Error now")
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'web_pipe'
+require "web_pipe"
 
 # :nodoc:
 module WebPipe

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'web_pipe'
-require 'pry-byebug'
-require 'simplecov'
+require "web_pipe"
+require "pry-byebug"
+require "simplecov"
 
-unless ENV['NO_COVERAGE']
+unless ENV["NO_COVERAGE"]
   SimpleCov.start do
     add_filter %r{^/spec/}
     enable_coverage :branch
@@ -19,7 +19,7 @@ WebPipe.load_extensions(
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = '.rspec_status'
+  config.example_status_persistence_file_path = ".rspec_status"
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!

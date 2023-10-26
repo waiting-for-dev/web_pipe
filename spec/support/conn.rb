@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'rack'
-require 'web_pipe/conn_support/builder'
+require "rack"
+require "web_pipe/conn_support/builder"
 
 # Minimal rack's env.
 #
@@ -15,12 +15,12 @@ def default_env
     Rack::RACK_MULTITHREAD => true,
     Rack::RACK_MULTIPROCESS => true,
     Rack::RACK_RUNONCE => false,
-    Rack::RACK_URL_SCHEME => 'http',
+    Rack::RACK_URL_SCHEME => "http",
     # PEP333
     Rack::REQUEST_METHOD => Rack::GET,
-    Rack::QUERY_STRING => '',
-    Rack::SERVER_NAME => 'www.example.org',
-    Rack::SERVER_PORT => '80'
+    Rack::QUERY_STRING => "",
+    Rack::SERVER_NAME => "www.example.org",
+    Rack::SERVER_PORT => "80"
   }
 end
 # rubocop:enable Metrics/MethodLength
@@ -30,5 +30,5 @@ end
 # @param env [Hash]
 # @return Conn [WebPipe::Conn]
 def build_conn(env = default_env)
-  WebPipe::ConnSupport::Builder.call(env)
+  WebPipe::ConnSupport::Builder.(env)
 end

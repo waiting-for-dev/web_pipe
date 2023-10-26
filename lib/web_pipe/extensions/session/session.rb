@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'web_pipe/conn'
-require 'web_pipe/types'
-require 'rack'
+require "web_pipe/conn"
+require "web_pipe/types"
+require "rack"
 
 # :nodoc:
 module WebPipe
@@ -17,7 +17,7 @@ module WebPipe
     def session
       env.fetch(Rack::RACK_SESSION) do
         raise ConnSupport::MissingMiddlewareError.new(
-          'session', 'Rack::Session', 'https://www.rubydoc.info/github/rack/rack/Rack/Session'
+          "session", "Rack::Session", "https://www.rubydoc.info/github/rack/rack/Rack/Session"
         )
       end
     end

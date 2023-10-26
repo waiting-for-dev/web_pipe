@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'web_pipe/conn'
+require "dry/monads"
+require "web_pipe/conn"
 
 module WebPipe
   module ConnSupport
@@ -45,7 +45,7 @@ module WebPipe
       end
 
       def apply_operation(conn, operation)
-        result = operation.call(conn)
+        result = operation.(conn)
         case result
         when Conn::Ongoing
           Success(result)

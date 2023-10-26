@@ -13,7 +13,7 @@ module WebPipe
       def self.extract(env)
         Hash[
           env
-          .select { |k, _v| k.start_with?('HTTP_') }
+          .select { |k, _v| k.start_with?("HTTP_") }
           .map { |k, v| pair(k[5..], v) }
           .concat(
             env
@@ -46,7 +46,7 @@ module WebPipe
       #
       # See https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
       def self.normalize_key(key)
-        key.downcase.gsub('_', '-').split('-').map(&:capitalize).join('-')
+        key.downcase.gsub("_", "-").split("-").map(&:capitalize).join("-")
       end
 
       def self.normalize(headers)

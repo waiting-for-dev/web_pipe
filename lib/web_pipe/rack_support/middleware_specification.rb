@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'dry/struct'
-require 'web_pipe/rack_support/middleware'
-require 'web_pipe/types'
+require "dry/struct"
+require "web_pipe/rack_support/middleware"
+require "web_pipe/types"
 
 module WebPipe
   module RackSupport

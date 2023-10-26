@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'web_pipe/conn_support/composition'
-require 'web_pipe/app'
-require 'web_pipe/plug'
-require 'web_pipe/rack_support/middleware_specification'
-require 'web_pipe/rack_support/app_with_middlewares'
-require 'web_pipe/types'
+require "web_pipe/conn_support/composition"
+require "web_pipe/app"
+require "web_pipe/plug"
+require "web_pipe/rack_support/middleware_specification"
+require "web_pipe/rack_support/app_with_middlewares"
+require "web_pipe/types"
 
 module WebPipe
   # Composable rack application builder.
@@ -156,7 +156,7 @@ module WebPipe
     # @return [Hash{Symbol => Proc}]
     def operations
       @operations ||= Hash[
-        plugs.map { |plug| [plug.name, plug.call(container, context)] }
+        plugs.map { |plug| [plug.name, plug.(container, context)] }
       ]
     end
 
@@ -168,7 +168,7 @@ module WebPipe
     # @return [Hash{Symbol=>Array<WebPipe::RackSupport::Middleware>}]
     def middlewares
       @middlewares ||= Hash[
-        middleware_specifications.map { |mw_spec| [mw_spec.name, mw_spec.call] }
+        middleware_specifications.map { |mw_spec| [mw_spec.name, mw_spec.()] }
       ]
     end
 
@@ -200,7 +200,7 @@ module WebPipe
 
     # @api private
     def call(env)
-      rack_app.call(env)
+      rack_app.(env)
     end
 
     private

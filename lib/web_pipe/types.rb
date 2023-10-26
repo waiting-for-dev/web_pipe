@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/types'
-require 'dry/core/constants'
+require "dry/types"
+require "dry/core/constants"
 
 module WebPipe
   # Namespace for generic types.

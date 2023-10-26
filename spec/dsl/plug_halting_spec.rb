@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
+require "spec_helper"
+require "support/conn"
 
-RSpec.describe 'Plug halting' do
+RSpec.describe "Plug halting" do
   let(:pipe) do
     Class.new do
       include WebPipe
@@ -14,16 +14,16 @@ RSpec.describe 'Plug halting' do
       private
 
       def halt(conn)
-        conn.set_response_body('Halted').halt
+        conn.set_response_body("Halted").halt
       end
 
       def ongoing(conn)
-        conn.set_response_body('Ongoing')
+        conn.set_response_body("Ongoing")
       end
     end.new
   end
 
-  it 'halting plug stops the pipe' do
-    expect(pipe.call(default_env).last).to eq(['Halted'])
+  it "halting plug stops the pipe" do
+    expect(pipe.(default_env).last).to eq(["Halted"])
   end
 end

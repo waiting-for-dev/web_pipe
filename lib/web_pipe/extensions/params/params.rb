@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'web_pipe/types'
-require 'web_pipe/extensions/params/params/transf'
+require "web_pipe/types"
+require "web_pipe/extensions/params/params/transf"
 
 # :nodoc:
 module WebPipe
@@ -22,7 +22,7 @@ module WebPipe
         acc >> transformation(t)
       end
 
-      Transf[transformations].call(request.params)
+      Transf[transformations].(request.params)
     end
 
     private

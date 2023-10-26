@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'web_pipe/pipe'
+require "web_pipe/pipe"
 
 module WebPipe
   module DSL

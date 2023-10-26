@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
-require 'web_pipe/conn'
+require "spec_helper"
+require "support/conn"
+require "web_pipe/conn"
 
 RSpec.describe WebPipe::Conn do
   before do
@@ -18,7 +18,7 @@ RSpec.describe WebPipe::Conn do
 
       def self.helpers
         {
-          helper1: 'foo'
+          helper1: "foo"
         }
       end
     end
@@ -27,10 +27,10 @@ RSpec.describe WebPipe::Conn do
       def render(*args)
         action = args[0]
         case action
-        when 'show'
-          'Show'
+        when "show"
+          "Show"
         else
-          'Not found'
+          "Not found"
         end
       end
     end
@@ -39,16 +39,16 @@ RSpec.describe WebPipe::Conn do
 
   after(:all) { Object.send(:remove_const, :ActionController) }
 
-  describe '#render' do
-    it 'sets rendered as response body' do
+  describe "#render" do
+    it "sets rendered as response body" do
       conn = build_conn(default_env)
 
-      new_conn = conn.render('show')
+      new_conn = conn.render("show")
 
-      expect(new_conn.response_body).to eq(['Show'])
+      expect(new_conn.response_body).to eq(["Show"])
     end
 
-    it 'uses configured controller' do
+    it "uses configured controller" do
       my_controller = Class.new do
         def self.renderer
           Renderer.new
@@ -57,7 +57,7 @@ RSpec.describe WebPipe::Conn do
         # rubocop:disable Lint/ConstantDefinitionInBlock
         class Renderer
           def render(*_args)
-            'Rendered from MyController'
+            "Rendered from MyController"
           end
         end
         # rubocop:enable Lint/ConstantDefinitionInBlock
@@ -68,28 +68,28 @@ RSpec.describe WebPipe::Conn do
                  .add_config(:rails_controller, my_controller)
                  .render(:whatever)
 
-      expect(new_conn.response_body).to eq(['Rendered from MyController'])
+      expect(new_conn.response_body).to eq(["Rendered from MyController"])
     end
   end
 
-  describe '#helpers' do
-    it 'returns controller helpers' do
+  describe "#helpers" do
+    it "returns controller helpers" do
       conn = build_conn(default_env)
 
-      expect(conn.helpers).to eq(helper1: 'foo')
+      expect(conn.helpers).to eq(helper1: "foo")
     end
 
-    it 'uses configured controller' do
+    it "uses configured controller" do
       my_controller = Class.new do
         def self.helpers
-          { helper1: 'bar' }
+          { helper1: "bar" }
         end
       end
       conn = build_conn(default_env)
 
       new_conn = conn.add_config(:rails_controller, my_controller)
 
-      expect(new_conn.helpers).to eq(helper1: 'bar')
+      expect(new_conn.helpers).to eq(helper1: "bar")
     end
   end
 end

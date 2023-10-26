@@ -8,8 +8,8 @@ class FirstNameMiddleware
   end
 
   def call(env)
-    env['first_name'] = 'Joe'
-    app.call(env)
+    env["first_name"] = "Joe"
+    app.(env)
   end
 end
 
@@ -22,7 +22,7 @@ class LastNameMiddleware
   end
 
   def call(env)
-    env['last_name'] = name
-    app.call(env)
+    env["last_name"] = name
+    app.(env)
   end
 end

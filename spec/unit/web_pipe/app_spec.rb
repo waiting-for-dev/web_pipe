@@ -1,39 +1,39 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
-require 'web_pipe/conn_support/composition'
-require 'web_pipe/app'
+require "spec_helper"
+require "support/conn"
+require "web_pipe/conn_support/composition"
+require "web_pipe/app"
 
 RSpec.describe WebPipe::App do
-  describe '#call' do
-    it 'chains operations on Conn' do
+  describe "#call" do
+    it "chains operations on Conn" do
       op1 = ->(conn) { conn.set_status(200) }
-      op2 = ->(conn) { conn.set_response_body('foo') }
+      op2 = ->(conn) { conn.set_response_body("foo") }
 
       app = described_class.new([op1, op2])
 
-      expect(app.call(default_env)).to eq([200, {}, ['foo']])
+      expect(app.(default_env)).to eq([200, {}, ["foo"]])
     end
 
-    it 'stops chain propagation once a conn is halted' do
+    it "stops chain propagation once a conn is halted" do
       op1 = ->(conn) { conn.set_status(200) }
-      op2 = ->(conn) { conn.set_response_body('foo') }
+      op2 = ->(conn) { conn.set_response_body("foo") }
       op3 = ->(conn) { conn.halt }
-      op4 = ->(conn) { conn.set_response_body('bar') }
+      op4 = ->(conn) { conn.set_response_body("bar") }
 
       app = described_class.new([op1, op2, op3, op4])
 
-      expect(app.call(default_env)).to eq([200, {}, ['foo']])
+      expect(app.(default_env)).to eq([200, {}, ["foo"]])
     end
 
-    it 'raises InvalidOperationReturn when one operation does not return a Conn' do
+    it "raises InvalidOperationReturn when one operation does not return a Conn" do
       op = ->(_conn) { :foo }
 
       app = described_class.new([op])
 
       expect do
-        app.call(default_env)
+        app.(default_env)
       end.to raise_error(
         WebPipe::ConnSupport::Composition::InvalidOperationResult
       )

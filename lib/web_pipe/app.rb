@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'web_pipe/conn'
-require 'web_pipe/conn_support/builder'
-require 'web_pipe/conn_support/composition'
+require "web_pipe/conn"
+require "web_pipe/conn_support/builder"
+require "web_pipe/conn_support/composition"
 
 module WebPipe
   # Rack app built from a chain of functions that take and return a
@@ -54,11 +54,11 @@ module WebPipe
     private
 
     def conn_from_env(env)
-      ConnSupport::Builder.call(env)
+      ConnSupport::Builder.(env)
     end
 
     def apply_operations(conn)
-      ConnSupport::Composition.new(operations).call(conn)
+      ConnSupport::Composition.new(operations).(conn)
     end
 
     def extract_rack_response(conn)

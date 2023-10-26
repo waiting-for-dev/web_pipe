@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'web_pipe/rack_support/middleware'
-require 'rack'
+require "web_pipe/rack_support/middleware"
+require "rack"
 
 module WebPipe
   module RackSupport
@@ -16,7 +16,7 @@ module WebPipe
       end
 
       def call(env)
-        builder.call(env)
+        builder.(env)
       end
 
       private
