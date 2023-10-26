@@ -11,3 +11,7 @@ group :development do
   # TODO: Move to gemspec when hanami-view 2.0 is available
   gem 'hanami-view', github: 'hanami/view', tag: 'v2.1.0.beta2'
 end
+
+group :test do
+  gem 'simplecov', require: false
+end

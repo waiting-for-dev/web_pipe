@@ -2,6 +2,15 @@
 
 require 'web_pipe'
 require 'pry-byebug'
+require 'simplecov'
+
+unless ENV['NO_COVERAGE']
+  SimpleCov.start do
+    add_filter %r{^/spec/}
+    enable_coverage :branch
+    enable_coverage_for_eval
+  end
+end
 
 # https://github.com/dry-rb/dry-configurable/issues/70
 WebPipe.load_extensions(
