@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
+require "spec_helper"
+require "support/conn"
 
-RSpec.describe 'Chaining plugs' do
+RSpec.describe "Chaining plugs" do
   let(:pipe) do
     Class.new do
       include WebPipe
@@ -14,7 +14,7 @@ RSpec.describe 'Chaining plugs' do
       private
 
       def one(conn)
-        conn.set_response_body('One')
+        conn.set_response_body("One")
       end
 
       def two(conn)
@@ -25,7 +25,7 @@ RSpec.describe 'Chaining plugs' do
     end.new
   end
 
-  it 'chains successful plugs' do
-    expect(pipe.call(default_env).last).to eq(['OneTwo'])
+  it "chains successful plugs" do
+    expect(pipe.(default_env).last).to eq(["OneTwo"])
   end
 end

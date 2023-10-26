@@ -15,9 +15,9 @@ module WebPipe
       set_status(404)
         .then do |conn|
           response_body_step = conn.fetch_config(RESPONSE_BODY_STEP_CONFIG_KEY,
-                                                 ->(c) { c.set_response_body('Not found') })
+                                                 ->(c) { c.set_response_body("Not found") })
 
-          response_body_step.call(conn)
+          response_body_step.(conn)
         end.halt
     end
 

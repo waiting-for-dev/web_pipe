@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
-require 'support/middlewares'
+require "spec_helper"
+require "support/conn"
+require "support/middlewares"
 
-RSpec.describe 'Middleware composition' do
+RSpec.describe "Middleware composition" do
   let(:pipe) do
     Class.new do
       # rubocop:disable Lint/ConstantDefinitionInBlock
@@ -12,7 +12,7 @@ RSpec.describe 'Middleware composition' do
         include WebPipe
 
         use :first_name, FirstNameMiddleware
-        use :last_name, LastNameMiddleware, name: 'Doe'
+        use :last_name, LastNameMiddleware, name: "Doe"
       end
       # rubocop:enable Lint/ConstantDefinitionInBlock
 
@@ -25,8 +25,8 @@ RSpec.describe 'Middleware composition' do
       private
 
       def hello(conn)
-        first_name = conn.env['first_name']
-        last_name = conn.env['last_name']
+        first_name = conn.env["first_name"]
+        last_name = conn.env["last_name"]
         conn
           .set_response_body(
             "Hello #{first_name} #{last_name}"
@@ -35,7 +35,7 @@ RSpec.describe 'Middleware composition' do
     end.new
   end
 
-  it 'using a WebPipe composes its middlewares' do
-    expect(pipe.call(default_env).last[0]).to eq('Hello Joe Doe')
+  it "using a WebPipe composes its middlewares" do
+    expect(pipe.(default_env).last[0]).to eq("Hello Joe Doe")
   end
 end

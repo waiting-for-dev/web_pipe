@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'support/conn'
+require "spec_helper"
+require "support/conn"
 
-RSpec.describe 'Overriding instance methods' do
-  it 'can define custom initialize and call super' do
+RSpec.describe "Overriding instance methods" do
+  it "can define custom initialize and call super" do
     pipe = Class.new do
       include WebPipe
 
@@ -28,29 +28,29 @@ RSpec.describe 'Overriding instance methods' do
       def render(conn)
         conn.set_response_body(greeting + conn.fetch(:name))
       end
-    end.new(greeting: 'Hello, ', plugs: { name: ->(conn) { conn.add(:name, 'Alice') } })
+    end.new(greeting: "Hello, ", plugs: { name: ->(conn) { conn.add(:name, "Alice") } })
 
-    expect(pipe.call(default_env).last[0]).to eq('Hello, Alice')
+    expect(pipe.(default_env).last[0]).to eq("Hello, Alice")
   end
 
-  it 'can define custom pipe methods and call super' do
+  it "can define custom pipe methods and call super" do
     pipe = Class.new do
       include WebPipe
 
       plug :render
 
       def call(env)
-        env['body'] = 'Hello, world!'
+        env["body"] = "Hello, world!"
         super(env)
       end
 
       private
 
       def render(conn)
-        conn.set_response_body(conn.env['body'])
+        conn.set_response_body(conn.env["body"])
       end
     end.new
 
-    expect(pipe.call(default_env).last[0]).to eq('Hello, world!')
+    expect(pipe.(default_env).last[0]).to eq("Hello, world!")
   end
 end

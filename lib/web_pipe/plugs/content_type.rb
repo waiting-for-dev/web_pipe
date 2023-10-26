@@ -12,7 +12,7 @@ module WebPipe
     #   end
     module ContentType
       # Content-Type header
-      HEADER = 'Content-Type'
+      HEADER = "Content-Type"
 
       def self.call(content_type)
         ->(conn) { conn.add_response_header(HEADER, content_type) }

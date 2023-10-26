@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'hanami/view'
+require "hanami/view"
 
 module WebPipe
   module HanamiView

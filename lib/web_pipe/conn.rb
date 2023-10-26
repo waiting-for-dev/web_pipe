@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'dry/struct'
-require 'web_pipe/conn_support/types'
-require 'web_pipe/conn_support/errors'
-require 'web_pipe/conn_support/headers'
+require "dry/struct"
+require "web_pipe/conn_support/types"
+require "web_pipe/conn_support/errors"
+require "web_pipe/conn_support/headers"
 
 module WebPipe
   # Struct and methods about web request and response data.

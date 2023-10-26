@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'web_pipe/types'
-require 'web_pipe/conn'
-require 'web_pipe'
-require 'web_pipe/extensions/hanami_view/hanami_view/context'
-require 'hanami/view'
+require "web_pipe/types"
+require "web_pipe/conn"
+require "web_pipe"
+require "web_pipe/extensions/hanami_view/hanami_view/context"
+require "hanami/view"
 
 # :nodoc:
 module WebPipe
@@ -37,9 +37,7 @@ module WebPipe
       view_instance = view_instance(view_spec)
 
       set_response_body(
-        view_instance.call(
-          **view_input(kwargs)
-        ).to_str
+        view_instance.(**view_input(kwargs)).to_str
       )
     end
 
@@ -59,7 +57,7 @@ module WebPipe
       ).new(
         **fetch_config(
           VIEW_CONTEXT_OPTIONS_KEY, DEFAULT_VIEW_CONTEXT_OPTIONS
-        ).call(self)
+        ).(self)
       )
       kwargs.merge(context: context)
     end

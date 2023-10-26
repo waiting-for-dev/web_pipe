@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'web_pipe'
-require 'rack/utils'
+require "web_pipe"
+require "rack/utils"
 
 # :nodoc:
 module WebPipe

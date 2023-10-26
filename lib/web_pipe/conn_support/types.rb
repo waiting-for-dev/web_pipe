@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dry/types'
-require 'rack/request'
+require "dry/types"
+require "rack/request"
 
 module WebPipe
   module ConnSupport
@@ -30,7 +30,7 @@ module WebPipe
       Status = Strict::Integer
                .default(200)
                .constrained(gteq: 100, lteq: 599)
-      ResponseBody = Interface(:each).default { [''] }
+      ResponseBody = Interface(:each).default { [""] }
 
       Headers = Strict::Hash
                 .map(Strict::String, Strict::String)

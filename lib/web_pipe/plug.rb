@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'dry/struct'
-require 'web_pipe/types'
-require 'web_pipe/conn_support/composition'
+require "dry/struct"
+require "web_pipe/types"
+require "web_pipe/conn_support/composition"
 
 module WebPipe
   # @api private
@@ -51,7 +51,7 @@ module WebPipe
       elsif spec.nil?
         context.method(name)
       elsif container[spec]
-        with(container[spec]).call(container, context)
+        with(container[spec]).(container, context)
       else
         raise InvalidPlugError, name
       end
