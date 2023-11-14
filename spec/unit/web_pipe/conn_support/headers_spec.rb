@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe/conn_support/headers"
 
 RSpec.describe WebPipe::ConnSupport::Headers do
   describe ".extract" do

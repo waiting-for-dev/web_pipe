@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "dry/struct"
-require "web_pipe/types"
-require "web_pipe/conn_support/composition"
 
 module WebPipe
   # @api private

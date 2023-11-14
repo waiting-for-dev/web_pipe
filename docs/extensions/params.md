@@ -23,7 +23,6 @@ key:
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 WebPipe.load_extensions(:params)
 

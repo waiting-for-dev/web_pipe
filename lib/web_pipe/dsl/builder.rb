@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/dsl/class_context"
-require "web_pipe/dsl/instance_context"
-require "web_pipe/pipe"
-
 module WebPipe
   module DSL
     # @api private

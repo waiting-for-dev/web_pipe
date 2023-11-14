@@ -7,7 +7,6 @@ Example:
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/content_type'
 
 class MyApp
   include WebPipe

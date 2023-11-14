@@ -70,8 +70,6 @@ class ApplicationController < ActionController::Base
 end
 
 # app/controllers/articles_index.rb
-require 'web_pipe/plugs/config'
-
 WebPipe.load_extensions(:rails) # You can put it in an initializer
 
 class ArticlesIndex

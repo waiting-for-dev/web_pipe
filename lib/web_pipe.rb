@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "dry/core/extensions"
-require "web_pipe/dsl/builder"
+require "zeitwerk"
 
 # Entry-point for the DSL layer.
 #
@@ -53,6 +53,17 @@ require "web_pipe/dsl/builder"
 #     }
 #   )
 module WebPipe
+  def self.loader
+    Zeitwerk::Loader.for_gem.tap do |loader|
+      loader.ignore(
+        "#{__dir__}/web_pipe/conn_support/errors.rb",
+        "#{__dir__}/web_pipe/extensions"
+      )
+      loader.inflector.inflect("dsl" => "DSL")
+    end
+  end
+  loader.setup
+
   extend Dry::Core::Extensions
 
   # Called via {Module#include}, makes available web_pipe's DSL.

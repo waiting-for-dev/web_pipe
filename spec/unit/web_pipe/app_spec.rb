@@ -2,8 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe/conn_support/composition"
-require "web_pipe/app"
 
 RSpec.describe WebPipe::App do
   describe "#call" do

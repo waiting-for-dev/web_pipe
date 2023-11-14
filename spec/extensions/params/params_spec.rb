@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "web_pipe"
 require "support/conn"
 
 RSpec.describe WebPipe::Conn do

@@ -43,7 +43,6 @@ However, you can resolve a view from a container if you also use the
 require 'hanami_view'
 require 'my_container'
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 WebPipe.load_extensions(:hanami_view, :container)
 
@@ -80,7 +79,6 @@ the view context class:
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 WebPipe.load_extensions(:url)
 

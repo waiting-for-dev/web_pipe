@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/conn"
-
 # :nodoc:
 module WebPipe
   # See the docs for the extension linked from the README.

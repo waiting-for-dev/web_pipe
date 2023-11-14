@@ -5,7 +5,6 @@ attribute) to an instance of `WebPipe::Conn`.
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 class MyApp
   include WebPipe

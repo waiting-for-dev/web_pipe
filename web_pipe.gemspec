@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-struct", "~> 1.0"
   spec.add_runtime_dependency "dry-types", "~> 1.1"
   spec.add_runtime_dependency "rack", "~> 2.0"
+  spec.add_runtime_dependency "zeitwerk", "~> 2.6"
 end

@@ -3,10 +3,6 @@
 require "spec_helper"
 require "support/conn"
 require "support/middlewares"
-require "web_pipe/pipe"
-require "web_pipe/plugs"
-require "web_pipe/rack_support/middleware"
-require "web_pipe/rack_support/middleware_specification"
 
 RSpec.describe WebPipe::Pipe do
   describe "#plug" do

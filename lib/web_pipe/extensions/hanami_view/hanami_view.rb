@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/types"
-require "web_pipe/conn"
-require "web_pipe"
 require "web_pipe/extensions/hanami_view/hanami_view/context"
 require "hanami/view"
 

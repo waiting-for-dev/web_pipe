@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "web_pipe"
-require "web_pipe/rack_support/middleware"
-require "web_pipe/rack_support/middleware_specification"
 require "support/middlewares"
 
 RSpec.describe WebPipe::RackSupport::MiddlewareSpecification do

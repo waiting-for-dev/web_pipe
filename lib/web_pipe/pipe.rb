@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/conn_support/composition"
-require "web_pipe/app"
-require "web_pipe/plug"
-require "web_pipe/rack_support/middleware_specification"
-require "web_pipe/rack_support/app_with_middlewares"
-require "web_pipe/types"
-
 module WebPipe
   # Composable rack application builder.
   #
@@ -28,8 +21,6 @@ module WebPipe
   #
   # @example
   # # config.ru
-  # require 'web_pipe/pipe'
-  #
   # app = WebPipe::Pipe.new
   #                    .use(:runtime, Rack::Runtime)
   #                    .plug(:content_type) do |conn|

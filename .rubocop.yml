@@ -8,6 +8,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - web_pipe.gemspec
 
 Naming/AccessorMethodName:
   Enabled: false

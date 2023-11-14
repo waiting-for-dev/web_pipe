@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "dry/monads"
-require "web_pipe/conn"
 
 module WebPipe
   module ConnSupport

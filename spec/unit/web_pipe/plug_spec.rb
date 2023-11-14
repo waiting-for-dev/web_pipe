@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "web_pipe/plug"
 
 RSpec.describe WebPipe::Plug do
   let(:container) do

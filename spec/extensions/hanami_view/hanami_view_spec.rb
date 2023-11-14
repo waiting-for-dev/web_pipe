@@ -4,7 +4,6 @@ require "spec_helper"
 require "support/conn"
 require "hanami/view"
 require "hanami/view/context"
-require "web_pipe/conn"
 
 RSpec.describe WebPipe::Conn do
   before do

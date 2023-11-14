@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe/plugs/config"
 
 RSpec.describe WebPipe::Plugs::Config do
   describe ".call" do

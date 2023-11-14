@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe/plugs/content_type"
 
 RSpec.describe WebPipe::Plugs::ContentType do
   describe ".call" do

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/conn"
 require "web_pipe/conn_support/errors"
 
 # :nodoc:

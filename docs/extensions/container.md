@@ -15,7 +15,6 @@ are using the container configured in a connection instance.
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 require 'my_container'
 
 WebPipe.load_extensions(:container)

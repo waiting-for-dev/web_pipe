@@ -17,7 +17,6 @@ transformation to the stack.
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 WebPipe.load_extensions(:router_params)
 
