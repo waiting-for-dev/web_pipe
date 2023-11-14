@@ -10,7 +10,6 @@ invocation. The `WebPipe::Conn#not_found` method will:
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 WebPipe.load_extensions(:params, :not_found)
 

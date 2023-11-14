@@ -7,7 +7,6 @@ the `#operations` method:
 
 ```ruby
 require 'web_pipe'
-require 'web_pipe/conn_support/builder'
 
 class MyApp
   include WebPipe

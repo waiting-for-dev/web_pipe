@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe"
 require "rack/session/cookie"
 require "rack-flash"
 

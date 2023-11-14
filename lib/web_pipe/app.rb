@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "web_pipe/conn"
-require "web_pipe/conn_support/builder"
-require "web_pipe/conn_support/composition"
+require "dry/monads"
 
 module WebPipe
   # Rack app built from a chain of functions that take and return a

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "rack"
-require "web_pipe/conn"
-require "web_pipe/conn_support/headers"
 
 module WebPipe
   module ConnSupport

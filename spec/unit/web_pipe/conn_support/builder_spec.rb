@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "web_pipe/conn_support/builder"
-require "web_pipe/conn"
 require "support/conn"
 
 RSpec.describe WebPipe::ConnSupport::Builder do

@@ -21,7 +21,6 @@ can be reused through composition by other applications.
 require 'db'
 require 'dry/schema'
 require 'web_pipe'
-require 'web_pipe/plugs/config'
 
 WebPipe.load_extensions(:dry_schema)
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/rack_support/middleware"
 require "rack"
 
 module WebPipe

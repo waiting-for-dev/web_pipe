@@ -46,7 +46,6 @@ is exactly equivalent to:
 ```ruby
 # config.ru
 require 'web_pipe'
-require 'web_pipe/pipe'
 
 WebPipe.load_extensions(:params)
 

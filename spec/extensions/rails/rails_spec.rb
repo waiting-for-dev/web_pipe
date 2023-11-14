@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe/conn"
 
 RSpec.describe WebPipe::Conn do
   before do

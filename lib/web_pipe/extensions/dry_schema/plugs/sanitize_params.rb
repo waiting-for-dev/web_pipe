@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "web_pipe/types"
 require "web_pipe/extensions/dry_schema/dry_schema"
 
 module WebPipe

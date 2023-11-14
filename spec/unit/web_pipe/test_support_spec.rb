@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "web_pipe/test_support"
 
 RSpec.describe WebPipe::TestSupport do
   let(:klass) do

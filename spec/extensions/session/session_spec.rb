@@ -2,7 +2,6 @@
 
 require "spec_helper"
 require "support/conn"
-require "web_pipe"
 
 RSpec.describe WebPipe::Conn do
   before { WebPipe.load_extensions(:session) }
