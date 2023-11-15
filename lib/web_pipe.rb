@@ -71,18 +71,7 @@ module WebPipe
   # Includes an instance of `Builder`. That means that `Builder#included` is
   # eventually called.
   def self.included(klass)
-    klass.include(call)
-  end
-
-  # Chained to {Module#include} to make the DSL available and provide options.
-  #
-  # @param container [#[]] Container from where resolve operations. See
-  # {WebPipe::Plug}.
-  #
-  # @example
-  #   include WebPipe.call(container: Container)
-  def self.call(**opts)
-    DSL::Builder.new(**opts)
+    klass.include(DSL::Builder.new)
   end
 
   register_extension :container do

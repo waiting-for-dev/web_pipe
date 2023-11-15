@@ -8,6 +8,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gemspec
 
 group :development do
+  gem "dry-auto_inject", "~> 1.0"
   gem "dry-schema", "~> 1.0"
   gem "dry-transformer", "~> 0.1"
   gem "pry-byebug"

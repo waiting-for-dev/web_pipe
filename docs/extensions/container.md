@@ -6,12 +6,11 @@ injection container to be accessible from a `WebPipe::Conn` instance.
 The container to use must be configured under the `:container` config key. It
 will be accessible through the `#container` method.
 
-You may be wondering why you should worry about configuring a container for a
-connection instance when you already have access to the container configured
-for an application (where you can resolve plugged operations). The idea is
-decoupling operations from application DSL. If you decide to get rid of the DSL
-at any time in the future, the process will be straightforward if operations
-are using the container configured in a connection instance.
+Although you'll usually want to configure the container in the application
+class (for instance, using
+[dry-system](https://dry-rb.org/gems/dry-system/main/)), having it at the
+connection struct level is useful for building other extensions that may need
+to access to it, like the [`hanami_view`](hanami_view.md) one.
 
 ```ruby
 require 'web_pipe'
@@ -20,8 +19,6 @@ require 'my_container'
 WebPipe.load_extensions(:container)
 
 class MyApp
-  include WebPipe.(container: MyContainer)
-  
   plug :config, WebPipe::Plugs::Config.(
     container: MyContainer
   )

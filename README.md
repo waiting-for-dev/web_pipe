@@ -50,6 +50,7 @@ functions on an immutable struct.
    1. [URL](docs/extensions/url.md)
 1. Recipes
    1. [hanami 2 & dry-rb integration](docs/recipes/hanami_2_and_dry_rb_integration.md)
+   1. [Injecting dependencies through dry-auto_inject](docs/recipes/injecting_dependencies_through_dry_auto_inject.md)
    1. [hanami-router integration](docs/recipes/hanami_router_integration.md)
    1. [Using all RESTful methods](docs/recipes/using_all_restful_methods.md)
 

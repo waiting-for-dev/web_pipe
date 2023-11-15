@@ -6,11 +6,10 @@ module WebPipe
     class Builder < Module
       attr_reader :class_context, :instance_context
 
-      def initialize(container: Pipe::EMPTY_CONTAINER)
+      def initialize
         @class_context = ClassContext.new
         @instance_context = InstanceContext.new(
-          class_context: class_context,
-          container: container
+          class_context: class_context
         )
         super()
       end

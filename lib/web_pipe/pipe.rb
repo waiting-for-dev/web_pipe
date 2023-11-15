@@ -32,13 +32,6 @@ module WebPipe
   #
   # run app
   class Pipe
-    # Container that resolves nothing
-    EMPTY_CONTAINER = {}.freeze
-
-    # @!attribute [r] container
-    #   Container from where resolve operations. See {#plug}.
-    attr_reader :container
-
     # @!attribute [r] context
     #   Object from where resolve operations. See {#plug}.
     attr_reader :context
@@ -50,27 +43,20 @@ module WebPipe
     EMPTY_MIDDLEWARE_SPECIFICATIONS = [].freeze
 
     # @api private
-    Container = Types.Interface(:[])
-
-    # @api private
     attr_reader :plugs
 
     # @api private
     attr_reader :middleware_specifications
 
-    # @param container [#to_h] Container from where resolve plug's operations
-    # (see {#plug}).
     # @param context [Any] Object from where resolve plug's operations (see
     # {#plug})
     def initialize(
-      container: EMPTY_CONTAINER,
       context: nil,
       plugs: EMPTY_PLUGS,
       middleware_specifications: EMPTY_MIDDLEWARE_SPECIFICATIONS
     )
       @plugs = plugs
       @middleware_specifications = middleware_specifications
-      @container = Container[container]
       @context = context
     end
 
@@ -80,7 +66,6 @@ module WebPipe
     #
     # - Through the `spec` parameter as:
     #   - Anything responding to `#call` (like a {Proc}).
-    #   - As a string or symbol key for something registered in {#container}.
     #   - Anything responding to `#to_proc` (like another {WebPipe::Pipe}
     #   instance or an instance of a class including {WebPipe}).
     #   - As `nil` (default), meaning that the operation is a method in
@@ -147,7 +132,7 @@ module WebPipe
     # @return [Hash{Symbol => Proc}]
     def operations
       @operations ||= Hash[
-        plugs.map { |plug| [plug.name, plug.(container, context)] }
+        plugs.map { |plug| [plug.name, plug.(context)] }
       ]
     end
 
@@ -209,7 +194,6 @@ module WebPipe
 
     def with(plugs: nil, middleware_specifications: nil)
       self.class.new(
-        container: container,
         context: context,
         middleware_specifications: middleware_specifications ||
                                      self.middleware_specifications,
