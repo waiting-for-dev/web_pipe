@@ -8,31 +8,31 @@ module WebPipe
         call middlewares operations to_proc to_middlewares
       ].freeze
 
-      attr_reader :container, :class_context
+      attr_reader :class_context
 
-      def initialize(container:, class_context:)
-        @container = container
+      def initialize(class_context:)
         @class_context = class_context
         super()
       end
 
       def included(klass)
-        klass.include(dynamic_module(class_context.ast, container))
+        klass.include(dynamic_module(class_context.ast))
       end
 
       private
 
-      def dynamic_module(ast, container)
+      def dynamic_module(ast)
         Module.new.tap do |mod|
-          define_initialize(mod, ast, container)
+          define_initialize(mod, ast)
           define_pipe_methods(mod)
         end
       end
 
       # rubocop:disable Metrics/MethodLength
-      def define_initialize(mod, ast, container)
+      def define_initialize(mod, ast)
         mod.define_method(:initialize) do |plugs: {}, middlewares: {}, **kwargs|
-          acc = Pipe.new(container: container, context: self)
+          super(**kwargs) # Compatibility with dry-auto_inject
+          acc = Pipe.new(context: self)
           @pipe = ast.reduce(acc) do |pipe, node|
             method, args, kwargs, block = node
             if block

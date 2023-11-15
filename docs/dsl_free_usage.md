@@ -58,24 +58,8 @@ run app
 
 As you see, the instance of `WebPipe::Pipe` is itself the rack application.
 
-As with the DSL, plug operations can be resolved from a container given on
-initialization.
-
-```ruby
-container = {
-  fetch_name: ->(conn) { conn.add(:name, conn.params['name']) },
-  render: ->(conn) { conn.set_response_body("Hello, #{conn.fetch(:name)}") }
-}
-
-app = WebPipe::Pipe.new(container: container)
-                   .plug(:fetch_name, :fetch_name)
-                   .plug(:render, :render)
-
-run app
-```
-
-Likewise, you can provide a context object to resolve methods when only a name
-is given on `#plug`:
+You can provide a context object to resolve methods when only a name is given
+on `#plug`:
 
 ```ruby
 class Context

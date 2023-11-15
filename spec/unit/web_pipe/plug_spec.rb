@@ -3,12 +3,6 @@
 require "spec_helper"
 
 RSpec.describe WebPipe::Plug do
-  let(:container) do
-    {
-      callable: -> {},
-      not_callable: nil
-    }
-  end
   let(:object) do
     Class.new do
       def public; end
@@ -53,16 +47,7 @@ RSpec.describe WebPipe::Plug do
       end
 
       it "returns the result of calling it" do
-        expect(plug.(container, object).()).to eq("hey")
-      end
-    end
-
-    context "when spec responds to #to_proc but it's a symbol" do
-      let(:name) { "name" }
-      let(:spec) { :callable }
-
-      it "resolves from the container" do
-        expect(plug.(container, object)).to be(container[:callable])
+        expect(plug.(object).()).to eq("hey")
       end
     end
 
@@ -71,7 +56,7 @@ RSpec.describe WebPipe::Plug do
       let(:spec) { -> {} }
 
       it "returns it" do
-        expect(plug.(container, object)).to be(spec)
+        expect(plug.(object)).to be(spec)
       end
     end
 
@@ -82,7 +67,7 @@ RSpec.describe WebPipe::Plug do
         let(:name) { "public" }
 
         it "returns a proc wrapping it" do
-          expect(plug.(container, object)).to eq(object.method(:public))
+          expect(plug.(object)).to eq(object.method(:public))
         end
       end
 
@@ -90,29 +75,7 @@ RSpec.describe WebPipe::Plug do
         let(:name) { "private" }
 
         it "returns a proc wrapping it" do
-          expect(plug.(container, object)).to eq(object.method(:private))
-        end
-      end
-    end
-
-    context "when is other thing" do
-      let(:name) { "name" }
-
-      context "when container resolves from it a callable object" do
-        let(:spec) { :callable }
-
-        it "returns it" do
-          expect(plug.(container, object)).to be(container[:callable])
-        end
-      end
-
-      context "when container resolves from it a not callable object" do
-        let(:spec) { :not_callable }
-
-        it "raises InvalidPlugError" do
-          expect do
-            plug.(container, object)
-          end.to raise_error(WebPipe::Plug::InvalidPlugError)
+          expect(plug.(object)).to eq(object.method(:private))
         end
       end
     end
@@ -120,13 +83,9 @@ RSpec.describe WebPipe::Plug do
 
   describe ".inject" do
     it "inject specs" do
-      container = {
-        "op1" => -> { "op1" },
-        "op2" => -> { "op2" }
-      }
       plugs = [
-        described_class.new(name: :op1, spec: "op1"),
-        described_class.new(name: :op2, spec: "op2")
+        described_class.new(name: :op1, spec: -> { "op1" }),
+        described_class.new(name: :op2, spec: -> { "op2" })
       ]
       injected = { op2: -> { "injected" } }
 
@@ -135,7 +94,7 @@ RSpec.describe WebPipe::Plug do
       )
 
       expect(result.map(&:name)).to eq(%i[op1 op2])
-      expect(result.map { |plug| plug.(container, self) }.map(&:call)).to eq(%w[op1 injected])
+      expect(result.map { |plug| plug.(self) }.map(&:call)).to eq(%w[op1 injected])
     end
   end
 end

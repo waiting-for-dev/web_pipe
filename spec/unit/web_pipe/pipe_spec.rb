@@ -247,18 +247,6 @@ RSpec.describe WebPipe::Pipe do
       expect(response.last).to eq(["One"])
     end
 
-    it "can resolve plug operation from the container" do
-      container = {
-        one_key: ->(conn) { conn.set_response_body(["One"]) }
-      }
-      pipe = described_class.new(container: container)
-                            .plug(:one, :one_key)
-
-      response = pipe.(default_env)
-
-      expect(response.last).to eq(["One"])
-    end
-
     it "can resolve plug operation from something responding to to_proc" do
       one = Class.new do
         def self.to_proc
